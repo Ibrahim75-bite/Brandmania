@@ -4,11 +4,10 @@
       "serverUrl": "https://mcp.supabase.com/mcp?project_ref=etcixbbaxufikmixboej&features=docs%2Caccount%2Cdatabase%2Cdebugging%2Cdevelopment%2Cfunctions%2Cbranching"
     },
     "google-developer-knowledge": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@google/developer-knowledge-mcp"
-      ]
+      "serverUrl": "https://developerknowledge.googleapis.com/mcp",
+      "headers": {
+        "X-Goog-Api-Key": "<YOUR_GOOGLE_API_KEY>"
+      }
     }
   }
 }
