@@ -1,0 +1,137 @@
+:root {
+  /* ============================================================
+     BRANDMANIA Core Palette - Regal Imperial Purple & Obsidian
+     ============================================================ */
+  --color-bg-base: #070709;
+  --color-bg-surface: #0e0e13;
+  --color-bg-elevated: #161620;
+  --color-bg-overlay: rgba(7, 7, 9, 0.88);
+  --color-bg-glass: rgba(14, 14, 19, 0.75);
+
+  --color-border-subtle: rgba(168, 85, 247, 0.12);
+  --color-border-default: rgba(168, 85, 247, 0.22);
+  --color-border-active: rgba(168, 85, 247, 0.55);
+  --color-border-glow: rgba(192, 132, 252, 0.75);
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #9496a8;
+  --color-text-muted: #626477;
+  --color-text-inverse: #070709;
+
+  /* BRANDMANIA Accents: Imperial Purple, Violet & Electric Blue */
+  --color-accent-purple: #7928ca;
+  --color-accent-purple-light: #9d4edd;
+  --color-accent-purple-bright: #c084fc;
+  --color-accent-purple-dim: rgba(121, 40, 202, 0.14);
+  --color-accent-purple-glow: rgba(121, 40, 202, 0.35);
+
+  --color-accent-electric: #8b5cf6;
+  --color-accent-violet: #6b21a8;
+  --color-accent-blue: #3b82f6;
+
+  /* Gradients */
+  --gradient-brand-primary: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  --gradient-brand-hover: linear-gradient(135deg, #c084fc 0%, #818cf8 100%);
+  --gradient-brand-subtle: linear-gradient(180deg, rgba(121, 40, 202, 0.15) 0%, rgba(7, 7, 9, 0) 100%);
+  --gradient-purple-obsidian: radial-gradient(circle at 50% 0%, rgba(121, 40, 202, 0.22) 0%, rgba(7, 7, 9, 0) 70%);
+  --gradient-card-surface: linear-gradient(135deg, rgba(22, 22, 32, 0.8) 0%, rgba(14, 14, 19, 0.9) 100%);
+
+  /* Backwards compatibility tokens */
+  --color-accent-gold: #d4af37;
+  --color-accent-gold-light: #fae084;
+  --color-accent-gold-dim: rgba(212, 175, 55, 0.12);
+  --color-accent-gold-glow: rgba(212, 175, 55, 0.25);
+
+  /* Semantic Feedback */
+  --color-status-success: #10b981;
+  --color-status-success-bg: rgba(16, 185, 129, 0.12);
+  --color-status-warning: #f59e0b;
+  --color-status-warning-bg: rgba(245, 158, 11, 0.12);
+  --color-status-error: #ef4444;
+  --color-status-error-bg: rgba(239, 68, 68, 0.12);
+  --color-status-info: #3b82f6;
+  --color-status-info-bg: rgba(59, 130, 246, 0.12);
+
+  /* Typography Scale */
+  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-serif: 'Playfair Display', Georgia, Cambria, 'Times New Roman', serif;
+  --font-family-mono: 'JetBrains Mono', Consolas, Monaco, 'Courier New', monospace;
+
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  --font-size-5xl: 3rem;      /* 48px */
+  --font-size-6xl: 4rem;      /* 64px */
+  --font-size-7xl: 5.5rem;    /* 88px */
+  --font-size-hero: clamp(2.5rem, 6vw, 6.5rem);
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Spacing Scale */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+  --space-32: 8rem;     /* 128px */
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows & Glow */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.7);
+  --shadow-purple-glow: 0 0 25px rgba(121, 40, 202, 0.3);
+  --shadow-purple-lg: 0 8px 36px rgba(121, 40, 202, 0.22);
+
+  /* Elevation / Z-index */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-dropdown: 200;
+  --z-modal: 500;
+  --z-toast: 1000;
+
+  /* Motion & Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Containers */
+  --container-max-width: 1280px;
+  --container-narrow-width: 860px;
+  --container-padding: var(--space-6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms !important;
+    --transition-base: 0ms !important;
+    --transition-slow: 0ms !important;
+  }
+}

@@ -1,0 +1,36 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform var(--transition-base), filter var(--transition-base);
+}
+
+.glow {
+  filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.45));
+}
+
+.container:hover {
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 22px rgba(192, 132, 252, 0.6));
+}
+
+.sm {
+  width: 24px;
+  height: 24px;
+}
+
+.md {
+  width: 36px;
+  height: 36px;
+}
+
+.lg {
+  width: 52px;
+  height: 52px;
+}
+
+.xl {
+  width: 80px;
+  height: 80px;
+}
