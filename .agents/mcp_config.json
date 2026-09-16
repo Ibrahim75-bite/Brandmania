@@ -1,15 +1,7 @@
 {
   "mcpServers": {
     "supabase": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@supabase/mcp-server-supabase"
-      ],
-      "env": {
-        "SUPABASE_ACCESS_TOKEN": "<YOUR_SUPABASE_ACCESS_TOKEN>",
-        "SUPABASE_PROJECT_REF": "<YOUR_SUPABASE_PROJECT_REF>"
-      }
+      "serverUrl": "https://mcp.supabase.com/mcp?project_ref=etcixbbaxufikmixboej&features=docs%2Caccount%2Cdatabase%2Cdebugging%2Cdevelopment%2Cfunctions%2Cbranching"
     },
     "google-developer-knowledge": {
       "command": "npx",
