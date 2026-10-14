@@ -18,29 +18,39 @@
   --color-text-muted: #626477;
   --color-text-inverse: #070709;
 
-  /* BRANDMANIA Accents: Imperial Purple, Violet & Electric Blue */
-  --color-accent-purple: #7928ca;
-  --color-accent-purple-light: #9d4edd;
-  --color-accent-purple-bright: #c084fc;
-  --color-accent-purple-dim: rgba(121, 40, 202, 0.14);
-  --color-accent-purple-glow: rgba(121, 40, 202, 0.35);
+  /* BRANDMANIA Accents: Imperial Royal Violet, Neon & Electric Spectrum */
+  --color-brand-deep-violet: #32005c;
+  --color-brand-primary-violet: #5e00a8;
+  --color-brand-neon-violet: #8e00fa;
+  --color-brand-light-violet: #c084fc;
 
-  --color-accent-electric: #8b5cf6;
-  --color-accent-violet: #6b21a8;
-  --color-accent-blue: #3b82f6;
+  --color-accent-purple: #5e00a8;
+  --color-accent-purple-light: #8e00fa;
+  --color-accent-purple-bright: #c084fc;
+  --color-accent-purple-dim: rgba(94, 0, 168, 0.16);
+  --color-accent-purple-glow: rgba(142, 0, 250, 0.4);
+
+  --color-accent-electric: #8e00fa;
+  --color-accent-violet: #5e00a8;
+  --color-accent-blue: #6366f1;
 
   /* Gradients */
-  --gradient-brand-primary: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
-  --gradient-brand-hover: linear-gradient(135deg, #c084fc 0%, #818cf8 100%);
-  --gradient-brand-subtle: linear-gradient(180deg, rgba(121, 40, 202, 0.15) 0%, rgba(7, 7, 9, 0) 100%);
-  --gradient-purple-obsidian: radial-gradient(circle at 50% 0%, rgba(121, 40, 202, 0.22) 0%, rgba(7, 7, 9, 0) 70%);
-  --gradient-card-surface: linear-gradient(135deg, rgba(22, 22, 32, 0.8) 0%, rgba(14, 14, 19, 0.9) 100%);
+  --gradient-brand-primary: linear-gradient(135deg, #8e00fa 0%, #5e00a8 50%, #32005c 100%);
+  --gradient-brand-hover: linear-gradient(135deg, #c084fc 0%, #8e00fa 100%);
+  --gradient-brand-subtle: linear-gradient(180deg, rgba(94, 0, 168, 0.2) 0%, rgba(7, 5, 10, 0) 100%);
+  --gradient-purple-obsidian: radial-gradient(circle at 50% 0%, rgba(142, 0, 250, 0.25) 0%, rgba(7, 5, 10, 0) 70%);
+  --gradient-card-surface: linear-gradient(135deg, rgba(22, 16, 36, 0.8) 0%, rgba(14, 10, 22, 0.9) 100%);
 
-  /* Backwards compatibility tokens */
-  --color-accent-gold: #d4af37;
-  --color-accent-gold-light: #fae084;
-  --color-accent-gold-dim: rgba(212, 175, 55, 0.12);
-  --color-accent-gold-glow: rgba(212, 175, 55, 0.25);
+  /* Spotlight & Motion Canvas Variables */
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(142, 0, 250, 0.12);
+
+  /* Legacy mapping mapped to royal violet spectrum */
+  --color-accent-gold: #8e00fa;
+  --color-accent-gold-light: #c084fc;
+  --color-accent-gold-dim: rgba(142, 0, 250, 0.12);
+  --color-accent-gold-glow: rgba(142, 0, 250, 0.3);
 
   /* Semantic Feedback */
   --color-status-success: #10b981;

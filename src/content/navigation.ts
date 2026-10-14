@@ -11,12 +11,13 @@ export interface NavLink {
 }
 
 export const MAIN_NAV_LINKS: NavLink[] = [
-  { label: 'Flagships', href: '/#flagships' },
-  { label: 'Margin Recovery', href: '/services/margin-recovery' },
-  { label: 'Brand Direction', href: '/services/brand-direction' },
-  { label: 'Consumer Scope', href: '/services/consumer-scope' },
-  { label: 'Progression', href: '/#mechanism' },
-  { label: 'Selectivity', href: '/#selectivity' },
+  { label: 'Manifesto', href: '/#manifesto' },
+  { label: 'The Dilemma', href: '/#dilemma' },
+  { label: 'The System', href: '/#system' },
+  { label: 'The Flagships', href: '/#brand-direction' },
+  { label: 'Capabilities', href: '/#capabilities' },
+  { label: 'Briefing', href: '/#briefing' },
+  { label: 'Artifacts', href: '/#artifacts' },
 ];
 
 export const FOOTER_SECTIONS = [

@@ -4,6 +4,7 @@ import React, { useEffect, useCallback } from 'react';
 import { BrandEye } from '../primitives/BrandEye';
 import { Button } from '../primitives/Button';
 import { Badge } from '../primitives/Badge';
+import { CornerArcs } from '../brand/CornerArcs';
 import styles from './BookingModal.module.css';
 
 export interface BookingModalProps {
@@ -52,6 +53,8 @@ export function BookingModal({
       aria-labelledby="booking-modal-title"
     >
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <CornerArcs position="top-left" size={100} opacity={0.2} color="#8E00FA" />
+        <CornerArcs position="bottom-right" size={100} opacity={0.2} color="#8E00FA" />
         <button
           className={styles.closeButton}
           onClick={onClose}

@@ -1,0 +1,33 @@
+.cornerArcsContainer {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.topLeft {
+  top: 0;
+  left: 0;
+}
+
+.topRight {
+  top: 0;
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.bottomLeft {
+  bottom: 0;
+  left: 0;
+  transform: scaleY(-1);
+}
+
+.bottomRight {
+  bottom: 0;
+  right: 0;
+  transform: scale(-1, -1);
+}
+
+.arcSvg {
+  display: block;
+}

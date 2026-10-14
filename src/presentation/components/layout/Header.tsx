@@ -38,15 +38,15 @@ export function Header() {
               variant="primary"
               size="sm"
               onClick={() => {
-                const el = document.getElementById('consultation');
+                const el = document.getElementById('qualification');
                 if (el) {
                   el.scrollIntoView({ behavior: 'smooth' });
                 } else {
-                  window.location.href = '/#consultation';
+                  window.location.href = '/#qualification';
                 }
               }}
             >
-              Book Now
+              Consultation
             </Button>
 
             {/* Mobile Hamburger Toggle */}
@@ -111,15 +111,16 @@ export function Header() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
               <Button
                 variant="primary"
-                size="lg"
+                size="md"
+                style={{ width: '100%' }}
                 onClick={() => {
                   setIsMobileOpen(false);
-                  const el = document.getElementById('consultation');
+                  const el = document.getElementById('qualification');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  else window.location.href = '/#consultation';
+                  else window.location.href = '/#qualification';
                 }}
               >
-                Book Consultation
+                Request Diagnostic
               </Button>
               <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)', textAlign: 'center' }}>
                 {BRAND.tagline}

@@ -8,7 +8,7 @@ describe('BrandEye Primitive Component', () => {
     const { container } = render(<BrandEye size="md" idSuffix="test" />);
     const svg = container.querySelector('svg');
     expect(svg).toBeDefined();
-    expect(svg?.getAttribute('viewBox')).toBe('0 0 120 120');
+    expect(svg?.getAttribute('viewBox')).toBe('475 309 1050 1050');
   });
 
   it('applies the appropriate size class', () => {

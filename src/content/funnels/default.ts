@@ -111,7 +111,7 @@ export const DEFAULT_FUNNEL: FunnelConfig = {
   vsl: {
     headline: 'The Executive Video Briefing',
     subheadline: 'A 6-minute diagnostic breakdown of the Dilemma of Branding and how to break free.',
-    posterUrl: '/brand/graphics/vsl-poster-placeholder.svg',
+    posterUrl: '/brand/textures/brandmania-cover.jpg',
     durationMinutes: 6,
     keyTakeaways: [
       'Why conventional marketing agencies sell ad spend to businesses that cannot retain profit',

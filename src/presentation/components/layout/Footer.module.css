@@ -20,10 +20,11 @@
 }
 
 .brandTitle {
-  font-family: var(--font-family-serif);
+  font-family: var(--font-family-sans);
   font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.1em;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: #fff;
 }
 
