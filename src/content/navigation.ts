@@ -12,12 +12,9 @@ export interface NavLink {
 
 export const MAIN_NAV_LINKS: NavLink[] = [
   { label: 'Manifesto', href: '/#manifesto' },
-  { label: 'The Dilemma', href: '/#dilemma' },
-  { label: 'The System', href: '/#system' },
-  { label: 'The Flagships', href: '/#brand-direction' },
-  { label: 'Capabilities', href: '/#capabilities' },
-  { label: 'Briefing', href: '/#briefing' },
-  { label: 'Artifacts', href: '/#artifacts' },
+  { label: 'System', href: '/#system' },
+  { label: 'Disciplines', href: '/#brand-direction' },
+  { label: 'Work', href: '/#campaigns' },
 ];
 
 export const FOOTER_SECTIONS = [

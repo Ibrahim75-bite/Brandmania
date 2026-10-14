@@ -7,12 +7,12 @@ import { Section } from '@/presentation/components/layout/Section';
 
 export const BrandDirectionSection: React.FC = () => {
   const pillars = [
-    { title: 'Brand Story & Narrative', desc: 'Engineering an authentic, defensible corporate narrative that establishes authority and commands attention.' },
-    { title: 'Tone of Voice', desc: 'Crafting surgical, high-status language that communicates intellectual clarity and market leadership.' },
-    { title: 'Positioning & USP', desc: 'Carving out uncontested category space where competitors are rendered obsolete by comparison.' },
-    { title: 'Trust Architecture', desc: 'Building institutional certainty and credibility into every customer interaction touchpoint.' },
-    { title: 'Visual Identity & System', desc: 'A timeless visual language that remains distinct and prestigious across all physical and digital expressions.' },
-    { title: 'Vision, Mission & Relevance', desc: 'Aligning internal enterprise conviction with modern market expectations and generational relevance.' },
+    { num: '01', title: 'Brand Story & Narrative', desc: 'Crafting a defensible corporate narrative that establishes category authority and commands executive respect.' },
+    { num: '02', title: 'Tone of Voice', desc: 'Surgical, high-status linguistic precision that cuts through industry noise and communicates mastery.' },
+    { num: '03', title: 'Positioning & USP', desc: 'Carving out uncontested market space where competitors are rendered obsolete by comparison.' },
+    { num: '04', title: 'Trust Architecture', desc: 'Building institutional certainty and credibility into every customer interaction touchpoint.' },
+    { num: '05', title: 'Visual Identity & System', desc: 'A timeless visual standard that remains distinct and prestigious across physical and digital mediums.' },
+    { num: '06', title: 'Vision, Mission & Relevance', desc: 'Harmonizing internal enterprise conviction with modern market expectations and generational relevance.' },
   ];
 
   return (
@@ -29,7 +29,7 @@ export const BrandDirectionSection: React.FC = () => {
       }}
     >
       <Container>
-        <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '1240px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
           {/* Section Indicator */}
           <div
             style={{
@@ -38,174 +38,61 @@ export const BrandDirectionSection: React.FC = () => {
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
               color: 'var(--color-brand-light-violet)',
-              marginBottom: 'var(--space-10)',
+              marginBottom: 'var(--space-8)',
             }}
           >
             05 / FLAGSHIP I &bull; BRAND DIRECTION
           </div>
 
-          {/* Monumental Headline & Strategic Premise */}
-          <div style={{ marginBottom: 'var(--space-16)' }}>
-            <h2
-              style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(2.8rem, 6vw, 5.4rem)',
-                fontWeight: 700,
-                lineHeight: 1.02,
-                letterSpacing: '-0.03em',
-                color: '#ffffff',
-                margin: 0,
-              }}
-            >
-              Aligning what you are
-              <br />
-              <span style={{ color: 'var(--color-brand-light-violet)', fontStyle: 'italic' }}>
-                with what the market perceives.
-              </span>
-            </h2>
-            <p
-              style={{
-                fontSize: 'clamp(1.1rem, 1.35vw, 1.25rem)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.65,
-                maxWidth: '820px',
-                marginTop: 'var(--space-6)',
-                margin: 0,
-              }}
-            >
-              Brand Direction is not merely an aesthetic refresh or cosmetic logo design. It is the
-              rigorous alignment of what your business is, how it communicates, and what the market
-              actually perceives. When market perception lags behind your internal craftsmanship, you
-              are forced to compete on price. When perception matches your highest standard, you command
-              the terms of trade.
-            </p>
-          </div>
-
-          {/* Museum Exhibition Grid: Editorial Pillars + Authentic Material Artifacts */}
+          {/* Staggered Editorial Layout: Visual Exhibition First (~60%) + Crisp Architectural Index (~40%) */}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'minmax(0, 1.15fr) minmax(0, 0.85fr)',
-              gap: 'var(--space-12)',
-              alignItems: 'flex-start',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-              paddingTop: 'var(--space-12)',
+              gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 0.85fr)',
+              gap: 'clamp(var(--space-8), 4vw, var(--space-16))',
+              alignItems: 'start',
             }}
           >
-            {/* Left: Complete Discipline Scope */}
+            {/* Visual Exhibition Lead: Poster & Services Artboard (True 1:1 Aspect Ratio, Zero Clipping) */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
-              <div
-                style={{
-                  fontFamily: 'var(--font-family-mono)',
-                  fontSize: '11px',
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-text-muted)',
-                }}
-              >
-                The Architecture of Brand Direction
-              </div>
-
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr',
-                  gap: 'var(--space-6)',
-                }}
-              >
-                {pillars.map((pillar, i) => (
-                  <div
-                    key={pillar.title}
-                    style={{
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-                      paddingBottom: 'var(--space-4)',
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'baseline',
-                        gap: 'var(--space-3)',
-                        marginBottom: '4px',
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-family-mono)',
-                          fontSize: '11px',
-                          color: 'var(--color-brand-light-violet)',
-                          fontWeight: 700,
-                        }}
-                      >
-                        0{i + 1}
-                      </span>
-                      <h3
-                        style={{
-                          fontFamily: 'var(--font-family-serif)',
-                          fontSize: 'clamp(1.2rem, 1.6vw, 1.45rem)',
-                          color: '#ffffff',
-                          fontWeight: 600,
-                          margin: 0,
-                        }}
-                      >
-                        {pillar.title}
-                      </h3>
-                    </div>
-                    <p
-                      style={{
-                        fontSize: 'var(--font-size-xs)',
-                        color: 'var(--color-text-secondary)',
-                        lineHeight: 1.6,
-                        margin: 0,
-                        paddingLeft: '22px',
-                      }}
-                    >
-                      {pillar.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: Authentic Brand Artifacts (Poster + Branding Deliverable Artboard) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-              {/* Authentic Physical Print Edition Poster */}
+              {/* Deliverable Artboard: True 1080x1080 Aspect Ratio, No Chopped Text */}
               <div
                 style={{
                   position: 'relative',
                   width: '100%',
-                  aspectRatio: '4 / 5',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  background: '#07050a',
-                  overflow: 'hidden',
-                }}
-              >
-                <Image
-                  src="/brand/textures/brandmania-poster.jpg"
-                  alt="BRANDMANIA Physical Print Artifact showing folded paper texture and violet ink"
-                  fill
-                  style={{ objectFit: 'contain' }}
-                  sizes="(max-width: 768px) 100vw, 480px"
-                />
-              </div>
-
-              {/* Authentic Brand Services Identity Artboard */}
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  aspectRatio: '16 / 9',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  aspectRatio: '1 / 1',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
                   background: '#07050a',
                   overflow: 'hidden',
                 }}
               >
                 <Image
                   src="/brand/graphics/artboard-2-services-branding.jpg"
-                  alt="BRANDMANIA Brand Architecture and Identity Delivery System"
+                  alt="BRANDMANIA Services & Branding Architecture Artboard"
                   fill
-                  style={{ objectFit: 'cover' }}
-                  sizes="(max-width: 768px) 100vw, 480px"
+                  style={{ objectFit: 'contain' }}
+                  sizes="(max-width: 768px) 100vw, 680px"
+                  priority
+                />
+              </div>
+
+              {/* Physical Print Edition Poster: True 2064x2064 Aspect Ratio, No Letterboxing */}
+              <div
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  aspectRatio: '1 / 1',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  background: '#07050a',
+                  overflow: 'hidden',
+                }}
+              >
+                <Image
+                  src="/brand/textures/brandmania-poster.jpg"
+                  alt="BRANDMANIA Physical Print Poster showing folded paper texture and violet ink"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  sizes="(max-width: 768px) 100vw, 680px"
                 />
               </div>
 
@@ -218,10 +105,113 @@ export const BrandDirectionSection: React.FC = () => {
                   textTransform: 'uppercase',
                   display: 'flex',
                   justifyContent: 'space-between',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                  paddingTop: 'var(--space-3)',
                 }}
               >
-                <span>Permanent Physical & Digital Deliverables</span>
-                <span>Craftsmanship Standard</span>
+                <span>Authentic Identity Deliverables</span>
+                <span>Permanent Physical &amp; Digital Standards</span>
+              </div>
+            </div>
+
+            {/* Right Column: Narrative & Tight Crisp Architectural Index */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-8)',
+                position: 'sticky',
+                top: 'var(--space-12)',
+              }}
+            >
+              <div>
+                <h2
+                  style={{
+                    fontFamily: 'var(--font-family-serif)',
+                    fontSize: 'clamp(2.4rem, 4vw, 3.8rem)',
+                    fontWeight: 700,
+                    lineHeight: 1.08,
+                    letterSpacing: '-0.03em',
+                    color: '#ffffff',
+                    margin: 0,
+                  }}
+                >
+                  Aligning what you are
+                  <br />
+                  <span style={{ color: 'var(--color-brand-light-violet)', fontStyle: 'italic' }}>
+                    with what the market perceives.
+                  </span>
+                </h2>
+
+                <p
+                  style={{
+                    fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
+                    color: 'var(--color-text-secondary)',
+                    lineHeight: 1.65,
+                    marginTop: 'var(--space-4)',
+                    margin: 0,
+                  }}
+                >
+                  Brand Direction is not cosmetic logo design. It is the surgical alignment of what your
+                  business is, how it communicates, and what the market perceives. When perception
+                  lags behind craftsmanship, pricing power collapses. When perception commands
+                  authority, you dictate the terms of trade.
+                </p>
+              </div>
+
+              {/* Tight Crisp Architectural Index of the 6 Pillars */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                }}
+              >
+                {pillars.map((pillar) => (
+                  <div
+                    key={pillar.num}
+                    style={{
+                      borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                      padding: 'var(--space-4) 0',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)' }}>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-family-mono)',
+                          fontSize: '11px',
+                          color: 'var(--color-brand-light-violet)',
+                          fontWeight: 700,
+                        }}
+                      >
+                        {pillar.num}
+                      </span>
+                      <h3
+                        style={{
+                          fontFamily: 'var(--font-family-serif)',
+                          fontSize: 'var(--font-size-base)',
+                          fontWeight: 600,
+                          color: '#ffffff',
+                          margin: 0,
+                        }}
+                      >
+                        {pillar.title}
+                      </h3>
+                    </div>
+                    <p
+                      style={{
+                        fontSize: '12px',
+                        color: 'var(--color-text-secondary)',
+                        lineHeight: 1.5,
+                        margin: 0,
+                        marginTop: '4px',
+                        paddingLeft: '22px',
+                      }}
+                    >
+                      {pillar.desc}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

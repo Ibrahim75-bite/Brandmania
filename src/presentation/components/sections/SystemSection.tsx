@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from '@/presentation/components/layout/Container';
 import { Section } from '@/presentation/components/layout/Section';
-import { BrandEye } from '@/presentation/components/primitives/BrandEye';
 
 interface SystemNode {
   step: string;
@@ -13,8 +12,6 @@ interface SystemNode {
 }
 
 export const SystemSection: React.FC = () => {
-  const [activeStep, setActiveStep] = useState<number>(0);
-
   const nodes: SystemNode[] = [
     {
       step: '01',
@@ -28,7 +25,7 @@ export const SystemSection: React.FC = () => {
       title: 'Market Perception',
       discipline: 'Strategic Alignment',
       description:
-        'Harmonizes internal craftsmanship with market perception. Eliminates commodity comparison and removes the necessity of price discounting.',
+        'Harmonizes internal craftsmanship with external perception. Eliminates commodity comparison and removes the necessity of price discounting.',
     },
     {
       step: '03',
@@ -68,7 +65,7 @@ export const SystemSection: React.FC = () => {
         backgroundColor: '#070709',
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         position: 'relative',
-        paddingTop: 'var(--space-20)',
+        paddingTop: 'var(--space-24)',
         paddingBottom: 'var(--space-24)',
         overflow: 'hidden',
       }}
@@ -86,18 +83,18 @@ export const SystemSection: React.FC = () => {
               marginBottom: 'var(--space-8)',
             }}
           >
-            04 / THE PERCEPTION-TO-PERFORMANCE SPREAD &bull; THE CONTINUOUS VALUE CONDUIT
+            04 / THE SYSTEM &bull; CONTINUOUS VALUE CONDUIT
           </div>
 
           {/* Section Title */}
-          <div style={{ marginBottom: 'var(--space-12)' }}>
+          <div style={{ marginBottom: 'var(--space-16)' }}>
             <h2
               style={{
                 fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(2.2rem, 4.2vw, 3.8rem)',
+                fontSize: 'clamp(2.4rem, 4.8vw, 4.2rem)',
                 fontWeight: 700,
-                lineHeight: 1.1,
-                letterSpacing: '-0.025em',
+                lineHeight: 1.08,
+                letterSpacing: '-0.03em',
                 color: '#ffffff',
                 margin: 0,
                 maxWidth: '920px',
@@ -105,84 +102,48 @@ export const SystemSection: React.FC = () => {
             >
               The unbroken causality between
               <br />
-              <span style={{ color: 'var(--color-brand-light-violet)' }}>
+              <span style={{ color: 'var(--color-brand-light-violet)', fontStyle: 'italic' }}>
                 upstream perception and downstream cash flow.
               </span>
             </h2>
           </div>
 
-          {/* Continuous Hairline Stepper Circuit (Zero Cards) */}
+          {/* Continuous Staggered Architectural Flow Across the Grid (All 6 Visible Simultaneously) */}
           <div
             style={{
-              position: 'relative',
               display: 'grid',
-              gridTemplateColumns: 'repeat(6, 1fr)',
-              gap: 'var(--space-4)',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: 'var(--space-6)',
               borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-              paddingTop: 'var(--space-8)',
-              marginBottom: 'var(--space-12)',
+              paddingTop: 'var(--space-10)',
             }}
           >
-            {nodes.map((node, index) => {
-              const isActive = activeStep === index;
-              return (
-                <button
-                  key={node.step}
-                  type="button"
-                  onClick={() => setActiveStep(index)}
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    padding: 0,
-                    textAlign: 'left',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 'var(--space-3)',
-                    position: 'relative',
-                  }}
-                >
-                  {/* Step Header with Node Indicator */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div
-                      style={{
-                        width: '8px',
-                        height: '8px',
-                        borderRadius: '50%',
-                        background: isActive ? 'var(--color-brand-light-violet)' : 'rgba(255, 255, 255, 0.25)',
-                        boxShadow: isActive ? '0 0 10px var(--color-brand-light-violet)' : 'none',
-                        transition: 'all var(--transition-fast)',
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-family-mono)',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        color: isActive ? 'var(--color-brand-light-violet)' : 'var(--color-text-muted)',
-                        letterSpacing: '0.1em',
-                      }}
-                    >
-                      {node.step}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <div
+            {nodes.map((node) => (
+              <div
+                key={node.step}
+                style={{
+                  borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
+                  paddingLeft: 'var(--space-6)',
+                  paddingBottom: 'var(--space-6)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--space-3)',
+                }}
+              >
+                {/* Node Step & Discipline Tag */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span
                     style={{
-                      fontFamily: 'var(--font-family-serif)',
-                      fontSize: 'clamp(1rem, 1.25vw, 1.25rem)',
-                      fontWeight: 600,
-                      color: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.65)',
-                      lineHeight: 1.25,
-                      transition: 'color var(--transition-fast)',
+                      fontFamily: 'var(--font-family-mono)',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      color: 'var(--color-brand-light-violet)',
+                      letterSpacing: '0.12em',
                     }}
                   >
-                    {node.title}
-                  </div>
-
-                  {/* Discipline Tag */}
-                  <div
+                    {node.step}
+                  </span>
+                  <span
                     style={{
                       fontFamily: 'var(--font-family-mono)',
                       fontSize: '10px',
@@ -192,62 +153,36 @@ export const SystemSection: React.FC = () => {
                     }}
                   >
                     {node.discipline}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+                  </span>
+                </div>
 
-          {/* Active Node Detail Spread (Zero Cards, Architectural Layout) */}
-          <div
-            style={{
-              paddingTop: 'var(--space-8)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-              display: 'grid',
-              gridTemplateColumns: 'minmax(0, 0.35fr) minmax(0, 1fr) minmax(0, 0.3fr)',
-              gap: 'var(--space-8)',
-              alignItems: 'center',
-            }}
-          >
-            <div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-family-mono)',
-                  fontSize: '11px',
-                  color: 'var(--color-brand-light-violet)',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  marginBottom: 'var(--space-2)',
-                }}
-              >
-                Active Step &bull; {nodes[activeStep].step}
+                {/* Node Title */}
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-family-serif)',
+                    fontSize: 'clamp(1.3rem, 1.8vw, 1.6rem)',
+                    fontWeight: 600,
+                    color: '#ffffff',
+                    margin: 0,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  {node.title}
+                </h3>
+
+                {/* Node Explanation */}
+                <p
+                  style={{
+                    fontSize: 'var(--font-size-xs)',
+                    color: 'var(--color-text-secondary)',
+                    lineHeight: 1.65,
+                    margin: 0,
+                  }}
+                >
+                  {node.description}
+                </p>
               </div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-family-serif)',
-                  fontSize: 'var(--font-size-2xl)',
-                  fontWeight: 700,
-                  color: '#ffffff',
-                }}
-              >
-                {nodes[activeStep].title}
-              </div>
-            </div>
-
-            <p
-              style={{
-                fontSize: 'clamp(1rem, 1.25vw, 1.15rem)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.65,
-                margin: 0,
-              }}
-            >
-              {nodes[activeStep].description}
-            </p>
-
-            <div style={{ display: 'flex', justifyContent: 'flex-end', opacity: 0.6 }}>
-              <BrandEye size="md" glow={false} />
-            </div>
+            ))}
           </div>
         </div>
       </Container>

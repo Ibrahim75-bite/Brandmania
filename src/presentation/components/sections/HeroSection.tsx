@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Container } from '@/presentation/components/layout/Container';
 import { Section } from '@/presentation/components/layout/Section';
-import { BrandEye } from '@/presentation/components/primitives/BrandEye';
 import { CornerArcs } from '@/presentation/components/brand/CornerArcs';
 
 export const HeroSection: React.FC = () => {
@@ -27,62 +26,42 @@ export const HeroSection: React.FC = () => {
       }}
     >
       {/* Structural Corner Arcs Framing */}
-      <CornerArcs position="top-right" size={420} opacity={0.2} color="#8E00FA" />
+      <CornerArcs position="top-right" size={420} opacity={0.16} color="#8E00FA" />
 
-      {/* Campaign Visual Hero: Liquid Violet Marble Layer + Monolithic Brand Eye */}
+      {/* Atmospheric Liquid Violet Marble Texture Backdrop (Visibly Rich 55% Opacity with Radial Vignette) */}
       <div
         style={{
           position: 'absolute',
           right: '-5%',
           top: '50%',
           transform: 'translateY(-50%)',
-          width: 'clamp(420px, 52vw, 820px)',
-          height: 'clamp(420px, 52vw, 820px)',
+          width: 'clamp(460px, 50vw, 760px)',
+          height: 'clamp(460px, 50vw, 760px)',
+          borderRadius: '50%',
+          overflow: 'hidden',
+          opacity: 0.52,
+          filter: 'contrast(1.25) brightness(0.9)',
           pointerEvents: 'none',
           zIndex: 0,
+          maskImage: 'radial-gradient(circle at 60% 50%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.4) 65%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(circle at 60% 50%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.4) 65%, transparent 80%)',
         }}
         aria-hidden="true"
       >
-        {/* Authentic Liquid Marble Texture Crop */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: '12%',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            opacity: 0.28,
-            filter: 'contrast(1.2) brightness(0.8)',
-          }}
-        >
-          <Image
-            src="/brand/textures/brandmania-cover-clean.jpg"
-            alt="BRANDMANIA Campaign Liquid Marble"
-            fill
-            style={{ objectFit: 'cover' }}
-            priority
-          />
-        </div>
-
-        {/* Monolithic Brand Eye Vector */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            opacity: 0.85,
-          }}
-        >
-          <BrandEye size="xl" glow={false} />
-        </div>
+        <Image
+          src="/brand/textures/brandmania-cover-clean.jpg"
+          alt="BRANDMANIA Campaign Liquid Marble"
+          fill
+          style={{ objectFit: 'cover' }}
+          priority
+        />
       </div>
 
       <Container>
         <div
           style={{
             position: 'relative',
-            zIndex: 1,
+            zIndex: 2,
             display: 'grid',
             gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 0.75fr)',
             gap: 'var(--space-12)',
@@ -206,15 +185,20 @@ export const HeroSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Interactive Strategic Perspective (Non-blocking) */}
+          {/* Right Column: Interactive Strategic Perspective (No overlapping icons, clean background) */}
           <div
             style={{
+              position: 'relative',
+              zIndex: 3,
               display: 'flex',
               flexDirection: 'column',
               gap: 'var(--space-6)',
-              borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
+              borderLeft: '1px solid rgba(255, 255, 255, 0.12)',
               paddingLeft: 'var(--space-8)',
               paddingBottom: 'var(--space-2)',
+              background: 'rgba(7, 7, 9, 0.7)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
             }}
           >
             <div>
@@ -225,7 +209,7 @@ export const HeroSection: React.FC = () => {
                   color: 'var(--color-brand-light-violet)',
                   letterSpacing: '0.18em',
                   textTransform: 'uppercase',
-                  marginBottom: 'var(--space-3)',
+                  marginBottom: 'var(--space-2)',
                 }}
               >
                 Strategic Perspective
@@ -314,18 +298,17 @@ export const HeroSection: React.FC = () => {
               </button>
             </div>
 
-            {/* Dynamic Perspective Content */}
+            {/* Dynamic Perspective Content (Clean Text, No Icon Collisions) */}
             {selectedPerspective === 'preference' ? (
               <div
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
                   gap: 'var(--space-5)',
-                  animation: 'fadeIn 0.3s ease-out',
                 }}
               >
                 <div>
-                  <div style={{ fontSize: 'var(--font-size-lg)', fontWeight: 700, color: '#ffffff' }}>
+                  <div style={{ fontSize: 'var(--font-size-base)', fontWeight: 700, color: '#ffffff' }}>
                     01 / Brand Direction
                   </div>
                   <div
@@ -333,7 +316,7 @@ export const HeroSection: React.FC = () => {
                       fontSize: 'var(--font-size-xs)',
                       color: 'var(--color-text-secondary)',
                       marginTop: '4px',
-                      lineHeight: 1.45,
+                      lineHeight: 1.5,
                     }}
                   >
                     Perception dictates pricing power. Aligning what your business is with what the market perceives sets the ceiling of what you can charge.
@@ -341,7 +324,7 @@ export const HeroSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <div style={{ fontSize: 'var(--font-size-lg)', fontWeight: 700, color: '#ffffff' }}>
+                  <div style={{ fontSize: 'var(--font-size-base)', fontWeight: 700, color: '#ffffff' }}>
                     02 / Margin Recovery
                   </div>
                   <div
@@ -349,7 +332,7 @@ export const HeroSection: React.FC = () => {
                       fontSize: 'var(--font-size-xs)',
                       color: 'var(--color-text-secondary)',
                       marginTop: '4px',
-                      lineHeight: 1.45,
+                      lineHeight: 1.5,
                     }}
                   >
                     Fix the machine before buying more traffic. Full commercial data audits across operations to stop silent revenue leakage.
@@ -357,7 +340,7 @@ export const HeroSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <div style={{ fontSize: 'var(--font-size-lg)', fontWeight: 700, color: '#ffffff' }}>
+                  <div style={{ fontSize: 'var(--font-size-base)', fontWeight: 700, color: '#ffffff' }}>
                     03 / Consumer Scope
                   </div>
                   <div
@@ -365,7 +348,7 @@ export const HeroSection: React.FC = () => {
                       fontSize: 'var(--font-size-xs)',
                       color: 'var(--color-text-secondary)',
                       marginTop: '4px',
-                      lineHeight: 1.45,
+                      lineHeight: 1.5,
                     }}
                   >
                     Understand the mind before asking for the capital. Decoding behavioral economics, status motivations, and identity attachment.
@@ -382,7 +365,6 @@ export const HeroSection: React.FC = () => {
                   background: 'rgba(255, 255, 255, 0.02)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
                   borderRadius: '2px',
-                  animation: 'fadeIn 0.3s ease-out',
                 }}
               >
                 <div
