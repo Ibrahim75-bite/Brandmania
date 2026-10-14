@@ -6,29 +6,35 @@ import { Button } from '../primitives/Button';
 import { Alert } from '../primitives/Alert';
 import { BookingModal } from '../modals/BookingModal';
 import {
+  ENGAGEMENT_TRACKS,
   REVENUE_TIERS,
   PRIMARY_INDUSTRIES,
   CORE_CHALLENGES,
-  TIMELINES,
 } from '@/content/qualification';
 import styles from './QualificationForm.module.css';
 
 export function QualificationForm() {
   const [currentStep, setCurrentStep] = useState(1);
 
+  // Engagement Track
+  const [engagementTrack, setEngagementTrack] = useState(ENGAGEMENT_TRACKS[0].value);
+
   // Form State
   const [companyName, setCompanyName] = useState('');
   const [website, setWebsite] = useState('');
+  const [country, setCountry] = useState('');
   const [industry, setIndustry] = useState(PRIMARY_INDUSTRIES[0].value);
   const [revenueTier, setRevenueTier] = useState(REVENUE_TIERS[1].value);
 
+  // Step 2 State
   const [coreChallenge, setCoreChallenge] = useState(CORE_CHALLENGES[0].value);
-  const [timeline, setTimeline] = useState(TIMELINES[0].value);
   const [message, setMessage] = useState('');
 
+  // Step 3 Decision-Maker State
   const [clientName, setClientName] = useState('');
+  const [roleTitle, setRoleTitle] = useState('');
   const [email, setEmail] = useState('');
-  const [country, setCountry] = useState('United States');
+  const [phone, setPhone] = useState('');
 
   // Submission State
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,7 +43,6 @@ export function QualificationForm() {
   const [confirmedInquiryId, setConfirmedInquiryId] = useState<string | undefined>();
   const [bookingUrl, setBookingUrl] = useState('https://calendly.com/brandmania/executive-briefing');
 
-  // Map qualification data to backend domain schema
   const mapRevenueTierToCompanyTier = (tier: string) => {
     switch (tier) {
       case 'TIER_5M_PLUS':
@@ -96,7 +101,7 @@ export function QualificationForm() {
       return;
     }
     if (!email.trim() || !email.includes('@')) {
-      setFormError('Please enter a valid corporate or business email address.');
+      setFormError('Please enter a valid business email address.');
       return;
     }
 
@@ -110,9 +115,7 @@ export function QualificationForm() {
       companyTier: mapRevenueTierToCompanyTier(revenueTier),
       budgetRange: 'TIER_100K_250K',
       services: mapChallengeToServices(coreChallenge),
-      message: message.trim()
-        ? `[Country: ${country}] [Industry: ${industry}] [Timeline: ${timeline}] [Website: ${website}] — ${message.trim()}`
-        : `[Country: ${country}] [Industry: ${industry}] [Timeline: ${timeline}] [Website: ${website}] — Initial strategic consultation inquiry for ${companyName}.`,
+      message: `[Track: ${engagementTrack}] [Role: ${roleTitle.trim() || 'Executive'}] [Country: ${country.trim() || 'International'}] [Industry: ${industry}] [Website: ${website.trim() || 'N/A'}] [Phone: ${phone.trim() || 'N/A'}] — ${message.trim() || 'Initial strategic advisory consultation request.'}`,
     };
 
     try {
@@ -129,9 +132,7 @@ export function QualificationForm() {
       }
 
       const inquiryId = json.data?.inquiryId;
-      setConfirmedInquiryId(inquiryId);
 
-      // Pre-fill booking URL parameters
       const params = new URLSearchParams({
         name: clientName,
         email: email,
@@ -149,44 +150,67 @@ export function QualificationForm() {
 
   return (
     <>
-      <div className={styles.formCard}>
+      <div className={styles.formArchitectural}>
         {/* Step Indicator */}
-        <div className={styles.stepIndicator}>
+        <div className={styles.stepIndicator} role="navigation" aria-label="Consultation form steps">
           <div className={`${styles.stepPill} ${currentStep === 1 ? styles.activeStepPill : ''}`}>
-            <span className={styles.stepNumber}>1</span>
-            <span>Commercial Profile</span>
+            <span className={styles.stepNumber}>01</span>
+            <span>Profile &amp; Engagement Track</span>
           </div>
           <div className={`${styles.stepPill} ${currentStep === 2 ? styles.activeStepPill : ''}`}>
-            <span className={styles.stepNumber}>2</span>
-            <span>Diagnostic Scope</span>
+            <span className={styles.stepNumber}>02</span>
+            <span>Diagnostic Focus</span>
           </div>
           <div className={`${styles.stepPill} ${currentStep === 3 ? styles.activeStepPill : ''}`}>
-            <span className={styles.stepNumber}>3</span>
+            <span className={styles.stepNumber}>03</span>
             <span>Executive Coordinates</span>
           </div>
         </div>
 
         {formError && (
-          <Alert variant="error" title="Submission Issue" style={{ marginBottom: 'var(--space-6)' }}>
+          <Alert variant="error" title="Validation Notice" style={{ marginBottom: 'var(--space-6)' }}>
             {formError}
           </Alert>
         )}
 
-        <form onSubmit={handleSubmit}>
-          {/* STEP 1: Commercial Profile */}
+        <form onSubmit={handleSubmit} noValidate>
+          {/* STEP 1: Profile & Track */}
           {currentStep === 1 && (
             <div className={styles.stepContainer}>
+              {/* Engagement Track Selection */}
+              <div className={styles.fieldGroup}>
+                <label className={styles.fieldLabel}>Select Preferred Engagement Track</label>
+                <div className={styles.trackSelector} role="radiogroup" aria-label="Engagement Track">
+                  {ENGAGEMENT_TRACKS.map((track) => {
+                    const isSelected = engagementTrack === track.value;
+                    return (
+                      <button
+                        key={track.value}
+                        type="button"
+                        role="radio"
+                        aria-checked={isSelected}
+                        onClick={() => setEngagementTrack(track.value)}
+                        className={`${styles.trackButton} ${isSelected ? styles.trackButtonActive : ''}`}
+                      >
+                        <span className={styles.trackTitle}>{track.label}</span>
+                        <span className={styles.trackDesc}>{track.sublabel}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               <div className={styles.grid2}>
                 <Input
-                  label="Brand / Company Name"
-                  placeholder="e.g. Vance Haute Horlogerie"
+                  label="Company / Brand Name *"
+                  placeholder="e.g. Vance Luxury Group"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
                   required
                 />
                 <Input
                   label="Website / Digital Presence"
-                  placeholder="e.g. www.vance-horology.com"
+                  placeholder="e.g. www.vancegroup.com"
                   type="url"
                   value={website}
                   onChange={(e) => setWebsite(e.target.value)}
@@ -194,9 +218,17 @@ export function QualificationForm() {
               </div>
 
               <div className={styles.grid2}>
+                <Input
+                  label="Primary Market / Country"
+                  placeholder="e.g. United States, United Kingdom, UAE"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                />
+
                 <div className={styles.fieldGroup}>
-                  <label className={styles.fieldLabel}>Primary Industry</label>
+                  <label htmlFor="industry-select" className={styles.fieldLabel}>Commercial Industry</label>
                   <select
+                    id="industry-select"
                     className={styles.selectInput}
                     value={industry}
                     onChange={(e) => setIndustry(e.target.value)}
@@ -208,31 +240,39 @@ export function QualificationForm() {
                     ))}
                   </select>
                 </div>
+              </div>
 
-                <div className={styles.fieldGroup}>
-                  <label className={styles.fieldLabel}>Annual Revenue Trajectory</label>
-                  <select
-                    className={styles.selectInput}
-                    value={revenueTier}
-                    onChange={(e) => setRevenueTier(e.target.value)}
-                  >
-                    {REVENUE_TIERS.map((tier) => (
-                      <option key={tier.value} value={tier.value}>
-                        {tier.label} ({tier.sublabel})
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              <div className={styles.fieldGroup}>
+                <label htmlFor="revenue-select" className={styles.fieldLabel}>Annual Commercial Revenue Band</label>
+                <select
+                  id="revenue-select"
+                  className={styles.selectInput}
+                  value={revenueTier}
+                  onChange={(e) => setRevenueTier(e.target.value)}
+                >
+                  {REVENUE_TIERS.map((tier) => (
+                    <option key={tier.value} value={tier.value}>
+                      {tier.label} ({tier.sublabel})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className={styles.actions}>
+                <Button type="button" variant="primary" onClick={handleNext}>
+                  Next: Diagnostic Focus &rarr;
+                </Button>
               </div>
             </div>
           )}
 
-          {/* STEP 2: Diagnostic Scope */}
+          {/* STEP 2: Diagnostic Focus */}
           {currentStep === 2 && (
             <div className={styles.stepContainer}>
               <div className={styles.fieldGroup}>
-                <label className={styles.fieldLabel}>Core Operational or Strategic Challenge</label>
+                <label htmlFor="challenge-select" className={styles.fieldLabel}>Primary Strategic Discipline Needed</label>
                 <select
+                  id="challenge-select"
                   className={styles.selectInput}
                   value={coreChallenge}
                   onChange={(e) => setCoreChallenge(e.target.value)}
@@ -246,28 +286,23 @@ export function QualificationForm() {
               </div>
 
               <div className={styles.fieldGroup}>
-                <label className={styles.fieldLabel}>Implementation Horizon</label>
-                <select
-                  className={styles.selectInput}
-                  value={timeline}
-                  onChange={(e) => setTimeline(e.target.value)}
-                >
-                  {TIMELINES.map((tl) => (
-                    <option key={tl.value} value={tl.value}>
-                      {tl.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className={styles.fieldGroup}>
-                <label className={styles.fieldLabel}>Specific Objectives or Bottlenecks (Optional)</label>
+                <label htmlFor="strategic-context" className={styles.fieldLabel}>Current Commercial Context or Specific Bottleneck</label>
                 <textarea
+                  id="strategic-context"
                   className={styles.textareaInput}
-                  placeholder="Share any context regarding current ad spend, margin leakage, or positioning dilemmas..."
+                  placeholder="Briefly describe your current brand position, pricing resistance, or operational margin leakage..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 />
+              </div>
+
+              <div className={styles.actions}>
+                <Button type="button" variant="ghost" onClick={handleBack}>
+                  &larr; Back
+                </Button>
+                <Button type="button" variant="primary" onClick={handleNext}>
+                  Next: Executive Details &rarr;
+                </Button>
               </div>
             </div>
           )}
@@ -277,66 +312,65 @@ export function QualificationForm() {
             <div className={styles.stepContainer}>
               <div className={styles.grid2}>
                 <Input
-                  label="Executive Client Name"
-                  placeholder="e.g. Julian Sterling"
+                  label="Executive Full Name *"
+                  placeholder="e.g. Alexander Vance"
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
                   required
                 />
                 <Input
-                  label="Corporate Email Address"
-                  type="email"
-                  placeholder="e.g. julian@sterling-luxury.co.uk"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
+                  label="Executive Role / Title"
+                  placeholder="e.g. Founder, CEO, Managing Director"
+                  value={roleTitle}
+                  onChange={(e) => setRoleTitle(e.target.value)}
                 />
               </div>
 
               <div className={styles.grid2}>
                 <Input
-                  label="Country / Operating Region"
-                  placeholder="e.g. United Kingdom, United States"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
+                  label="Direct Corporate Email *"
+                  placeholder="e.g. a.vance@vancegroup.com"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)' }}>
-                    🔒 Strictly Confidential
-                  </span>
-                  <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-secondary)', marginTop: '2px' }}>
-                    Your commercial coordinates are routed directly to executive partners under non-disclosure standards.
-                  </span>
-                </div>
+                <Input
+                  label="Direct Phone / Mobile (Optional)"
+                  placeholder="e.g. +1 555 019 2834"
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+
+              <div
+                style={{
+                  fontSize: '11px',
+                  color: 'var(--color-text-muted)',
+                  fontFamily: 'var(--font-family-mono)',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                  paddingTop: 'var(--space-3)',
+                }}
+              >
+                Confidentiality Notice: All submitted details are handled under strict executive confidentiality.
+              </div>
+
+              <div className={styles.actions}>
+                <Button type="button" variant="ghost" onClick={handleBack} disabled={isSubmitting}>
+                  &larr; Back
+                </Button>
+                <Button type="submit" variant="primary" disabled={isSubmitting}>
+                  {isSubmitting ? 'Transmitting Request...' : 'Submit Strategic Request &rarr;'}
+                </Button>
               </div>
             </div>
           )}
-
-          {/* Form Actions */}
-          <div className={styles.actions}>
-            {currentStep > 1 ? (
-              <Button type="button" variant="ghost" size="md" onClick={handleBack}>
-                ← Back
-              </Button>
-            ) : (
-              <div />
-            )}
-
-            {currentStep < 3 ? (
-              <Button type="button" variant="primary" size="md" onClick={handleNext}>
-                Continue →
-              </Button>
-            ) : (
-              <Button type="submit" variant="primary" size="lg" isLoading={isSubmitting}>
-                Submit &amp; Open Booking Calendar ↗
-              </Button>
-            )}
-          </div>
         </form>
       </div>
 
-      {/* Booking Calendar Modal Triggered on Success */}
       <BookingModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}

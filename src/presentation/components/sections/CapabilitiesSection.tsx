@@ -4,54 +4,52 @@ import React from 'react';
 import { Container } from '@/presentation/components/layout/Container';
 import { Section } from '@/presentation/components/layout/Section';
 
-interface CapabilityColumn {
+interface CapabilityCluster {
   roman: string;
-  domain: string;
-  activates: string;
-  thesis: string;
-  items: string[];
+  name: string;
+  supporting: string;
+  description: string;
+  capabilities: string[];
 }
 
 export const CapabilitiesSection: React.FC = () => {
-  const columns: CapabilityColumn[] = [
+  const clusters: CapabilityCluster[] = [
     {
       roman: 'I',
-      domain: 'Marketing, Growth & Creative Media',
-      activates: 'Activates: Consumer Scope & Margin Recovery',
-      thesis:
-        'Performance-driven customer acquisition that respects brand authority. We acquire high-value clients without diluting category standing or cheapening market perception.',
-      items: [
-        'Digital Marketing Architecture',
-        'Engineered Growth Marketing',
-        'High-Intent Performance Media',
-        'Strategic Brand Content Creation',
-        'Performance Content Production',
+      name: 'Communication & Growth Execution',
+      supporting: 'Tethered to Brand Direction & Consumer Scope',
+      description:
+        'Customer acquisition and market resonance that respects brand authority. We drive qualified commercial demand without diluting category standing or cheapening market perception.',
+      capabilities: [
+        'Digital Marketing',
+        'Growth Marketing',
+        'Performance Marketing',
+        'Content Creation',
+        'Performance Content Creation',
       ],
     },
     {
       roman: 'II',
-      domain: 'Strategic Business & Operational Management',
-      activates: 'Activates: Margin Recovery & Velocity',
-      thesis:
-        'Operational, financial, and organizational alignment ensuring fulfillment runs with extreme precision, unit economics remain healthy, and margins are preserved.',
-      items: [
-        'Finance & Unit Economics Optimization',
-        'Strategic Operational Management',
-        'Cross-Functional Team Orchestration',
-        'Complex Project Management & Velocity',
+      name: 'Commercial & Operational Architecture',
+      supporting: 'Tethered to Margin Recovery',
+      description:
+        'Operational, financial, and organizational alignment ensuring fulfillment runs with extreme precision, unit economics remain healthy, and operating margins are preserved.',
+      capabilities: [
+        'Finance & Operations',
+        'Strategic Management',
+        'Team Management',
+        'Project Management',
       ],
     },
     {
       roman: 'III',
-      domain: 'AI Connected Systems & Automation',
-      activates: 'Activates: Operational Leverage & Speed',
-      thesis:
-        'Deploying AI for operational velocity, workflow automation, and predictive data intelligence — strictly governed by human creative strategy and executive judgment.',
-      items: [
-        'AI Workflow Automation',
-        'Connected Pipeline Architecture',
-        'Operational Overhead Elimination',
-        'Real-Time Commercial Diagnostics',
+      name: 'Operational Leverage Systems',
+      supporting: 'Accelerating Execution Across All Disciplines',
+      description:
+        'Deploying intelligent automation and connected systems for operational velocity, workflow acceleration, and real-time commercial data intelligence under human strategic governance.',
+      capabilities: [
+        'AI Automation',
+        'AI Connected Systems',
       ],
     },
   ];
@@ -70,19 +68,19 @@ export const CapabilitiesSection: React.FC = () => {
       }}
     >
       <Container>
-        <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
-          {/* Subtle Datum Marker */}
+        <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+          {/* Section Indicator */}
           <div
             style={{
               fontFamily: 'var(--font-family-mono)',
               fontSize: '11px',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.22em',
               textTransform: 'uppercase',
               color: 'var(--color-brand-light-violet)',
-              marginBottom: 'var(--space-12)',
+              marginBottom: 'var(--space-10)',
             }}
           >
-            SUPPORTING CAPABILITIES &bull; ACTIVATING THE FLAGSHIPS
+            09 / SUPPORTING CAPABILITIES &bull; THE BROADSHEET INDEX
           </div>
 
           {/* Monumental Headline */}
@@ -90,126 +88,131 @@ export const CapabilitiesSection: React.FC = () => {
             <h2
               style={{
                 fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(2.75rem, 5.5vw, 4.8rem)',
+                fontSize: 'clamp(2.8rem, 6vw, 5.4rem)',
                 fontWeight: 700,
-                lineHeight: 1.05,
-                letterSpacing: '-0.025em',
+                lineHeight: 1.02,
+                letterSpacing: '-0.03em',
                 color: '#ffffff',
                 margin: 0,
-                maxWidth: '960px',
               }}
             >
-              Capabilities in Service of the Flagships.
+              The Exact 11 Capabilities.
+              <br />
+              <span style={{ color: 'var(--color-brand-light-violet)', fontStyle: 'italic' }}>
+                Tethered to the three flagships.
+              </span>
             </h2>
             <p
               style={{
-                fontSize: 'clamp(1.1rem, 1.35vw, 1.3rem)',
+                fontSize: 'clamp(1.1rem, 1.35vw, 1.25rem)',
                 color: 'var(--color-text-secondary)',
-                lineHeight: 1.6,
-                maxWidth: '740px',
-                marginTop: 'var(--space-4)',
+                lineHeight: 1.65,
+                maxWidth: '820px',
+                marginTop: 'var(--space-6)',
                 margin: 0,
               }}
             >
-              We do not sell fragmented, checklist services. Every capability we deploy exists
-              exclusively to execute and reinforce Brand Direction, Margin Recovery, and Consumer Scope.
+              Our three flagship disciplines—Brand Direction, Margin Recovery, and Consumer Scope—are
+              operationalized through 11 disciplined execution capabilities spanning commercial
+              marketing, financial operations, and modern leverage systems.
             </p>
           </div>
 
-          {/* Editorial 3-Column Broadsheet (Zero cards) */}
+          {/* 3-Column Broadsheet Table (Zero cards, 1px titanium hairlines) */}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: 'var(--space-12)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-              paddingTop: 'var(--space-12)',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: 0,
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
             }}
           >
-            {columns.map((col) => (
+            {clusters.map((cluster, idx) => (
               <div
-                key={col.roman}
+                key={cluster.roman}
                 style={{
+                  padding: 'var(--space-10) var(--space-8)',
+                  borderRight: idx < 2 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 'var(--space-4)',
+                  gap: 'var(--space-6)',
                 }}
               >
-                {/* Roman Numeral & Tag */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-family-serif)',
-                      fontSize: 'var(--font-size-3xl)',
-                      fontWeight: 700,
-                      color: '#8E00FA',
-                    }}
-                  >
-                    {col.roman}
-                  </span>
-                  <span
+                <div>
+                  <div
                     style={{
                       fontFamily: 'var(--font-family-mono)',
-                      fontSize: '11px',
+                      fontSize: '12px',
+                      fontWeight: 700,
                       color: 'var(--color-brand-light-violet)',
-                      letterSpacing: '0.08em',
-                      textTransform: 'uppercase',
+                      letterSpacing: '0.15em',
+                      marginBottom: 'var(--space-2)',
                     }}
                   >
-                    {col.activates}
-                  </span>
+                    CLUSTER {cluster.roman}
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-family-serif)',
+                      fontSize: 'clamp(1.35rem, 1.8vw, 1.7rem)',
+                      fontWeight: 700,
+                      color: '#ffffff',
+                      margin: 0,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {cluster.name}
+                  </h3>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-family-mono)',
+                      fontSize: '10px',
+                      color: 'var(--color-text-muted)',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                      marginTop: '6px',
+                    }}
+                  >
+                    {cluster.supporting}
+                  </div>
                 </div>
-
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-family-serif)',
-                    fontSize: 'clamp(1.3rem, 1.8vw, 1.65rem)',
-                    fontWeight: 700,
-                    color: '#ffffff',
-                    margin: 0,
-                    lineHeight: 1.25,
-                  }}
-                >
-                  {col.domain}
-                </h3>
 
                 <p
                   style={{
-                    fontSize: 'var(--font-size-sm)',
+                    fontSize: 'var(--font-size-xs)',
                     color: 'var(--color-text-secondary)',
-                    lineHeight: 1.6,
+                    lineHeight: 1.65,
                     margin: 0,
                   }}
                 >
-                  {col.thesis}
+                  {cluster.description}
                 </p>
 
-                {/* Capability Item List */}
+                {/* Capabilities List */}
                 <div
                   style={{
-                    marginTop: 'var(--space-4)',
-                    paddingTop: 'var(--space-4)',
+                    paddingTop: 'var(--space-6)',
                     borderTop: '1px solid rgba(255, 255, 255, 0.08)',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--space-2)',
+                    gap: 'var(--space-3)',
                   }}
                 >
-                  {col.items.map((item, i) => (
+                  {cluster.capabilities.map((cap) => (
                     <div
-                      key={i}
+                      key={cap}
                       style={{
-                        fontFamily: 'var(--font-family-mono)',
-                        fontSize: '11px',
-                        letterSpacing: '0.05em',
-                        color: 'var(--color-text-primary)',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--space-2)',
+                        gap: 'var(--space-3)',
+                        fontSize: 'var(--font-size-sm)',
+                        color: '#ffffff',
+                        fontWeight: 500,
                       }}
                     >
-                      <span style={{ color: '#8E00FA' }}>&bull;</span>
-                      <span>{item}</span>
+                      <span style={{ color: 'var(--color-brand-light-violet)', fontSize: '10px' }}>&bull;</span>
+                      <span>{cap}</span>
                     </div>
                   ))}
                 </div>

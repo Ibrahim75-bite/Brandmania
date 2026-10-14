@@ -5,56 +5,65 @@ import { Container } from '@/presentation/components/layout/Container';
 import { Section } from '@/presentation/components/layout/Section';
 import { BrandEye } from '@/presentation/components/primitives/BrandEye';
 
-interface CognitiveVector {
-  step: string;
+interface BehavioralDimension {
+  id: string;
   name: string;
-  mindset: string;
-  architecture: string;
+  principle: string;
+  application: string;
 }
 
 export const ConsumerScopeSection: React.FC = () => {
-  const [activeVector, setActiveVector] = useState<number>(0);
+  const [activeDimension, setActiveDimension] = useState<number>(0);
 
-  const vectors: CognitiveVector[] = [
+  const dimensions: BehavioralDimension[] = [
     {
-      step: '01',
-      name: 'Status Perception & Trust Cues',
-      mindset:
-        '"Is this brand genuinely superior, or just another vendor trying to sell me something?"',
-      architecture:
-        'We engineer visual and linguistic status signals that immediately bypass commercial skepticism, positioning your offering as an undeniable authority.',
+      id: '01',
+      name: 'Perceived Value',
+      principle: 'Perception dictates willingness-to-pay far more than production cost.',
+      application:
+        'When market perception elevates an offering above commodity comparisons, buyers evaluate value by the status and certainty it delivers rather than scrutinizing unit costs.',
     },
     {
-      step: '02',
-      name: 'Price Anchoring & Value Framing',
-      mindset:
-        '"Why does this cost what it does? Is this an expense or a high-return investment?"',
-      architecture:
-        'We structure value framing and contrast so your price point is perceived not as a cost, but as an indispensable asset that confers status and certainty.',
+      id: '02',
+      name: 'Psychological Pricing',
+      principle: 'Price resistance is an emotional reaction to uncalibrated value contrast.',
+      application:
+        'We engineer pricing architecture, tier contrast, and contextual framing so premium figures feel natural and justified, extinguishing discount demands before they arise.',
     },
     {
-      step: '03',
-      name: 'Choice Architecture & Friction Removal',
-      mindset:
-        '"What if this doesn’t work? What if I regret making this decision?"',
-      architecture:
-        'We map and eliminate friction across the decision journey, removing hesitation, choice overload, and perceived transition risk.',
+      id: '03',
+      name: 'Emotional Attachment',
+      principle: 'Rational logic justifies decisions, but emotional resonance drives them.',
+      application:
+        'We design visceral brand rituals and communication cues that build irrational customer preference—the deepest moat against competitor feature wars.',
     },
     {
-      step: '04',
-      name: 'Post-Purchase Pride of Ownership',
-      mindset:
-        '"Did I make the right choice? I hope this delivers on what they promised."',
-      architecture:
-        'We design immediate psychological affirmation rituals that eliminate buyer remorse and confirm the customer’s sophisticated taste.',
+      id: '04',
+      name: 'Social Identity',
+      principle: 'Customers do not merely buy products; they buy confirmation of who they are.',
+      application:
+        'We turn your brand into a symbolic badge of self-definition, aligning ownership with the customer’s desired peer recognition and aspirational identity.',
     },
     {
-      step: '05',
-      name: 'Identity & Lifetime Attachment',
-      mindset:
-        '"This brand represents who I am. I would never consider an alternative."',
-      architecture:
-        'We transform customers into brand advocates through shared symbolic language, exclusive access, and self-reinforcing loyalty loops.',
+      id: '05',
+      name: 'Status Perception',
+      principle: 'High-ticket buyers seek risk mitigation and prestige validation.',
+      application:
+        'Through disciplined visual standards, surgical tone of voice, and uncompromised restraint, we establish institutional prestige that commands immediate respect.',
+    },
+    {
+      id: '06',
+      name: 'Enduring Loyalty',
+      principle: 'A single transaction is a test; lifetime loyalty is an engineered ecosystem.',
+      application:
+        'We construct post-purchase affirmation systems and customer experience loops that transform one-time purchasers into generational brand ambassadors.',
+    },
+    {
+      id: '07',
+      name: 'Decision-Making Architecture',
+      principle: 'Hesitation is caused by perceived transition risk and cognitive friction.',
+      application:
+        'We map the customer mind across the entire consideration journey, systematically resolving unspoken doubts and removing cognitive friction at the point of decision.',
     },
   ];
 
@@ -72,19 +81,19 @@ export const ConsumerScopeSection: React.FC = () => {
       }}
     >
       <Container>
-        <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
-          {/* Subtle Datum Marker */}
+        <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+          {/* Section Indicator */}
           <div
             style={{
               fontFamily: 'var(--font-family-mono)',
               fontSize: '11px',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.22em',
               textTransform: 'uppercase',
               color: 'var(--color-brand-light-violet)',
-              marginBottom: 'var(--space-12)',
+              marginBottom: 'var(--space-10)',
             }}
           >
-            FLAGSHIP 03 &bull; BEHAVIORAL ECONOMICS &amp; PERCEPTION
+            07 / FLAGSHIP III &bull; CONSUMER SCOPE
           </div>
 
           {/* Monumental Headline */}
@@ -92,7 +101,7 @@ export const ConsumerScopeSection: React.FC = () => {
             <h2
               style={{
                 fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(3rem, 6.5vw, 5.8rem)',
+                fontSize: 'clamp(2.8rem, 6vw, 5.4rem)',
                 fontWeight: 700,
                 lineHeight: 1.02,
                 letterSpacing: '-0.03em',
@@ -100,189 +109,177 @@ export const ConsumerScopeSection: React.FC = () => {
                 margin: 0,
               }}
             >
-              Consumer Scope.
+              Understand the mind
+              <br />
+              <span style={{ color: 'var(--color-brand-light-violet)', fontStyle: 'italic' }}>
+                before asking for the capital.
+              </span>
             </h2>
-            <div
-              style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(1.3rem, 2.2vw, 2rem)',
-                fontStyle: 'italic',
-                color: 'var(--color-brand-light-violet)',
-                marginTop: 'var(--space-3)',
-              }}
-            >
-              &ldquo;Understand the mind before asking for the capital.&rdquo;
-            </div>
             <p
               style={{
-                fontSize: 'clamp(1.1rem, 1.35vw, 1.3rem)',
+                fontSize: 'clamp(1.1rem, 1.35vw, 1.25rem)',
                 color: 'var(--color-text-secondary)',
-                lineHeight: 1.6,
-                maxWidth: '780px',
-                marginTop: 'var(--space-4)',
+                lineHeight: 1.65,
+                maxWidth: '820px',
+                marginTop: 'var(--space-6)',
                 margin: 0,
               }}
             >
-              Brand Direction defines who you are. Consumer Scope dictates how the human mind
-              interprets, values, and bonds with you at every touchpoint. By applying behavioral
-              economics and cognitive psychology, we turn transactional buyers into permanent brand
-              champions.
+              Consumer Scope is the deliberate application of behavioral economics, cognitive
+              psychology, and status perception to your commercial architecture. We decode how customers
+              actually make decisions, what triggers their hesitation, and how to engineer natural,
+              unshakable brand attachment.
             </p>
           </div>
 
-          {/* Interactive Human Perception System (Zero cards) */}
+          {/* Interactive BrandEye Focal Lens Spread (Zero Cards, No A/B Toggles) */}
           <div
             style={{
-              paddingTop: 'var(--space-8)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              paddingTop: 'var(--space-12)',
               display: 'grid',
-              gridTemplateColumns: 'minmax(0, 1.3fr) minmax(0, 0.7fr)',
+              gridTemplateColumns: 'minmax(0, 0.85fr) minmax(0, 1.15fr)',
               gap: 'var(--space-12)',
-              alignItems: 'start',
+              alignItems: 'center',
             }}
           >
-            {/* Left: Perception Vector Journey */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-              {vectors.map((vec, idx) => {
-                const isActive = activeVector === idx;
-                return (
-                  <div
-                    key={vec.step}
-                    onClick={() => setActiveVector(idx)}
-                    style={{
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                      paddingBottom: 'var(--space-6)',
-                      cursor: 'pointer',
-                      transition: 'all var(--transition-fast)',
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-4)' }}>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-family-mono)',
-                          fontSize: '11px',
-                          color: isActive ? '#8E00FA' : 'var(--color-text-muted)',
-                          fontWeight: 700,
-                        }}
-                      >
-                        STAGE {vec.step}
-                      </span>
-                      <h3
-                        style={{
-                          fontFamily: 'var(--font-family-serif)',
-                          fontSize: 'clamp(1.4rem, 2.1vw, 1.9rem)',
-                          fontWeight: isActive ? 700 : 500,
-                          color: isActive ? '#ffffff' : 'var(--color-text-secondary)',
-                          margin: 0,
-                          transition: 'color var(--transition-fast)',
-                        }}
-                      >
-                        {vec.name}
-                      </h3>
-                    </div>
-
-                    {isActive && (
-                      <div
-                        style={{
-                          marginTop: 'var(--space-4)',
-                          paddingLeft: 'var(--space-8)',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: 'var(--space-3)',
-                        }}
-                      >
-                        <div
-                          style={{
-                            fontFamily: 'var(--font-family-serif)',
-                            fontSize: 'var(--font-size-base)',
-                            fontStyle: 'italic',
-                            color: 'var(--color-brand-light-violet)',
-                            lineHeight: 1.5,
-                          }}
-                        >
-                          {vec.mindset}
-                        </div>
-                        <p
-                          style={{
-                            fontSize: 'var(--font-size-sm)',
-                            color: 'var(--color-text-secondary)',
-                            lineHeight: 1.6,
-                            margin: 0,
-                          }}
-                        >
-                          {vec.architecture}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Right: Psychological Synthesis Commentary with Optical Brand Eye Iris */}
+            {/* Left: The Optical Focal Lens (BrandEye Geometry) */}
             <div
               style={{
-                position: 'sticky',
-                top: '120px',
-                padding: 'var(--space-8)',
-                background: '#0E0E13',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--space-6)',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                padding: 'var(--space-8)',
+                borderRight: '1px solid rgba(255, 255, 255, 0.08)',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-                <BrandEye size="sm" />
-                <span
+              <div
+                style={{
+                  position: 'relative',
+                  width: '280px',
+                  height: '280px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {/* Subtle Concentric Aperture Rings */}
+                <div
                   style={{
-                    fontFamily: 'var(--font-family-mono)',
-                    fontSize: '11px',
-                    letterSpacing: '0.15em',
-                    textTransform: 'uppercase',
-                    color: '#8E00FA',
+                    position: 'absolute',
+                    inset: 0,
+                    borderRadius: '50%',
+                    border: '1px solid rgba(142, 0, 250, 0.25)',
+                    transition: 'all 0.4s ease-out',
                   }}
-                >
-                  Perception Heuristic
-                </span>
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: '18%',
+                    borderRadius: '50%',
+                    border: '1px dashed rgba(255, 255, 255, 0.15)',
+                  }}
+                />
+
+                {/* Central Brand Eye Geometry */}
+                <BrandEye size="xl" glow={true} />
               </div>
 
               <div
                 style={{
-                  fontFamily: 'var(--font-family-serif)',
-                  fontSize: 'clamp(1.4rem, 2vw, 1.8rem)',
-                  fontWeight: 600,
-                  color: '#ffffff',
-                  lineHeight: 1.25,
-                }}
-              >
-                People do not buy utilities alone. They buy identity confirmation.
-              </div>
-
-              <p
-                style={{
-                  fontSize: 'var(--font-size-sm)',
-                  color: 'var(--color-text-secondary)',
-                  lineHeight: 1.65,
-                  margin: 0,
-                }}
-              >
-                When a high-value client purchases from your brand, they are confirming who they are
-                to themselves and their peers. If your touchpoints feel transactional or commoditized,
-                the psychological attachment dissolves. We make your brand an irreplaceable identity
-                asset.
-              </p>
-
-              <div
-                style={{
-                  paddingTop: 'var(--space-4)',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                  marginTop: 'var(--space-6)',
                   fontFamily: 'var(--font-family-mono)',
                   fontSize: '11px',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
                   color: 'var(--color-brand-light-violet)',
+                  textAlign: 'center',
                 }}
               >
-                Focus: Cognitive Attachment &amp; Pricing Power
+                Cognitive Aperture &bull; Dimension {dimensions[activeDimension].id} of 07
+              </div>
+            </div>
+
+            {/* Right: The 7 Behavioral Dimensions Selector & In-Place Diagnostic */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+              {/* Dimensional Selector Line */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '6px',
+                  paddingBottom: 'var(--space-4)',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                }}
+              >
+                {dimensions.map((dim, idx) => {
+                  const isActive = activeDimension === idx;
+                  return (
+                    <button
+                      key={dim.id}
+                      type="button"
+                      onClick={() => setActiveDimension(idx)}
+                      style={{
+                        padding: '6px 12px',
+                        background: isActive ? 'rgba(142, 0, 250, 0.2)' : 'transparent',
+                        border: isActive ? '1px solid rgba(142, 0, 250, 0.5)' : '1px solid rgba(255, 255, 255, 0.08)',
+                        color: isActive ? '#ffffff' : 'var(--color-text-muted)',
+                        fontFamily: 'var(--font-family-mono)',
+                        fontSize: '11px',
+                        letterSpacing: '0.06em',
+                        borderRadius: '2px',
+                        cursor: 'pointer',
+                        transition: 'all var(--transition-fast)',
+                      }}
+                    >
+                      {dim.name}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Active Dimension Diagnostic Spread (Zero Cards) */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-family-serif)',
+                    fontSize: 'clamp(1.6rem, 2.4vw, 2.2rem)',
+                    fontWeight: 700,
+                    color: '#ffffff',
+                    margin: 0,
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {dimensions[activeDimension].name}
+                </h3>
+
+                <blockquote
+                  style={{
+                    fontFamily: 'var(--font-family-serif)',
+                    fontSize: 'clamp(1.15rem, 1.4vw, 1.35rem)',
+                    fontStyle: 'italic',
+                    color: 'var(--color-brand-light-violet)',
+                    margin: 0,
+                    lineHeight: 1.4,
+                  }}
+                >
+                  &ldquo;{dimensions[activeDimension].principle}&rdquo;
+                </blockquote>
+
+                <p
+                  style={{
+                    fontSize: 'var(--font-size-sm)',
+                    color: 'var(--color-text-secondary)',
+                    lineHeight: 1.7,
+                    margin: 0,
+                    marginTop: 'var(--space-2)',
+                  }}
+                >
+                  {dimensions[activeDimension].application}
+                </p>
               </div>
             </div>
           </div>

@@ -1,69 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from '@/presentation/components/layout/Container';
 import { Section } from '@/presentation/components/layout/Section';
 
-interface Tension {
-  id: string;
-  left: string;
-  leftSub: string;
-  right: string;
-  rightSub: string;
-  thesis: string;
-}
-
 export const DilemmaSection: React.FC = () => {
-  const [activeTension, setActiveTension] = useState<number>(0);
-
-  const tensions: Tension[] = [
-    {
-      id: '01',
-      left: 'ATTENTION',
-      leftSub: 'Advertising Impressions Purchased',
-      right: 'REVENUE',
-      rightSub: 'Net Operating Profit Retained',
-      thesis:
-        'Purchasing ad impressions into an uncalibrated business model accelerates capital destruction. High acquisition numbers frequently mask the silent evaporation of cash flow across sales friction, fulfillment failures, and churn.',
-    },
-    {
-      id: '02',
-      left: 'WHAT YOU SAY',
-      leftSub: 'Internal Intention & Craftsmanship',
-      right: 'WHAT THEY HEAR',
-      rightSub: 'Uncalibrated Market Perception',
-      thesis:
-        'Leadership believes the brand communicates category leadership. The market registers an ordinary commodity. When narrative precision is absent, buyers default to price comparison, forcing discounting and destroying margin.',
-    },
-    {
-      id: '03',
-      left: 'PERCEIVED VALUE',
-      leftSub: 'Status & Perceived Worth',
-      right: 'PRICE',
-      rightSub: 'Discounting & Price Resistance',
-      thesis:
-        'Customers do not judge price in isolation; they judge it against subconscious status cues and cognitive contrast. Elevating perceived value eliminates price friction and unlocks pricing power.',
-    },
-    {
-      id: '04',
-      left: 'INTERNAL REALITY',
-      leftSub: 'Product Craftsmanship & Vision',
-      right: 'MARKET PERCEPTION',
-      rightSub: 'Customer Mindset & Preconception',
-      thesis:
-        'The best product rarely wins on craftsmanship alone. The market rewards the brand that commands the mental category. If the market cannot instantly decipher your distinction, it does not exist commercially.',
-    },
-    {
-      id: '05',
-      left: 'ACQUISITION',
-      leftSub: 'First-Time Transaction Churn',
-      right: 'RETENTION',
-      rightSub: 'Enduring Customer Loyalty Loops',
-      thesis:
-        'Chasing top-of-funnel buyers without engineering post-purchase psychological validation keeps the business on an exhausting acquisition treadmill. True market leaders build self-compounding customer loyalty ecosystems.',
-    },
-  ];
-
   return (
     <Section
       id="dilemma"
@@ -73,23 +14,24 @@ export const DilemmaSection: React.FC = () => {
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         position: 'relative',
         paddingTop: 'var(--space-24)',
-        paddingBottom: 'var(--space-24)',
+        paddingBottom: 'var(--space-20)',
+        overflow: 'hidden',
       }}
     >
       <Container>
         <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
-          {/* Subtle Datum Marker */}
+          {/* Section Indicator */}
           <div
             style={{
               fontFamily: 'var(--font-family-mono)',
               fontSize: '11px',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.22em',
               textTransform: 'uppercase',
               color: 'var(--color-brand-light-violet)',
-              marginBottom: 'var(--space-12)',
+              marginBottom: 'var(--space-10)',
             }}
           >
-            THE STRATEGIC DILEMMA &bull; VISUAL CONFRONTATION
+            03 / THE PERCEPTION-TO-PERFORMANCE SPREAD &bull; THE STRUCTURAL DIVIDE
           </div>
 
           {/* Monumental Headline */}
@@ -97,188 +39,186 @@ export const DilemmaSection: React.FC = () => {
             <h2
               style={{
                 fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(2.75rem, 5.5vw, 4.8rem)',
+                fontSize: 'clamp(2.5rem, 5.2vw, 4.6rem)',
                 fontWeight: 700,
                 lineHeight: 1.05,
-                letterSpacing: '-0.025em',
+                letterSpacing: '-0.03em',
                 color: '#ffffff',
                 margin: 0,
-                maxWidth: '960px',
+                maxWidth: '980px',
               }}
             >
-              The Commercial Contradictions.
+              The structural divide between chasing traffic
+              <br />
+              <span style={{ color: 'var(--color-brand-light-violet)' }}>
+                and commanding market preference.
+              </span>
             </h2>
-            <p
-              style={{
-                fontSize: 'clamp(1.1rem, 1.35vw, 1.3rem)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.6,
-                maxWidth: '740px',
-                marginTop: 'var(--space-4)',
-                margin: 0,
-              }}
-            >
-              Growth does not stall from lack of effort or advertising budget. It stalls when unseen
-              structural tensions disconnect commercial reality from market perception.
-            </p>
           </div>
 
-          {/* High-Tension Visual Contrast Rows (Zero cards) */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {tensions.map((t, idx) => {
-              const isSelected = activeTension === idx;
-              return (
-                <div
-                  key={t.id}
-                  onClick={() => setActiveTension(idx)}
-                  style={{
-                    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                    paddingTop: 'var(--space-8)',
-                    paddingBottom: 'var(--space-8)',
-                    cursor: 'pointer',
-                    transition: 'background var(--transition-fast)',
-                    backgroundColor: isSelected ? 'rgba(50, 0, 92, 0.12)' : 'transparent',
-                    borderLeft: isSelected ? '3px solid #8E00FA' : '3px solid transparent',
-                    paddingLeft: 'var(--space-6)',
-                    paddingRight: 'var(--space-6)',
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 0.6fr)',
-                      gap: 'var(--space-8)',
-                      alignItems: 'center',
-                    }}
-                  >
-                    {/* Visual Confrontation Elements */}
-                    <div>
-                      <div
-                        style={{
-                          fontFamily: 'var(--font-family-mono)',
-                          fontSize: '11px',
-                          letterSpacing: '0.15em',
-                          color: isSelected ? '#8E00FA' : 'var(--color-text-muted)',
-                          marginBottom: 'var(--space-2)',
-                        }}
-                      >
-                        CONTRAST {t.id}
-                      </div>
-
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItems: 'baseline',
-                          flexWrap: 'wrap',
-                          gap: 'var(--space-4)',
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-family-serif)',
-                            fontSize: 'clamp(1.6rem, 2.7vw, 2.6rem)',
-                            fontWeight: 700,
-                            color: isSelected ? '#ffffff' : 'var(--color-text-secondary)',
-                            letterSpacing: '-0.02em',
-                          }}
-                        >
-                          {t.left}
-                        </span>
-
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-family-mono)',
-                            fontSize: '12px',
-                            fontWeight: 700,
-                            color: 'var(--color-brand-light-violet)',
-                            letterSpacing: '0.2em',
-                            textTransform: 'uppercase',
-                          }}
-                        >
-                          VS.
-                        </span>
-
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-family-serif)',
-                            fontSize: 'clamp(1.6rem, 2.7vw, 2.6rem)',
-                            fontWeight: 700,
-                            color: isSelected ? '#ffffff' : 'var(--color-text-secondary)',
-                            letterSpacing: '-0.02em',
-                          }}
-                        >
-                          {t.right}
-                        </span>
-                      </div>
-
-                      <div
-                        style={{
-                          display: 'flex',
-                          gap: 'var(--space-8)',
-                          marginTop: 'var(--space-2)',
-                          fontSize: '11px',
-                          fontFamily: 'var(--font-family-mono)',
-                          color: 'var(--color-text-muted)',
-                        }}
-                      >
-                        <span>{t.leftSub}</span>
-                        <span>&rarr;</span>
-                        <span>{t.rightSub}</span>
-                      </div>
-                    </div>
-
-                    {/* Thesis Breakdown */}
-                    <div>
-                      <p
-                        style={{
-                          fontSize: 'var(--font-size-sm)',
-                          color: isSelected ? '#ffffff' : 'var(--color-text-secondary)',
-                          lineHeight: 1.6,
-                          margin: 0,
-                          transition: 'color var(--transition-fast)',
-                        }}
-                      >
-                        {t.thesis}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-            <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)' }} />
-          </div>
-
-          {/* Strategic Synthesis Link */}
+          {/* Continuous Split-Plane Architecture (Zero Cards, No Toggles) */}
           <div
             style={{
-              marginTop: 'var(--space-12)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: 'var(--space-4)',
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
+              gap: 0,
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
             }}
           >
-            <div style={{ fontSize: 'var(--font-size-base)', color: '#ffffff', fontWeight: 500 }}>
-              Resolving these contradictions requires more than advertising spend.{' '}
-              <span style={{ color: 'var(--color-brand-light-violet)' }}>
-                It requires an integrated strategic architecture.
-              </span>
-            </div>
-            <a
-              href="#system"
+            {/* Plane A: The Attention Illusion */}
+            <div
               style={{
-                fontFamily: 'var(--font-family-mono)',
-                fontSize: '11px',
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                color: '#8E00FA',
-                textDecoration: 'none',
-                fontWeight: 700,
+                padding: 'var(--space-12) var(--space-10) var(--space-12) 0',
+                borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-8)',
               }}
             >
-              See The Integrated System &darr;
-            </a>
+              <div>
+                <div
+                  style={{
+                    fontFamily: 'var(--font-family-mono)',
+                    fontSize: '11px',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-text-muted)',
+                    marginBottom: 'var(--space-3)',
+                  }}
+                >
+                  The Vulnerable Model
+                </div>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-family-serif)',
+                    fontSize: 'clamp(1.8rem, 2.8vw, 2.5rem)',
+                    fontWeight: 700,
+                    color: '#ffffff',
+                    margin: 0,
+                    lineHeight: 1.15,
+                  }}
+                >
+                  The Attention Illusion
+                </h3>
+              </div>
+
+              <p
+                style={{
+                  fontSize: 'var(--font-size-sm)',
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}
+              >
+                Treating advertising as a substitute for brand architecture creates an exhausting
+                treadmill. Capital is spent to purchase impressions, but absent distinct perception,
+                buyers immediately compare price, CAC inflates, and margins erode before fulfillment
+                completes.
+              </p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+                {[
+                  'Buying impressions into an uncalibrated commercial vehicle',
+                  'Commodity positioning forcing frequent discount promotions',
+                  'Rising customer acquisition costs with declining unit economics',
+                  'High top-of-funnel churn without organic brand attachment',
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 'var(--space-3)',
+                      fontSize: 'var(--font-size-xs)',
+                      color: 'var(--color-text-secondary)',
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    <span style={{ color: '#ff6b6b', fontWeight: 700 }}>&times;</span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Plane B: The Architectural Advantage */}
+            <div
+              style={{
+                padding: 'var(--space-12) 0 var(--space-12) var(--space-10)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-8)',
+                background: 'linear-gradient(90deg, rgba(50, 0, 92, 0.12) 0%, transparent 100%)',
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    fontFamily: 'var(--font-family-mono)',
+                    fontSize: '11px',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-brand-light-violet)',
+                    marginBottom: 'var(--space-3)',
+                  }}
+                >
+                  The Brandmania Standard
+                </div>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-family-serif)',
+                    fontSize: 'clamp(1.8rem, 2.8vw, 2.5rem)',
+                    fontWeight: 700,
+                    color: '#ffffff',
+                    margin: 0,
+                    lineHeight: 1.15,
+                  }}
+                >
+                  The Architectural Advantage
+                </h3>
+              </div>
+
+              <p
+                style={{
+                  fontSize: 'var(--font-size-sm)',
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}
+              >
+                When Brand Direction, Margin Recovery, and Consumer Scope operate as a single
+                integrated system, advertising amplifies an already profitable machine. Market
+                perception commands pricing power, unit economics are protected, and customer loyalty
+                compounds enterprise value.
+              </p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+                {[
+                  'Brand direction establishes unmatched category perception',
+                  'Inelastic demand commanding premium pricing and healthy margins',
+                  'Operational data audits sealing leaks across the entire commercial chain',
+                  'Enduring identity attachment driving high-retention customer loops',
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 'var(--space-3)',
+                      fontSize: 'var(--font-size-xs)',
+                      color: '#ffffff',
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    <span style={{ color: 'var(--color-brand-light-violet)', fontWeight: 700 }}>
+                      &check;
+                    </span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </Container>

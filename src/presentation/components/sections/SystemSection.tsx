@@ -9,7 +9,7 @@ interface SystemNode {
   step: string;
   title: string;
   discipline: string;
-  thesis: string;
+  description: string;
 }
 
 export const SystemSection: React.FC = () => {
@@ -18,66 +18,45 @@ export const SystemSection: React.FC = () => {
   const nodes: SystemNode[] = [
     {
       step: '01',
-      title: 'Brand Direction',
-      discipline: 'Foundation & Positioning',
-      thesis:
-        'Answers what the brand must become and what the market must perceive. Establishes enterprise identity, narrative authority, and pricing power.',
+      title: 'Identity & Narrative',
+      discipline: 'Brand Direction',
+      description:
+        'Defines what the brand stands for, its positioning, USP, and authentic tone of voice. Establishes the authoritative foundation before entering the market.',
     },
     {
       step: '02',
-      title: 'Perception',
-      discipline: 'Market Perception & Value',
-      thesis:
-        'Controls how the market decodes your craftsmanship. Elevates the brand out of commodity comparisons and protects your pricing margins.',
+      title: 'Market Perception',
+      discipline: 'Strategic Alignment',
+      description:
+        'Harmonizes internal craftsmanship with market perception. Eliminates commodity comparison and removes the necessity of price discounting.',
     },
     {
       step: '03',
-      title: 'Consumer Behavior',
-      discipline: 'Psychology & Decision Framing',
-      thesis:
-        'Applies behavioral economics to remove customer hesitation and design touchpoints that turn market perception into emotional attachment.',
+      title: 'Consumer Psychology',
+      discipline: 'Consumer Scope',
+      description:
+        'Decodes behavioral biases, status cues, and identity attachment. Transforms transactional buyers into irrational brand advocates.',
     },
     {
       step: '04',
-      title: 'Marketing & Media',
-      discipline: 'High-Intent Acquisition',
-      thesis:
-        'Drives qualified prospective buyers into a calibrated commercial experience that respects the brand’s positioning.',
+      title: 'Pricing Power',
+      discipline: 'Margin Architecture',
+      description:
+        'Commands premium price elasticity. High perceived value protects enterprise gross margin from competitive price wars.',
     },
     {
       step: '05',
-      title: 'Commercial Margin',
-      discipline: 'Unit Economics & Profit Retention',
-      thesis:
-        'Audits and seals structural leaks across fulfillment, sales pipelines, and customer journeys before media capital is scaled.',
+      title: 'Commercial Performance',
+      discipline: 'Margin Recovery',
+      description:
+        'Audits and repairs data leaks across planning, marketing, sales, fulfillment, and service before scaling customer acquisition spend.',
     },
     {
       step: '06',
-      title: 'Operations & Fulfillment',
-      discipline: 'Fulfillment Velocity & Capacity',
-      thesis:
-        'Removes operational friction and aligns delivery mechanisms so the business can scale without quality degradation.',
-    },
-    {
-      step: '07',
-      title: 'Management & Organization',
-      discipline: 'Silo Elimination & Alignment',
-      thesis:
-        'Harmonizes brand promises with operational realities, ensuring brand, marketing, and operations function as one organism.',
-    },
-    {
-      step: '08',
-      title: 'AI & Connected Systems',
-      discipline: 'Automation & Execution Speed',
-      thesis:
-        'Automates operational bottlenecks and data pipelines under human strategic governance, maximizing execution speed.',
-    },
-    {
-      step: '09',
-      title: 'Market Leadership',
-      discipline: 'Category Authority & Dominance',
-      thesis:
-        'The cumulative commercial result: pricing power, enduring customer loyalty, protected margins, and category leadership.',
+      title: 'Category Dominance',
+      discipline: 'Enduring Enterprise Value',
+      description:
+        'The cumulative commercial outcome: protected cash flow, high retention, pricing leverage, and defensible market leadership.',
     },
   ];
 
@@ -89,262 +68,185 @@ export const SystemSection: React.FC = () => {
         backgroundColor: '#070709',
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         position: 'relative',
-        paddingTop: 'var(--space-24)',
+        paddingTop: 'var(--space-20)',
         paddingBottom: 'var(--space-24)',
         overflow: 'hidden',
       }}
     >
       <Container>
         <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
-          {/* Subtle Datum Marker */}
+          {/* Section Indicator */}
           <div
             style={{
               fontFamily: 'var(--font-family-mono)',
               fontSize: '11px',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.22em',
               textTransform: 'uppercase',
               color: 'var(--color-brand-light-violet)',
-              marginBottom: 'var(--space-12)',
+              marginBottom: 'var(--space-8)',
             }}
           >
-            THE BRANDMANIA SYSTEM &bull; STRUCTURAL CIRCUIT
+            04 / THE PERCEPTION-TO-PERFORMANCE SPREAD &bull; THE CONTINUOUS VALUE CONDUIT
           </div>
 
-          {/* Monumental Headline */}
-          <div style={{ marginBottom: 'var(--space-16)' }}>
+          {/* Section Title */}
+          <div style={{ marginBottom: 'var(--space-12)' }}>
             <h2
               style={{
                 fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(2.75rem, 5.5vw, 4.8rem)',
+                fontSize: 'clamp(2.2rem, 4.2vw, 3.8rem)',
                 fontWeight: 700,
-                lineHeight: 1.05,
+                lineHeight: 1.1,
                 letterSpacing: '-0.025em',
                 color: '#ffffff',
                 margin: 0,
-                maxWidth: '960px',
+                maxWidth: '920px',
               }}
             >
-              An Integrated Pipeline, Not Disjointed Tactics.
+              The unbroken causality between
+              <br />
+              <span style={{ color: 'var(--color-brand-light-violet)' }}>
+                upstream perception and downstream cash flow.
+              </span>
             </h2>
-            <p
-              style={{
-                fontSize: 'clamp(1.1rem, 1.35vw, 1.3rem)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.6,
-                maxWidth: '740px',
-                marginTop: 'var(--space-4)',
-                margin: 0,
-              }}
-            >
-              BRANDMANIA functions as an unbroken circuit. Brand Direction informs Perception; Perception
-              governs Consumer Behavior; Behavior drives Commercial Margin; Operations fulfills the promise.
-            </p>
           </div>
 
-          {/* Continuous Conduit Layout (Zero cards) */}
+          {/* Continuous Hairline Stepper Circuit (Zero Cards) */}
           <div
             style={{
               position: 'relative',
               display: 'grid',
-              gridTemplateColumns: 'minmax(0, 0.9fr) minmax(0, 1.1fr)',
-              gap: 'var(--space-12)',
-              alignItems: 'start',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              gap: 'var(--space-4)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              paddingTop: 'var(--space-8)',
+              marginBottom: 'var(--space-12)',
             }}
           >
-            {/* Left: Conduit Index */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                position: 'relative',
-                paddingLeft: 'var(--space-6)',
-                borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
-              }}
-            >
-              {nodes.map((node, idx) => {
-                const isActive = activeStep === idx;
-                return (
-                  <div
-                    key={node.step}
-                    onClick={() => setActiveStep(idx)}
-                    style={{
-                      position: 'relative',
-                      paddingTop: 'var(--space-4)',
-                      paddingBottom: 'var(--space-4)',
-                      cursor: 'pointer',
-                      transition: 'all var(--transition-fast)',
-                    }}
-                  >
-                    {/* Active Node Indicator Dot */}
+            {nodes.map((node, index) => {
+              const isActive = activeStep === index;
+              return (
+                <button
+                  key={node.step}
+                  type="button"
+                  onClick={() => setActiveStep(index)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    padding: 0,
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--space-3)',
+                    position: 'relative',
+                  }}
+                >
+                  {/* Step Header with Node Indicator */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <div
                       style={{
-                        position: 'absolute',
-                        left: '-29px',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        width: isActive ? '11px' : '7px',
-                        height: isActive ? '11px' : '7px',
+                        width: '8px',
+                        height: '8px',
                         borderRadius: '50%',
-                        background: isActive ? '#8E00FA' : 'rgba(255, 255, 255, 0.2)',
-                        boxShadow: isActive ? '0 0 12px #8E00FA' : 'none',
+                        background: isActive ? 'var(--color-brand-light-violet)' : 'rgba(255, 255, 255, 0.25)',
+                        boxShadow: isActive ? '0 0 10px var(--color-brand-light-violet)' : 'none',
                         transition: 'all var(--transition-fast)',
                       }}
                     />
-
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)' }}>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-family-mono)',
-                          fontSize: '11px',
-                          color: isActive ? '#8E00FA' : 'var(--color-text-muted)',
-                          fontWeight: 700,
-                        }}
-                      >
-                        {node.step}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-family-serif)',
-                          fontSize: 'clamp(1.2rem, 1.7vw, 1.55rem)',
-                          fontWeight: isActive ? 700 : 500,
-                          color: isActive ? '#ffffff' : 'var(--color-text-secondary)',
-                          transition: 'color var(--transition-fast)',
-                        }}
-                      >
-                        {node.title}
-                      </span>
-                    </div>
-
-                    <div
+                    <span
                       style={{
-                        fontSize: '11px',
                         fontFamily: 'var(--font-family-mono)',
+                        fontSize: '11px',
+                        fontWeight: 700,
                         color: isActive ? 'var(--color-brand-light-violet)' : 'var(--color-text-muted)',
-                        marginTop: '2px',
-                        letterSpacing: '0.05em',
+                        letterSpacing: '0.1em',
                       }}
                     >
-                      {node.discipline}
-                    </div>
+                      {node.step}
+                    </span>
                   </div>
-                );
-              })}
-            </div>
 
-            {/* Right: Focused Node Theater Display */}
-            <div
-              style={{
-                position: 'sticky',
-                top: '120px',
-                padding: 'var(--space-10)',
-                background: '#0E0E13',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--space-6)',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                  paddingBottom: 'var(--space-4)',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-                  <BrandEye size="sm" />
-                  <span
+                  {/* Title */}
+                  <div
                     style={{
-                      fontFamily: 'var(--font-family-mono)',
-                      fontSize: '11px',
-                      color: '#8E00FA',
-                      letterSpacing: '0.15em',
-                      textTransform: 'uppercase',
-                      fontWeight: 700,
+                      fontFamily: 'var(--font-family-serif)',
+                      fontSize: 'clamp(1rem, 1.25vw, 1.25rem)',
+                      fontWeight: 600,
+                      color: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.65)',
+                      lineHeight: 1.25,
+                      transition: 'color var(--transition-fast)',
                     }}
                   >
-                    CIRCUIT STAGE {nodes[activeStep].step} OF 09
-                  </span>
-                </div>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-family-mono)',
-                    fontSize: '11px',
-                    color: 'var(--color-text-muted)',
-                  }}
-                >
-                  SYSTEM ARCHITECTURE
-                </span>
-              </div>
+                    {node.title}
+                  </div>
 
-              <div>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-family-serif)',
-                    fontSize: 'clamp(2.2rem, 3.8vw, 3.2rem)',
-                    fontWeight: 700,
-                    color: '#ffffff',
-                    lineHeight: 1.1,
-                    margin: 0,
-                  }}
-                >
-                  {nodes[activeStep].title}
-                </h3>
-                <div
-                  style={{
-                    fontSize: 'var(--font-size-sm)',
-                    fontFamily: 'var(--font-family-mono)',
-                    color: 'var(--color-brand-light-violet)',
-                    marginTop: 'var(--space-2)',
-                    letterSpacing: '0.08em',
-                  }}
-                >
-                  {nodes[activeStep].discipline}
-                </div>
-              </div>
+                  {/* Discipline Tag */}
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-family-mono)',
+                      fontSize: '10px',
+                      color: 'var(--color-text-muted)',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {node.discipline}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
 
-              <p
-                style={{
-                  fontSize: 'clamp(1.1rem, 1.3vw, 1.25rem)',
-                  color: 'var(--color-text-secondary)',
-                  lineHeight: 1.65,
-                  margin: 0,
-                }}
-              >
-                {nodes[activeStep].thesis}
-              </p>
-
+          {/* Active Node Detail Spread (Zero Cards, Architectural Layout) */}
+          <div
+            style={{
+              paddingTop: 'var(--space-8)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 0.35fr) minmax(0, 1fr) minmax(0, 0.3fr)',
+              gap: 'var(--space-8)',
+              alignItems: 'center',
+            }}
+          >
+            <div>
               <div
                 style={{
-                  paddingTop: 'var(--space-4)',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  fontFamily: 'var(--font-family-mono)',
+                  fontSize: '11px',
+                  color: 'var(--color-brand-light-violet)',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  marginBottom: 'var(--space-2)',
                 }}
               >
-                <span
-                  style={{
-                    fontSize: '11px',
-                    fontFamily: 'var(--font-family-mono)',
-                    color: 'var(--color-text-muted)',
-                  }}
-                >
-                  Select any stage to trace the commercial pipeline &uarr;
-                </span>
-                <span
-                  style={{
-                    fontSize: '11px',
-                    fontFamily: 'var(--font-family-mono)',
-                    color: 'var(--color-brand-light-violet)',
-                    fontWeight: 600,
-                  }}
-                >
-                  Connected Circuit
-                </span>
+                Active Step &bull; {nodes[activeStep].step}
               </div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-family-serif)',
+                  fontSize: 'var(--font-size-2xl)',
+                  fontWeight: 700,
+                  color: '#ffffff',
+                }}
+              >
+                {nodes[activeStep].title}
+              </div>
+            </div>
+
+            <p
+              style={{
+                fontSize: 'clamp(1rem, 1.25vw, 1.15rem)',
+                color: 'var(--color-text-secondary)',
+                lineHeight: 1.65,
+                margin: 0,
+              }}
+            >
+              {nodes[activeStep].description}
+            </p>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', opacity: 0.6 }}>
+              <BrandEye size="md" glow={false} />
             </div>
           </div>
         </div>

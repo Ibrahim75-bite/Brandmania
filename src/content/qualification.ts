@@ -2,7 +2,7 @@
  * Lead Qualification Form Architecture
  *
  * Configurable question definitions, revenue tiers, and industry options.
- * Allows adding, removing, or reordering questions without restructuring components.
+ * Aligned for established businesses ($700,000+ annual revenue) and high-ticket international brands.
  */
 
 export interface QualificationOption {
@@ -21,57 +21,71 @@ export interface QualificationField {
   step: number;
 }
 
+export const ENGAGEMENT_TRACKS: QualificationOption[] = [
+  {
+    value: 'FULL_ENGAGEMENT',
+    label: 'Full Strategic & Performance Engagement',
+    sublabel: 'Comprehensive multi-quarter brand direction, commercial margin audit, and performance execution.',
+  },
+  {
+    value: 'STRATEGIC_CONSULTANCY',
+    label: 'Strategic Consultancy',
+    sublabel: 'High-impact advisory and architectural diagnostic (for targeted interventions or before full rebuild).',
+  },
+];
+
 export const REVENUE_TIERS: QualificationOption[] = [
-  { value: 'TIER_SUB_700K', label: 'Under $700K ARR', sublabel: 'High growth trajectory' },
-  { value: 'TIER_700K_1_5M', label: '$700K – $1.5M ARR', sublabel: 'Established foundation' },
-  { value: 'TIER_1_5M_5M', label: '$1.5M – $5M ARR', sublabel: 'Scaling enterprise' },
-  { value: 'TIER_5M_PLUS', label: '$5M+ ARR', sublabel: 'Market leader' },
+  { value: 'TIER_SUB_700K', label: 'Under $700K Annual Revenue', sublabel: 'Emerging trajectory' },
+  { value: 'TIER_700K_1_5M', label: '$700K – $2M Annual Revenue', sublabel: 'Established foundation' },
+  { value: 'TIER_1_5M_5M', label: '$2M – $10M Annual Revenue', sublabel: 'Scaling market presence' },
+  { value: 'TIER_5M_PLUS', label: '$10M+ Annual Revenue', sublabel: 'Category leader' },
 ];
 
 export const PRIMARY_INDUSTRIES: QualificationOption[] = [
-  { value: 'JEWELRY_GEMSTONES', label: 'Jewelry & Gemstones' },
-  { value: 'DESIGNER_BOUTIQUE', label: 'Designer Boutiques & Fashion' },
-  { value: 'LUXURY_INTERIOR', label: 'Luxury & Interior Design' },
-  { value: 'HOSPITALITY_RESORT', label: 'Hospitality & Luxury Resorts' },
-  { value: 'WELLNESS_NUTRITION', label: 'Fitness, Supplements & Nutrition' },
+  { value: 'HIGH_END_ECOMMERCE', label: 'High-Ticket Consumer Brands & E-commerce' },
+  { value: 'LUXURY_GOODS', label: 'Luxury Goods & Prestige Products' },
+  { value: 'SPECIALIZED_DEVICES', label: 'Specialized Devices & Technology' },
+  { value: 'DESIGNER_BOUTIQUE', label: 'Designer Fashion & Apparel' },
   { value: 'COSMETICS_PERFUME', label: 'Cosmetics, Skincare & Fragrance' },
-  { value: 'HIGH_END_ECOMMERCE', label: 'High-Ticket E-commerce' },
-  { value: 'SPECIALIZED_DEVICES', label: 'Medical Devices & Electronics' },
-  { value: 'OTHER', label: 'Other Premium Vertical' },
+  { value: 'LUXURY_INTERIOR', label: 'Architecture, Interior & Home' },
+  { value: 'HOSPITALITY_RESORT', label: 'Hospitality, Travel & Resorts' },
+  { value: 'JEWELRY_GEMSTONES', label: 'Fine Jewelry & Watches' },
+  { value: 'SPECIALIZED_SERVICES', label: 'Specialized Commercial Services' },
+  { value: 'OTHER', label: 'Other High-Ticket Commercial Vertical' },
 ];
 
 export const CORE_CHALLENGES: QualificationOption[] = [
-  { value: 'MARGIN_LEAKS', label: 'Margin & Profit Leakage', sublabel: 'High ad spend with eroding net return' },
-  { value: 'BRAND_PERCEPTION', label: 'Market Perception & Positioning', sublabel: 'Seen as commodity; cannot raise prices' },
-  { value: 'CONSUMER_ATTACHMENT', label: 'Customer Retention & LTV', sublabel: 'Buyers don’t return; low lifetime value' },
-  { value: 'SYSTEMIC_SCALING', label: 'Operational & Growth Bottlenecks', sublabel: 'Machine cannot handle further scale' },
+  { value: 'BRAND_PERCEPTION', label: 'Brand Direction & Market Perception', sublabel: 'Positioning ceiling; price resistance' },
+  { value: 'MARGIN_LEAKS', label: 'Margin Recovery & Cash Flow Leakage', sublabel: 'High marketing spend with eroding net return' },
+  { value: 'CONSUMER_ATTACHMENT', label: 'Consumer Scope & Retention', sublabel: 'Transactional churn; low lifetime attachment' },
+  { value: 'COMPREHENSIVE_SYSTEM', label: 'Full System Integration', sublabel: 'Harmonizing brand, marketing, and operations' },
 ];
 
 export const TIMELINES: QualificationOption[] = [
   { value: 'IMMEDIATE', label: 'Immediate (Next 14 Days)' },
   { value: 'WITHIN_30_DAYS', label: 'Within 30 Days' },
   { value: 'NEXT_QUARTER', label: 'Next Quarter' },
-  { value: 'EXPLORATORY', label: 'Diagnostic Exploration' },
+  { value: 'EXPLORATORY', label: 'Strategic Evaluation' },
 ];
 
 export const QUALIFICATION_CONFIG = {
   title: 'Request Strategic Consultation',
-  subtitle: 'Confidential Executive Diagnostic • Aligned for $700K+ Annual Trajectory',
+  subtitle: 'Confidential Executive Diagnostic • Aligned for Established Businesses ($700K+ Annual Revenue)',
   steps: [
     {
       step: 1,
-      title: 'Commercial Profile',
-      description: 'Tell us about your brand and commercial baseline.',
+      title: 'Commercial Profile & Engagement Track',
+      description: 'Your business baseline and preferred engagement structure.',
     },
     {
       step: 2,
-      title: 'Diagnostic Focus',
-      description: 'Identify where your machine requires strategic intervention.',
+      title: 'Primary Strategic Challenge',
+      description: 'Identify where your commercial machine requires intervention.',
     },
     {
       step: 3,
-      title: 'Executive Details',
-      description: 'Direct contact coordinates for confidential scheduling.',
+      title: 'Executive Coordinates',
+      description: 'Direct contact details for confidential scheduling.',
     },
   ],
 };

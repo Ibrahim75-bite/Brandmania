@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Container } from '@/presentation/components/layout/Container';
 import { Section } from '@/presentation/components/layout/Section';
@@ -8,6 +8,8 @@ import { BrandEye } from '@/presentation/components/primitives/BrandEye';
 import { CornerArcs } from '@/presentation/components/brand/CornerArcs';
 
 export const HeroSection: React.FC = () => {
+  const [selectedPerspective, setSelectedPerspective] = useState<'preference' | 'price'>('preference');
+
   return (
     <Section
       spacing="none"
@@ -82,9 +84,9 @@ export const HeroSection: React.FC = () => {
             position: 'relative',
             zIndex: 1,
             display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.3fr) minmax(0, 0.7fr)',
+            gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 0.75fr)',
             gap: 'var(--space-12)',
-            alignItems: 'flex-end',
+            alignItems: 'flex-start',
           }}
         >
           {/* Left Column: Monumental Campaign Assertion */}
@@ -107,7 +109,7 @@ export const HeroSection: React.FC = () => {
               <span style={{ color: 'var(--color-text-muted)' }}>/</span>
               <span>STRATEGIC ADVISORY</span>
               <span style={{ color: 'var(--color-text-muted)' }}>/</span>
-              <span>CAMPAIGN 2026</span>
+              <span>$700,000+ ANNUAL REVENUE</span>
             </div>
 
             {/* Monumental Headline */}
@@ -204,7 +206,7 @@ export const HeroSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Architectural Triad Backbone */}
+          {/* Right Column: Interactive Strategic Perspective (Non-blocking) */}
           <div
             style={{
               display: 'flex',
@@ -215,67 +217,216 @@ export const HeroSection: React.FC = () => {
               paddingBottom: 'var(--space-2)',
             }}
           >
+            <div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-family-mono)',
+                  fontSize: '11px',
+                  color: 'var(--color-brand-light-violet)',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  marginBottom: 'var(--space-3)',
+                }}
+              >
+                Strategic Perspective
+              </div>
+              <div
+                style={{
+                  fontSize: 'var(--font-size-sm)',
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: 1.45,
+                }}
+              >
+                How do you intend to scale your business?
+              </div>
+            </div>
+
+            {/* Perspective Selectors */}
             <div
               style={{
-                fontFamily: 'var(--font-family-mono)',
-                fontSize: '11px',
-                color: 'var(--color-brand-light-violet)',
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                padding: '4px',
+                borderRadius: '4px',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
               }}
+              role="tablist"
+              aria-label="Strategic perspective selector"
             >
-              The Structural Backbone
+              <button
+                type="button"
+                role="tab"
+                aria-selected={selectedPerspective === 'preference'}
+                onClick={() => setSelectedPerspective('preference')}
+                style={{
+                  padding: '10px 14px',
+                  fontSize: '12px',
+                  fontFamily: 'var(--font-family-mono)',
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  fontWeight: selectedPerspective === 'preference' ? 700 : 500,
+                  color: selectedPerspective === 'preference' ? '#ffffff' : 'var(--color-text-muted)',
+                  background:
+                    selectedPerspective === 'preference'
+                      ? 'rgba(142, 0, 250, 0.28)'
+                      : 'transparent',
+                  border:
+                    selectedPerspective === 'preference'
+                      ? '1px solid rgba(142, 0, 250, 0.6)'
+                      : '1px solid transparent',
+                  borderRadius: '2px',
+                  cursor: 'pointer',
+                  transition: 'all var(--transition-fast)',
+                }}
+              >
+                Command Preference
+              </button>
+
+              <button
+                type="button"
+                role="tab"
+                aria-selected={selectedPerspective === 'price'}
+                onClick={() => setSelectedPerspective('price')}
+                style={{
+                  padding: '10px 14px',
+                  fontSize: '12px',
+                  fontFamily: 'var(--font-family-mono)',
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  fontWeight: selectedPerspective === 'price' ? 700 : 500,
+                  color: selectedPerspective === 'price' ? '#ffffff' : 'var(--color-text-muted)',
+                  background:
+                    selectedPerspective === 'price'
+                      ? 'rgba(255, 255, 255, 0.08)'
+                      : 'transparent',
+                  border:
+                    selectedPerspective === 'price'
+                      ? '1px solid rgba(255, 255, 255, 0.2)'
+                      : '1px solid transparent',
+                  borderRadius: '2px',
+                  cursor: 'pointer',
+                  transition: 'all var(--transition-fast)',
+                }}
+              >
+                Compete On Price
+              </button>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
-              <div>
-                <div style={{ fontSize: 'var(--font-size-xl)', fontWeight: 700, color: '#ffffff' }}>
-                  01 / Brand Direction
+            {/* Dynamic Perspective Content */}
+            {selectedPerspective === 'preference' ? (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--space-5)',
+                  animation: 'fadeIn 0.3s ease-out',
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: 'var(--font-size-lg)', fontWeight: 700, color: '#ffffff' }}>
+                    01 / Brand Direction
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 'var(--font-size-xs)',
+                      color: 'var(--color-text-secondary)',
+                      marginTop: '4px',
+                      lineHeight: 1.45,
+                    }}
+                  >
+                    Perception dictates pricing power. Aligning what your business is with what the market perceives sets the ceiling of what you can charge.
+                  </div>
                 </div>
-                <div
-                  style={{
-                    fontSize: 'var(--font-size-xs)',
-                    color: 'var(--color-text-secondary)',
-                    marginTop: '4px',
-                    lineHeight: 1.45,
-                  }}
-                >
-                  Perception dictates pricing power. What the market perceives sets the ceiling of what you can charge.
-                </div>
-              </div>
 
-              <div>
-                <div style={{ fontSize: 'var(--font-size-xl)', fontWeight: 700, color: '#ffffff' }}>
-                  02 / Margin Recovery
+                <div>
+                  <div style={{ fontSize: 'var(--font-size-lg)', fontWeight: 700, color: '#ffffff' }}>
+                    02 / Margin Recovery
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 'var(--font-size-xs)',
+                      color: 'var(--color-text-secondary)',
+                      marginTop: '4px',
+                      lineHeight: 1.45,
+                    }}
+                  >
+                    Fix the machine before buying more traffic. Full commercial data audits across operations to stop silent revenue leakage.
+                  </div>
                 </div>
-                <div
-                  style={{
-                    fontSize: 'var(--font-size-xs)',
-                    color: 'var(--color-text-secondary)',
-                    marginTop: '4px',
-                    lineHeight: 1.45,
-                  }}
-                >
-                  Fix the machine before buying more traffic. Stop the silent evaporation of operating cash flow.
-                </div>
-              </div>
 
-              <div>
-                <div style={{ fontSize: 'var(--font-size-xl)', fontWeight: 700, color: '#ffffff' }}>
-                  03 / Consumer Scope
+                <div>
+                  <div style={{ fontSize: 'var(--font-size-lg)', fontWeight: 700, color: '#ffffff' }}>
+                    03 / Consumer Scope
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 'var(--font-size-xs)',
+                      color: 'var(--color-text-secondary)',
+                      marginTop: '4px',
+                      lineHeight: 1.45,
+                    }}
+                  >
+                    Understand the mind before asking for the capital. Decoding behavioral economics, status motivations, and identity attachment.
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--space-4)',
+                  padding: 'var(--space-4)',
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: '2px',
+                  animation: 'fadeIn 0.3s ease-out',
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: 'var(--font-family-mono)',
+                    fontSize: '11px',
+                    color: '#ff6b6b',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  The Commoditization Trap
+                </div>
+                <div
+                  style={{
+                    fontSize: 'var(--font-size-sm)',
+                    color: '#ffffff',
+                    fontWeight: 600,
+                    lineHeight: 1.4,
+                  }}
+                >
+                  &ldquo;When price is your only differentiator, margin evaporates before advertising pays for itself.&rdquo;
                 </div>
                 <div
                   style={{
                     fontSize: 'var(--font-size-xs)',
                     color: 'var(--color-text-secondary)',
-                    marginTop: '4px',
-                    lineHeight: 1.45,
+                    lineHeight: 1.5,
                   }}
                 >
-                  Understand the mind before asking for the capital. Behavioral economics and identity attachment.
+                  Discounting temporarily lifts sales volume while permanently degrading market perception. Customer acquisition costs climb, customer loyalty drops, and enterprise value stagnates.
+                </div>
+                <div
+                  style={{
+                    fontSize: '11px',
+                    color: 'var(--color-brand-light-violet)',
+                    fontFamily: 'var(--font-family-mono)',
+                    marginTop: 'var(--space-2)',
+                  }}
+                >
+                  Solution: Transition to engineered brand preference &rarr;
                 </div>
               </div>
-            </div>
+            )}
 
             <div
               style={{
@@ -288,7 +439,7 @@ export const HeroSection: React.FC = () => {
                 fontFamily: 'var(--font-family-mono)',
               }}
             >
-              Strategic Scope: $700,000+ Annual Revenue
+              Audience Scope: Established Businesses ($700,000+ Annual Revenue)
             </div>
           </div>
         </div>
