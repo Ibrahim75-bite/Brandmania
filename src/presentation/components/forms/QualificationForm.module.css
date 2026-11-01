@@ -151,7 +151,7 @@
 }
 
 .trackTitle {
-  font-family: var(--font-family-serif);
+  font-family: var(--font-serif), Georgia, serif;
   font-size: 15px;
   font-weight: 700;
   color: #ffffff;

@@ -86,7 +86,7 @@ export const MethodologySection: React.FC = () => {
                 maxWidth: '960px',
               }}
             >
-              Rigor Over Rhetoric.
+              Institutional Precision.
             </h2>
             <p
               style={{
@@ -98,9 +98,8 @@ export const MethodologySection: React.FC = () => {
                 margin: 0,
               }}
             >
-              We do not invent vanity statistics or publish unverified marketing claims. Our credibility
-              is founded on factual commercial rigor, transparent diagnostic frameworks, and strict
-              client confidentiality.
+              Every diagnostic engagement is anchored in audited commercial analysis, transparent
+              unit-economic frameworks, and strict executive confidentiality.
             </p>
           </div>
 

@@ -12,6 +12,7 @@ import { VSLPlayer } from '@/presentation/components/primitives/VSLPlayer';
 import { PainPointCard } from '@/presentation/components/primitives/PainPointCard';
 import { StatBlock } from '@/presentation/components/primitives/StatBlock';
 import { ProofQuote } from '@/presentation/components/primitives/ProofQuote';
+import { Check } from '@phosphor-icons/react/dist/ssr';
 import { QualificationForm } from '@/presentation/components/forms/QualificationForm';
 
 interface FunnelPageProps {
@@ -483,7 +484,7 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
                       gap: 'var(--space-2)',
                     }}
                   >
-                    <span style={{ color: 'var(--color-status-success)' }}>✓</span>
+                    <Check size={16} weight="bold" color="var(--color-status-success)" />
                     <span>{crit}</span>
                   </li>
                 ))}

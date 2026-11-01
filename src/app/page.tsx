@@ -8,58 +8,53 @@ import { SystemSection } from '@/presentation/components/sections/SystemSection'
 import { BrandDirectionSection } from '@/presentation/components/sections/BrandDirectionSection';
 import { MarginRecoverySection } from '@/presentation/components/sections/MarginRecoverySection';
 import { ConsumerScopeSection } from '@/presentation/components/sections/ConsumerScopeSection';
-import { CapabilitiesSection } from '@/presentation/components/sections/CapabilitiesSection';
-import { MethodologySection } from '@/presentation/components/sections/MethodologySection';
-import { BriefingSection } from '@/presentation/components/sections/BriefingSection';
 import { ArtifactGallery } from '@/presentation/components/sections/ArtifactGallery';
+import { CapabilitiesSection } from '@/presentation/components/sections/CapabilitiesSection';
 import { QualificationSection } from '@/presentation/components/sections/QualificationSection';
 
-export const metadata: Metadata = {
-  title: 'BRANDMANIA | Branded For The Best — Strategic Brand Architecture',
+import { constructMetadata } from '@/infrastructure/seo/metadata';
+
+export const metadata: Metadata = constructMetadata({
+  title: 'BRANDMANIA — Branded for the Best | Commercial Advisory',
   description:
-    'Strategic brand architecture, commercial margin recovery, and consumer scope engineering for enterprises and high-trajectory brands generating $700,000+ in annual revenue.',
-};
+    'Strategic branding and commercial advisory for established brands ($700,000+ annual revenue) across Brand Direction, Margin Recovery, and Consumer Scope.',
+  canonicalPath: '',
+});
 
 export default function HomePage() {
   return (
     <div style={{ position: 'relative', overflow: 'hidden' }}>
-      {/* React Bits Tactile Film Grain Canvas */}
-      <NoiseOverlay patternAlpha={11} patternRefreshInterval={3} />
+      {/* Tactile Micro-Noise Texture */}
+      <NoiseOverlay patternAlpha={9} patternRefreshInterval={3} />
 
-      {/* 01. Hero / Brand Introduction */}
+      {/* 01. Architectural Hero Stage */}
       <HeroSection />
 
-      {/* 02. The BRANDMANIA Worldview */}
+      {/* 02. The Manifesto */}
       <WorldviewSection />
 
       {/* 03. The Strategic Dilemma */}
       <DilemmaSection />
 
-      {/* 04. The BRANDMANIA System */}
+      {/* 04. The Continuous Causal System */}
       <SystemSection />
 
-      {/* 05. Flagship I: Brand Direction */}
+      {/* 05. Flagship 01 — Brand Direction (Warm Museum Alabaster Stage) */}
       <BrandDirectionSection />
 
-      {/* 06. Flagship II: Margin Recovery */}
+      {/* 06. Flagship 02 — Margin Recovery (Deep Obsidian Commercial Audit Table) */}
       <MarginRecoverySection />
 
-      {/* 07. Flagship III: Consumer Scope */}
+      {/* 07. Flagship 03 — Consumer Scope (Spatial Behavioral Lens with BrandEye Watermark) */}
       <ConsumerScopeSection />
 
-      {/* 08. Integrated Supporting Capabilities */}
-      <CapabilitiesSection />
-
-      {/* 09. The Strategic Briefing (Cinematic Interlude) */}
-      <BriefingSection />
-
-      {/* 10. Brand Materiality & Artifact Exhibition */}
+      {/* 08. Selected Work — Campaign Artifact Lookbook */}
       <ArtifactGallery />
 
-      {/* 11. Methodology & Rigor (Process Ledger & Confidentiality) */}
-      <MethodologySection />
+      {/* 09. Supporting Capabilities — Full-Spectrum Architecture */}
+      <CapabilitiesSection />
 
-      {/* 12. Strategic Intake Terminal */}
+      {/* 10. Qualification & Strategic Consultation Intake */}
       <QualificationSection />
     </div>
   );

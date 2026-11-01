@@ -13,11 +13,21 @@ export interface NavLink {
 export const MAIN_NAV_LINKS: NavLink[] = [
   { label: 'Manifesto', href: '/#manifesto' },
   { label: 'System', href: '/#system' },
-  { label: 'Disciplines', href: '/#brand-direction' },
-  { label: 'Work', href: '/#campaigns' },
+  { label: 'Disciplines', href: '/#disciplines' },
+  { label: 'Work', href: '/#work' },
 ];
 
 export const FOOTER_SECTIONS = [
+  {
+    title: 'Architecture & System',
+    links: [
+      { label: 'Manifesto', href: '/#manifesto' },
+      { label: 'Continuous System', href: '/#system' },
+      { label: 'Disciplines', href: '/#disciplines' },
+      { label: 'Selected Work', href: '/#work' },
+      { label: 'Qualification Intake', href: '/#qualification' },
+    ],
+  },
   {
     title: 'Flagship Disciplines',
     links: [
@@ -37,18 +47,10 @@ export const FOOTER_SECTIONS = [
     ],
   },
   {
-    title: 'Firm & Philosophy',
-    links: [
-      { label: 'About & Philosophy', href: '/about' },
-      { label: 'Selected Work', href: '/work' },
-      { label: 'Executive Contact', href: '/contact' },
-    ],
-  },
-  {
     title: 'Legal & Compliance',
     links: [
       { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Engagement', href: '/terms' },
+      { label: 'Terms & Conditions', href: '/terms' },
       { label: 'Cookie Policy', href: '/cookies' },
     ],
   },

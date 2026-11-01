@@ -6,7 +6,12 @@ export default defineConfig({
     environment: 'happy-dom',
     globals: true,
     setupFiles: [],
-    include: ['tests/**/*.test.ts', 'tests/**/*.test.tsx'],
+    include: [
+      'tests/**/*.test.ts',
+      'tests/**/*.test.tsx',
+      'src/**/*.test.ts',
+      'src/**/*.test.tsx',
+    ],
     exclude: ['node_modules', '.next', 'dist', 'prompts.chat', 'references', 'bigspring-light-nextjs'],
   },
   resolve: {

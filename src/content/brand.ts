@@ -69,7 +69,7 @@ export const BRAND: BrandConfig = {
   internalPhilosophy:
     "Let people applaud your second to greatest work, because you're creating your greatest.",
   mottos: {
-    primary: 'Decyphering the Dilemma of Branding',
+    primary: 'Commanding Category Leadership',
     secondary: 'Taking over minds',
   },
   commercialPhilosophy: "Let's make you a market leader.",

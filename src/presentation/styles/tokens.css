@@ -1,8 +1,16 @@
 :root {
   /* ============================================================
-     BRANDMANIA Core Palette - Regal Imperial Purple & Obsidian
+     BRANDMANIA Tonal Surface Pacing & Color Architecture
      ============================================================ */
-  --color-bg-base: #070709;
+  --surface-obsidian: #070709;
+  --surface-imperial: linear-gradient(165deg, #1A0033 0%, #090014 100%);
+  --surface-exhibition-light: #F3F0EA;
+  --color-museum-ink: #09080C;
+  --color-museum-violet: #4A0099;
+  --color-museum-muted: #2A2830;
+  --color-museum-border: rgba(9, 8, 12, 0.12);
+
+  --color-bg-base: var(--surface-obsidian);
   --color-bg-surface: #0e0e13;
   --color-bg-elevated: #161620;
   --color-bg-overlay: rgba(7, 7, 9, 0.88);
@@ -13,9 +21,9 @@
   --color-border-active: rgba(168, 85, 247, 0.55);
   --color-border-glow: rgba(192, 132, 252, 0.75);
 
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #9496a8;
-  --color-text-muted: #626477;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #EAE6F0;
+  --color-text-muted: #A8A0B8;
   --color-text-inverse: #070709;
 
   /* BRANDMANIA Accents: Imperial Royal Violet, Neon & Electric Spectrum */
@@ -62,10 +70,17 @@
   --color-status-info: #3b82f6;
   --color-status-info-bg: rgba(59, 130, 246, 0.12);
 
-  /* Typography Scale */
-  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-family-serif: 'Playfair Display', Georgia, Cambria, 'Times New Roman', serif;
-  --font-family-mono: 'JetBrains Mono', Consolas, Monaco, 'Courier New', monospace;
+  /* Editorial Typography Scale - Instrument Serif & Plus Jakarta Sans */
+  /* next/font owns --font-serif, --font-sans and --font-mono on <html>. */
+  --font-Editorial: var(--font-serif);
+  --font-Sans: var(--font-sans);
+  --font-Mono: var(--font-mono);
+  --font-display: var(--font-serif), Georgia, serif;
+  --font-editorial: var(--font-serif), Georgia, serif;
+  --font-family-display: var(--font-serif), Georgia, serif;
+  --font-family-serif: var(--font-serif), Georgia, serif;
+  --font-family-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-mono: var(--font-mono), monospace;
 
   --font-size-xs: 0.75rem;    /* 12px */
   --font-size-sm: 0.875rem;   /* 14px */

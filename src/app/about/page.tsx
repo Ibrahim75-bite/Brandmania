@@ -13,7 +13,7 @@ import { FOUNDER } from '@/content/founder';
 export const metadata: Metadata = {
   title: 'Philosophy & Leadership | BRANDMANIA',
   description:
-    'The philosophy behind BRANDMANIA: Decyphering the Dilemma of Branding, taking over minds, and engineering market leaders.',
+    'The philosophy behind BRANDMANIA: Commanding Category Leadership, taking over minds, and engineering market leaders.',
 };
 
 export default function AboutPage() {
@@ -36,7 +36,7 @@ export default function AboutPage() {
                 marginBottom: 'var(--space-4)',
               }}
             >
-              Decyphering The Dilemma of Branding
+              Commanding Category Leadership
             </h1>
             <p style={{ fontSize: 'var(--font-size-xl)', color: 'var(--color-accent-purple-bright)', fontStyle: 'italic', marginBottom: 'var(--space-4)' }}>
               “{BRAND.internalPhilosophy}”

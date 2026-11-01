@@ -1,55 +1,120 @@
 'use client';
 
-import React from 'react';
-import { Container } from '@/presentation/components/layout/Container';
+import React, { useState, useRef } from 'react';
+import {
+  MegaphoneSimple,
+  TrendUp,
+  Target,
+  PenNib,
+  VideoCamera,
+  Coins,
+  Buildings,
+  UsersThree,
+  Kanban,
+  Robot,
+  Cpu,
+  type Icon,
+} from '@phosphor-icons/react';
 import { Section } from '@/presentation/components/layout/Section';
+import { useSafeTriangle } from '@/presentation/hooks/useSafeTriangle';
+
+interface CapabilityItem {
+  name: string;
+  desc: string;
+  icon: Icon;
+}
 
 interface CapabilityCluster {
   roman: string;
   name: string;
-  supporting: string;
-  description: string;
-  capabilities: string[];
+  subtitle: string;
+  items: CapabilityItem[];
 }
 
 export const CapabilitiesSection: React.FC = () => {
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const detailPanelRef = useRef<HTMLDivElement>(null);
+
+  const { handleRowHover } = useSafeTriangle({
+    detailRef: detailPanelRef,
+    suppressionDelayMs: 180,
+  });
+
   const clusters: CapabilityCluster[] = [
     {
       roman: 'I',
       name: 'Communication & Growth Execution',
-      supporting: 'Tethered to Brand Direction & Consumer Scope',
-      description:
-        'Customer acquisition and market resonance that respects brand authority. We drive qualified commercial demand without diluting category standing or cheapening market perception.',
-      capabilities: [
-        'Digital Marketing',
-        'Growth Marketing',
-        'Performance Marketing',
-        'Content Creation',
-        'Performance Content Creation',
+      subtitle: 'Digital reach, growth, and performance creative',
+      items: [
+        {
+          name: 'Digital Marketing',
+          desc: 'High-status multi-channel communication calibrated to executive and high-ticket consumer psychology.',
+          icon: MegaphoneSimple,
+        },
+        {
+          name: 'Growth Marketing',
+          desc: 'Data-driven funnel engineering expanding market footprint without discounting brand prestige.',
+          icon: TrendUp,
+        },
+        {
+          name: 'Performance Marketing',
+          desc: 'Paid media acquisition governed strictly by contribution profit and verified customer lifetime value.',
+          icon: Target,
+        },
+        {
+          name: 'Content Creation',
+          desc: 'Editorial-grade narrative and visual assets articulating craftsmanship and institutional certainty.',
+          icon: PenNib,
+        },
+        {
+          name: 'Performance Content Creation',
+          desc: 'High-converting creative assets built for rapid algorithmic arrest and verified buyer action.',
+          icon: VideoCamera,
+        },
       ],
     },
     {
       roman: 'II',
       name: 'Commercial & Operational Architecture',
-      supporting: 'Tethered to Margin Recovery',
-      description:
-        'Operational, financial, and organizational alignment ensuring fulfillment runs with extreme precision, unit economics remain healthy, and operating margins are preserved.',
-      capabilities: [
-        'Finance & Operations',
-        'Strategic Management',
-        'Team Management',
-        'Project Management',
+      subtitle: 'Finance, strategic management, teams, and delivery',
+      items: [
+        {
+          name: 'Finance & Operations',
+          desc: 'Gross margin governance, unit contribution modeling, and capital allocation frameworks.',
+          icon: Coins,
+        },
+        {
+          name: 'Strategic Management',
+          desc: 'Executive roadmap alignment, category positioning defenses, and market expansion planning.',
+          icon: Buildings,
+        },
+        {
+          name: 'Team Management',
+          desc: 'High-performance team orchestration, operational accountability, and cross-functional standards.',
+          icon: UsersThree,
+        },
+        {
+          name: 'Project Management',
+          desc: 'Surgical delivery velocity, milestone governance, and multi-disciplinary operational execution.',
+          icon: Kanban,
+        },
       ],
     },
     {
       roman: 'III',
       name: 'Operational Leverage Systems',
-      supporting: 'Accelerating Execution Across All Disciplines',
-      description:
-        'Deploying intelligent automation and connected systems for operational velocity, workflow acceleration, and real-time commercial data intelligence under human strategic governance.',
-      capabilities: [
-        'AI Automation',
-        'AI Connected Systems',
+      subtitle: 'Connected automation and intelligence',
+      items: [
+        {
+          name: 'AI Automation',
+          desc: 'Streamlining repetitive operational handoffs, customer workflows, and operational fulfillment friction.',
+          icon: Robot,
+        },
+        {
+          name: 'AI Connected Systems',
+          desc: 'Unified real-time data pipelines linking marketing inputs, operational handoffs, and financial outputs.',
+          icon: Cpu,
+        },
       ],
     },
   ];
@@ -59,168 +124,178 @@ export const CapabilitiesSection: React.FC = () => {
       id="capabilities"
       spacing="none"
       style={{
-        backgroundColor: '#070709',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--surface-obsidian, #070709)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
         position: 'relative',
-        paddingTop: 'var(--space-24)',
-        paddingBottom: 'var(--space-24)',
+        width: '100%',
+        maxWidth: '100vw',
+        padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 3vw, 4rem)',
         overflow: 'hidden',
       }}
     >
-      <Container>
-        <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          {/* Section Indicator */}
-          <div
+      {/* Tier 1: Swiss Architectural Index Strip */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '1.5rem',
+          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+          padding: '0.85rem 0',
+          marginBottom: 'clamp(2.5rem, 5vw, 4.5rem)',
+          fontFamily: 'var(--font-mono, monospace)',
+          fontSize: '11px',
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'rgba(255, 255, 255, 0.55)',
+        }}
+      >
+        <div>
+          <span style={{ color: '#C882FF', marginRight: '6px' }}>(09)</span> / FULL-SPECTRUM EXECUTION
+        </div>
+        <div>SUPPORTING ARCHITECTURE</div>
+        <div>MARKETING • OPERATIONS • AI</div>
+        <div style={{ textAlign: 'right' }}>11 SPECIALIZED DISCIPLINES</div>
+      </div>
+
+      {/* Tier 2: Editorial Monumental Display Header */}
+      <div style={{ marginBottom: 'clamp(3rem, 6vw, 5rem)' }}>
+        <h2
+          style={{
+            fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
+            fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+            fontWeight: 400,
+            lineHeight: 1.02,
+            letterSpacing: '-0.025em',
+            color: '#ffffff',
+            margin: 0,
+            maxWidth: '1200px',
+          }}
+        >
+          Integrated capabilities{' '}
+          <span
             style={{
-              fontFamily: 'var(--font-family-mono)',
-              fontSize: '11px',
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              color: 'var(--color-brand-light-violet)',
-              marginBottom: 'var(--space-10)',
+              fontStyle: 'italic',
+              color: 'var(--color-brand-light-violet, #C882FF)',
             }}
           >
-            09 / SUPPORTING CAPABILITIES &bull; THE BROADSHEET INDEX
-          </div>
+            across marketing, operations, and AI.
+          </span>
+        </h2>
+      </div>
 
-          {/* Monumental Headline */}
-          <div style={{ marginBottom: 'var(--space-16)' }}>
-            <h2
-              style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(2.8rem, 6vw, 5.4rem)',
-                fontWeight: 700,
-                lineHeight: 1.02,
-                letterSpacing: '-0.03em',
-                color: '#ffffff',
-                margin: 0,
-              }}
-            >
-              The Exact 11 Capabilities.
-              <br />
-              <span style={{ color: 'var(--color-brand-light-violet)', fontStyle: 'italic' }}>
-                Tethered to the three flagships.
-              </span>
-            </h2>
-            <p
-              style={{
-                fontSize: 'clamp(1.1rem, 1.35vw, 1.25rem)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.65,
-                maxWidth: '820px',
-                marginTop: 'var(--space-6)',
-                margin: 0,
-              }}
-            >
-              Our three flagship disciplines—Brand Direction, Margin Recovery, and Consumer Scope—are
-              operationalized through 11 disciplined execution capabilities spanning commercial
-              marketing, financial operations, and modern leverage systems.
-            </p>
-          </div>
-
-          {/* 3-Column Broadsheet Table (Zero cards, 1px titanium hairlines) */}
+      {/* Tier 3: Edge-to-Edge 3-Cluster Swiss Grid */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '1px',
+          background: 'rgba(255, 255, 255, 0.12)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+        }}
+      >
+        {clusters.map((cluster) => (
           <div
+            key={cluster.roman}
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: 0,
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+              background: '#070709',
+              padding: 'clamp(2rem, 3vh, 3rem) clamp(1.5rem, 2vw, 2.5rem)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '2rem',
             }}
           >
-            {clusters.map((cluster, idx) => (
+            {/* Cluster Top Metadata */}
+            <div style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.12)', paddingBottom: '1.5rem' }}>
               <div
-                key={cluster.roman}
                 style={{
-                  padding: 'var(--space-10) var(--space-8)',
-                  borderRight: idx < 2 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'var(--space-6)',
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#C882FF',
+                  letterSpacing: '0.12em',
+                  marginBottom: '0.5rem',
                 }}
               >
-                <div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-family-mono)',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      color: 'var(--color-brand-light-violet)',
-                      letterSpacing: '0.15em',
-                      marginBottom: 'var(--space-2)',
-                    }}
-                  >
-                    CLUSTER {cluster.roman}
-                  </div>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-family-serif)',
-                      fontSize: 'clamp(1.35rem, 1.8vw, 1.7rem)',
-                      fontWeight: 700,
-                      color: '#ffffff',
-                      margin: 0,
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    {cluster.name}
-                  </h3>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-family-mono)',
-                      fontSize: '10px',
-                      color: 'var(--color-text-muted)',
-                      letterSpacing: '0.08em',
-                      textTransform: 'uppercase',
-                      marginTop: '6px',
-                    }}
-                  >
-                    {cluster.supporting}
-                  </div>
-                </div>
+                CLUSTER {cluster.roman}
+              </div>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
+                  fontSize: 'clamp(1.75rem, 2.2vw, 2.2rem)',
+                  fontWeight: 400,
+                  lineHeight: 1.1,
+                  color: '#ffffff',
+                  margin: '0 0 0.5rem 0',
+                }}
+              >
+                {cluster.name}
+              </h3>
+              <div
+                style={{
+                  fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                  fontSize: '12px',
+                  color: 'rgba(255, 255, 255, 0.45)',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                {cluster.subtitle}
+              </div>
+            </div>
 
-                <p
-                  style={{
-                    fontSize: 'var(--font-size-xs)',
-                    color: 'var(--color-text-secondary)',
-                    lineHeight: 1.65,
-                    margin: 0,
-                  }}
-                >
-                  {cluster.description}
-                </p>
-
-                {/* Capabilities List */}
-                <div
-                  style={{
-                    paddingTop: 'var(--space-6)',
-                    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 'var(--space-3)',
-                  }}
-                >
-                  {cluster.capabilities.map((cap) => (
-                    <div
-                      key={cap}
+            {/* Cluster Capability Rows */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {cluster.items.map((item) => {
+                const Icon = item.icon;
+                const isHovered = hoveredItem === item.name;
+                return (
+                  <div
+                    key={item.name}
+                    ref={isHovered ? detailPanelRef : undefined}
+                    onMouseEnter={() => handleRowHover(() => setHoveredItem(item.name))}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    style={{
+                      padding: '1rem',
+                      border: isHovered
+                        ? '1px solid rgba(200, 130, 255, 0.35)'
+                        : '1px solid rgba(255, 255, 255, 0.06)',
+                      background: isHovered ? 'rgba(142, 0, 250, 0.08)' : 'rgba(255, 255, 255, 0.015)',
+                      borderRadius: '2px',
+                      transition: 'all 0.2s ease',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
+                      <Icon size={18} weight="duotone" color={isHovered ? '#C882FF' : 'rgba(255, 255, 255, 0.5)'} />
+                      <div
+                        style={{
+                          fontFamily: 'var(--font-serif), Georgia, serif',
+                          fontSize: '1.15rem',
+                          color: isHovered ? '#ffffff' : 'rgba(255, 255, 255, 0.9)',
+                          transition: 'color 0.2s ease',
+                        }}
+                      >
+                        {item.name}
+                      </div>
+                    </div>
+                    <p
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 'var(--space-3)',
-                        fontSize: 'var(--font-size-sm)',
-                        color: '#ffffff',
-                        fontWeight: 500,
+                        fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                        fontSize: '12.5px',
+                        color: 'rgba(255, 255, 255, 0.6)',
+                        lineHeight: 1.5,
+                        margin: 0,
                       }}
                     >
-                      <span style={{ color: 'var(--color-brand-light-violet)', fontSize: '10px' }}>&bull;</span>
-                      <span>{cap}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+                      {item.desc}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </Container>
+        ))}
+      </div>
     </Section>
   );
 };

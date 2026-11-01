@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /dev/
-Disallow: /api/
-
-Sitemap: https://brandmania.agency/sitemap.xml

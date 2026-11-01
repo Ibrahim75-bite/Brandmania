@@ -1,69 +1,76 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Container } from '@/presentation/components/layout/Container';
+import React, { useState, useRef } from 'react';
 import { Section } from '@/presentation/components/layout/Section';
 import { BrandEye } from '@/presentation/components/primitives/BrandEye';
+import { SpotlightCard } from '@/presentation/components/animations/SpotlightCard';
+import { useSafeTriangle } from '@/presentation/hooks/useSafeTriangle';
 
-interface BehavioralDimension {
+interface Dimension {
   id: string;
   name: string;
   principle: string;
-  application: string;
+  thesis: string;
 }
 
 export const ConsumerScopeSection: React.FC = () => {
-  const [activeDimension, setActiveDimension] = useState<number>(0);
+  const [activeId, setActiveId] = useState<string>('01');
+  const detailPanelRef = useRef<HTMLDivElement>(null);
 
-  const dimensions: BehavioralDimension[] = [
+  const { handleRowHover } = useSafeTriangle({
+    detailRef: detailPanelRef,
+    suppressionDelayMs: 180,
+  });
+
+  const dimensions: Dimension[] = [
     {
       id: '01',
       name: 'Perceived Value',
       principle: 'Perception dictates willingness-to-pay far more than production cost.',
-      application:
-        'When market perception elevates an offering above commodity comparisons, buyers evaluate value by the status and certainty it delivers rather than scrutinizing unit costs.',
+      thesis:
+        'When market perception elevates an offering above commodity comparisons, buyers evaluate value by status and certainty rather than unit manufacturing cost.',
     },
     {
       id: '02',
       name: 'Psychological Pricing',
       principle: 'Price resistance is an emotional reaction to uncalibrated value contrast.',
-      application:
-        'We engineer pricing architecture, tier contrast, and contextual framing so premium figures feel natural and justified, extinguishing discount demands before they arise.',
+      thesis:
+        'Engineering pricing architecture and contextual framing so premium figures feel natural, extinguishing discount friction before it arises.',
     },
     {
       id: '03',
       name: 'Emotional Attachment',
       principle: 'Rational logic justifies decisions, but emotional resonance drives them.',
-      application:
-        'We design visceral brand rituals and communication cues that build irrational customer preference—the deepest moat against competitor feature wars.',
+      thesis:
+        'Designing visceral brand rituals and communication cues that build irrational customer preference—the deepest moat against competitor feature wars.',
     },
     {
       id: '04',
       name: 'Social Identity',
       principle: 'Customers do not merely buy products; they buy confirmation of who they are.',
-      application:
-        'We turn your brand into a symbolic badge of self-definition, aligning ownership with the customer’s desired peer recognition and aspirational identity.',
+      thesis:
+        'Turning your brand into a symbolic badge of self-definition, aligning ownership with the customer’s aspirational peer identity.',
     },
     {
       id: '05',
       name: 'Status Perception',
       principle: 'High-ticket buyers seek risk mitigation and prestige validation.',
-      application:
-        'Through disciplined visual standards, surgical tone of voice, and uncompromised restraint, we establish institutional prestige that commands immediate respect.',
+      thesis:
+        'Disciplined visual standards and surgical tone of voice establish institutional prestige that commands immediate market respect.',
     },
     {
       id: '06',
       name: 'Enduring Loyalty',
       principle: 'A single transaction is a test; lifetime loyalty is an engineered ecosystem.',
-      application:
-        'We construct post-purchase affirmation systems and customer experience loops that transform one-time purchasers into generational brand ambassadors.',
+      thesis:
+        'Constructing post-purchase affirmation systems and customer loops that transform one-time purchasers into generational brand ambassadors.',
     },
     {
       id: '07',
       name: 'Decision-Making Architecture',
       principle: 'Hesitation is caused by perceived transition risk and cognitive friction.',
-      application:
-        'We map the customer mind across the entire consideration journey, systematically resolving unspoken doubts and removing cognitive friction at the point of decision.',
+      thesis:
+        'Systematically resolving unspoken doubts and removing cognitive friction at the precise psychological point of decision.',
     },
   ];
 
@@ -72,219 +79,256 @@ export const ConsumerScopeSection: React.FC = () => {
       id="consumer-scope"
       spacing="none"
       style={{
-        backgroundColor: '#070709',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        background: 'linear-gradient(180deg, #110022 0%, #070709 100%)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
         position: 'relative',
-        paddingTop: 'var(--space-24)',
-        paddingBottom: 'var(--space-24)',
+        width: '100%',
+        maxWidth: '100vw',
+        padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 3vw, 4rem)',
         overflow: 'hidden',
       }}
     >
-      <Container>
-        <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          {/* Section Indicator */}
-          <div
+      {/* Monumental BrandEye Watermark in Background (70vw) */}
+      <div
+        style={{
+          position: 'absolute',
+          right: '-10vw',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: '65vw',
+          maxWidth: '920px',
+          height: '65vw',
+          maxHeight: '920px',
+          opacity: 0.045,
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+        aria-hidden="true"
+      >
+        <BrandEye size="xl" glow={false} idSuffix="watermark_scope_swiss" />
+      </div>
+
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        {/* Tier 1: Swiss Architectural Index Strip */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '1.5rem',
+            borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+            padding: '0.85rem 0',
+            marginBottom: 'clamp(2.5rem, 5vw, 4.5rem)',
+            fontFamily: 'var(--font-mono, monospace)',
+            fontSize: '11px',
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: 'rgba(255, 255, 255, 0.55)',
+          }}
+        >
+          <div>
+            <span style={{ color: '#C882FF', marginRight: '6px' }}>(04)</span> / FLAGSHIP III
+          </div>
+          <div>BEHAVIORAL ECONOMICS &amp; COGNITION</div>
+          <div>CONSUMER SCOPE SPECIFICATION</div>
+          <div style={{ textAlign: 'right' }}>7 BEHAVIORAL DIMENSIONS</div>
+        </div>
+
+        {/* Tier 2: Editorial Monumental Display Header */}
+        <div style={{ marginBottom: 'clamp(3rem, 6vw, 5rem)' }}>
+          <h2
             style={{
-              fontFamily: 'var(--font-family-mono)',
-              fontSize: '11px',
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              color: 'var(--color-brand-light-violet)',
-              marginBottom: 'var(--space-10)',
+              fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
+              fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+              fontWeight: 400,
+              lineHeight: 1.02,
+              letterSpacing: '-0.025em',
+              color: '#ffffff',
+              margin: 0,
+              maxWidth: '1200px',
             }}
           >
-            07 / FLAGSHIP III &bull; CONSUMER SCOPE
-          </div>
+            Every touchpoint engineered{' '}
+            <span
+              style={{
+                fontStyle: 'italic',
+                color: 'var(--color-brand-light-violet, #C882FF)',
+              }}
+            >
+              through human behavior.
+            </span>
+          </h2>
+        </div>
 
-          {/* Monumental Headline */}
-          <div style={{ marginBottom: 'var(--space-16)' }}>
-            <h2
-              style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(2.8rem, 6vw, 5.4rem)',
-                fontWeight: 700,
-                lineHeight: 1.02,
-                letterSpacing: '-0.03em',
-                color: '#ffffff',
-                margin: 0,
-              }}
-            >
-              Understand the mind
-              <br />
-              <span style={{ color: 'var(--color-brand-light-violet)', fontStyle: 'italic' }}>
-                before asking for the capital.
-              </span>
-            </h2>
-            <p
-              style={{
-                fontSize: 'clamp(1.1rem, 1.35vw, 1.25rem)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.65,
-                maxWidth: '820px',
-                marginTop: 'var(--space-6)',
-                margin: 0,
-              }}
-            >
-              Consumer Scope is the deliberate application of behavioral economics, cognitive
-              psychology, and status perception to your commercial architecture. We decode how customers
-              actually make decisions, what triggers their hesitation, and how to engineer natural,
-              unshakable brand attachment.
-            </p>
-          </div>
-
-          {/* Interactive BrandEye Focal Lens Spread (Zero Cards, No A/B Toggles) */}
-          <div
-            style={{
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-              paddingTop: 'var(--space-12)',
-              display: 'grid',
-              gridTemplateColumns: 'minmax(0, 0.85fr) minmax(0, 1.15fr)',
-              gap: 'var(--space-12)',
-              alignItems: 'center',
-            }}
-          >
-            {/* Left: The Optical Focal Lens (BrandEye Geometry) */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative',
-                padding: 'var(--space-8)',
-                borderRight: '1px solid rgba(255, 255, 255, 0.08)',
-              }}
-            >
-              <div
+        {/* Tier 3: Edge-to-Edge Architectural Index (7 Dimensions) */}
+        <div
+          style={{
+            borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {dimensions.map((dim) => {
+            const isActive = activeId === dim.id;
+            return (
+              <SpotlightCard
+                key={dim.id}
+                onMouseEnter={() => handleRowHover(() => setActiveId(dim.id))}
+                onClick={() => setActiveId(dim.id)}
                 style={{
-                  position: 'relative',
-                  width: '280px',
-                  height: '280px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+                  borderRadius: 0,
+                  borderInline: 'none',
+                  borderTop: 'none',
+                  padding: 'clamp(1.25rem, 2.5vh, 2.25rem) 0',
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  cursor: 'pointer',
+                  background: isActive ? 'rgba(142, 0, 250, 0.05)' : 'transparent',
                 }}
+                spotlightColor="rgba(200, 130, 255, 0.12)"
               >
-                {/* Subtle Concentric Aperture Rings */}
+                {/* Master Grid Row */}
                 <div
                   style={{
-                    position: 'absolute',
-                    inset: 0,
-                    borderRadius: '50%',
-                    border: '1px solid rgba(142, 0, 250, 0.25)',
-                    transition: 'all 0.4s ease-out',
+                    display: 'grid',
+                    gridTemplateColumns: 'minmax(60px, 80px) minmax(260px, 1.4fr) minmax(280px, 1.8fr) minmax(40px, 60px)',
+                    gap: 'clamp(1rem, 2vw, 2.5rem)',
+                    alignItems: 'center',
+                    padding: '0 1rem',
                   }}
-                />
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: '18%',
-                    borderRadius: '50%',
-                    border: '1px dashed rgba(255, 255, 255, 0.15)',
-                  }}
-                />
+                >
+                  {/* Step ID */}
+                  <div
+                    className="tabular-nums"
+                    style={{
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      color: isActive ? '#C882FF' : 'rgba(255, 255, 255, 0.35)',
+                      letterSpacing: '0.12em',
+                      transition: 'color 0.2s ease',
+                    }}
+                  >
+                    {dim.id}
+                  </div>
 
-                {/* Central Brand Eye Geometry */}
-                <BrandEye size="xl" glow={true} />
-              </div>
-
-              <div
-                style={{
-                  marginTop: 'var(--space-6)',
-                  fontFamily: 'var(--font-family-mono)',
-                  fontSize: '11px',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-brand-light-violet)',
-                  textAlign: 'center',
-                }}
-              >
-                Cognitive Aperture &bull; Dimension {dimensions[activeDimension].id} of 07
-              </div>
-            </div>
-
-            {/* Right: The 7 Behavioral Dimensions Selector & In-Place Diagnostic */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-              {/* Dimensional Selector Line */}
-              <div
-                style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '6px',
-                  paddingBottom: 'var(--space-4)',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                }}
-              >
-                {dimensions.map((dim, idx) => {
-                  const isActive = activeDimension === idx;
-                  return (
-                    <button
-                      key={dim.id}
-                      type="button"
-                      onClick={() => setActiveDimension(idx)}
+                  {/* Name in Instrument Serif */}
+                  <div>
+                    <h3
                       style={{
-                        padding: '6px 12px',
-                        background: isActive ? 'rgba(142, 0, 250, 0.2)' : 'transparent',
-                        border: isActive ? '1px solid rgba(142, 0, 250, 0.5)' : '1px solid rgba(255, 255, 255, 0.08)',
-                        color: isActive ? '#ffffff' : 'var(--color-text-muted)',
-                        fontFamily: 'var(--font-family-mono)',
-                        fontSize: '11px',
-                        letterSpacing: '0.06em',
-                        borderRadius: '2px',
-                        cursor: 'pointer',
-                        transition: 'all var(--transition-fast)',
+                        fontFamily: 'var(--font-serif), Georgia, serif',
+                        fontSize: 'clamp(1.8rem, 2.8vw, 2.6rem)',
+                        fontWeight: 400,
+                        lineHeight: 1.1,
+                        letterSpacing: '-0.02em',
+                        color: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.75)',
+                        margin: 0,
+                        transition: 'color 0.2s ease',
                       }}
                     >
                       {dim.name}
-                    </button>
-                  );
-                })}
-              </div>
+                    </h3>
+                  </div>
 
-              {/* Active Dimension Diagnostic Spread (Zero Cards) */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-                <h3
+                  {/* Principle Quote */}
+                  <div>
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-serif), Georgia, serif',
+                        fontStyle: 'italic',
+                        fontSize: 'clamp(1.05rem, 1.35vw, 1.35rem)',
+                        color: isActive ? '#C882FF' : 'rgba(255, 255, 255, 0.55)',
+                        margin: 0,
+                        lineHeight: 1.3,
+                        transition: 'color 0.2s ease',
+                      }}
+                    >
+                      &ldquo;{dim.principle}&rdquo;
+                    </p>
+                  </div>
+
+                  {/* Arrow Indicator */}
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: '14px',
+                      color: isActive ? '#C882FF' : 'rgba(255, 255, 255, 0.25)',
+                      textAlign: 'right',
+                      transform: isActive ? 'translateX(4px)' : 'translateX(0)',
+                      transition: 'all 0.2s ease',
+                    }}
+                  >
+                    {isActive ? '—' : '+'}
+                  </div>
+                </div>
+
+                {/* Architectural Behavioral Thesis (Safe Triangle Detail Target, Always Rendered in SSR DOM) */}
+                <div
+                  ref={isActive ? detailPanelRef : undefined}
                   style={{
-                    fontFamily: 'var(--font-family-serif)',
-                    fontSize: 'clamp(1.6rem, 2.4vw, 2.2rem)',
-                    fontWeight: 700,
-                    color: '#ffffff',
-                    margin: 0,
-                    lineHeight: 1.2,
+                    display: isActive ? 'grid' : 'none',
+                    gridTemplateColumns: 'minmax(60px, 80px) minmax(260px, 1.4fr) minmax(280px, 1.8fr) minmax(40px, 60px)',
+                    gap: 'clamp(1rem, 2vw, 2.5rem)',
+                    padding: '1.25rem 1rem 0.5rem 1rem',
                   }}
                 >
-                  {dimensions[activeDimension].name}
-                </h3>
+                  <div />
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: '10px',
+                      letterSpacing: '0.14em',
+                      textTransform: 'uppercase',
+                      color: 'rgba(255, 255, 255, 0.4)',
+                      paddingTop: '4px',
+                    }}
+                  >
+                    BEHAVIORAL THESIS
+                  </div>
+                  <div>
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                        fontSize: '14px',
+                        color: 'rgba(255, 255, 255, 0.88)',
+                        lineHeight: 1.6,
+                        margin: 0,
+                        maxWidth: '680px',
+                      }}
+                    >
+                      {dim.thesis}
+                    </p>
+                  </div>
+                  <div />
+                </div>
 
-                <blockquote
+                {/* Semantic description node for AI crawler and search indexing extraction */}
+                <div
                   style={{
-                    fontFamily: 'var(--font-family-serif)',
-                    fontSize: 'clamp(1.15rem, 1.4vw, 1.35rem)',
-                    fontStyle: 'italic',
-                    color: 'var(--color-brand-light-violet)',
-                    margin: 0,
-                    lineHeight: 1.4,
+                    position: 'absolute',
+                    width: '1px',
+                    height: '1px',
+                    padding: 0,
+                    margin: '-1px',
+                    overflow: 'hidden',
+                    clip: 'rect(0, 0, 0, 0)',
+                    whiteSpace: 'nowrap',
+                    border: 0,
                   }}
+                  aria-hidden="false"
                 >
-                  &ldquo;{dimensions[activeDimension].principle}&rdquo;
-                </blockquote>
-
-                <p
-                  style={{
-                    fontSize: 'var(--font-size-sm)',
-                    color: 'var(--color-text-secondary)',
-                    lineHeight: 1.7,
-                    margin: 0,
-                    marginTop: 'var(--space-2)',
-                  }}
-                >
-                  {dimensions[activeDimension].application}
-                </p>
-              </div>
-            </div>
-          </div>
+                  <dl>
+                    <dt>{dim.name} — Core Behavioral Principle</dt>
+                    <dd>{dim.principle}</dd>
+                    <dt>{dim.name} — Behavioral Thesis</dt>
+                    <dd>{dim.thesis}</dd>
+                  </dl>
+                </div>
+              </SpotlightCard>
+            );
+          })}
         </div>
-      </Container>
+      </div>
     </Section>
   );
 };

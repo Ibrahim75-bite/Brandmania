@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Container } from '@/presentation/components/layout/Container';
+import { LockKey, ShieldCheck, Sparkle } from '@phosphor-icons/react';
 import { Section } from '@/presentation/components/layout/Section';
 import { QualificationForm } from '@/presentation/components/forms/QualificationForm';
 import { CornerArcs } from '@/presentation/components/brand/CornerArcs';
@@ -12,163 +12,316 @@ export const QualificationSection: React.FC = () => {
       id="qualification"
       spacing="none"
       style={{
-        backgroundColor: '#070709',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--surface-obsidian, #070709)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
         position: 'relative',
-        paddingTop: 'var(--space-24)',
-        paddingBottom: 'var(--space-24)',
+        width: '100%',
+        maxWidth: '100vw',
+        padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 3vw, 4rem)',
         overflow: 'hidden',
       }}
     >
-      {/* Restrained Titanium Corner Arcs */}
-      <CornerArcs position="top-right" size={340} opacity={0.12} color="#8E00FA" />
+      <CornerArcs position="top-right" size={320} opacity={0.08} color="#C882FF" />
 
-      <Container>
-        <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          {/* Section Indicator */}
-          <div
-            style={{
-              fontFamily: 'var(--font-family-mono)',
-              fontSize: '11px',
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              color: 'var(--color-brand-light-violet)',
-              marginBottom: 'var(--space-10)',
-            }}
-          >
-            10 / STRATEGIC CONSULTATION &bull; ADVISORY INTAKE
-          </div>
+      {/* Tier 1: Swiss Architectural Index Strip */}
+      <div
+        className="tabular-nums"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '1.5rem',
+          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+          padding: '0.85rem 0',
+          marginBottom: 'clamp(2.5rem, 5vw, 4.5rem)',
+          fontFamily: 'var(--font-mono, monospace)',
+          fontSize: '11px',
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'rgba(255, 255, 255, 0.55)',
+        }}
+      >
+        <div>
+          <span style={{ color: '#C882FF', marginRight: '6px' }}>(10)</span> / STRATEGIC INTAKE
+        </div>
+        <div>EXECUTIVE QUALIFICATION</div>
+        <div>THRESHOLD: $700,000+ ANNUAL REVENUE</div>
+        <div style={{ textAlign: 'right' }}>STRICT NON-DISCLOSURE PROTOCOL</div>
+      </div>
 
-          {/* Open Asymmetric Architectural Layout (Zero Glowing SaaS Boxes) */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'minmax(0, 0.95fr) minmax(0, 1.25fr)',
-              gap: 'var(--space-16)',
-              alignItems: 'flex-start',
-            }}
-          >
-            {/* Left Column: Criteria, Engagement Tracks, & Confidentiality */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: 'var(--font-family-serif)',
-                    fontSize: 'clamp(2.6rem, 5.2vw, 4.6rem)',
-                    fontWeight: 700,
-                    lineHeight: 1.05,
-                    letterSpacing: '-0.03em',
-                    color: '#ffffff',
-                    margin: 0,
-                  }}
-                >
-                  Request Strategic
-                  <br />
-                  <span style={{ color: 'var(--color-brand-light-violet)', fontStyle: 'italic' }}>
-                    Consultation.
-                  </span>
-                </h2>
-                <p
-                  style={{
-                    fontSize: 'clamp(1rem, 1.25vw, 1.15rem)',
-                    color: 'var(--color-text-secondary)',
-                    lineHeight: 1.65,
-                    marginTop: 'var(--space-4)',
-                    margin: 0,
-                  }}
-                >
-                  Confidential intake aligned strictly for established businesses ($700,000+ annual
-                  revenue) and high-ticket international brands. We conduct an initial market presence
-                  and commercial structural review before convening our executive consultation.
-                </p>
-              </div>
-
-              {/* Engagement Track Guide */}
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'var(--space-4)',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-                  paddingTop: 'var(--space-6)',
-                }}
-              >
-                <div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-family-mono)',
-                      fontSize: '11px',
-                      color: 'var(--color-brand-light-violet)',
-                      letterSpacing: '0.12em',
-                      textTransform: 'uppercase',
-                      marginBottom: '2px',
-                    }}
-                  >
-                    Track I &bull; Full Engagement
-                  </div>
-                  <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
-                    Comprehensive multi-quarter brand direction, commercial margin audit, and performance execution.
-                  </div>
-                </div>
-
-                <div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-family-mono)',
-                      fontSize: '11px',
-                      color: 'var(--color-brand-light-violet)',
-                      letterSpacing: '0.12em',
-                      textTransform: 'uppercase',
-                      marginBottom: '2px',
-                    }}
-                  >
-                    Track II &bull; Strategic Consultancy
-                  </div>
-                  <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
-                    High-impact advisory and architectural diagnostic for businesses evaluating targeted intervention before a full rebuild.
-                  </div>
-                </div>
-              </div>
-
-              {/* Confidentiality Commitment */}
-              <div
-                style={{
-                  padding: 'var(--space-4)',
-                  borderLeft: '2px solid rgba(255, 255, 255, 0.2)',
-                  background: 'rgba(255, 255, 255, 0.02)',
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: 'var(--font-family-mono)',
-                    fontSize: '10px',
-                    color: 'var(--color-text-muted)',
-                    letterSpacing: '0.15em',
-                    textTransform: 'uppercase',
-                    marginBottom: '4px',
-                  }}
-                >
-                  Confidentiality Protocol
-                </div>
-                <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
-                  All commercial data, proprietary positioning notes, and executive discussions are
-                  protected under standard non-disclosure confidentiality.
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Open Architectural Intake (Zero Glowing Box Shadows) */}
-            <div
+      {/* Tier 2: Split Architectural Plane */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+          gap: 'clamp(2rem, 5vw, 5rem)',
+          alignItems: 'flex-start',
+        }}
+      >
+        {/* Left Column: Criteria & Directives */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+          <div>
+            <h2
               style={{
-                borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
-                paddingLeft: 'var(--space-10)',
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                fontSize: 'clamp(2.8rem, 5vw, 5rem)',
+                fontWeight: 400,
+                lineHeight: 1.02,
+                letterSpacing: '-0.025em',
+                color: '#ffffff',
+                margin: 0,
               }}
             >
-              <QualificationForm />
+              Request a private{' '}
+              <span
+                style={{
+                  fontStyle: 'italic',
+                  color: 'var(--color-brand-light-violet, #C882FF)',
+                }}
+              >
+                briefing.
+              </span>
+            </h2>
+            <p
+              style={{
+                fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
+                color: 'rgba(255, 255, 255, 0.65)',
+                lineHeight: 1.6,
+                marginTop: '1.25rem',
+                margin: '1.25rem 0 0 0',
+                maxWidth: '520px',
+              }}
+            >
+              A selective Strategic Consultation Dossier for established enterprises generating $700,000+
+              in annual revenue. We review commercial and perceptual context before the meeting.
+            </p>
+          </div>
+
+          {/* Consultation Protocols */}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1rem',
+              borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+              paddingTop: '1.5rem',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <ShieldCheck size={20} weight="duotone" color="#C882FF" />
+              <span
+                style={{
+                  fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                  fontSize: '13.5px',
+                  color: 'rgba(255, 255, 255, 0.85)',
+                  fontWeight: 500,
+                }}
+              >
+                Direct Consultation with Strategic Brand &amp; Commercial Leadership
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <Sparkle size={20} weight="duotone" color="#C882FF" />
+              <span
+                style={{
+                  fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                  fontSize: '13.5px',
+                  color: 'rgba(255, 255, 255, 0.85)',
+                  fontWeight: 500,
+                }}
+              >
+                Preliminary Commercial Audit Prepared Prior to Meeting
+              </span>
+            </div>
+          </div>
+
+          {/* Strict Non-Disclosure Protocol */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '12px',
+              paddingTop: '1.5rem',
+              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            }}
+          >
+            <LockKey size={20} weight="duotone" color="#C882FF" style={{ flexShrink: 0, marginTop: '2px' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: '#ffffff',
+                }}
+              >
+                Strict Non-Disclosure Protocol
+              </span>
+              <p
+                style={{
+                  fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                  fontSize: '12px',
+                  color: 'rgba(255, 255, 255, 0.55)',
+                  lineHeight: 1.5,
+                  margin: 0,
+                  maxWidth: '460px',
+                }}
+              >
+                All commercial metrics, positioning notes, and proprietary operational discussions
+                are governed under standard executive non-disclosure confidentiality.
+              </p>
             </div>
           </div>
         </div>
-      </Container>
+
+        {/* Right Column: Architectural Intake Form */}
+        <div
+          style={{
+            borderLeft: '1px solid rgba(255, 255, 255, 0.12)',
+            paddingLeft: 'clamp(1.5rem, 4vw, 3rem)',
+          }}
+        >
+          <QualificationForm />
+        </div>
+      </div>
+
+      {/* Tier 3: Verified Architectural FAQ Accordion */}
+      <div
+        id="faq"
+        style={{
+          marginTop: 'clamp(4rem, 8vw, 7rem)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+          paddingTop: 'clamp(2.5rem, 5vw, 4rem)',
+        }}
+      >
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 'clamp(2rem, 4vw, 4rem)',
+            alignItems: 'start',
+          }}
+        >
+          {/* FAQ Column Header */}
+          <div>
+            <div
+              style={{
+                fontFamily: 'var(--font-mono, monospace)',
+                fontSize: '11px',
+                fontWeight: 600,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: '#C882FF',
+                marginBottom: '1rem',
+              }}
+            >
+              (08) / VERIFIED DIRECTIVES &bull; FAQ
+            </div>
+            <h3
+              style={{
+                fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
+                fontSize: 'clamp(2.2rem, 3.8vw, 3.6rem)',
+                fontWeight: 400,
+                lineHeight: 1.05,
+                letterSpacing: '-0.02em',
+                color: '#ffffff',
+                margin: 0,
+              }}
+            >
+              Frequently Clarified{' '}
+              <span style={{ fontStyle: 'italic', color: '#C882FF' }}>
+                Principles.
+              </span>
+            </h3>
+            <p
+              style={{
+                fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                fontSize: '13.5px',
+                color: 'rgba(255, 255, 255, 0.6)',
+                lineHeight: 1.6,
+                marginTop: '1rem',
+                maxWidth: '440px',
+              }}
+            >
+              Truthful, strictly verified facts regarding engagement parameters, core disciplines, and advisory models.
+            </p>
+          </div>
+
+          {/* FAQ Accordion List (100% Rendered in SSR DOM) */}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+            }}
+          >
+            {[
+              {
+                q: 'What types of businesses does BRANDMANIA work with?',
+                a: 'Established businesses generating $700,000+ in annual revenue and high-ticket international brands across design, jewelry, interior design, luxury construction, hospitality, fitness, supplements, software/apps, cosmetics, e-commerce, medical devices, and more.',
+              },
+              {
+                q: "What are BRANDMANIA's three core disciplines?",
+                a: 'Brand Direction, Margin Recovery, and Consumer Scope.',
+              },
+              {
+                q: 'Does BRANDMANIA offer consultancy if we are not ready for a full engagement?',
+                a: 'Yes, BRANDMANIA offers strategic consultancy for businesses not yet ready for a full rebuild or when full-engagement capacity is full.',
+              },
+            ].map((faq, idx) => (
+              <details
+                key={idx}
+                open
+                style={{
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+                  padding: '1.25rem 0',
+                }}
+              >
+                <summary
+                  style={{
+                    fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
+                    fontSize: 'clamp(1.2rem, 1.6vw, 1.45rem)',
+                    color: '#ffffff',
+                    cursor: 'pointer',
+                    listStyle: 'none',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: '1rem',
+                  }}
+                >
+                  <span>{faq.q}</span>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: '11px',
+                      color: '#C882FF',
+                    }}
+                  >
+                    [0{idx + 1}]
+                  </span>
+                </summary>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                    fontSize: '13.5px',
+                    color: 'rgba(255, 255, 255, 0.75)',
+                    lineHeight: 1.65,
+                    margin: '0.85rem 0 0 0',
+                    maxWidth: '680px',
+                  }}
+                >
+                  {faq.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
     </Section>
   );
 };

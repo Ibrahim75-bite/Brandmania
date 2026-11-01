@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import styles from './VSLPlayer.module.css';
 
 export interface VSLPlayerProps {
@@ -48,8 +49,14 @@ export function VSLPlayer({
               }
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={posterUrl} alt={headline} className={styles.posterImage} />
+            <Image
+              src={posterUrl}
+              alt={headline}
+              fill
+              className={styles.posterImage}
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              loading="lazy"
+            />
 
             <div className={styles.overlay}>
               <span className={styles.briefingTag}>CONFIDENTIAL BRIEFING</span>

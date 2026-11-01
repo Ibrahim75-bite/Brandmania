@@ -15,6 +15,8 @@ export type AnalyticsEventType =
   | 'vsl_complete'
   | 'form_start'
   | 'form_submit'
+  | 'qualification_step_completed'
+  | 'consultation_submitted'
   | 'booking_initiated'
   | 'booking_completed'
   | 'outbound_contact_click';

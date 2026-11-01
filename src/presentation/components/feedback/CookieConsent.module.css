@@ -1,8 +1,8 @@
 .banner {
   position: fixed;
-  bottom: var(--space-6);
-  right: var(--space-6);
-  left: var(--space-6);
+  bottom: max(var(--space-6), env(safe-area-inset-bottom, 1.5rem));
+  right: max(var(--space-6), env(safe-area-inset-right, 1.5rem));
+  left: max(var(--space-6), env(safe-area-inset-left, 1.5rem));
   max-width: 520px;
   margin-left: auto;
   background: rgba(14, 14, 19, 0.92);
@@ -17,9 +17,9 @@
 }
 
 .title {
-  font-family: var(--font-family-serif);
+  font-family: var(--font-serif), Georgia, serif;
   font-size: var(--font-size-base);
-  font-weight: var(--font-weight-bold);
+  font-weight: 400;
   color: #fff;
   margin-bottom: var(--space-2);
 }

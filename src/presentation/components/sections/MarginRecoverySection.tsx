@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
-import { Container } from '@/presentation/components/layout/Container';
+import React, { useState, useRef } from 'react';
 import { Section } from '@/presentation/components/layout/Section';
+import { useSafeTriangle } from '@/presentation/hooks/useSafeTriangle';
 
 interface AuditRow {
   step: string;
@@ -12,54 +12,62 @@ interface AuditRow {
 }
 
 export const MarginRecoverySection: React.FC = () => {
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
+  const detailPanelRef = useRef<HTMLDivElement>(null);
+
+  const { handleRowHover } = useSafeTriangle({
+    detailRef: detailPanelRef,
+    suppressionDelayMs: 180,
+  });
+
   const auditRows: AuditRow[] = [
     {
       step: '01',
       stage: 'Planning',
       leakage:
-        'Flawed baseline unit economics, unrealistic margin forecasting, and lack of gross contribution modeling before ad spend allocation.',
+        'Uncalibrated contribution margins and ad spend deployed without unit-economic floors.',
       repair:
-        'Recalibrating unit economic thresholds and contribution margin floors so every marketing dollar deployed is backed by verified profit.',
+        'Recalibrating contribution profit floors so every dollar deployed yields verified margin.',
     },
     {
       step: '02',
       stage: 'Marketing',
       leakage:
-        'Targeting uncalibrated audiences, creative fatigue, and spending capital to purchase low-intent impressions that cannot convert at full price.',
+        'Purchasing low-intent traffic with commoditized messaging that attracts discount seekers.',
       repair:
-        'Aligning creative messaging strictly with high-intent commercial buyers, filtering out unqualified traffic, and stopping ad spend bleed.',
+        'Disciplined messaging aligned strictly with premium buyers, extinguishing media waste.',
     },
     {
       step: '03',
       stage: 'Sales',
       leakage:
-        'Conversion architecture friction, hesitation during high-consideration touchpoints, and sales teams defaulting to price discounting.',
+        'Unresolved hesitation on high-ticket tiers causing reps to default to price cuts.',
       repair:
-        'Hardening the conversion pipeline, resolving cognitive doubt, and restructuring offer tiers so customers buy at full price without friction.',
+        'Hardening conversion architecture and offer framing so buyers purchase at full price.',
     },
     {
       step: '04',
       stage: 'Fulfillment',
       leakage:
-        'Delivery bottlenecks, supplier latency, operational handoff errors, and packaging failures that erode gross margin during volume expansion.',
+        'Operational bottlenecks and handoff friction silently degrading margins as scale grows.',
       repair:
-        'Streamlining operational fulfillment handoffs and delivery velocity under strict standards so growth never degrades margins.',
+        'Optimizing fulfillment velocity and operational standards to preserve margin through scale.',
     },
     {
       step: '05',
       stage: 'Customer Service',
       leakage:
-        'Slow ticket response times, reactive complaint handling, and unresolved customer friction that trigger chargebacks and refund spikes.',
+        'Reactive ticket handling triggering avoidable refund spikes and disputed charges.',
       repair:
-        'Transforming customer service from an apology cost-center into an active trust protector that resolves issues before refunds occur.',
+        'Transforming support into an active trust protector that resolves doubt before refund demands.',
     },
     {
       step: '06',
       stage: 'Post-Purchase Relationships',
       leakage:
-        'Treating customer transactions as terminal events, abandoning buyers after purchase, and staying on an expensive new-acquisition treadmill.',
+        'Treating transactions as terminal events, trapping the brand on the high-CAC acquisition wheel.',
       repair:
-        'Engineering post-purchase affirmation rituals and repeat engagement loops that maximize lifetime customer value and organic retention.',
+        'Engineering post-purchase affirmation rituals and recurring loyalty loops to maximize lifetime value.',
     },
   ];
 
@@ -68,166 +76,200 @@ export const MarginRecoverySection: React.FC = () => {
       id="margin-recovery"
       spacing="none"
       style={{
-        backgroundColor: '#070709',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--surface-obsidian, #070709)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
         position: 'relative',
-        paddingTop: 'var(--space-24)',
-        paddingBottom: 'var(--space-24)',
+        width: '100%',
+        maxWidth: '100vw',
+        padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 3vw, 4rem)',
         overflow: 'hidden',
       }}
     >
-      <Container>
-        <div style={{ maxWidth: '1120px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          {/* Section Indicator */}
-          <div
+      {/* Tier 1: Swiss Architectural Index Strip */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '1.5rem',
+          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+          padding: '0.85rem 0',
+          marginBottom: 'clamp(2.5rem, 5vw, 4.5rem)',
+          fontFamily: 'var(--font-mono, monospace)',
+          fontSize: '11px',
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'rgba(255, 255, 255, 0.55)',
+        }}
+      >
+        <div>
+          <span style={{ color: '#C882FF', marginRight: '6px' }}>(03)</span> / FLAGSHIP II
+        </div>
+        <div>OPERATIONAL CHAIN AUDIT</div>
+        <div>MARGIN RECOVERY ARCHITECTURE</div>
+        <div style={{ textAlign: 'right' }}>6-STAGE COMMERCIAL DRAIN REPAIR</div>
+      </div>
+
+      {/* Tier 2: Editorial Monumental Display Header */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: 'clamp(1rem, 2vw, 2.5rem)',
+          marginBottom: 'clamp(3rem, 6vw, 5rem)',
+          alignItems: 'baseline',
+        }}
+      >
+        <div style={{ gridColumn: 'span 12' }}>
+          <h2
             style={{
-              fontFamily: 'var(--font-family-mono)',
-              fontSize: '11px',
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              color: 'var(--color-brand-light-violet)',
-              marginBottom: 'var(--space-8)',
+              fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
+              fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
+              fontWeight: 400,
+              lineHeight: 1.02,
+              letterSpacing: '-0.025em',
+              color: '#ffffff',
+              margin: 0,
             }}
           >
-            06 / FLAGSHIP II &bull; MARGIN RECOVERY
-          </div>
-
-          {/* Section Headline */}
-          <div style={{ marginBottom: 'var(--space-16)' }}>
-            <h2
+            Fix the commercial machine{' '}
+            <span
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(2.4rem, 4.8vw, 4.2rem)',
-                fontWeight: 700,
-                lineHeight: 1.08,
-                letterSpacing: '-0.03em',
-                color: '#ffffff',
-                margin: 0,
-                maxWidth: '920px',
+                fontStyle: 'italic',
+                color: 'var(--color-brand-light-violet, #C882FF)',
               }}
             >
-              Fix the machine
-              <br />
-              <span style={{ color: 'var(--color-brand-light-violet)', fontStyle: 'italic' }}>
-                before buying more traffic.
-              </span>
-            </h2>
+              before buying more traffic.
+            </span>
+          </h2>
+        </div>
+      </div>
 
-            <p
-              style={{
-                fontSize: 'clamp(1rem, 1.25vw, 1.2rem)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.65,
-                maxWidth: '820px',
-                marginTop: 'var(--space-4)',
-                margin: 0,
-              }}
-            >
-              We conduct comprehensive commercial audits across your operational chain to identify,
-              quantify, and repair silent revenue leakage before allocating marketing capital.
-            </p>
-          </div>
+      {/* Tier 3: Full-Bleed 94vw Swiss Architectural Audit Table */}
+      <div
+        style={{
+          width: '100%',
+          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        {/* Table Header Row */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '70px minmax(240px, 1.2fr) minmax(260px, 1.4fr) minmax(260px, 1.4fr)',
+            gap: 'clamp(1rem, 2vw, 2.5rem)',
+            padding: '1rem 1rem',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+            fontFamily: 'var(--font-mono, monospace)',
+            fontSize: '11px',
+            fontWeight: 500,
+            color: 'rgba(255, 255, 255, 0.45)',
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+          }}
+        >
+          <div>Index</div>
+          <div>Operational Stage</div>
+          <div>Where Commercial Value Leaks</div>
+          <div>Strategic &amp; Operational Repair</div>
+        </div>
 
-          {/* Open Commercial Audit Diagnostic Ledger (Zero Tabs, All Rows Visible Side-by-Side) */}
-          <div
-            style={{
-              borderTop: '1px solid rgba(255, 255, 255, 0.12)',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            {/* Table Header Row */}
+        {/* 6 Large Horizontal Rows */}
+        {auditRows.map((row, idx) => {
+          const isHovered = hoveredRow === idx;
+          return (
             <div
+              key={row.step}
+              onMouseEnter={() => handleRowHover(() => setHoveredRow(idx))}
+              onMouseLeave={() => setHoveredRow(null)}
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'minmax(0, 0.7fr) minmax(0, 1.15fr) minmax(0, 1.15fr)',
-                gap: 'var(--space-6)',
-                padding: 'var(--space-4) 0',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-                fontFamily: 'var(--font-family-mono)',
-                fontSize: '11px',
-                color: 'var(--color-text-muted)',
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
+                gridTemplateColumns: '70px minmax(240px, 1.2fr) minmax(260px, 1.4fr) minmax(260px, 1.4fr)',
+                gap: 'clamp(1rem, 2vw, 2.5rem)',
+                padding: 'clamp(1.5rem, 3vh, 2.5rem) 1rem',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+                alignItems: 'center',
+                background: isHovered ? 'rgba(142, 0, 250, 0.06)' : 'transparent',
+                borderLeft: isHovered ? '2px solid #C882FF' : '2px solid transparent',
+                transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                cursor: 'default',
               }}
             >
-              <div>Audit Stage</div>
-              <div>Where Revenue Leaks</div>
-              <div>Strategic &amp; Operational Repair</div>
-            </div>
-
-            {/* Audit Rows */}
-            {auditRows.map((row) => (
+              {/* Step Index */}
               <div
-                key={row.step}
+                className="tabular-nums"
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'minmax(0, 0.7fr) minmax(0, 1.15fr) minmax(0, 1.15fr)',
-                  gap: 'var(--space-6)',
-                  padding: 'var(--space-6) 0',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                  alignItems: 'start',
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  color: isHovered ? '#C882FF' : 'rgba(255, 255, 255, 0.4)',
+                  letterSpacing: '0.08em',
+                  transition: 'color 0.2s ease',
                 }}
               >
-                {/* Stage Column */}
-                <div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-family-mono)',
-                      fontSize: '11px',
-                      color: 'var(--color-brand-light-violet)',
-                      letterSpacing: '0.12em',
-                      fontWeight: 700,
-                    }}
-                  >
-                    {row.step}
-                  </div>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-family-serif)',
-                      fontSize: 'clamp(1.15rem, 1.5vw, 1.4rem)',
-                      fontWeight: 600,
-                      color: '#ffffff',
-                      margin: 0,
-                      marginTop: '4px',
-                    }}
-                  >
-                    {row.stage}
-                  </h3>
-                </div>
-
-                {/* Leakage Column */}
-                <div>
-                  <p
-                    style={{
-                      fontSize: 'var(--font-size-xs)',
-                      color: 'var(--color-text-secondary)',
-                      lineHeight: 1.6,
-                      margin: 0,
-                    }}
-                  >
-                    {row.leakage}
-                  </p>
-                </div>
-
-                {/* Repair Column */}
-                <div>
-                  <p
-                    style={{
-                      fontSize: 'var(--font-size-xs)',
-                      color: 'rgba(255, 255, 255, 0.9)',
-                      lineHeight: 1.6,
-                      margin: 0,
-                    }}
-                  >
-                    {row.repair}
-                  </p>
-                </div>
+                {row.step}
               </div>
-            ))}
-          </div>
-        </div>
-      </Container>
+
+              {/* Stage Title in Instrument Serif 2.5rem */}
+              <div>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-serif), Georgia, serif',
+                    fontSize: 'clamp(1.75rem, 2.5vw, 2.5rem)',
+                    fontWeight: 400,
+                    lineHeight: 1.1,
+                    letterSpacing: '-0.02em',
+                    color: isHovered ? '#ffffff' : 'rgba(255, 255, 255, 0.92)',
+                    margin: 0,
+                    transition: 'color 0.2s ease',
+                  }}
+                >
+                  {row.stage}
+                </h3>
+              </div>
+
+              {/* Crisp 1-Line Commercial Leakage Statement */}
+              <div>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                    fontSize: '14px',
+                    color: 'rgba(255, 255, 255, 0.65)',
+                    lineHeight: 1.5,
+                    margin: 0,
+                  }}
+                >
+                  {row.leakage}
+                </p>
+              </div>
+
+              {/* Crisp 1-Line Strategic Repair Statement (Safe Triangle Detail Target) */}
+              <div ref={isHovered ? detailPanelRef : undefined}>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                    fontSize: '14px',
+                    color: isHovered ? '#ffffff' : 'rgba(255, 255, 255, 0.85)',
+                    lineHeight: 1.5,
+                    margin: 0,
+                    padding: '8px 12px',
+                    background: isHovered ? 'rgba(142, 0, 250, 0.16)' : 'rgba(255, 255, 255, 0.02)',
+                    border: isHovered
+                      ? '1px solid rgba(200, 130, 255, 0.35)'
+                      : '1px solid rgba(255, 255, 255, 0.06)',
+                    borderRadius: '2px',
+                    transition: 'all 0.25s ease',
+                  }}
+                >
+                  {row.repair}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </Section>
   );
 };

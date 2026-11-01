@@ -49,7 +49,7 @@ export const BriefingSection: React.FC = () => {
                 maxWidth: '960px',
               }}
             >
-              Decyphering The Dilemma.
+              Resolving The Commercial Dilemma.
             </h2>
             <p
               style={{

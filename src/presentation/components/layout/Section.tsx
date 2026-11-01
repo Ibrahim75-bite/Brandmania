@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React, { forwardRef, HTMLAttributes } from 'react';
 
 export interface SectionProps extends HTMLAttributes<HTMLElement> {
   spacing?: 'sm' | 'md' | 'lg' | 'xl' | 'none';
@@ -12,14 +12,13 @@ const sectionPadding = {
   xl: 'var(--space-32) 0',
 };
 
-export function Section({
-  children,
-  spacing = 'md',
-  style,
-  ...props
-}: SectionProps) {
+export const Section = forwardRef<HTMLElement, SectionProps>(function Section(
+  { children, spacing = 'md', style, ...props },
+  ref
+) {
   return (
     <section
+      ref={ref}
       style={{
         width: '100%',
         padding: sectionPadding[spacing],
@@ -31,4 +30,4 @@ export function Section({
       {children}
     </section>
   );
-}
+});

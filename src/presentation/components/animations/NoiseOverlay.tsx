@@ -81,7 +81,7 @@ export const NoiseOverlay: React.FC<NoiseOverlayProps> = ({
         height: '100vh',
         pointerEvents: 'none',
         zIndex: 999,
-        opacity: 0.85,
+        opacity: 0.025,
       }}
     />
   );

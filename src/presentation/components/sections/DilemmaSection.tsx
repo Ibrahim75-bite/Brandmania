@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { CheckCircle, XCircle } from '@phosphor-icons/react';
 import { Section } from '@/presentation/components/layout/Section';
 
 export const DilemmaSection: React.FC = () => {
@@ -9,83 +10,89 @@ export const DilemmaSection: React.FC = () => {
       id="dilemma"
       spacing="none"
       style={{
-        backgroundColor: '#070709',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--surface-obsidian, #070709)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
         position: 'relative',
         minHeight: '80vh',
         display: 'flex',
         alignItems: 'stretch',
         overflow: 'hidden',
+        width: '100%',
+        padding: 0,
       }}
     >
-      {/* Full-Bleed Split Canvas */}
+      {/* Full-Bleed Edge-to-Edge Split Plane */}
       <div
         style={{
           width: '100%',
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+          alignItems: 'stretch',
         }}
       >
-        {/* Left Half: The Attention Illusion (Stark Matte Obsidian) */}
+        {/* Left Half: The Attention Trap (Matte Obsidian #09090C) */}
         <div
           style={{
-            backgroundColor: '#070709',
-            padding: 'clamp(var(--space-12), 7vw, var(--space-24)) clamp(var(--space-8), 5vw, var(--space-16))',
-            borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+            backgroundColor: '#09090C',
+            padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 5rem)',
+            borderRight: '1px solid rgba(255, 255, 255, 0.12)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            gap: 'var(--space-8)',
+            gap: '2.5rem',
           }}
         >
           <div>
             <div
               style={{
-                fontFamily: 'var(--font-family-mono)',
+                fontFamily: 'var(--font-mono, monospace)',
                 fontSize: '11px',
-                letterSpacing: '0.22em',
+                fontWeight: 600,
+                letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                color: 'var(--color-text-muted)',
-                marginBottom: 'var(--space-4)',
+                color: '#ff6b6b',
+                marginBottom: '1rem',
               }}
             >
-              03 / THE STRUCTURAL DIVIDE &bull; THE VULNERABLE MODEL
+              (03) / THE ATTENTION TRAP &bull; COMMODITIZED CHURN
             </div>
 
             <h2
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(2.4rem, 4.2vw, 4.5rem)',
-                fontWeight: 700,
-                lineHeight: 1.05,
-                letterSpacing: '-0.03em',
+                fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
+                fontSize: 'clamp(2.6rem, 4.5vw, 4.5rem)',
+                fontWeight: 400,
+                lineHeight: 1.02,
+                letterSpacing: '-0.025em',
                 color: '#ffffff',
                 margin: 0,
               }}
             >
-              The Attention Illusion.
+              Traffic buys attention.{' '}
+              <span style={{ fontStyle: 'italic', color: '#ff6b6b' }}>
+                It does not buy loyalty.
+              </span>
             </h2>
           </div>
 
           <p
             style={{
-              fontSize: 'clamp(1rem, 1.25vw, 1.2rem)',
-              color: 'var(--color-text-secondary)',
-              lineHeight: 1.7,
+              fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+              fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
+              color: 'rgba(255, 255, 255, 0.65)',
+              lineHeight: 1.6,
               margin: 0,
-              maxWidth: '560px',
+              maxWidth: '540px',
             }}
           >
-            Purchasing ad impressions into an uncalibrated business model creates an exhausting
-            treadmill. Without distinct brand perception, buyers default immediately to price
-            comparison, customer acquisition costs accelerate, and profit vanishes before orders are
-            fulfilled.
+            Pouring ad spend into an uncalibrated business model creates an exhausting discount treadmill.
+            Without differentiated brand perception, buyers default strictly to price comparison.
           </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: '520px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '520px' }}>
             {[
-              'Buying impressions into an uncalibrated commercial vehicle',
-              'Commodity positioning forcing frequent discount promotions',
+              'Purchasing impressions into an uncalibrated commercial funnel',
+              'Commodity positioning forcing constant discount dependency',
               'Rising customer acquisition costs with declining unit economics',
               'High top-of-funnel churn without organic brand attachment',
             ].map((item, idx) => (
@@ -94,80 +101,89 @@ export const DilemmaSection: React.FC = () => {
                 style={{
                   display: 'flex',
                   alignItems: 'flex-start',
-                  gap: 'var(--space-3)',
-                  fontSize: 'var(--font-size-sm)',
-                  color: 'var(--color-text-secondary)',
+                  gap: '12px',
+                  fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                  fontSize: '14px',
+                  color: 'rgba(255, 255, 255, 0.65)',
                   lineHeight: 1.5,
                 }}
               >
-                <span style={{ color: '#ff6b6b', fontWeight: 700, fontSize: '14px' }}>&times;</span>
+                <XCircle size={18} weight="duotone" color="#ff6b6b" style={{ flexShrink: 0, marginTop: '2px' }} />
                 <span>{item}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Right Half: The Architectural Advantage (Rich Imperial Violet Surface) */}
+        {/* Right Half: The Brandmania Architecture (Rich Imperial Violet Surface #190033) */}
         <div
           style={{
-            background: 'linear-gradient(135deg, #1E0038 0%, #0D001A 100%)',
-            padding: 'clamp(var(--space-12), 7vw, var(--space-24)) clamp(var(--space-8), 5vw, var(--space-16))',
+            background: 'linear-gradient(165deg, #1A0033 0%, #0A0015 100%)',
+            padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 5rem)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            gap: 'var(--space-8)',
+            gap: '2.5rem',
             position: 'relative',
           }}
         >
           <div>
             <div
               style={{
-                fontFamily: 'var(--font-family-mono)',
+                fontFamily: 'var(--font-mono, monospace)',
                 fontSize: '11px',
-                letterSpacing: '0.22em',
+                fontWeight: 600,
+                letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                color: 'var(--color-brand-light-violet)',
-                marginBottom: 'var(--space-4)',
+                color: 'var(--color-brand-light-violet, #C882FF)',
+                marginBottom: '1rem',
               }}
             >
-              CATEGORY LEADERSHIP &bull; THE BRANDMANIA STANDARD
+              (04) / THE COMMERCIAL REMEDY &bull; BRAND ARCHITECTURE
             </div>
 
             <h2
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(2.4rem, 4.2vw, 4.5rem)',
-                fontWeight: 700,
-                lineHeight: 1.05,
-                letterSpacing: '-0.03em',
+                fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
+                fontSize: 'clamp(2.6rem, 4.5vw, 4.5rem)',
+                fontWeight: 400,
+                lineHeight: 1.02,
+                letterSpacing: '-0.025em',
                 color: '#ffffff',
                 margin: 0,
               }}
             >
-              The Architectural Advantage.
+              Brand architecture{' '}
+              <span
+                style={{
+                  fontStyle: 'italic',
+                  color: 'var(--color-brand-light-violet, #C882FF)',
+                }}
+              >
+                commands margin.
+              </span>
             </h2>
           </div>
 
           <p
             style={{
-              fontSize: 'clamp(1rem, 1.25vw, 1.2rem)',
+              fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+              fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
               color: 'rgba(255, 255, 255, 0.85)',
-              lineHeight: 1.7,
+              lineHeight: 1.6,
               margin: 0,
-              maxWidth: '560px',
+              maxWidth: '540px',
             }}
           >
-            When Brand Direction, Margin Recovery, and Consumer Scope operate as a single unified
-            system, advertising amplifies an already profitable machine. Market perception commands
-            pricing power, gross margins are insulated, and customer loyalty compounds enterprise
-            equity.
+            When Brand Direction, Margin Recovery, and Consumer Scope operate as a unified system,
+            advertising amplifies an already profitable machine. Market perception commands premium pricing.
           </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: '520px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '520px' }}>
             {[
-              'Brand direction establishes unmatched category perception',
-              'Inelastic demand commanding premium pricing and healthy margins',
-              'Operational data audits sealing leaks across the entire commercial chain',
+              'Brand direction establishes category prestige & pricing power',
+              'Commanding price inelasticity where customers buy at full value',
+              'Operational audits sealing leakage across the entire commercial chain',
               'Enduring identity attachment driving high-retention customer loops',
             ].map((item, idx) => (
               <div
@@ -175,15 +191,14 @@ export const DilemmaSection: React.FC = () => {
                 style={{
                   display: 'flex',
                   alignItems: 'flex-start',
-                  gap: 'var(--space-3)',
-                  fontSize: 'var(--font-size-sm)',
+                  gap: '12px',
+                  fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
+                  fontSize: '14px',
                   color: '#ffffff',
                   lineHeight: 1.5,
                 }}
               >
-                <span style={{ color: 'var(--color-brand-light-violet)', fontWeight: 700, fontSize: '14px' }}>
-                  ✓
-                </span>
+                <CheckCircle size={18} weight="duotone" color="#C882FF" style={{ flexShrink: 0, marginTop: '2px' }} />
                 <span>{item}</span>
               </div>
             ))}

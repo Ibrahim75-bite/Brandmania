@@ -1,162 +1,120 @@
 'use client';
 
 import React from 'react';
-import { Container } from '@/presentation/components/layout/Container';
-import { Section } from '@/presentation/components/layout/Section';
-import { CornerArcs } from '@/presentation/components/brand/CornerArcs';
 
 export const WorldviewSection: React.FC = () => {
   return (
-    <Section
+    <section
       id="manifesto"
-      spacing="none"
       style={{
         backgroundColor: '#070709',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+        padding: 'clamp(var(--space-16), 8vw, var(--space-28)) clamp(1.5rem, 3vw, 4rem)',
+        width: '100%',
+        maxWidth: '100vw',
+        boxSizing: 'border-box',
         position: 'relative',
-        minHeight: '88vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        paddingTop: 'var(--space-24)',
-        paddingBottom: 'var(--space-24)',
         overflow: 'hidden',
       }}
     >
-      {/* Restrained Corner Arcs Framing */}
-      <CornerArcs position="bottom-left" size={320} opacity={0.12} color="#8E00FA" />
-
-      <Container>
+      {/* 12-Column Swiss Architectural Grid Layout */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: 'var(--space-6)',
+          alignItems: 'start',
+        }}
+      >
+        {/* Left Exposed Index Column (Cols 1-2) */}
         <div
           style={{
-            maxWidth: '1020px',
-            margin: '0 auto',
-            textAlign: 'center',
-            position: 'relative',
-            zIndex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 'var(--space-10)',
+            gridColumn: 'span 2',
+            fontFamily: 'var(--font-Mono), monospace',
+            fontSize: '11px',
+            fontWeight: 600,
+            letterSpacing: '0.16em',
+            textTransform: 'uppercase',
+            color: 'var(--color-brand-light-violet, #c084fc)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.2)',
+            paddingTop: 'var(--space-3)',
           }}
         >
-          {/* Section Indicator */}
-          <div
-            style={{
-              fontFamily: 'var(--font-family-mono)',
-              fontSize: '11px',
-              letterSpacing: '0.25em',
-              textTransform: 'uppercase',
-              color: 'var(--color-brand-light-violet)',
-            }}
-          >
-            02 / THE MANIFESTO OF COMMUNICATION
-          </div>
+          (02) / MANIFESTO
+        </div>
 
-          {/* Monumental Centered Typographic Headline */}
+        {/* Monumental Instrument Serif Statement Spanning 10 Columns */}
+        <div
+          style={{
+            gridColumn: 'span 10',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'clamp(var(--space-8), 4vw, var(--space-12))',
+          }}
+        >
           <h2
             style={{
-              fontFamily: 'var(--font-family-serif)',
-              fontSize: 'clamp(3rem, 6.5vw, 6.5rem)',
-              fontWeight: 700,
-              lineHeight: 1.02,
-              letterSpacing: '-0.035em',
+              fontFamily: 'var(--font-Editorial), Georgia, serif',
+              fontSize: 'clamp(3.2rem, 6.5vw, 6.8rem)',
+              fontWeight: 400,
+              lineHeight: 0.96,
+              letterSpacing: '-0.025em',
               color: '#ffffff',
               margin: 0,
             }}
           >
-            Branding is not what it looks like.
-            <br />
-            <span
+            Branding is not what it looks like.{' '}
+            <em
               style={{
-                color: 'var(--color-brand-light-violet)',
+                fontFamily: 'var(--font-Editorial), Georgia, serif',
                 fontStyle: 'italic',
-                fontWeight: 400,
+                color: '#C882FF',
               }}
             >
               It is how you communicate.
-            </span>
+            </em>{' '}
+            Attention does not mean revenue.
           </h2>
 
-          {/* Central Editorial Truth */}
+          {/* Clean Razor-Sharp Architectural Footnote */}
           <div
             style={{
-              maxWidth: '780px',
               display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--space-6)',
-              marginTop: 'var(--space-4)',
+              alignItems: 'baseline',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: 'var(--space-4)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+              paddingTop: 'var(--space-6)',
             }}
           >
             <p
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(1.35rem, 2.2vw, 2rem)',
-                fontWeight: 600,
-                color: 'rgba(255, 255, 255, 0.95)',
-                lineHeight: 1.35,
-                margin: 0,
-              }}
-            >
-              How the message is communicated is as important as what the message is.
-              <br />
-              Attention does not equal revenue.
-            </p>
-
-            <p
-              style={{
-                fontSize: 'clamp(1.05rem, 1.25vw, 1.2rem)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 1.7,
-                margin: 0,
-              }}
-            >
-              Purchasing advertising into an uncalibrated business model accelerates capital
-              destruction. When perception lags behind product craftsmanship, pricing power is
-              destroyed and you are forced to compete on discounts. Fix the machine before buying
-              more traffic.
-            </p>
-          </div>
-
-          {/* Monumental Anchor Quote */}
-          <div
-            style={{
-              marginTop: 'var(--space-10)',
-              paddingTop: 'var(--space-8)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-              maxWidth: '820px',
-            }}
-          >
-            <blockquote
-              style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'clamp(1.75rem, 3.2vw, 2.8rem)',
+                fontFamily: 'var(--font-Editorial), Georgia, serif',
                 fontStyle: 'italic',
-                fontWeight: 400,
-                lineHeight: 1.25,
-                color: '#ffffff',
+                fontSize: 'clamp(1.1rem, 1.4vw, 1.35rem)',
+                color: 'rgba(255, 255, 255, 0.75)',
                 margin: 0,
+                maxWidth: '720px',
               }}
             >
-              &ldquo;Let people applaud your second to greatest work, because you&rsquo;re creating
-              your greatest.&rdquo;
-            </blockquote>
+              &ldquo;Let people applaud your second to greatest work, because you&rsquo;re creating your greatest.&rdquo;
+            </p>
 
-            <div
+            <span
               style={{
-                fontFamily: 'var(--font-family-mono)',
+                fontFamily: 'var(--font-Mono), monospace',
                 fontSize: '11px',
-                letterSpacing: '0.18em',
+                letterSpacing: '0.12em',
                 textTransform: 'uppercase',
-                color: 'var(--color-brand-light-violet)',
-                marginTop: 'var(--space-4)',
+                color: 'var(--color-text-muted, #7c7e94)',
               }}
             >
-              BRANDMANIA Creative Standard
-            </div>
+              THE BRANDMANIA DOCTRINE
+            </span>
           </div>
         </div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 };
