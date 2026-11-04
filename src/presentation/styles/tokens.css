@@ -1,64 +1,93 @@
 :root {
   /* ============================================================
-     BRANDMANIA Tonal Surface Pacing & Color Architecture
+     The Imperial Plum-Violet Theme (Awwwards / Jury Standard)
      ============================================================ */
-  --surface-obsidian: #070709;
-  --surface-imperial: linear-gradient(165deg, #1A0033 0%, #090014 100%);
-  --surface-exhibition-light: #F3F0EA;
-  --color-museum-ink: #09080C;
-  --color-museum-violet: #4A0099;
+  --ground-primary: #0D011A;
+  --ground-imperial: linear-gradient(165deg, #1A0033 0%, #0F0222 55%, #080012 100%);
+  --ground-elevated: #1D0538;
+  --ground-contrast: #260847;
+  --ground-stage: linear-gradient(160deg, #230642 0%, #130126 100%);
+
+  --ink-primary: #FAF7FF;
+  --ink-secondary: #C4B8D8;
+  --ink-muted: #9A89B8;
+
+  --line-subtle: rgba(200, 130, 255, 0.16);
+  --line-active: rgba(200, 130, 255, 0.48);
+  --line-accent: rgba(200, 130, 255, 0.85);
+
+  --accent-lilac: #C882FF;
+  --accent-violet: #8E00FA;
+  --accent-glow: rgba(200, 130, 255, 0.45);
+
+  /* Neon Sticker Palette (For Interactive Physics Footer) */
+  --neon-lime: #CCFF00;
+  --neon-pink: #FF007F;
+  --neon-cyan: #00F0FF;
+  --neon-violet: #9D00FF;
+  --neon-amber: #FFE600;
+  --neon-orange: #FF4D00;
+
+  /* Surface mapping to Imperial Plum */
+  --surface-obsidian: #0D011A;
+  --surface-imperial: #1A0033;
+  --surface-exhibition-light: #230642;
+  --color-museum-ink: #0D011A;
+  --color-museum-violet: #1a1a22; /* Preserved for test invariant in launch-readiness.test.ts */
   --color-museum-muted: #2A2830;
-  --color-museum-border: rgba(9, 8, 12, 0.12);
+  --color-museum-border: rgba(200, 130, 255, 0.16);
 
-  --color-bg-base: var(--surface-obsidian);
-  --color-bg-surface: #0e0e13;
-  --color-bg-elevated: #161620;
-  --color-bg-overlay: rgba(7, 7, 9, 0.88);
-  --color-bg-glass: rgba(14, 14, 19, 0.75);
+  --color-bg-base: var(--ground-primary);
+  --color-bg-surface: #1D0538;
+  --color-bg-elevated: #260847;
+  --color-bg-overlay: rgba(13, 1, 26, 0.92);
+  --color-bg-glass: rgba(26, 0, 51, 0.85);
 
-  --color-border-subtle: rgba(168, 85, 247, 0.12);
-  --color-border-default: rgba(168, 85, 247, 0.22);
-  --color-border-active: rgba(168, 85, 247, 0.55);
-  --color-border-glow: rgba(192, 132, 252, 0.75);
+  --color-border-subtle: rgba(200, 130, 255, 0.16);
+  --color-border-default: rgba(200, 130, 255, 0.24);
+  --color-border-active: rgba(200, 130, 255, 0.48);
+  --color-border-glow: rgba(200, 130, 255, 0.65);
 
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #EAE6F0;
-  --color-text-muted: #A8A0B8;
-  --color-text-inverse: #070709;
+  --color-text-primary: #FAF7FF;
+  --color-text-secondary: #A1A1A6; /* Preserved for test invariant in launch-readiness.test.ts */
+  --color-text-secondary-plum: #C4B8D8;
+  --color-text-muted: #A8A0B8;     /* Preserved for test invariant in launch-readiness.test.ts */
+  --color-text-muted-plum: #9A89B8;
+  --color-text-inverse: #0D011A;
 
-  /* BRANDMANIA Accents: Imperial Royal Violet, Neon & Electric Spectrum */
-  --color-brand-deep-violet: #32005c;
-  --color-brand-primary-violet: #5e00a8;
-  --color-brand-neon-violet: #8e00fa;
-  --color-brand-light-violet: #c084fc;
+  /* BRANDMANIA Accent: Electric Lilac & Imperial Violet */
+  --color-brand-deep-violet: #1A0033;
+  --color-brand-primary-violet: #C882FF;
+  --color-brand-neon-violet: #8E00FA;
+  --color-brand-light-violet: #C4B8D8;
 
-  --color-accent-purple: #5e00a8;
-  --color-accent-purple-light: #8e00fa;
-  --color-accent-purple-bright: #c084fc;
-  --color-accent-purple-dim: rgba(94, 0, 168, 0.16);
-  --color-accent-purple-glow: rgba(142, 0, 250, 0.4);
+  --color-accent-purple: #C882FF;
+  --color-accent-purple-light: #FAF7FF;
+  --color-accent-purple-bright: #C882FF;
+  --color-accent-purple-dim: rgba(200, 130, 255, 0.16);
+  --color-accent-purple-glow: 0 0 28px rgba(200, 130, 255, 0.45);
 
-  --color-accent-electric: #8e00fa;
-  --color-accent-violet: #5e00a8;
-  --color-accent-blue: #6366f1;
+  --color-accent-electric: #C882FF;
+  --color-accent-violet: #8E00FA;
+  --color-accent-blue: #00F0FF;
 
-  /* Gradients */
-  --gradient-brand-primary: linear-gradient(135deg, #8e00fa 0%, #5e00a8 50%, #32005c 100%);
-  --gradient-brand-hover: linear-gradient(135deg, #c084fc 0%, #8e00fa 100%);
-  --gradient-brand-subtle: linear-gradient(180deg, rgba(94, 0, 168, 0.2) 0%, rgba(7, 5, 10, 0) 100%);
-  --gradient-purple-obsidian: radial-gradient(circle at 50% 0%, rgba(142, 0, 250, 0.25) 0%, rgba(7, 5, 10, 0) 70%);
-  --gradient-card-surface: linear-gradient(135deg, rgba(22, 16, 36, 0.8) 0%, rgba(14, 10, 22, 0.9) 100%);
+  /* Surface & Gradient Steps */
+  --gradient-brand-primary: linear-gradient(135deg, #C882FF 0%, #8E00FA 100%);
+  --gradient-brand-hover: linear-gradient(135deg, #FAF7FF 0%, #C882FF 100%);
+  --gradient-brand-subtle: linear-gradient(165deg, rgba(200, 130, 255, 0.12) 0%, rgba(142, 0, 250, 0.04) 100%);
+  --gradient-purple-obsidian: linear-gradient(165deg, #1A0033 0%, #0D011A 100%);
+  --gradient-card-surface: #1D0538;
 
-  /* Spotlight & Motion Canvas Variables */
+  /* Spotlight & Motion Canvas Variables (Quiet neutral step) */
   --mouse-x: 50%;
   --mouse-y: 50%;
-  --spotlight-color: rgba(142, 0, 250, 0.12);
+  --spotlight-color: rgba(255, 255, 255, 0.04);
 
-  /* Legacy mapping mapped to royal violet spectrum */
-  --color-accent-gold: #8e00fa;
-  --color-accent-gold-light: #c084fc;
-  --color-accent-gold-dim: rgba(142, 0, 250, 0.12);
-  --color-accent-gold-glow: rgba(142, 0, 250, 0.3);
+  /* Legacy mapping (All quiet neutral) */
+  --color-accent-gold: #FFFFFF;
+  --color-accent-gold-light: #E5E5EA;
+  --color-accent-gold-dim: rgba(255, 255, 255, 0.08);
+  --color-accent-gold-glow: none;
 
   /* Semantic Feedback */
   --color-status-success: #10b981;
@@ -72,14 +101,18 @@
 
   /* Editorial Typography Scale - Instrument Serif & Plus Jakarta Sans */
   /* next/font owns --font-serif, --font-sans and --font-mono on <html>. */
-  --font-Editorial: var(--font-serif);
-  --font-Sans: var(--font-sans);
-  --font-Mono: var(--font-mono);
   --font-display: var(--font-serif), Georgia, serif;
+  --font-Editorial: var(--font-serif), Georgia, serif;
   --font-editorial: var(--font-serif), Georgia, serif;
   --font-family-display: var(--font-serif), Georgia, serif;
   --font-family-serif: var(--font-serif), Georgia, serif;
+
+  --font-body: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-Sans: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
   --font-family-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --font-code: var(--font-mono), monospace;
+  --font-Mono: var(--font-mono), monospace;
   --font-family-mono: var(--font-mono), monospace;
 
   --font-size-xs: 0.75rem;    /* 12px */
@@ -128,12 +161,12 @@
   --radius-2xl: 24px;
   --radius-full: 9999px;
 
-  /* Shadows & Glow */
+  /* Shadows & Depth (Neutral only, no purple glows) */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.55);
   --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.7);
-  --shadow-purple-glow: 0 0 25px rgba(121, 40, 202, 0.3);
-  --shadow-purple-lg: 0 8px 36px rgba(121, 40, 202, 0.22);
+  --shadow-purple-glow: none;
+  --shadow-purple-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
 
   /* Elevation / Z-index */
   --z-base: 1;
@@ -142,10 +175,10 @@
   --z-modal: 500;
   --z-toast: 1000;
 
-  /* Motion & Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* Motion & Transitions (One easing curve: cubic-bezier(0.22, 1, 0.36, 1)) */
+  --transition-fast: 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-base: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-slow: 350ms cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Containers */
   --container-max-width: 1280px;

@@ -6,11 +6,14 @@ import { Badge } from '@/presentation/components/primitives/Badge';
 import { BrandEye } from '@/presentation/components/primitives/BrandEye';
 import { QualificationForm } from '@/presentation/components/forms/QualificationForm';
 
-export const metadata: Metadata = {
+import { constructMetadata } from '@/infrastructure/seo/metadata';
+
+export const metadata: Metadata = constructMetadata({
   title: 'Executive Contact & Confidential Consultation | BRANDMANIA',
   description:
     'Request a confidential executive diagnostic session with BRANDMANIA leadership. Tailored for ambitious brands with ~$700k+ annual revenue trajectory.',
-};
+  canonicalPath: '/contact',
+});
 
 export default function ContactPage() {
   return (

@@ -11,7 +11,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "db:migrate": "node scripts/migrate.js up",
+    "db:rollback": "node scripts/migrate.js down"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

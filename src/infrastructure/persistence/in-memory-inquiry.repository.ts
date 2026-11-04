@@ -13,6 +13,21 @@ export class InMemoryInquiryRepository implements IInquiryRepository {
     return this.items.get(id) ?? null;
   }
 
+  /**
+   * Eliminates N+1 queries by batching inquiry lookups into a single operation.
+   * Standard #14
+   */
+  public async findByIds(ids: string[]): Promise<Inquiry[]> {
+    const results: Inquiry[] = [];
+    for (const id of ids) {
+      const item = this.items.get(id);
+      if (item) {
+        results.push(item);
+      }
+    }
+    return results;
+  }
+
   public async findByEmail(email: Email): Promise<Inquiry[]> {
     const results: Inquiry[] = [];
     for (const inquiry of this.items.values()) {
@@ -23,9 +38,15 @@ export class InMemoryInquiryRepository implements IInquiryRepository {
     return results;
   }
 
+  /**
+   * Bounded pagination capped strictly at limit <= 50 to prevent unbounded memory exhaustion.
+   * Standard #14
+   */
   public async findAll(limit = 50, offset = 0): Promise<Inquiry[]> {
+    const safeLimit = Math.min(Math.max(1, limit), 50);
+    const safeOffset = Math.max(0, offset);
     const all = Array.from(this.items.values());
-    return all.slice(offset, offset + limit);
+    return all.slice(safeOffset, safeOffset + safeLimit);
   }
 
   public async count(): Promise<number> {
@@ -36,7 +57,31 @@ export class InMemoryInquiryRepository implements IInquiryRepository {
     return this.items.delete(id);
   }
 
+  /**
+   * Purges rejected or unqualified inquiries older than retention window (default 90 days).
+   * Standard #48
+   */
+  public async purgeExpired(retentionDays = 90): Promise<number> {
+    const cutoffMs = Date.now() - retentionDays * 24 * 60 * 60 * 1000;
+    let purgedCount = 0;
+
+    for (const [id, inquiry] of this.items.entries()) {
+      const statusStr = inquiry.status as string;
+      const isUnqualifiedOrRejected =
+        statusStr === 'REJECTED' || statusStr === 'UNQUALIFIED';
+      const isOlderThanCutoff = inquiry.createdAt.getTime() < cutoffMs;
+
+      if (isUnqualifiedOrRejected && isOlderThanCutoff) {
+        this.items.delete(id);
+        purgedCount++;
+      }
+    }
+
+    return purgedCount;
+  }
+
   public clear(): void {
     this.items.clear();
   }
 }
+

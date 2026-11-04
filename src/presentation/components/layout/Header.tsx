@@ -2,15 +2,47 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Container } from './Container';
 import { BrandEye } from '../primitives/BrandEye';
 import { Button } from '../primitives/Button';
-import { CommandMenu } from '../navigation/CommandMenu';
 import { SwipeableSheet } from '../primitives/SwipeableSheet';
 import { MAIN_NAV_LINKS, FOOTER_SECTIONS } from '@/content/navigation';
 import { BRAND } from '@/content/brand';
+import { LEGAL_CONTENT } from '@/content/legal';
+import { ArchitecturalSkeleton } from '@/presentation/components/primitives/ArchitecturalSkeleton';
 import headerStyles from './Header.module.css';
 import footerStyles from './Footer.module.css';
+
+/**
+ * #3 Performance: Dynamic code splitting — CommandMenu is only needed when
+ * the user opens the ⌘K palette. NeonStickerPhysicsFooter is a heavy
+ * physics simulation rendered below the fold in the Footer. Both are
+ * lazy-loaded with ArchitecturalSkeleton fallbacks.
+ */
+const CommandMenu = dynamic(
+  () => import('../navigation/CommandMenu').then((mod) => mod.CommandMenu),
+  {
+    loading: () => (
+      <div style={{ minHeight: '300px', width: '100%', backgroundColor: '#070709' }}>
+        <ArchitecturalSkeleton width="100%" height="300px" />
+      </div>
+    ),
+    ssr: false,
+  }
+);
+
+const NeonStickerPhysicsFooter = dynamic(
+  () => import('./NeonStickerPhysicsFooter').then((mod) => mod.NeonStickerPhysicsFooter),
+  {
+    loading: () => (
+      <footer style={{ minHeight: '440px', width: '100%', backgroundColor: '#090014' }}>
+        <ArchitecturalSkeleton width="100%" height="440px" />
+      </footer>
+    ),
+    ssr: false,
+  }
+);
 
 export function Header() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -50,14 +82,13 @@ export function Header() {
 
           {/* Header Action / CTA */}
           <div className={headerStyles.headerActions}>
-            {/* #3 & #4 Index Command Trigger with Shortcut Hint */}
+            {/* Index Command Trigger */}
             <button
               onClick={() => setIsCommandOpen(true)}
               className={`${headerStyles.indexTrigger} hit-slop`}
               aria-label="Open Command Menu Palette"
             >
               <span>Index</span>
-              <kbd style={{ fontSize: '9px', padding: '1px 4px' }}>⌘K</kbd>
             </button>
 
             <Button
@@ -91,7 +122,7 @@ export function Header() {
         </div>
       </Container>
 
-      {/* #3 Executive Command Menu Modal */}
+      {/* #3 Executive Command Menu Modal (lazy-loaded) */}
       <CommandMenu
         isOpen={isCommandOpen}
         onClose={() => setIsCommandOpen(false)}
@@ -140,7 +171,7 @@ export function Header() {
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 padding: '0.75rem 1rem',
-                borderRadius: '6px',
+                borderRadius: '0px',
                 color: '#fff',
                 fontSize: '0.9375rem',
                 marginTop: '0.5rem',
@@ -148,7 +179,6 @@ export function Header() {
               }}
             >
               <span>Brandmania Command Palette</span>
-              <kbd>⌘K</kbd>
             </button>
           </nav>
 
@@ -178,19 +208,19 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className={footerStyles.footer}>
+    <footer className={footerStyles.footer} style={{ backgroundColor: '#0D011A', color: '#FAF7FF' }}>
       <Container>
         <div className={footerStyles.grid}>
           {/* Brand Manifesto Column */}
           <div className={footerStyles.brandCol}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
               <BrandEye size="sm" />
-              <span className={footerStyles.brandTitle}>{BRAND.name}</span>
+              <span className={footerStyles.brandTitle} style={{ color: '#FAF7FF', fontFamily: 'var(--font-serif), Georgia, serif' }}>{BRAND.name}</span>
             </div>
-            <p className={footerStyles.brandManifesto}>
+            <p className={footerStyles.brandManifesto} style={{ color: '#C4B8D8', lineHeight: 1.65 }}>
               {BRAND.tagline}. Strategic premium consultancy engineering Margin Recovery, Brand Direction, and Consumer Scope for ambitious market leaders.
             </p>
-            <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-accent-purple-bright)', fontStyle: 'italic' }}>
+            <span style={{ fontSize: 'var(--font-size-xs)', color: '#9A89B8' }}>
               “{BRAND.internalPhilosophy}”
             </span>
           </div>
@@ -198,11 +228,15 @@ export function Footer() {
           {/* Directory Columns */}
           {FOOTER_SECTIONS.map((section) => (
             <div key={section.title}>
-              <h4 className={footerStyles.columnTitle}>{section.title}</h4>
-              <ul className={footerStyles.linkList}>
+              <h4 className={footerStyles.columnTitle} style={{ color: '#C882FF', fontFamily: 'var(--font-mono), monospace' }}>{section.title}</h4>
+              <ul className={footerStyles.linkList} style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {section.links.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className={footerStyles.link}>
+                  <li key={link.href} style={{ listStyle: 'none' }}>
+                    <Link
+                      href={link.href}
+                      className={footerStyles.link}
+                      style={{ color: '#C4B8D8', textDecoration: 'none', fontSize: '14px' }}
+                    >
                       {link.label}
                     </Link>
                   </li>
@@ -212,19 +246,20 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Bottom Legal & Operational Bar */}
-        <div className={footerStyles.bottomBar}>
-          <p>© {new Date().getFullYear()} {BRAND.name}. All rights reserved.</p>
-          <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
-            <Link href="/privacy" className={footerStyles.link}>Privacy Policy</Link>
-            <Link href="/terms" className={footerStyles.link}>Terms & Conditions</Link>
-            <Link href="/cookies" className={footerStyles.link}>Cookie Policy</Link>
-          </div>
-          <p style={{ color: 'var(--color-text-muted)' }}>
-            {BRAND.mottos.primary}
-          </p>
+        {/* Clean 3-Part Bottom Operational Bar */}
+        <div className={footerStyles.bottomBar} style={{ borderTop: '1px solid rgba(200, 130, 255, 0.16)', paddingTop: '1.5rem', paddingBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', fontSize: '11px', color: '#9A89B8', fontFamily: 'var(--font-mono), monospace' }}>
+          <span>© {new Date().getFullYear()} {BRAND.name}. All rights reserved.</span>
+          <span style={{ color: '#C4B8D8' }} data-protocol-ref={LEGAL_CONTENT.businessDetails.protocolRef}>
+            Operating Brand &amp; Commercial Entity: {LEGAL_CONTENT.businessDetails.operatingEntity}
+          </span>
+          <span style={{ color: '#C882FF', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            Commanding Category Leadership
+          </span>
         </div>
       </Container>
+
+      {/* Birch-Inspired Interactive 2D Physics Neon Sticker Footer (lazy-loaded) */}
+      <NeonStickerPhysicsFooter />
     </footer>
   );
 }

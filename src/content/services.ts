@@ -29,7 +29,7 @@ export const FLAGSHIP_SERVICES: Record<string, ServiceDetail> = {
     strategicPremise:
       'Attention does not equal revenue. Pouring paid traffic into a leaky commercial system only accelerates capital destruction.',
     points: [
-      'Comprehensive 8-vector margin and leakage audit',
+      'Verified 6-stage commercial audit chain (Planning, Marketing, Sales, Fulfillment, Customer Service, Post-Purchase Relationships)',
       'Diagnostic breakdown of fulfillment, acquisition, and post-purchase costs',
       'Elimination of high-friction conversion drop-offs',
       'Restructuring sales pipeline economics for maximum margin retention',
@@ -79,33 +79,29 @@ export const FLAGSHIP_SERVICES: Record<string, ServiceDetail> = {
 
 export const SUPPORTING_CAPABILITIES = [
   {
-    group: 'Growth & Performance Marketing',
+    group: 'Marketing & Creative Authority',
     items: [
-      'Engineered Customer Acquisition',
-      'Performance Media Strategy',
-      'High-Intent Funnel Architecture',
-      'High-Conversion Creative Strategy',
-      'Multi-Channel Performance Content',
+      'Digital Marketing',
+      'Growth Marketing',
+      'Performance Marketing',
+      'Content Creation',
+      'Performance Content Creation',
     ],
   },
   {
-    group: 'Strategic Operations & Finance',
+    group: 'Commercial & Operational Architecture',
     items: [
-      'Unit Economics Optimization',
-      'Strategic Operational Management',
-      'Cross-Functional Team Orchestration',
-      'Fulfillment Friction Elimination',
-      'Executive Leadership Advisory',
+      'Finance & Operations',
+      'Strategic Management',
+      'Team Management',
+      'Project Management',
     ],
   },
   {
-    group: 'Technology & AI Connected Systems',
+    group: 'Cognitive & Technological Leverage',
     items: [
-      'Operational Process Automation',
-      'Connected CRM & Data Pipelines',
-      'Execution Velocity Acceleration',
-      'Repetitive Task Elimination',
-      'Bespoke Agency-Client Infrastructure',
+      'AI Automation',
+      'AI Connected Systems',
     ],
   },
 ];

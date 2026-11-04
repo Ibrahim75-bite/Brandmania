@@ -51,7 +51,9 @@ export const FOOTER_SECTIONS = [
     links: [
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms & Conditions', href: '/terms' },
+      { label: 'Refund & Cancellation Policy', href: '/terms#refund-policy' },
       { label: 'Cookie Policy', href: '/cookies' },
+      { label: 'Data Deletion Request', href: '/privacy#data-deletion' },
     ],
   },
 ];

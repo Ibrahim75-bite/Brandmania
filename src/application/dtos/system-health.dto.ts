@@ -3,6 +3,7 @@ export interface HealthCheckDto {
   uptimeSeconds: number;
   timestamp: string;
   version: string;
+  maintenanceMode?: boolean;
 }
 
 export interface ReadinessCheckDto {
@@ -20,6 +21,15 @@ export interface ReadinessCheckDto {
     rateLimiter: {
       status: 'ok' | 'error';
     };
+    dlq?: {
+      status: 'ok' | 'warning' | 'error';
+      deadLetterCount: number;
+    };
+    circuitBreaker?: {
+      tripped: boolean;
+      status: 'ok' | 'tripped';
+    };
+    featureFlags?: Record<string, boolean>;
   };
   timestamp: string;
 }

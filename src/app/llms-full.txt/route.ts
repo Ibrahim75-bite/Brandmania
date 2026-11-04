@@ -105,6 +105,22 @@ ${seoConfig.targetIndustries.map((ind, idx) => `${idx + 1}. ${ind}`).join('\n')}
 
 ## 6. Frequently Asked Questions (Verified)
 ${seoConfig.faqs.map((faq, idx) => `Q${idx + 1}: ${faq.question}\nA: ${faq.answer}`).join('\n\n')}
+
+---
+
+## 7. Legal, Privacy, Confidentiality & B2B Governance
+- **Data Protection Compliance:** Dual-compliance governance adhering strictly to EU & UK GDPR and U.S. State Privacy Laws (California CCPA/CPRA, Virginia, Colorado, Connecticut, Texas).
+- **Controller vs. Processor Roles:** Controller for website visitors and exploratory qualification intake; Data Processor / Service Provider under bilateral Data Processing Addendum (DPA) when analyzing enterprise client customer/CRM records.
+- **Strict Commercial Confidentiality & Zero Data Sale:** Commercial disclosures, margin bottleneck notes, and corporate intake coordinates are treated as privileged commercial intelligence. BRANDMANIA never sells, leases, trades, or shares corporate/personal data with data brokers or behavioral advertisers, and never trains public AI models on client inquiry data.
+- **Mutual NDA Protocol:** All deep-dive commercial audits, unit economics reviews, and supplier margin reviews are preceded by an executed bilateral Mutual Non-Disclosure Agreement (Schedule A).
+- **Master Services Agreement (MSA) & IP Framework:** All client deliverables created specifically for the client are owned by the client upon full payment of fees, while BRANDMANIA retains pre-existing diagnostic frameworks and background methodologies (Schedule B).
+- **Data Retention & Ephemeral Purge:** Inquiries not progressing to a formal advisory engagement are systematically purged within 90 days. Rate-limit and idempotency tokens expire within 60s to 24h. Browser form draft data (sessionStorage) is cleared immediately upon form submission.
+- **Telemetry & Consent Architecture:** Zero non-essential analytics tracking by default. Optional Google Analytics 4 is strictly consent-gated and initializes only upon affirmative user opt-in with IP anonymization enabled.
+- **Official Legal References & Direct URLs:**
+  - Complete Privacy Policy: ${siteUrl}/privacy
+  - Terms of Use & Commercial Engagement Governance: ${siteUrl}/terms
+  - Cookie Notice & Technical Storage Disclosure: ${siteUrl}/cookies
+  - Executive Qualification Channel: ${siteUrl}/#qualification
 `;
 
   return new NextResponse(content, {

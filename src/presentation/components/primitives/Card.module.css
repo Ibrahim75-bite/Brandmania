@@ -1,27 +1,25 @@
 .card {
-  border-radius: var(--radius-lg);
+  border-radius: 0px;
   padding: var(--space-6);
-  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
   position: relative;
   overflow: hidden;
 }
 
 .surface {
   background-color: var(--color-bg-surface);
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .elevated {
   background-color: var(--color-bg-elevated);
-  border: 1px solid var(--color-border-default);
-  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: none;
 }
 
 .glass {
-  background: rgba(14, 14, 19, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.10);
 }
 
 .interactive {
@@ -29,7 +27,6 @@
 }
 
 .interactive:hover {
-  transform: translateY(-2px);
-  border-color: var(--color-border-active);
-  box-shadow: 0 8px 30px rgba(121, 40, 202, 0.25);
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow: none;
 }

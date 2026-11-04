@@ -94,10 +94,9 @@
 
 .briefingTag {
   font-size: var(--font-size-xs);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-accent-purple-bright);
-  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+  font-weight: 500;
 }
 
 .durationBadge {

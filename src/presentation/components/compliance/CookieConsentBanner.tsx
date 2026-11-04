@@ -87,9 +87,8 @@ export function CookieConsentBanner() {
             style={{
               fontFamily: 'var(--font-Mono)',
               fontSize: '0.7rem',
-              color: '#C882FF',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
+              color: '#ffffff',
+              letterSpacing: '0.02em',
               marginBottom: '0.25rem',
             }}
           >
@@ -107,7 +106,7 @@ export function CookieConsentBanner() {
             <Link
               href="/privacy"
               style={{
-                color: '#C882FF',
+                color: '#ffffff',
                 textDecoration: 'underline',
                 textUnderlineOffset: '3px',
                 fontWeight: 500,
@@ -133,14 +132,14 @@ export function CookieConsentBanner() {
             style={{
               minHeight: '44px',
               padding: '0.65rem 1.4rem',
-              backgroundColor: '#8E00FA',
-              color: '#FFFFFF',
+              backgroundColor: '#FFFFFF',
+              color: '#070709',
               border: 'none',
               fontSize: '0.85rem',
               fontWeight: 600,
-              letterSpacing: '0.04em',
+              letterSpacing: '0.02em',
               cursor: 'pointer',
-              transition: 'background-color 0.2s ease',
+              transition: 'opacity 0.2s ease',
             }}
           >
             {LEGAL_CONTENT.cookieConsent.acceptAllLabel}

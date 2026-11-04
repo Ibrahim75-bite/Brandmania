@@ -15,7 +15,7 @@ export function StatBlock({ value, label, context, className = '' }: StatBlockPr
         padding: 'var(--space-6)',
         backgroundColor: 'var(--color-bg-elevated)',
         border: '1px solid var(--color-border-subtle)',
-        borderRadius: 'var(--radius-lg)',
+        borderRadius: 0,
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--space-2)',
@@ -24,13 +24,12 @@ export function StatBlock({ value, label, context, className = '' }: StatBlockPr
       }}
     >
       <div
+        className="tabular-nums"
         style={{
           fontFamily: 'var(--font-family-serif)',
           fontSize: 'var(--font-size-4xl)',
-          fontWeight: 'var(--font-weight-bold)',
-          background: 'linear-gradient(135deg, #ffffff 0%, var(--color-accent-purple-bright) 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
+          fontWeight: 400,
+          color: '#ffffff',
           lineHeight: 1,
         }}
       >

@@ -1,0 +1,133 @@
+.section {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(165deg, #15002C 0%, #0D011A 100%);
+  border-bottom: 1px solid rgba(200, 130, 255, 0.16);
+  padding: clamp(4.5rem, 8vw, 8rem) 0;
+  overflow: hidden;
+}
+
+.headerBlock {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C882FF;
+  border-top: 1px solid rgba(200, 130, 255, 0.16);
+  padding-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.headline {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.8rem, 5.5vw, 5.25rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: #FAF7FF;
+  margin: 0;
+  max-width: 1100px;
+  text-wrap: balance;
+}
+
+.pipelineVisual {
+  position: relative;
+  width: 100%;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.matrixGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background-color: rgba(200, 130, 255, 0.16);
+  border: 1px solid rgba(200, 130, 255, 0.18);
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+.matrixCell {
+  background-color: #140228;
+  padding: clamp(2rem, 3.5vw, 3rem) clamp(1.5rem, 2.5vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: background-color var(--transition-fast);
+}
+
+.matrixCell:hover {
+  background-color: #1F053B;
+}
+
+.cellTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cellMarker {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #C882FF;
+  letter-spacing: 0.08em;
+}
+
+.cellIcon {
+  color: #FAF7FF;
+}
+
+.cellTitle {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.35rem, 1.8vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #FAF7FF;
+  margin: 0;
+}
+
+.cellDesc {
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.9375rem;
+  color: #C4B8D8;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cellLink {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9A89B8;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.matrixCell:hover .cellLink {
+  color: #C882FF;
+}
+
+@media (max-width: 1024px) {
+  .matrixGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .matrixGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -2,10 +2,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  border-radius: var(--radius-full);
+  font-family: var(--font-mono), monospace;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 0px;
   line-height: 1;
   border: 1px solid transparent;
 }
@@ -21,15 +21,15 @@
 }
 
 .purple {
-  background-color: rgba(121, 40, 202, 0.16);
-  color: #c084fc;
-  border-color: rgba(168, 85, 247, 0.35);
+  background-color: rgba(255, 255, 255, 0.03);
+  color: var(--color-text-secondary);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .gold {
-  background-color: var(--color-accent-gold-dim);
-  color: var(--color-accent-gold-light);
-  border-color: rgba(212, 175, 55, 0.3);
+  background-color: rgba(255, 255, 255, 0.03);
+  color: var(--color-text-secondary);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .success {

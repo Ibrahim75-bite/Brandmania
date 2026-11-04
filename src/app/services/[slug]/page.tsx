@@ -9,6 +9,7 @@ import { Button } from '@/presentation/components/primitives/Button';
 import { Card } from '@/presentation/components/primitives/Card';
 import { BrandEye } from '@/presentation/components/primitives/BrandEye';
 import { FLAGSHIP_SERVICES } from '@/content/services';
+import { constructMetadata } from '@/infrastructure/seo/metadata';
 
 interface ServiceDetailPageProps {
   params: Promise<{
@@ -25,13 +26,17 @@ export async function generateMetadata({ params }: ServiceDetailPageProps): Prom
   const service = FLAGSHIP_SERVICES[slug];
 
   if (!service) {
-    return { title: 'Service Not Found | BRANDMANIA' };
+    return constructMetadata({
+      title: 'Service Not Found | BRANDMANIA',
+      canonicalPath: `/services/${slug}`,
+    });
   }
 
-  return {
+  return constructMetadata({
     title: `${service.title} | BRANDMANIA Flagship`,
     description: service.summary,
-  };
+    canonicalPath: `/services/${slug}`,
+  });
 }
 
 export default async function ServiceDetailPage({ params }: ServiceDetailPageProps) {
@@ -49,8 +54,8 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
           <div style={{ maxWidth: '860px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-4)' }}>
               <BrandEye size="sm" />
-              <Badge variant="purple" size="md">
-                FLAGSHIP DISCIPLINE
+              <Badge variant="neutral" size="md">
+                Flagship discipline
               </Badge>
             </div>
 
@@ -58,7 +63,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
               style={{
                 fontFamily: 'var(--font-family-serif)',
                 fontSize: 'var(--font-size-5xl)',
-                fontWeight: 'var(--font-weight-bold)',
+                fontWeight: 400,
                 color: '#fff',
                 marginBottom: 'var(--space-4)',
               }}
@@ -70,8 +75,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
               style={{
                 fontSize: 'var(--font-size-2xl)',
                 fontFamily: 'var(--font-family-serif)',
-                fontStyle: 'italic',
-                color: 'var(--color-accent-purple-bright)',
+                color: 'var(--color-text-secondary)',
                 marginBottom: 'var(--space-6)',
               }}
             >
@@ -109,8 +113,8 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
         <Container>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'var(--space-10)' }}>
             <div>
-              <h3 style={{ fontSize: 'var(--font-size-xs)', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-accent-purple-bright)', marginBottom: 'var(--space-3)' }}>
-                STRATEGIC PREMISE
+              <h3 style={{ fontSize: 'var(--font-size-xs)', letterSpacing: '0.02em', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-3)' }}>
+                Strategic premise
               </h3>
               <Card variant="glass" style={{ padding: 'var(--space-8)' }}>
                 <p style={{ fontSize: 'var(--font-size-lg)', color: '#fff', lineHeight: 'var(--line-height-relaxed)', margin: 0 }}>
@@ -120,14 +124,14 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
             </div>
 
             <div>
-              <h3 style={{ fontSize: 'var(--font-size-xs)', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-accent-purple-bright)', marginBottom: 'var(--space-3)' }}>
-                DIAGNOSTIC DELIVERABLES
+              <h3 style={{ fontSize: 'var(--font-size-xs)', letterSpacing: '0.02em', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-3)' }}>
+                Diagnostic deliverables
               </h3>
               <Card variant="elevated" style={{ padding: 'var(--space-8)' }}>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
                   {service.points.map((pt, i) => (
                     <li key={i} style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)' }}>
-                      <span style={{ color: 'var(--color-accent-purple-bright)', fontWeight: 'bold' }}>0{i + 1}.</span>
+                      <span style={{ color: '#ffffff', fontWeight: 'bold' }}>0{i + 1}.</span>
                       <span>{pt}</span>
                     </li>
                   ))}

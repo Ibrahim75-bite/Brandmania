@@ -129,6 +129,30 @@ const rawConfig = {
       answer:
         'Yes, BRANDMANIA offers strategic consultancy for businesses not yet ready for a full rebuild or when full-engagement capacity is full.',
     },
+    {
+      question:
+        'Do you sign a formal Mutual Non-Disclosure Agreement (NDA) before auditing our internal numbers?',
+      answer:
+        'Yes. While preliminary qualification intake does not require sensitive financial attachments, before we conduct a forensic Margin Recovery audit or access internal unit economics, CRM data, or supplier margins, we execute a formal bilateral Mutual NDA protecting both parties.',
+    },
+    {
+      question:
+        'Does submitting the Qualification Form bind our company to a retainer or fee?',
+      answer:
+        'No. Submitting the Qualification Form is a non-binding request for an executive diagnostic review. A binding commercial relationship and fee obligation only arise when both parties sign a written Master Services Agreement (MSA) and a specific Statement of Work (SOW).',
+    },
+    {
+      question:
+        'Who owns the intellectual property (IP) created during a client engagement?',
+      answer:
+        'Under our standard Master Services Agreement (MSA), upon full payment of fees, the Client owns the bespoke brand assets, positioning narratives, and custom deliverables created specifically for the Client as defined in the SOW, while BRANDMANIA retains ownership of its pre-existing diagnostic methodologies, frameworks, and analytical templates (Background IP).',
+    },
+    {
+      question:
+        'How long do you retain qualification inquiries if we do not move forward, and do you sell our data?',
+      answer:
+        'We never sell, rent, or trade client or inquiry data. Inquiries from organizations that do not proceed to an active advisory dialogue or formal engagement are systematically purged from active repositories within 90 days—or immediately upon your written erasure request.',
+    },
   ],
 };
 

@@ -8,6 +8,13 @@ export interface BrandEyeProps {
   idSuffix?: string;
 }
 
+const SIZE_MAP = {
+  sm: 28,
+  md: 36,
+  lg: 52,
+  xl: 84,
+} as const;
+
 export function BrandEye({
   size = 'md',
   glow = true,
@@ -15,6 +22,7 @@ export function BrandEye({
   idSuffix = 'eye',
 }: BrandEyeProps) {
   const gradId = `brandEyeGrad_${idSuffix}`;
+  const px = SIZE_MAP[size] || 36;
 
   const classNames = [
     styles.container,
@@ -26,23 +34,29 @@ export function BrandEye({
     .join(' ');
 
   return (
-    <span className={classNames} aria-hidden="true">
+    <span
+      className={classNames}
+      style={{
+        width: px,
+        height: px,
+        minWidth: px,
+        minHeight: px,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+      }}
+      aria-hidden="true"
+    >
       <svg
         viewBox="475 309 1050 1050"
-        width="100%"
-        height="100%"
+        width={px}
+        height={px}
+        style={{ width: px, height: px, display: 'block', flexShrink: 0 }}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <defs>
-          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#C084FC" />
-            <stop offset="50%" stopColor="#8E00FA" />
-            <stop offset="100%" stopColor="#5E00A8" />
-          </linearGradient>
-        </defs>
-
-        <g fill={`url(#${gradId})`}>
+        <g fill="currentColor">
           {/* Authentic Quadrant Arcs & Sclera Geometries */}
           <path d="M 1245.93 1359.47 L 1170.93 1359.47 C 1170.93 1311.82, 1180.27 1265.56, 1198.70 1222.00 C 1216.49 1179.95, 1241.95 1142.18, 1274.37 1109.76 C 1306.79 1077.34, 1344.55 1051.89, 1386.60 1034.10 C 1430.17 1015.67, 1476.42 1006.33, 1524.08 1006.33 L 1524.08 1081.33 C 1370.71 1081.33, 1245.93 1206.10, 1245.93 1359.47" />
           <path d="M 1419.85 1359.47 L 1344.85 1359.47 C 1344.85 1260.65, 1425.25 1180.25, 1524.08 1180.25 L 1524.08 1255.25 C 1466.61 1255.25, 1419.85 1302.00, 1419.85 1359.47" />

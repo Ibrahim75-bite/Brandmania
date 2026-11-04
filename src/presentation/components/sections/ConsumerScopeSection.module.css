@@ -1,0 +1,183 @@
+.section {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(165deg, #15012B 0%, #0D011A 100%);
+  border-bottom: 1px solid rgba(200, 130, 255, 0.16);
+  padding: clamp(5rem, 9vw, 8.5rem) 0;
+  overflow: hidden;
+}
+
+.headerBlock {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C882FF;
+  border-top: 1px solid rgba(200, 130, 255, 0.16);
+  padding-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.headline {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.8rem, 5.5vw, 5.25rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: #FAF7FF;
+  margin: 0;
+  max-width: 1200px;
+  text-wrap: balance;
+}
+
+/* 2-Pane Split Editorial Reader */
+.readerGrid {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  border: 1px solid rgba(200, 130, 255, 0.2);
+  border-radius: 0px;
+  background-color: #120124;
+  overflow: hidden;
+}
+
+.leftPane {
+  border-right: 1px solid rgba(200, 130, 255, 0.16);
+  display: flex;
+  flex-direction: column;
+}
+
+.dimButton {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.75rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(200, 130, 255, 0.12);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+  width: 100%;
+}
+
+.dimButton:hover {
+  background-color: #1E0438;
+}
+
+.dimButtonActive {
+  background-color: #260847;
+  border-left: 3px solid #C882FF;
+}
+
+.dimIndex {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #9A89B8;
+}
+
+.dimButtonActive .dimIndex {
+  color: #C882FF;
+}
+
+.dimLabel {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #9A89B8;
+  transition: color var(--transition-fast);
+}
+
+.dimButtonActive .dimLabel,
+.dimButton:hover .dimLabel {
+  color: #FAF7FF;
+}
+
+.rightPane {
+  padding: clamp(2.5rem, 5vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  background: linear-gradient(160deg, #1C0338 0%, #100122 100%);
+}
+
+.activeHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.activeTag {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0D011A;
+  background-color: #C882FF;
+  padding: 0.25rem 0.6rem;
+}
+
+.activeTitle {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: #FAF7FF;
+  margin: 0;
+}
+
+.activePrinciple {
+  font-family: var(--font-body), sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  color: #C4B8D8;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.activeThesis {
+  border-top: 1px solid rgba(200, 130, 255, 0.16);
+  padding-top: 1.5rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #FAF7FF;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .readerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .leftPane {
+    border-right: none;
+    border-bottom: 1px solid rgba(200, 130, 255, 0.16);
+  }
+
+  .rightPane {
+    padding: 2.5rem 1.5rem;
+  }
+}

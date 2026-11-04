@@ -92,7 +92,7 @@ export const UndoToast: React.FC<UndoToastProps> = ({
                 width: 6,
                 height: 6,
                 borderRadius: '50%',
-                backgroundColor: 'var(--color-brand-neon-violet, #a855f7)',
+                backgroundColor: '#ffffff',
               }}
             />
             <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{message}</span>

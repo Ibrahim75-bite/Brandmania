@@ -12,8 +12,8 @@ export const CONSUMER_SCOPE_FUNNEL: FunnelConfig = {
     campaignTag: 'consumer-scope-v1',
   },
   hero: {
-    badge: 'CONSUMER SCOPE ARCHITECTURE',
-    headline: 'Taking Over Minds.',
+    badge: 'Consumer scope architecture',
+    headline: 'Taking Over Minds',
     subheadline:
       'We design how customers experience, interpret, value, and emotionally attach to your brand across every critical commercial touchpoint.',
     primaryCta: 'Consult on Consumer Scope',

@@ -1,210 +1,144 @@
 'use client';
 
 import React from 'react';
-import { CheckCircle, XCircle } from '@phosphor-icons/react';
-import { Section } from '@/presentation/components/layout/Section';
+import Link from 'next/link';
+import { CheckCircle, ArrowRight } from '@phosphor-icons/react';
+import { Container } from '@/presentation/components/layout/Container';
+import styles from './DilemmaSection.module.css';
 
 export const DilemmaSection: React.FC = () => {
+  const turningPoints = [
+    {
+      num: '01',
+      symptom: 'Scaling paid traffic, but net contribution margin is eroding',
+      remedy: 'Explore Margin Recovery',
+      code: '[02]',
+      href: '/#margin-recovery',
+    },
+    {
+      num: '02',
+      symptom: 'Product quality is category-leading, but market perception looks average',
+      remedy: 'Explore Brand Direction',
+      code: '[01]',
+      href: '/#disciplines',
+    },
+    {
+      num: '03',
+      symptom: 'High-ticket buyers hesitate at checkout or demand price discounts',
+      remedy: 'Explore Consumer Scope',
+      code: '[03]',
+      href: '/#consumer-scope',
+    },
+    {
+      num: '04',
+      symptom: 'Preparing for international expansion, new product tier, or category takeover',
+      remedy: 'Initiate Full Rebuild',
+      code: '[04]',
+      href: '/#qualification',
+    },
+  ];
+
   return (
-    <Section
-      id="dilemma"
-      spacing="none"
-      style={{
-        backgroundColor: 'var(--surface-obsidian, #070709)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-        position: 'relative',
-        minHeight: '80vh',
-        display: 'flex',
-        alignItems: 'stretch',
-        overflow: 'hidden',
-        width: '100%',
-        padding: 0,
-      }}
-    >
-      {/* Full-Bleed Edge-to-Edge Split Plane */}
-      <div
-        style={{
-          width: '100%',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-          alignItems: 'stretch',
-        }}
-      >
-        {/* Left Half: The Attention Trap (Matte Obsidian #09090C) */}
-        <div
-          style={{
-            backgroundColor: '#09090C',
-            padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 5rem)',
-            borderRight: '1px solid rgba(255, 255, 255, 0.12)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '2.5rem',
-          }}
-        >
-          <div>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono, monospace)',
-                fontSize: '11px',
-                fontWeight: 600,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: '#ff6b6b',
-                marginBottom: '1rem',
-              }}
-            >
-              (03) / THE ATTENTION TRAP &bull; COMMODITIZED CHURN
+    <section id="dilemma" className={styles.section}>
+      <Container size="full">
+        {/* Commodity vs Category Leadership Table */}
+        <div className={styles.tableGrid}>
+          {/* Left Column: The Commodity Trap */}
+          <div className={styles.trapCol}>
+            <div>
+              <div className={styles.trapMarker}>
+                02.A &mdash; COMMODITY GROWTH (TRAFFIC WITHOUT AUTHORITY)
+              </div>
+              <h2 className={styles.trapTitle}>
+                Traffic buys attention. It does not buy loyalty.
+              </h2>
             </div>
 
-            <h2
-              style={{
-                fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
-                fontSize: 'clamp(2.6rem, 4.5vw, 4.5rem)',
-                fontWeight: 400,
-                lineHeight: 1.02,
-                letterSpacing: '-0.025em',
-                color: '#ffffff',
-                margin: 0,
-              }}
-            >
-              Traffic buys attention.{' '}
-              <span style={{ fontStyle: 'italic', color: '#ff6b6b' }}>
-                It does not buy loyalty.
-              </span>
-            </h2>
+            <p className={styles.trapBody}>
+              Pouring ad spend into an uncalibrated business model creates an exhausting discount treadmill. Without differentiated brand perception, buyers default strictly to price comparison.
+            </p>
+
+            <div className={styles.trapList}>
+              {[
+                'Purchasing impressions into an uncalibrated commercial funnel',
+                'Commodity positioning forcing constant discount dependency',
+                'Rising customer acquisition costs with declining unit economics',
+                'High top-of-funnel churn without organic brand attachment',
+              ].map((item, idx) => (
+                <div key={idx} className={styles.trapItem}>
+                  <span className={styles.trapDash}>&mdash;</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <p
-            style={{
-              fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
-              fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
-              color: 'rgba(255, 255, 255, 0.65)',
-              lineHeight: 1.6,
-              margin: 0,
-              maxWidth: '540px',
-            }}
-          >
-            Pouring ad spend into an uncalibrated business model creates an exhausting discount treadmill.
-            Without differentiated brand perception, buyers default strictly to price comparison.
-          </p>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '520px' }}>
-            {[
-              'Purchasing impressions into an uncalibrated commercial funnel',
-              'Commodity positioning forcing constant discount dependency',
-              'Rising customer acquisition costs with declining unit economics',
-              'High top-of-funnel churn without organic brand attachment',
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '12px',
-                  fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
-                  fontSize: '14px',
-                  color: 'rgba(255, 255, 255, 0.65)',
-                  lineHeight: 1.5,
-                }}
-              >
-                <XCircle size={18} weight="duotone" color="#ff6b6b" style={{ flexShrink: 0, marginTop: '2px' }} />
-                <span>{item}</span>
+          {/* Right Column: The Brandmania Architecture */}
+          <div className={styles.archCol}>
+            <div>
+              <div className={styles.archMarker}>
+                02.B &mdash; ENGINEERED CATEGORY LEADERSHIP (PRICING POWER)
               </div>
-            ))}
+              <h2 className={styles.archTitle}>
+                Brand architecture commands margin.
+              </h2>
+            </div>
+
+            <p className={styles.archBody}>
+              When Brand Direction, Margin Recovery, and Consumer Scope operate as a unified system, advertising amplifies an already profitable machine. Market perception commands premium pricing.
+            </p>
+
+            <div className={styles.archList}>
+              {[
+                'Brand direction establishes category prestige & pricing power',
+                'Commanding price inelasticity where customers buy at full value',
+                'Operational audits sealing leakage across the entire commercial chain',
+                'Enduring identity attachment driving high-retention customer loops',
+              ].map((item, idx) => (
+                <div key={idx} className={styles.archItem}>
+                  <CheckCircle size={18} weight="bold" className={styles.archCheck} />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Right Half: The Brandmania Architecture (Rich Imperial Violet Surface #190033) */}
-        <div
-          style={{
-            background: 'linear-gradient(165deg, #1A0033 0%, #0A0015 100%)',
-            padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 5rem)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '2.5rem',
-            position: 'relative',
-          }}
-        >
-          <div>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono, monospace)',
-                fontSize: '11px',
-                fontWeight: 600,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: 'var(--color-brand-light-violet, #C882FF)',
-                marginBottom: '1rem',
-              }}
-            >
-              (04) / THE COMMERCIAL REMEDY &bull; BRAND ARCHITECTURE
+        {/* Stuurmen / Gatzara Turning-Point Journey Strip */}
+        <div className={styles.turningPointBlock}>
+          <div className={styles.turningPointHeader}>
+            <div>
+              <div className={styles.turningPointEyebrow}>
+                TURNING-POINT DIAGNOSTIC &bull; COMMERCIAL ADVISORY ROUTER
+              </div>
+              <h3 className={styles.turningPointTitle}>
+                Where Is Your Brand Losing Leverage?
+              </h3>
             </div>
-
-            <h2
-              style={{
-                fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
-                fontSize: 'clamp(2.6rem, 4.5vw, 4.5rem)',
-                fontWeight: 400,
-                lineHeight: 1.02,
-                letterSpacing: '-0.025em',
-                color: '#ffffff',
-                margin: 0,
-              }}
-            >
-              Brand architecture{' '}
-              <span
-                style={{
-                  fontStyle: 'italic',
-                  color: 'var(--color-brand-light-violet, #C882FF)',
-                }}
-              >
-                commands margin.
-              </span>
-            </h2>
+            <p className={styles.turningPointSubtitle}>
+              Built for ambitious leadership teams navigating critical inflection points in market scale and margin expansion.
+            </p>
           </div>
 
-          <p
-            style={{
-              fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
-              fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
-              color: 'rgba(255, 255, 255, 0.85)',
-              lineHeight: 1.6,
-              margin: 0,
-              maxWidth: '540px',
-            }}
-          >
-            When Brand Direction, Margin Recovery, and Consumer Scope operate as a unified system,
-            advertising amplifies an already profitable machine. Market perception commands premium pricing.
-          </p>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '520px' }}>
-            {[
-              'Brand direction establishes category prestige & pricing power',
-              'Commanding price inelasticity where customers buy at full value',
-              'Operational audits sealing leakage across the entire commercial chain',
-              'Enduring identity attachment driving high-retention customer loops',
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '12px',
-                  fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
-                  fontSize: '14px',
-                  color: '#ffffff',
-                  lineHeight: 1.5,
-                }}
+          <div className={styles.routerGrid} role="navigation" aria-label="Brand Leverage Diagnostic Router">
+            {turningPoints.map((tp) => (
+              <Link
+                key={tp.num}
+                href={tp.href}
+                className={`${styles.routerRow} hit-slop`}
               >
-                <CheckCircle size={18} weight="duotone" color="#C882FF" style={{ flexShrink: 0, marginTop: '2px' }} />
-                <span>{item}</span>
-              </div>
+                <span className={styles.routerIndex}>({tp.num})</span>
+                <span className={styles.routerSymptom}>&ldquo;{tp.symptom}&rdquo;</span>
+                <div className={styles.routerRemedy}>
+                  <span>{tp.remedy}</span>
+                  <span className={styles.remedyPill}>{tp.code}</span>
+                </div>
+                <ArrowRight size={18} weight="bold" className={styles.routerArrow} />
+              </Link>
             ))}
           </div>
         </div>
-      </div>
-    </Section>
+      </Container>
+    </section>
   );
 };

@@ -12,8 +12,8 @@ export const BRAND_DIRECTION_FUNNEL: FunnelConfig = {
     campaignTag: 'brand-direction-v1',
   },
   hero: {
-    badge: 'BRAND DIRECTION EXECUTIVE BRIEFING',
-    headline: 'Perception Dictates Pricing Power.',
+    badge: 'Brand direction executive briefing',
+    headline: 'Perception Dictates Pricing Power',
     subheadline:
       'We help brands establish optimal market perception, executive trust, tone of voice, narrative clarity, and category dominance.',
     primaryCta: 'Explore Brand Direction',

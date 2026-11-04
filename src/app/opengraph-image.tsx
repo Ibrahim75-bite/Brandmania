@@ -21,40 +21,36 @@ export default async function Image() {
           padding: '60px 80px',
           backgroundColor: '#070709',
           color: '#FFFFFF',
-          backgroundImage:
-            'radial-gradient(circle at 80% 20%, rgba(142, 0, 250, 0.25) 0%, transparent 60%)',
-          border: '12px solid #0F0F14',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <div
               style={{
-                width: '40px',
-                height: '40px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
-                backgroundColor: '#8E00FA',
+                backgroundColor: '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 24px #8E00FA',
               }}
             >
               <div
                 style={{
-                  width: '16px',
-                  height: '16px',
+                  width: '14px',
+                  height: '14px',
                   borderRadius: '50%',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: '#070709',
                 }}
               />
             </div>
             <span
               style={{
-                fontSize: 28,
-                fontWeight: 700,
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
+                fontSize: 24,
+                fontWeight: 600,
+                letterSpacing: '0.04em',
               }}
             >
               BRANDMANIA
@@ -62,15 +58,14 @@ export default async function Image() {
           </div>
           <div
             style={{
-              fontSize: 14,
-              letterSpacing: '0.12em',
-              color: '#C882FF',
-              textTransform: 'uppercase',
-              border: '1px solid rgba(200, 130, 255, 0.3)',
+              fontSize: 13,
+              letterSpacing: '0.02em',
+              color: '#A1A1A6',
+              border: '1px solid rgba(255, 255, 255, 0.14)',
               padding: '6px 16px',
             }}
           >
-            Commercial Advisory &bull; $700K+
+            Commercial advisory &bull; $700K+
           </div>
         </div>
 
@@ -83,12 +78,12 @@ export default async function Image() {
               letterSpacing: '-0.02em',
             }}
           >
-            Branded for the Best.
+            Branded for the Best
           </div>
           <div
             style={{
               fontSize: 24,
-              color: '#A8A0B8',
+              color: '#A1A1A6',
               lineHeight: 1.4,
               maxWidth: '900px',
             }}
@@ -105,11 +100,11 @@ export default async function Image() {
             borderTop: '1px solid rgba(255, 255, 255, 0.12)',
             paddingTop: '24px',
             fontSize: 16,
-            color: '#A8A0B8',
+            color: '#A1A1A6',
           }}
         >
           <span>brandmania.com</span>
-          <span style={{ color: '#C882FF' }}>Executive Qualification Protocol</span>
+          <span style={{ color: '#FFFFFF' }}>Executive Qualification Protocol</span>
         </div>
       </div>
     ),

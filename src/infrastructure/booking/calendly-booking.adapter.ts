@@ -1,9 +1,10 @@
 import { IBookingProvider, BookingContext } from '@/application/ports/booking.port';
 
 export class CalendlyBookingAdapter implements IBookingProvider {
-  constructor(private readonly baseUrl: string = 'https://calendly.com/brandmania/executive-briefing') {}
+  constructor(private readonly baseUrl: string = process.env.NEXT_PUBLIC_BOOKING_URL || '') {}
 
   public async generateBookingUrl(context: BookingContext): Promise<string> {
+    if (!this.baseUrl) return '';
     const params = new URLSearchParams();
     if (context.clientName) params.set('name', context.clientName);
     if (context.email) params.set('email', context.email);

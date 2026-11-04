@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MagnifyingGlass, ArrowElbowDownLeft, Sparkle, Compass } from '@phosphor-icons/react';
+import { MagnifyingGlass, ArrowElbowDownLeft, Target, Compass } from '@phosphor-icons/react';
 
 export interface CommandMenuProps {
   isOpen: boolean;
@@ -320,14 +320,14 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
                           className="font-mono tabular-nums"
                           style={{
                             fontSize: '11px',
-                            color: isSelected ? 'var(--color-brand-neon-violet, #c882ff)' : 'rgba(255, 255, 255, 0.35)',
+                            color: isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.45)',
                             minWidth: '22px',
                           }}
                         >
                           {cmd.index}
                         </span>
                         {cmd.category === 'Track' ? (
-                          <Sparkle size={15} color="#c882ff" />
+                          <Target size={15} color="#ffffff" />
                         ) : (
                           <Compass size={15} color="rgba(255, 255, 255, 0.45)" />
                         )}

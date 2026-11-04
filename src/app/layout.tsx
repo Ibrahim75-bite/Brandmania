@@ -9,6 +9,7 @@ import { AnalyticsProvider } from '@/presentation/components/analytics/Analytics
 import { SmoothScroll } from '@/presentation/components/layout/SmoothScroll';
 import { constructMetadata } from '@/infrastructure/seo/metadata';
 import { StructuredData } from '@/presentation/components/seo/StructuredData';
+import { SkipToContent } from '@/presentation/components/navigation/SkipToContent';
 
 const instrumentSerif = Instrument_Serif({
   weight: '400',
@@ -38,7 +39,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: '#070709',
+  themeColor: '#0D011A',
 };
 
 export default function RootLayout({
@@ -56,16 +57,17 @@ export default function RootLayout({
           display: 'flex',
           flexDirection: 'column',
           minHeight: '100vh',
-          backgroundColor: 'var(--surface-obsidian, #070709)',
-          color: 'var(--color-text-primary, #ffffff)',
+          backgroundColor: 'var(--ground-primary, #0D011A)',
+          color: 'var(--ink-primary, #FAF7FF)',
           fontFamily: 'var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif',
         }}
       >
+        <SkipToContent />
         <AnalyticsProvider>
           <StructuredData />
           <SmoothScroll />
           <Header />
-          <main style={{ flex: 1 }}>
+          <main id="main-content" tabIndex={-1} style={{ flex: 1, outline: 'none' }}>
             <ErrorBoundary>
               {children}
             </ErrorBoundary>

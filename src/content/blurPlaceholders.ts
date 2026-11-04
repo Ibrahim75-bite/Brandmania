@@ -11,12 +11,12 @@ function createSvgDataUri(svgContent: string): string {
   return `data:image/svg+xml;base64,${base64}`;
 }
 
-const obsidianVioletGradient = `
+const obsidianNeutralGradient = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#070709" />
-      <stop offset="50%" stop-color="#160029" />
+      <stop offset="50%" stop-color="#14141a" />
       <stop offset="100%" stop-color="#070709" />
     </linearGradient>
   </defs>
@@ -37,13 +37,13 @@ const editorialAlabasterGradient = `
 </svg>
 `;
 
-const posterVioletGradient = `
+const posterNeutralGradient = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 60" width="40" height="60">
   <defs>
     <linearGradient id="posterBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#070709" />
-      <stop offset="40%" stop-color="#2E0854" />
-      <stop offset="70%" stop-color="#160029" />
+      <stop offset="40%" stop-color="#161620" />
+      <stop offset="70%" stop-color="#111116" />
       <stop offset="100%" stop-color="#070709" />
     </linearGradient>
   </defs>
@@ -53,16 +53,16 @@ const posterVioletGradient = `
 
 export const BLUR_PLACEHOLDERS = {
   // Hero aperture cover asset
-  coverClean: createSvgDataUri(obsidianVioletGradient),
+  coverClean: createSvgDataUri(obsidianNeutralGradient),
   // Brand direction poster
-  poster: createSvgDataUri(posterVioletGradient),
+  poster: createSvgDataUri(posterNeutralGradient),
   // Artboards
-  artboard1: createSvgDataUri(obsidianVioletGradient),
+  artboard1: createSvgDataUri(obsidianNeutralGradient),
   artboard2: createSvgDataUri(editorialAlabasterGradient),
-  artboard3: createSvgDataUri(obsidianVioletGradient),
-  artboard4: createSvgDataUri(obsidianVioletGradient),
+  artboard3: createSvgDataUri(obsidianNeutralGradient),
+  artboard4: createSvgDataUri(obsidianNeutralGradient),
   // Campaign banner
-  agencyBanner: createSvgDataUri(obsidianVioletGradient),
+  agencyBanner: createSvgDataUri(obsidianNeutralGradient),
   // Default fallback
-  default: createSvgDataUri(obsidianVioletGradient),
+  default: createSvgDataUri(obsidianNeutralGradient),
 };

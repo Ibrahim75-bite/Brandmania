@@ -22,8 +22,8 @@ export function ProofQuote({
         margin: 0,
         padding: 'var(--space-8)',
         backgroundColor: 'var(--color-bg-elevated)',
-        borderLeft: '3px solid var(--color-accent-purple-bright)',
-        borderRadius: 'var(--radius-md)',
+        borderLeft: '2px solid rgba(255, 255, 255, 0.28)',
+        borderRadius: 0,
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--space-4)',
@@ -34,7 +34,6 @@ export function ProofQuote({
         style={{
           fontFamily: 'var(--font-family-serif)',
           fontSize: 'var(--font-size-lg)',
-          fontStyle: 'italic',
           color: 'var(--color-text-primary)',
           lineHeight: 'var(--line-height-relaxed)',
           margin: 0,

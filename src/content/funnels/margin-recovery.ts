@@ -12,8 +12,8 @@ export const MARGIN_RECOVERY_FUNNEL: FunnelConfig = {
     campaignTag: 'margin-recovery-v1',
   },
   hero: {
-    badge: 'MARGIN RECOVERY DIAGNOSTIC',
-    headline: 'Fix The Machine Before Buying More Traffic.',
+    badge: 'Margin recovery diagnostic',
+    headline: 'Fix The Machine Before Buying More Traffic',
     subheadline:
       'Every business is in the business of making money. We identify where existing revenue is leaking across your operations, sales, and fulfillment.',
     primaryCta: 'Request Margin Audit',

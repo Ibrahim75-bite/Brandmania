@@ -26,8 +26,8 @@ const FUNNEL_MAP: Record<string, FunnelConfig> = {
     },
     hero: {
       ...DEFAULT_FUNNEL.hero,
-      badge: 'FINE JEWELRY & GEMSTONE AUTHORITY',
-      headline: 'Rarity Engineered For Category Dominance.',
+      badge: 'Fine jewelry & gemstone authority',
+      headline: 'Rarity Engineered For Category Dominance',
       subheadline:
         'We help jewelry and gemstone houses eliminate operational leaks, elevate perceived value, and command uncontested international market presence.',
     },
@@ -43,8 +43,8 @@ const FUNNEL_MAP: Record<string, FunnelConfig> = {
     },
     hero: {
       ...DEFAULT_FUNNEL.hero,
-      badge: 'DESIGNER BOUTIQUE ARCHITECTURE',
-      headline: 'Transforming High-End Design Into Commercial Authority.',
+      badge: 'Designer boutique architecture',
+      headline: 'Transforming High-End Design Into Commercial Authority',
       subheadline:
         'Bridge the gap between pure artistic vision and commercial margin retention. Fix the machine and establish undeniable brand pull.',
     },

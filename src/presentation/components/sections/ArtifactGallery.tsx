@@ -1,358 +1,228 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'motion/react';
-import { CaretLeft, CaretRight } from '@phosphor-icons/react';
-import { Section } from '@/presentation/components/layout/Section';
+import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
+import { Container } from '@/presentation/components/layout/Container';
 import { BLUR_PLACEHOLDERS } from '@/content/blurPlaceholders';
-import { ArchitecturalSkeleton } from '@/presentation/components/primitives/ArchitecturalSkeleton';
-import { runViewTransition } from '@/presentation/utils/viewTransition';
 import styles from './ArtifactGallery.module.css';
 
-interface CampaignArtifact {
+interface Artifact {
   id: string;
   title: string;
-  format: string;
-  imageSrc: string;
-  blurDataURL: string;
   description: string;
+  imageSrc: string;
   width: number;
   height: number;
-  span: 'standard' | 'wide';
+  format: string;
+  blurDataURL?: string;
+  altText: string;
 }
 
-const artifacts: CampaignArtifact[] = [
+const ARTIFACTS: Artifact[] = [
   {
     id: '01',
     title: 'Brand Mission & Ethos Creative',
-    format: 'Campaign Master Visual',
+    description: 'The campaign assertion that articulates BRANDMANIA’s ethos of craftsmanship, pricing power, and market leadership.',
     imageSrc: '/brand/graphics/artboard-1-our.jpg',
-    blurDataURL: BLUR_PLACEHOLDERS.artboard1,
-    description: 'The campaign assertion that articulates BRANDMANIA’s ethos of craftsmanship and market leadership.',
     width: 1080,
     height: 1080,
-    span: 'standard',
+    format: 'Campaign Master Visual',
+    blurDataURL: BLUR_PLACEHOLDERS.artboard1,
+    altText: 'BRANDMANIA Brand Mission & Ethos Creative Master Artboard',
   },
   {
     id: '02',
     title: 'Services & Branding Architecture',
-    format: 'Identity Deliverable Artboard',
-    imageSrc: '/brand/graphics/artboard-2-services-branding.jpg',
-    blurDataURL: BLUR_PLACEHOLDERS.artboard2,
     description: 'A complete view of the Brand Direction system: positioning, frameworks, and visual standards.',
+    imageSrc: '/brand/graphics/artboard-2-services-branding.jpg',
     width: 1080,
     height: 1080,
-    span: 'standard',
+    format: 'Identity Deliverable Artboard',
+    blurDataURL: BLUR_PLACEHOLDERS.artboard2,
+    altText: 'BRANDMANIA Services & Branding Architecture Deliverable Artboard',
   },
   {
     id: '03',
     title: 'Social & Feed Campaign System',
-    format: 'Social Media Artboard',
+    description: 'A high-density campaign system designed to create instant category authority and retention across digital feeds.',
     imageSrc: '/brand/graphics/artboard-3-services-social.jpg',
-    blurDataURL: BLUR_PLACEHOLDERS.artboard3,
-    description: 'A high-density campaign system designed to create recognition and authority in the feed.',
     width: 1080,
     height: 1080,
-    span: 'standard',
+    format: 'Social Media Artboard',
+    blurDataURL: BLUR_PLACEHOLDERS.artboard3,
+    altText: 'BRANDMANIA Social & Feed Campaign System Deliverable Artboard',
   },
   {
     id: '04',
     title: 'The Brand Eye Cultural Seal',
-    format: 'Symbolic Iconography',
+    description: 'The Brand Eye as a symbol of focus, symmetry, uncompromising standard, and cultural longevity.',
     imageSrc: '/brand/graphics/artboard-4-brand-eye.jpg',
-    blurDataURL: BLUR_PLACEHOLDERS.artboard4,
-    description: 'The Brand Eye as a symbol of focus, symmetry, and executive standard.',
     width: 1080,
     height: 1080,
-    span: 'standard',
+    format: 'Symbolic Iconography',
+    blurDataURL: BLUR_PLACEHOLDERS.artboard4,
+    altText: 'BRANDMANIA The Brand Eye Cultural Seal Artboard',
   },
   {
     id: '05',
     title: 'Omni-Channel Agency Banner',
-    format: 'Landscape Master Banner',
+    description: 'Landscape campaign artwork articulating strategic discipline and market authority across channels.',
     imageSrc: '/brand/graphics/brandmania-ad-agency-banner.jpg',
-    blurDataURL: BLUR_PLACEHOLDERS.agencyBanner,
-    description: 'A panoramic campaign asset for high-visibility digital and physical placements.',
     width: 1920,
     height: 1080,
-    span: 'wide',
+    format: 'Landscape Master Banner',
+    blurDataURL: BLUR_PLACEHOLDERS.agencyBanner,
+    altText: 'BRANDMANIA Omni-Channel Agency Banner Master Deliverable',
   },
 ];
 
-export const ArtifactGallery: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [imageLoaded, setImageLoaded] = useState(false);
+interface PlateItemProps {
+  artifact: Artifact;
+  index: number;
+  total: number;
+  onEnter: (idx: number) => void;
+  shouldReduceMotion: boolean | null;
+}
 
-  // #7 Programmatic Preloading of Adjacent Images
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const nextIdx = (activeIndex + 1) % artifacts.length;
-    const prevIdx = (activeIndex - 1 + artifacts.length) % artifacts.length;
+const PlateItem: React.FC<PlateItemProps> = ({
+  artifact,
+  index,
+  total,
+  onEnter,
+  shouldReduceMotion,
+}) => {
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ['start end', 'center center', 'end start'],
+  });
 
-    const imgNext = new window.Image();
-    imgNext.src = artifacts[nextIdx].imageSrc;
-
-    const imgPrev = new window.Image();
-    imgPrev.src = artifacts[prevIdx].imageSrc;
-  }, [activeIndex]);
-
-  // #9 View Transitions on lookbook navigation
-  const goToNext = useCallback(() => {
-    runViewTransition(() => {
-      setImageLoaded(false);
-      setActiveIndex((prev) => (prev + 1) % artifacts.length);
-    });
-  }, []);
-
-  const goToPrev = useCallback(() => {
-    runViewTransition(() => {
-      setImageLoaded(false);
-      setActiveIndex((prev) => (prev - 1 + artifacts.length) % artifacts.length);
-    });
-  }, []);
-
-  // #4 Keyboard Shortcuts (← / →) when not inside form inputs
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement | null;
-      const isInput =
-        target &&
-        (target.tagName === 'INPUT' ||
-          target.tagName === 'TEXTAREA' ||
-          target.isContentEditable);
-
-      if (!isInput && !e.metaKey && !e.ctrlKey) {
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          goToPrev();
-        } else if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          goToNext();
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [goToPrev, goToNext]);
-
-  const active = artifacts[activeIndex];
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.88, 1, 0.9]);
+  const clip = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    ['inset(12% 8% 12% 8%)', 'inset(0% 0% 0% 0%)', 'inset(10% 6% 10% 6%)']
+  );
 
   return (
-    <Section id="work" spacing="none" className={styles.section}>
-      <div id="campaigns" className={styles.anchor} aria-hidden="true" />
-      
-      {/* Top Section Index Bar */}
-      <div className={`${styles.index} tabular-nums`}>
-        <span>(08) / SELECTED ARTIFACTS</span>
-        <span>CAMPAIGN ARTIFACT LOOKBOOK</span>
-        <span>FIVE ORIGINAL EXHIBITS</span>
-        <span>DISPLAYED AT NATURAL RATIO</span>
-      </div>
+    <article
+      id={`artwork-${artifact.id}`}
+      ref={targetRef}
+      className={styles.plateStage}
+      aria-label={`${artifact.id} — ${artifact.title}`}
+    >
+      <motion.div
+        onViewportEnter={() => onEnter(index)}
+        viewport={{ amount: 0.35 }}
+        style={{
+          scale: shouldReduceMotion ? 1 : scale,
+          clipPath: shouldReduceMotion ? 'none' : clip,
+        }}
+        className={styles.plateFrame}
+      >
+        <div className={styles.imageBox}>
+          <Image
+            src={artifact.imageSrc}
+            alt={artifact.altText}
+            width={artifact.width}
+            height={artifact.height}
+            placeholder="blur"
+            blurDataURL={artifact.blurDataURL}
+            className={styles.plateImage}
+            sizes="(max-width: 1200px) 100vw, 1200px"
+          />
+        </div>
 
-      <header className={styles.header}>
-        <h2>
-          Proof of craft, not <em>manufactured proof.</em>
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
-          <p>
-            Each artifact is shown as created—fully visible, uncropped, without a smartphone bezel or synthetic distortion.
-          </p>
+        <figcaption className={styles.plateCaption}>
+          <span className={styles.plateNum}>{artifact.id} / 0{total}</span>
+          <div className={styles.plateInfo}>
+            <h3 className={styles.plateTitle}>{artifact.title}</h3>
+            <p className={styles.plateDesc}>{artifact.description}</p>
+          </div>
+          <span className={styles.plateFormat}>{artifact.format}</span>
+        </figcaption>
+      </motion.div>
+    </article>
+  );
+};
 
-          {/* Lookbook Navigation Bar with Hit Slop and Shortcut Hints */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              marginTop: '0.5rem',
-            }}
-          >
-            <button
-              onClick={goToPrev}
-              className="hit-slop"
-              aria-label="Previous artifact"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.16)',
-                borderRadius: '4px',
-                color: '#fff',
-                padding: '0.4rem 0.75rem',
-                cursor: 'pointer',
-                fontFamily: 'var(--font-mono), monospace',
-                fontSize: '11px',
-                minWidth: '44px',
-                minHeight: '44px',
-                justifyContent: 'center',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              <CaretLeft size={14} weight="bold" />
-              <span>PREV</span>
-              <kbd style={{ fontSize: '9px', padding: '1px 3px' }}>←</kbd>
-            </button>
+export const ArtifactGallery: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const shouldReduceMotion = useReducedMotion();
+  const artifacts = ARTIFACTS;
+  const active = artifacts[activeIndex];
 
-            <span
-              className="font-mono tabular-nums"
-              style={{
-                fontSize: '11px',
-                color: 'var(--color-brand-neon-violet, #c882ff)',
-                letterSpacing: '0.14em',
-              }}
-            >
-              {active.id} / 05
+  const scrollToArtwork = (id: string, idx: number) => {
+    setActiveIndex(idx);
+    const element = document.getElementById(`artwork-${id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section id="work" className={styles.section}>
+      <div id="artifacts" style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }} aria-hidden="true" />
+
+      <Container size="full">
+        {/* Editorial Eyebrow & Headline Block */}
+        <div>
+          <div className={styles.marker}>
+            07 &mdash; SELECTED ARTIFACTS &bull; ALEXANDRE ROCHET SCROLL THEATRE
+          </div>
+          <header className={styles.introBlock}>
+            <div>
+              <h2 className={styles.introTitle}>
+                Uncompromised physical and digital materiality
+              </h2>
+            </div>
+            <div>
+              <p className={styles.introDesc}>
+                Every deliverable produced by Brandmania exists as a verified, high-craft brand asset designed to command immediate executive respect and unassailable pricing power.
+              </p>
+            </div>
+          </header>
+        </div>
+
+        {/* Sticky Alexandre Rochet Kinetic HUD Bar */}
+        <div className={styles.stickyHud} role="region" aria-label="Showcase Navigation HUD">
+          <div className={styles.hudLeft}>
+            <span className={styles.hudCounter}>
+              {active.id} / 0{artifacts.length}
             </span>
+            <span className={styles.hudActiveTitle}>{active.title}</span>
+          </div>
 
-            <button
-              onClick={goToNext}
-              className="hit-slop"
-              aria-label="Next artifact"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.16)',
-                borderRadius: '4px',
-                color: '#fff',
-                padding: '0.4rem 0.75rem',
-                cursor: 'pointer',
-                fontFamily: 'var(--font-mono), monospace',
-                fontSize: '11px',
-                minWidth: '44px',
-                minHeight: '44px',
-                justifyContent: 'center',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              <span>NEXT</span>
-              <kbd style={{ fontSize: '9px', padding: '1px 3px' }}>→</kbd>
-              <CaretRight size={14} weight="bold" />
-            </button>
+          <div className={styles.hudPills} role="tablist" aria-label="Artifact Selectors">
+            {artifacts.map((item, idx) => (
+              <button
+                key={item.id}
+                role="tab"
+                aria-selected={idx === activeIndex}
+                onClick={() => scrollToArtwork(item.id, idx)}
+                className={`${styles.hudPill} ${idx === activeIndex ? styles.hudPillActive : ''} hit-slop`}
+              >
+                {item.id}
+              </button>
+            ))}
           </div>
         </div>
-      </header>
 
-      {/* Featured Lookbook Interactive Viewer */}
-      <div
-        style={{
-          border: '1px solid rgba(255, 255, 255, 0.12)',
-          marginBottom: 'clamp(2rem, 4vw, 4rem)',
-          backgroundColor: '#070709',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active.id}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ type: 'spring', stiffness: 380, damping: 32, mass: 0.8 }}
-            style={{ position: 'relative', width: '100%' }}
-          >
-            {/* Image Stage */}
-            <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                maxHeight: '75vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#0b0b0e',
-                overflow: 'hidden',
-              }}
-            >
-              {!imageLoaded && (
-                <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
-                  <ArchitecturalSkeleton height="100%" />
-                </div>
-              )}
-              <Image
-                src={active.imageSrc}
-                alt={`BRANDMANIA ${active.title}`}
-                width={active.width}
-                height={active.height}
-                placeholder="blur"
-                blurDataURL={active.blurDataURL}
-                onLoad={() => setImageLoaded(true)}
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  maxHeight: '75vh',
-                  objectFit: 'contain',
-                  display: 'block',
-                }}
-                priority
-              />
-            </div>
-
-            {/* Datum Caption */}
-            <figcaption className={styles.caption} style={{ padding: '1.25rem 1.5rem' }}>
-              <span className="tabular-nums">{active.id} / 05</span>
-              <div>
-                <h3>{active.title}</h3>
-                <p>{active.description}</p>
-              </div>
-              <span className="font-mono">{active.format}</span>
-            </figcaption>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Full SSR DOM Exhibition Grid for Crawlers & Comprehensive Viewing */}
-      <div className={styles.exhibition}>
-        {artifacts.map((artifact, idx) => (
-          <figure
-            key={artifact.id}
-            className={`${styles.artifact} ${artifact.span === 'wide' ? styles.wide : ''}`}
-            onClick={() => {
-              runViewTransition(() => {
-                setActiveIndex(idx);
-                const el = document.getElementById('work');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              });
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            <div className={styles.artwork}>
-              <Image
-                src={artifact.imageSrc}
-                alt={`BRANDMANIA ${artifact.title}`}
-                width={artifact.width}
-                height={artifact.height}
-                placeholder="blur"
-                blurDataURL={artifact.blurDataURL}
-                sizes={
-                  artifact.span === 'wide'
-                    ? '(max-width: 760px) 100vw, 66vw'
-                    : '(max-width: 760px) 100vw, 33vw'
-                }
-                className={styles.image}
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  objectFit: 'contain',
-                }}
-              />
-            </div>
-            <figcaption className={styles.caption}>
-              <span className="tabular-nums">{artifact.id} / 05</span>
-              <div>
-                <h3>{artifact.title}</h3>
-                <p>{artifact.description}</p>
-              </div>
-              <span>{artifact.format}</span>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </Section>
+        {/* Scroll-Choreographed Vertical Showcase Stack */}
+        <div className={styles.showcaseStack}>
+          {artifacts.map((artifact, index) => (
+            <PlateItem
+              key={artifact.id}
+              artifact={artifact}
+              index={index}
+              total={artifacts.length}
+              onEnter={setActiveIndex}
+              shouldReduceMotion={shouldReduceMotion}
+            />
+          ))}
+        </div>
+      </Container>
+    </section>
   );
 };

@@ -17,7 +17,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   children,
   className = '',
   style = {},
-  spotlightColor = 'rgba(142, 0, 250, 0.14)',
+  spotlightColor = 'rgba(255, 255, 255, 0.04)',
   ...props
 }) => {
   const divRef = useRef<HTMLDivElement>(null);

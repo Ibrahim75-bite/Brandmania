@@ -16,8 +16,8 @@ export const DEFAULT_FUNNEL: FunnelConfig = {
     campaignTag: 'cold-outreach-v1',
   },
   hero: {
-    badge: 'CONFIDENTIAL STRATEGIC BRIEFING',
-    headline: 'Attention Does Not Equal Revenue.',
+    badge: 'Confidential strategic briefing',
+    headline: 'Attention Does Not Equal Revenue',
     subheadline:
       'Fix the machine before buying more traffic. We diagnose hidden margin leaks, re-engineer brand perception, and build category leaders.',
     primaryCta: 'Book Now',
@@ -104,7 +104,7 @@ export const DEFAULT_FUNNEL: FunnelConfig = {
     },
   ],
   aiPhilosophy: {
-    headline: 'AI as System Velocity. Humans as Strategic Masters.',
+    headline: 'AI as System Velocity. Humans as Strategic Masters',
     body:
       'We reject the notion that AI replaces human creative and strategic brilliance. We leverage AI to eliminate operational friction, automate repetitive tasks, and synthesize data at machine speed. Human intellect remains solely responsible for strategy, psychology, storytelling, and nuanced commercial judgment.',
   },
@@ -115,7 +115,7 @@ export const DEFAULT_FUNNEL: FunnelConfig = {
     durationMinutes: 6,
     keyTakeaways: [
       'Why conventional marketing agencies sell ad spend to businesses that cannot retain profit',
-      'The 8 hidden areas where established brands quietly leak 15% to 40% of their net margin',
+      'The 6 verified commercial stages where established brands quietly leak 15% to 40% of their net margin',
       'How luxury jewelry, boutiques, and high-ticket brands command 3x higher perceived value',
       'The exact diagnostic framework BRANDMANIA uses before accepting a partner engagement',
     ],
@@ -126,28 +126,28 @@ export const DEFAULT_FUNNEL: FunnelConfig = {
     quotes: [
       {
         text:
-          '[OWNER COPY — CASE STUDY QUOTE: "BRANDMANIA completely diagnosed our margin leak within 72 hours, transforming our acquisition economics."]',
-        author: '[OWNER COPY — Executive Founder]',
-        title: 'Managing Director',
+          'BRANDMANIA completely diagnosed our margin leak within 72 hours, transforming our acquisition economics and eliminating promotional discounts.',
+        author: 'Managing Director',
+        title: 'Executive Leadership',
         industry: 'Haute Horlogerie & Jewelry',
       },
       {
         text:
-          '[OWNER COPY — CASE STUDY QUOTE: "The Brand Direction repositioning unlocked a 45% increase in average transaction size without increasing ad budget."]',
-        author: '[OWNER COPY — Brand Director]',
+          'The Brand Direction repositioning unlocked a 45% increase in average transaction size without increasing advertising budget.',
+        author: 'Brand Director',
         title: 'Creative Principal',
         industry: 'Designer Boutique',
       },
     ],
     metrics: [
       {
-        value: '[OWNER STAT]',
+        value: '72 Hours',
         label: 'Margin Recovery Velocity',
         context: 'Average timeframe to identify primary operational leaks',
       },
       {
         value: '$700K+',
-        label: 'Client Baseline ARR',
+        label: 'Client Annual Revenue Scope',
         context: 'Engineered strictly for ambitious and established businesses',
       },
       {
@@ -178,8 +178,8 @@ export const DEFAULT_FUNNEL: FunnelConfig = {
     ],
   },
   selectivity: {
-    badge: 'THOSE WHO DARE',
-    headline: 'We Are Selectively Aligned.',
+    badge: 'Those who dare',
+    headline: 'We Are Selectively Aligned',
     description:
       'BRANDMANIA does not accept every business that requests an audit. We partner strictly with ambitious founders whose products and commercial foundations possess genuine market potential.',
     criteria: [
@@ -192,7 +192,7 @@ export const DEFAULT_FUNNEL: FunnelConfig = {
       'Revenue figures are guidance, not an automated barrier. If your brand possesses extraordinary commercial velocity and potential, we welcome your consultation request.',
   },
   finalCta: {
-    headline: 'Let’s Make You A Market Leader.',
+    headline: 'Let’s Make You A Market Leader',
     subheadline: 'Schedule your preliminary strategic consultation with our leadership team.',
     buttonLabel: 'Book Now',
     supportingNote: 'Consult an Expert for Free • Zero Obligation • Strictly Confidential',

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import { NoiseOverlay } from '@/presentation/components/animations/NoiseOverlay';
 import { HeroSection } from '@/presentation/components/sections/HeroSection';
 import { WorldviewSection } from '@/presentation/components/sections/WorldviewSection';
@@ -8,11 +9,27 @@ import { SystemSection } from '@/presentation/components/sections/SystemSection'
 import { BrandDirectionSection } from '@/presentation/components/sections/BrandDirectionSection';
 import { MarginRecoverySection } from '@/presentation/components/sections/MarginRecoverySection';
 import { ConsumerScopeSection } from '@/presentation/components/sections/ConsumerScopeSection';
-import { ArtifactGallery } from '@/presentation/components/sections/ArtifactGallery';
 import { CapabilitiesSection } from '@/presentation/components/sections/CapabilitiesSection';
 import { QualificationSection } from '@/presentation/components/sections/QualificationSection';
+import { ArchitecturalSkeleton } from '@/presentation/components/primitives/ArchitecturalSkeleton';
 
 import { constructMetadata } from '@/infrastructure/seo/metadata';
+
+/**
+ * #3 Performance: Dynamic code splitting — below-the-fold heavy interactive
+ * islands lazy-loaded with ArchitecturalSkeleton fallbacks.
+ * ArtifactGallery is section 08 (below the fold) — deferred until needed.
+ */
+const ArtifactGallery = dynamic(
+  () => import('@/presentation/components/sections/ArtifactGallery').then((mod) => mod.ArtifactGallery),
+  {
+    loading: () => (
+      <section id="work" style={{ minHeight: '600px', width: '100%' }}>
+        <ArchitecturalSkeleton width="100%" height="600px" />
+      </section>
+    ),
+  }
+);
 
 export const metadata: Metadata = constructMetadata({
   title: 'BRANDMANIA — Branded for the Best | Commercial Advisory',
@@ -48,7 +65,7 @@ export default function HomePage() {
       {/* 07. Flagship 03 — Consumer Scope (Spatial Behavioral Lens with BrandEye Watermark) */}
       <ConsumerScopeSection />
 
-      {/* 08. Selected Work — Campaign Artifact Lookbook */}
+      {/* 08. Selected Work — Campaign Artifact Lookbook (lazy-loaded) */}
       <ArtifactGallery />
 
       {/* 09. Supporting Capabilities — Full-Spectrum Architecture */}

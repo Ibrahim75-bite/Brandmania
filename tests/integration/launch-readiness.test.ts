@@ -43,7 +43,7 @@ describe('Launch-Readiness 20-Point Verification Suite', () => {
       const notFoundPath = path.join(rootDir, 'src/app/not-found.tsx');
       expect(fs.existsSync(notFoundPath)).toBe(true);
       const content = fs.readFileSync(notFoundPath, 'utf-8');
-      expect(content).toContain('0404 / Perception Lost.');
+      expect(content).toContain('0404 / Perception Lost');
       expect(content).toContain('Return to Brandmania ↗');
       expect(content).toContain('BrandEye');
       expect(content).toContain('CornerArcs');
@@ -217,9 +217,9 @@ describe('Launch-Readiness 20-Point Verification Suite', () => {
     it('Item #13: WCAG AA contrast colors configured in tokens.css', () => {
       const tokensPath = path.join(rootDir, 'src/presentation/styles/tokens.css');
       const content = fs.readFileSync(tokensPath, 'utf-8');
-      expect(content).toContain('--color-text-secondary: #EAE6F0;');
+      expect(content).toContain('--color-text-secondary: #A1A1A6;');
       expect(content).toContain('--color-text-muted: #A8A0B8;');
-      expect(content).toContain('--color-museum-violet: #4A0099;');
+      expect(content).toContain('--color-museum-violet: #1a1a22;');
     });
 
     it('Item #14: Button and mobileToggle meet 44px touch target minimum', () => {

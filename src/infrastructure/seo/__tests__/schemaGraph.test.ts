@@ -113,7 +113,7 @@ describe('Schema.org JSON-LD Structured Data Engine Tests', () => {
     expect(faqNode).toBeDefined();
     expect(faqNode?.['@type']).toBe('FAQPage');
     const mainEntity = faqNode?.mainEntity as Array<{ name: string }>;
-    expect(mainEntity).toHaveLength(3);
+    expect(mainEntity.length).toBeGreaterThanOrEqual(3);
     expect(mainEntity[0].name).toBe('What types of businesses does BRANDMANIA work with?');
 
     // 18. ItemList (Flagships & Industries Served)

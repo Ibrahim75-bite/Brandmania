@@ -1,6 +1,7 @@
 import { IInquiryRepository } from '../../domain/repositories/inquiry.repository.interface';
 import { IRateLimiter } from '../ports/rate-limiter.port';
 import { IClock } from '../ports/clock.port';
+import { IJobQueue } from '../ports/job-queue.port';
 import { HealthCheckDto, ReadinessCheckDto } from '../dtos/system-health.dto';
 
 const PROCESS_START_TIME = Date.now();
@@ -10,16 +11,21 @@ export class GetSystemHealthUseCase {
     private readonly inquiryRepository: IInquiryRepository,
     private readonly rateLimiter: IRateLimiter,
     private readonly clock: IClock,
-    private readonly appVersion = '1.0.0'
+    private readonly appVersion = '1.0.0',
+    private readonly jobQueue?: IJobQueue,
+    private readonly getCircuitBreakerStatus?: () => boolean,
+    private readonly getFeatureFlags?: () => Record<string, boolean>
   ) {}
 
   public getLiveness(): HealthCheckDto {
     const uptimeSeconds = Math.floor((Date.now() - PROCESS_START_TIME) / 1000);
+    const flags = this.getFeatureFlags ? this.getFeatureFlags() : undefined;
     return {
       status: 'healthy',
       uptimeSeconds,
       timestamp: this.clock.now().toISOString(),
       version: this.appVersion,
+      maintenanceMode: flags?.MAINTENANCE_MODE ?? false,
     };
   }
 
@@ -49,10 +55,31 @@ export class GetSystemHealthUseCase {
       rateLimiterStatus = 'error';
     }
 
+    // Check Dead Letter Queue depth if job queue is wired
+    let dlqCheck: ReadinessCheckDto['checks']['dlq'] = undefined;
+    if (this.jobQueue) {
+      const dlqCount = this.jobQueue.getDeadLetterJobs().length;
+      dlqCheck = {
+        status: dlqCount === 0 ? 'ok' : dlqCount < 5 ? 'warning' : 'error',
+        deadLetterCount: dlqCount,
+      };
+    }
+
+    // Check Circuit Breaker
+    const isCircuitBreakerTripped = this.getCircuitBreakerStatus ? this.getCircuitBreakerStatus() : false;
+    const circuitBreakerCheck = {
+      tripped: isCircuitBreakerTripped,
+      status: (isCircuitBreakerTripped ? 'tripped' : 'ok') as 'ok' | 'tripped',
+    };
+
+    const flags = this.getFeatureFlags ? this.getFeatureFlags() : undefined;
+
     const isReady =
       memoryStatus !== 'critical' &&
       persistenceStatus === 'ok' &&
-      rateLimiterStatus === 'ok';
+      rateLimiterStatus === 'ok' &&
+      !isCircuitBreakerTripped &&
+      dlqCheck?.status !== 'error';
 
     return {
       status: isReady ? 'ready' : 'not_ready',
@@ -69,6 +96,9 @@ export class GetSystemHealthUseCase {
         rateLimiter: {
           status: rateLimiterStatus,
         },
+        dlq: dlqCheck,
+        circuitBreaker: circuitBreakerCheck,
+        featureFlags: flags,
       },
       timestamp: this.clock.now().toISOString(),
     };

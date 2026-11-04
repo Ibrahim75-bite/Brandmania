@@ -64,6 +64,17 @@ export class IdempotencyStore {
     });
   }
 
+  /**
+   * Releases an in-flight key if execution failed, permitting legitimate client retries.
+   * Standard #2 & #3
+   */
+  public release(key: string): void {
+    const existing = this.store.get(key);
+    if (existing && existing.status === 'IN_FLIGHT') {
+      this.store.delete(key);
+    }
+  }
+
   public clear(): void {
     this.store.clear();
   }

@@ -13,19 +13,39 @@ body {
   max-width: 100vw;
 }
 
-/* Headings strictly mapped to Instrument Serif / Editorial Serif (NEVER Arial / sans-serif!) */
+/* Unified Font Aliases across Codebase */
+:root {
+  --font-display: var(--font-serif), Georgia, serif;
+  --font-Editorial: var(--font-serif), Georgia, serif;
+  --font-family-serif: var(--font-serif), Georgia, serif;
+  --font-body: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-Sans: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-code: var(--font-mono), monospace;
+  --font-Mono: var(--font-mono), monospace;
+  --font-family-mono: var(--font-mono), monospace;
+}
+
+/* Headings strictly mapped to Instrument Serif / Editorial Serif (NEVER Arial / faux-bold 700!) */
 h1,
 h2,
+.display-headline {
+  font-family: var(--font-serif), Georgia, serif !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
 h3,
 h4,
 h5,
 h6,
-blockquote,
-.display-headline {
+blockquote {
   font-family: var(--font-serif), Georgia, serif !important;
-  font-weight: 400;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
+  font-weight: 400 !important;
+  letter-spacing: 0;
+  line-height: 1.15;
   text-wrap: balance;
 }
 
@@ -135,7 +155,7 @@ html.lenis body {
 
 /* Accessibility Focus Visible */
 :focus-visible {
-  outline: 2px solid var(--color-brand-neon-violet);
+  outline: 2px solid #FFFFFF;
   outline-offset: 2px;
 }
 
@@ -155,27 +175,30 @@ html.lenis body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-brand-neon-violet);
+  background: rgba(255, 255, 255, 0.35);
 }
 
-/* The presentation uses data-dense editorial grids on wide displays. At narrow
-   widths those grids become an ordered reading sequence instead of overflow. */
-@media (max-width: 760px) {
+/* The presentation uses data-dense editorial grids on wide displays. At tablet
+   and mobile widths (<= 1024px), those grids collapse into a clean ordered reading sequence. */
+@media (max-width: 1024px) {
   [style*='grid-template-columns'][style*='minmax('] {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
   #manifesto > div,
-  #disciplines > div:last-child {
+  #disciplines > div:last-child,
+  .brand-direction-grid {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
   #manifesto > div > div,
-  #disciplines > div:last-child > div {
+  #disciplines > div:last-child > div,
+  .brand-direction-grid > div {
     grid-column: 1 / -1 !important;
   }
 
-  #disciplines > div:last-child > div:first-child {
+  #disciplines > div:last-child > div:first-child,
+  .brand-direction-sticky-col {
     position: static !important;
   }
 
@@ -187,14 +210,5 @@ html.lenis body {
   #consumer-scope [style*='minmax(60px'] > :first-child,
   #consumer-scope [style*='minmax(60px'] > :last-child {
     display: none;
-  }
-}
-
-@keyframes architecturalShimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
   }
 }

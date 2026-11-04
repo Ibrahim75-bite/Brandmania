@@ -7,6 +7,43 @@
   box-shadow: none;
 }
 
+.goalGradientContainer {
+  margin-bottom: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.goalGradientHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.goalGradientPercentage {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.goalGradientTrack {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 0px;
+  overflow: hidden;
+  position: relative;
+}
+
+.goalGradientFill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFFFFF 0%, #C882FF 100%);
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .stepIndicator {
   display: flex;
   justify-content: space-between;
@@ -22,16 +59,16 @@
   font-family: var(--font-family-mono);
   font-size: 11px;
   color: var(--color-text-muted);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   background: transparent;
   border: none;
   cursor: default;
+  min-height: 44px;
 }
 
 .activeStepPill {
-  color: var(--color-brand-light-violet);
-  font-weight: 700;
+  color: var(--color-text-primary);
+  font-weight: 500;
 }
 
 .stepNumber {
@@ -46,8 +83,8 @@
 }
 
 .activeStepPill .stepNumber {
-  background: rgba(142, 0, 250, 0.25);
-  border-color: var(--color-brand-light-violet);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #ffffff;
   color: #fff;
 }
 
@@ -72,15 +109,14 @@
 .fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 6px;
 }
 
 .fieldLabel {
   font-family: var(--font-family-mono);
   font-size: 11px;
   color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
 }
 
 .selectInput {
@@ -97,7 +133,7 @@
 
 .selectInput:focus {
   outline: none;
-  border-color: var(--color-brand-light-violet);
+  border-color: #ffffff;
 }
 
 .textareaInput {
@@ -116,7 +152,7 @@
 
 .textareaInput:focus {
   outline: none;
-  border-color: var(--color-brand-light-violet);
+  border-color: #ffffff;
 }
 
 .trackSelector {
@@ -139,21 +175,21 @@
   border-radius: 2px;
   cursor: pointer;
   text-align: left;
-  transition: all var(--transition-fast);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
 .trackButtonActive {
-  background: rgba(142, 0, 250, 0.15);
-  border-color: var(--color-brand-light-violet);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.36);
 }
 
 .trackTitle {
   font-family: var(--font-serif), Georgia, serif;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 400;
   color: #ffffff;
 }
 
@@ -171,3 +207,45 @@
   padding-top: var(--space-6);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+.consentWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  min-height: 44px;
+}
+
+.consentCheckbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: #C882FF;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.consentText {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.consentText a {
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.consentText a:hover {
+  color: #C882FF;
+}
+
+.consentError {
+  border-color: var(--color-status-error) !important;
+  background: rgba(239, 68, 68, 0.06);
+}
+

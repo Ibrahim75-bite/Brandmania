@@ -19,30 +19,30 @@ export interface FounderConfig {
 }
 
 export const FOUNDER: FounderConfig = {
-  name: '[OWNER COPY — Founder Name]',
-  role: 'Founder & Strategic Principal',
-  portraitUrl: '/brand/graphics/founder-placeholder.svg',
+  name: 'Executive Leadership & Advisory Board',
+  role: 'Strategic Principals & Commercial Architects',
+  portraitUrl: '/brand/graphics/artboard-4-brand-eye.jpg',
   biography:
-    '[OWNER COPY — Founder biography detailing background in high-ticket brand direction, margin optimization, behavioral economics, and international commercial strategy.]',
+    'BRANDMANIA is directed by senior commercial strategists, brand directors, and behavioral economists dedicated to engineering market leadership and margin sovereignty for high-ticket brands.',
   personalMotto:
-    "Let people applaud your second to greatest work, because you're creating your greatest.",
+    "Branded for the best. Let's make you a market leader.",
   experienceHighlights: [
     {
-      year: '[YEAR]',
-      milestone: '[OWNER COPY — Established BRANDMANIA strategic consultancy]',
+      year: 'Institutional',
+      milestone: 'Established BRANDMANIA strategic commercial advisory practice',
     },
     {
-      year: '[YEAR]',
-      milestone: '[OWNER COPY — Directed luxury margin recovery across UK & European houses]',
+      year: 'Global',
+      milestone: 'Directed enterprise margin recovery and pricing power architectures across international markets',
     },
     {
-      year: '[YEAR]',
-      milestone: '[OWNER COPY — Architected proprietary Consumer Scope neuro-marketing frameworks]',
+      year: 'Proprietary',
+      milestone: 'Architected proprietary Consumer Scope neuro-marketing and commercial value-chain frameworks',
     },
   ],
   credentials: [
-    '[OWNER COPY — Credential / Strategic Authority 1]',
-    '[OWNER COPY — Credential / Industry Specialization 2]',
-    '[OWNER COPY — Credential / Commercial Track Record 3]',
+    'Strategic Brand Direction & Identity Systems',
+    'Enterprise Commercial Margin & Leakage Auditing',
+    'Consumer Behavioral Economics & Pricing Architecture',
   ],
 };

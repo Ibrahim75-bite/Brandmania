@@ -5,8 +5,8 @@
   gap: var(--space-2);
   font-family: var(--font-family-sans);
   font-weight: var(--font-weight-semibold);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  border-radius: 0px;
+  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
   position: relative;
   user-select: none;
   border: 1px solid transparent;
@@ -36,25 +36,27 @@
 .lg {
   font-size: var(--font-size-base);
   padding: var(--space-3) var(--space-6);
-  min-height: 50px;
+  min-height: 48px;
 }
 
 /* Variants */
 .primary {
-  background: var(--gradient-brand-primary);
-  color: #ffffff;
-  box-shadow: 0 4px 20px rgba(121, 40, 202, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #C882FF;
+  color: #0D011A;
+  font-weight: 600;
+  border: 1px solid #C882FF;
+  box-shadow: none;
 }
 
 .primary:hover:not(:disabled) {
-  background: var(--gradient-brand-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 25px rgba(168, 85, 247, 0.5);
+  background: #FAF7FF;
+  color: #0D011A;
+  border-color: #FAF7FF;
+  box-shadow: 0 0 28px rgba(200, 130, 255, 0.45);
 }
 
 .primary:active:not(:disabled) {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 
 .secondary {
@@ -64,21 +66,27 @@
 }
 
 .secondary:hover:not(:disabled) {
-  background-color: #1e1e2c;
+  background-color: var(--color-bg-surface);
   border-color: var(--color-border-active);
-  transform: translateY(-1px);
+}
+
+.secondary:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .outline {
   background-color: transparent;
-  color: var(--color-accent-purple-bright);
-  border-color: var(--color-border-default);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .outline:hover:not(:disabled) {
-  background-color: var(--color-accent-purple-dim);
-  border-color: var(--color-border-active);
-  transform: translateY(-1px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.outline:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .ghost {

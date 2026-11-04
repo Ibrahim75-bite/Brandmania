@@ -90,14 +90,12 @@ export const BRAND: BrandConfig = {
         'Every business is in the business of making money. Before escalating ad spend, identify and repair the breaking points where revenue and margin are silently leaking.',
       philosophy: 'Attention does not automatically mean revenue.',
       auditVectors: [
-        'Strategic Planning',
-        'Acquisition Architecture',
-        'Sales Pipeline & Conversion',
-        'Operational Fulfillment',
-        'Customer Support Systems',
-        'Post-Purchase Journey',
-        'Customer Retention & LTV',
-        'Financial Flow & Cost Allocation',
+        'Planning & Financial Floors',
+        'Marketing & Traffic Quality',
+        'Sales & Offer Architecture',
+        'Fulfillment & Delivery Velocity',
+        'Customer Service & Dispute Prevention',
+        'Post-Purchase Relationships & LTV',
       ],
     },
     brandDirection: {
@@ -136,7 +134,7 @@ export const BRAND: BrandConfig = {
     },
   },
   aiPhilosophy: {
-    headline: 'AI as strategic leverage, not human creative substitution.',
+    headline: 'AI as strategic leverage, not human creative substitution',
     humanResponsibilities: [
       'Strategic Vision & Judgment',
       'Cognitive Psychology & Consumer Insight',

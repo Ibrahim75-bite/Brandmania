@@ -28,12 +28,12 @@ export default function Icon() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Obsidian outer iris */}
-          <circle cx="16" cy="16" r="14" fill="#070709" stroke="#8E00FA" strokeWidth="2.5" />
-          {/* Electric violet pupil */}
-          <circle cx="16" cy="16" r="8" fill="#8E00FA" />
-          {/* Pure white core reflection */}
-          <circle cx="16" cy="16" r="3.5" fill="#FFFFFF" />
+          {/* Monolithic outer ring */}
+          <circle cx="16" cy="16" r="14" fill="#070709" stroke="#FFFFFF" strokeWidth="2" strokeOpacity="0.8" />
+          {/* Monolithic pupil */}
+          <circle cx="16" cy="16" r="7" fill="#FFFFFF" />
+          {/* Inner core reflection */}
+          <circle cx="16" cy="16" r="3" fill="#070709" />
         </svg>
       </div>
     ),

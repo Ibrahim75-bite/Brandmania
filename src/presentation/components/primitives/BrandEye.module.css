@@ -3,16 +3,16 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: transform var(--transition-base), filter var(--transition-base);
+  color: #FFFFFF;
+  transition: opacity var(--transition-fast);
 }
 
 .glow {
-  filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.45));
+  filter: none;
 }
 
 .container:hover {
-  transform: scale(1.04);
-  filter: drop-shadow(0 0 22px rgba(192, 132, 252, 0.6));
+  opacity: 0.85;
 }
 
 .sm {

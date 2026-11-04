@@ -1,0 +1,90 @@
+.section {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(165deg, #16012B 0%, #0D011A 100%);
+  border-bottom: 1px solid rgba(200, 130, 255, 0.16);
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
+}
+
+.markerCol {
+  grid-column: span 3;
+}
+
+.marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C882FF;
+  border-top: 1px solid rgba(200, 130, 255, 0.16);
+  padding-top: 0.75rem;
+}
+
+.statementCol {
+  grid-column: span 9;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.quote {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(3.2rem, 6.5vw, 6.5rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: #FAF7FF;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.footerRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  border-top: 1px solid rgba(200, 130, 255, 0.16);
+  padding-top: 1.5rem;
+}
+
+.subquote {
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.15rem, 1.4vw, 1.35rem);
+  color: #C4B8D8;
+  margin: 0;
+  max-width: 680px;
+  line-height: 1.5;
+}
+
+.doctrineTag {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #9A89B8;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  .markerCol {
+    grid-column: span 12;
+    margin-bottom: 1.5rem;
+  }
+
+  .statementCol {
+    grid-column: span 12;
+  }
+}

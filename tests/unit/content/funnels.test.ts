@@ -5,7 +5,7 @@ describe('Funnel Configuration Registry', () => {
   it('successfully retrieves the default cold outreach funnel', () => {
     const funnel = getFunnelBySlug('default');
     expect(funnel).not.toBeNull();
-    expect(funnel?.hero.headline).toBe('Attention Does Not Equal Revenue.');
+    expect(funnel?.hero.headline).toBe('Attention Does Not Equal Revenue');
     expect(funnel?.painPoints.length).toBe(3);
     expect(funnel?.mechanism.stages.length).toBe(6);
   });

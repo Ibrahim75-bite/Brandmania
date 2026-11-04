@@ -10,11 +10,14 @@ import { BrandEye } from '@/presentation/components/primitives/BrandEye';
 import { FLAGSHIP_SERVICES, SUPPORTING_CAPABILITIES } from '@/content/services';
 import { BRAND } from '@/content/brand';
 
-export const metadata: Metadata = {
+import { constructMetadata } from '@/infrastructure/seo/metadata';
+
+export const metadata: Metadata = constructMetadata({
   title: 'Flagship Disciplines & Strategic Capabilities',
   description:
     'BRANDMANIA combines Margin Recovery, Brand Direction, and Consumer Scope, supported by growth marketing, operations, and AI connected systems.',
-};
+  canonicalPath: '/services',
+});
 
 export default function ServicesPage() {
   return (
@@ -24,15 +27,15 @@ export default function ServicesPage() {
           <div style={{ maxWidth: '820px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-3)' }}>
               <BrandEye size="sm" />
-              <Badge variant="purple" size="md">
-                STRATEGIC PRACTICES
+              <Badge variant="neutral" size="md">
+                Strategic practices
               </Badge>
             </div>
             <h1
               style={{
                 fontFamily: 'var(--font-family-serif)',
                 fontSize: 'var(--font-size-5xl)',
-                fontWeight: 'var(--font-weight-bold)',
+                fontWeight: 400,
                 color: '#fff',
                 marginBottom: 'var(--space-4)',
               }}
@@ -67,8 +70,8 @@ export default function ServicesPage() {
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 'var(--space-4)', marginBottom: 'var(--space-4)' }}>
                   <div>
-                    <span style={{ fontSize: 'var(--font-size-xs)', letterSpacing: '0.15em', color: 'var(--color-accent-purple-bright)', fontWeight: 'bold' }}>
-                      DISCIPLINE 0{index + 1}
+                    <span style={{ fontSize: 'var(--font-size-xs)', letterSpacing: '0.02em', color: 'var(--color-text-secondary)', fontWeight: 500 }}>
+                      Discipline 0{index + 1}
                     </span>
                     <h2
                       style={{
@@ -89,7 +92,7 @@ export default function ServicesPage() {
                   </Link>
                 </div>
 
-                <p style={{ fontSize: 'var(--font-size-lg)', color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)', fontStyle: 'italic' }}>
+                <p style={{ fontSize: 'var(--font-size-lg)', color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)' }}>
                   “{service.headline}”
                 </p>
 
@@ -98,13 +101,13 @@ export default function ServicesPage() {
                 </p>
 
                 <div style={{ backgroundColor: 'var(--color-bg-surface)', padding: 'var(--space-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-subtle)' }}>
-                  <h4 style={{ fontSize: 'var(--font-size-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-accent-purple-bright)', marginBottom: 'var(--space-3)' }}>
-                    Core Diagnostic Vectors
+                  <h4 style={{ fontSize: 'var(--font-size-xs)', letterSpacing: '0.02em', color: 'var(--color-text-primary)', marginBottom: 'var(--space-3)' }}>
+                    Core diagnostic vectors
                   </h4>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--space-3)' }}>
                     {service.points.map((pt, i) => (
                       <li key={i} style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)' }}>
-                        <span style={{ color: 'var(--color-accent-purple-bright)' }}>•</span>
+                        <span style={{ color: 'var(--color-text-muted)' }}>•</span>
                         <span>{pt}</span>
                       </li>
                     ))}
@@ -120,8 +123,8 @@ export default function ServicesPage() {
       <Section spacing="lg" style={{ backgroundColor: 'var(--color-bg-surface)' }}>
         <Container>
           <div style={{ maxWidth: '780px', marginBottom: 'var(--space-10)' }}>
-            <Badge variant="purple" size="sm" style={{ marginBottom: 'var(--space-3)' }}>
-              EXECUTION CAPABILITIES
+            <Badge variant="neutral" size="sm" style={{ marginBottom: 'var(--space-3)' }}>
+              Execution capabilities
             </Badge>
             <h2 style={{ fontFamily: 'var(--font-family-serif)', fontSize: 'var(--font-size-3xl)', color: '#fff' }}>
               Supporting Operational Capabilities
@@ -140,7 +143,7 @@ export default function ServicesPage() {
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
                   {cap.items.map((it, idx) => (
                     <li key={idx} style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-                      <span style={{ color: 'var(--color-accent-purple-bright)' }}>›</span>
+                      <span style={{ color: 'var(--color-text-muted)' }}>›</span>
                       <span>{it}</span>
                     </li>
                   ))}

@@ -6,13 +6,14 @@ import { Button } from '../primitives/Button';
 import { Alert } from '../primitives/Alert';
 import { BookingModal } from '../modals/BookingModal';
 import { UndoToast } from '../primitives/UndoToast';
+import Link from 'next/link';
 import {
   ENGAGEMENT_TRACKS,
   REVENUE_TIERS,
   PRIMARY_INDUSTRIES,
   CORE_CHALLENGES,
 } from '@/content/qualification';
-import { normalizeWebsiteUrl } from '@/domain/validation/inquiry.schema';
+import { normalizeWebsiteUrl, normalizePhoneNumber, normalizeEmailAddress } from '@/domain/validation/inquiry.schema';
 import { analytics } from '@/presentation/analytics/analytics.service';
 import { runViewTransition } from '@/presentation/utils/viewTransition';
 import styles from './QualificationForm.module.css';
@@ -83,6 +84,8 @@ export function QualificationForm() {
   const websiteRef = useRef<HTMLInputElement>(null);
   const clientNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+  const consentRef = useRef<HTMLInputElement>(null);
+  const [consentAccepted, setConsentAccepted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // #5 Undo Toast State & Snapshot History
@@ -189,7 +192,7 @@ export function QualificationForm() {
   const [formError, setFormError] = useState<string | null>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [confirmedInquiryId, setConfirmedInquiryId] = useState<string | undefined>();
-  const [bookingUrl, setBookingUrl] = useState('https://calendly.com/brandmania/executive-briefing');
+  const [bookingUrl, setBookingUrl] = useState<string | undefined>(process.env.NEXT_PUBLIC_BOOKING_URL);
 
   const mapRevenueTierToCompanyTier = (tier: string) => {
     switch (tier) {
@@ -329,6 +332,10 @@ export function QualificationForm() {
       newErrors.email = 'Please provide a valid corporate email address.';
     }
 
+    if (!consentAccepted) {
+      newErrors.consent = 'You must confirm corporate authorization (18+) and accept the Privacy Policy and Terms of Engagement.';
+    }
+
     setErrors(newErrors);
 
     if (newErrors.clientName) {
@@ -341,6 +348,11 @@ export function QualificationForm() {
       emailRef.current?.focus();
       return;
     }
+    if (newErrors.consent) {
+      setFormError(newErrors.consent);
+      consentRef.current?.focus();
+      return;
+    }
 
     const submissionDurationMs = Date.now() - formMountedAt.current;
 
@@ -348,18 +360,20 @@ export function QualificationForm() {
     setFormError(null);
 
     const normalizedWebsite = website.trim() ? normalizeWebsiteUrl(website) : undefined;
+    const normalizedPhone = phone.trim() ? normalizePhoneNumber(phone) : 'N/A';
 
     const payload = {
       clientName: clientName.trim(),
       companyName: companyName.trim(),
-      email: email.trim(),
+      email: normalizeEmailAddress(email),
       website: normalizedWebsite,
       companyTier: mapRevenueTierToCompanyTier(revenueTier),
       budgetRange: 'TIER_100K_250K',
       services: mapChallengeToServices(coreChallenge),
-      message: `[Track: ${engagementTrack}] [Role: ${roleTitle.trim() || 'Executive'}] [Country: ${country.trim() || 'International'}] [Industry: ${industry}] [Phone: ${phone.trim() || 'N/A'}] — ${message.trim() || 'Initial strategic advisory consultation request.'}`,
+      message: `[Track: ${engagementTrack}] [Role: ${roleTitle.trim() || 'Executive'}] [Country: ${country.trim() || 'International'}] [Industry: ${industry}] [Phone: ${normalizedPhone}] — ${message.trim() || 'Initial strategic advisory consultation request.'}`,
       company_fax_number: companyFaxNumber,
       submissionDurationMs,
+      consentAccepted: true,
     };
 
     try {
@@ -392,13 +406,18 @@ export function QualificationForm() {
         payload: { action: 'consultation_submitted', inquiryId },
       });
 
-      const params = new URLSearchParams({
-        name: clientName,
-        email: email,
-        a1: companyName,
-        ...(inquiryId ? { a2: inquiryId } : {}),
-      });
-      setBookingUrl(`https://calendly.com/brandmania/executive-briefing?${params.toString()}`);
+      const baseBookingUrl = process.env.NEXT_PUBLIC_BOOKING_URL;
+      if (baseBookingUrl) {
+        const params = new URLSearchParams({
+          name: clientName,
+          email: email,
+          a1: companyName,
+          ...(inquiryId ? { a2: inquiryId } : {}),
+        });
+        setBookingUrl(`${baseBookingUrl}?${params.toString()}`);
+      } else {
+        setBookingUrl(undefined);
+      }
       setIsBookingModalOpen(true);
     } catch (err) {
       setFormError(err instanceof Error ? err.message : 'Network error occurred during submission.');
@@ -407,9 +426,25 @@ export function QualificationForm() {
     }
   };
 
+  const completionPercent = optimisticStep === 1 ? 33 : optimisticStep === 2 ? 66 : 100;
+
   return (
     <>
       <div className={styles.formArchitectural}>
+        {/* Goal-Gradient Progress Bar (#15) */}
+        <div className={styles.goalGradientContainer} aria-hidden="true">
+          <div className={styles.goalGradientHeader}>
+            <span className="tabular-nums">STEP 0{optimisticStep} OF 03 &bull; {completionPercent}% COMPLETE</span>
+            <span className={`${styles.goalGradientPercentage} tabular-nums`}>{completionPercent}%</span>
+          </div>
+          <div className={styles.goalGradientTrack}>
+            <div
+              className={styles.goalGradientFill}
+              style={{ width: `${completionPercent}%` }}
+            />
+          </div>
+        </div>
+
         {/* Step Indicator with Tabular Numbers */}
         <div className={styles.stepIndicator} role="navigation" aria-label="Consultation form steps">
           <div className={`${styles.stepPill} ${optimisticStep === 1 ? styles.activeStepPill : ''}`}>
@@ -563,8 +598,7 @@ export function QualificationForm() {
 
               <div className={styles.actions}>
                 <Button type="button" variant="primary" onClick={handleNext} className="hit-slop">
-                  <span>Next: Diagnostic Focus &rarr;</span>
-                  <kbd style={{ marginLeft: 6, fontSize: '9px', padding: '1px 3px' }}>↵</kbd>
+                  <span>Next: Diagnostic Focus →</span>
                 </Button>
               </div>
             </div>
@@ -602,11 +636,10 @@ export function QualificationForm() {
 
               <div className={styles.actions}>
                 <Button type="button" variant="ghost" onClick={handleBack} className="hit-slop">
-                  &larr; Back
+                  ← Back
                 </Button>
                 <Button type="button" variant="primary" onClick={handleNext} className="hit-slop">
-                  <span>Next: Executive Details &rarr;</span>
-                  <kbd style={{ marginLeft: 6, fontSize: '9px', padding: '1px 3px' }}>↵</kbd>
+                  <span>Next: Executive Details →</span>
                 </Button>
               </div>
             </div>
@@ -708,14 +741,54 @@ export function QualificationForm() {
                   fontSize: '11px',
                   color: 'var(--color-text-muted)',
                   fontFamily: 'var(--font-mono), monospace',
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
+                  letterSpacing: '0.02em',
                   borderTop: '1px solid rgba(255, 255, 255, 0.08)',
                   paddingTop: 'var(--space-3)',
                 }}
               >
                 Confidentiality Notice: All submitted details are handled under strict executive confidentiality.
               </div>
+
+              {/* Explicit Form Consent & 18+ Age Eligibility Guard (#6 & #17) */}
+              <div className={`${styles.consentWrapper} ${errors.consent ? styles.consentError : ''}`}>
+                <input
+                  ref={consentRef}
+                  id="consent-checkbox"
+                  type="checkbox"
+                  checked={consentAccepted}
+                  onChange={(e) => {
+                    setConsentAccepted(e.target.checked);
+                    if (errors.consent) setErrors((prev) => ({ ...prev, consent: '' }));
+                  }}
+                  className={styles.consentCheckbox}
+                  required
+                />
+                <label htmlFor="consent-checkbox" className={styles.consentText}>
+                  I confirm that I am at least 18 years of age, an authorized representative of this enterprise, and I agree to BRANDMANIA&apos;s{' '}
+                  <Link href="/privacy" target="_blank" rel="noopener noreferrer">
+                    Privacy Policy
+                  </Link>
+                  ,{' '}
+                  <Link href="/terms" target="_blank" rel="noopener noreferrer">
+                    Terms of Use
+                  </Link>
+                  , and Confidential Intake Protocol.
+                </label>
+              </div>
+              {errors.consent && (
+                <span
+                  style={{
+                    fontSize: '11px',
+                    color: 'var(--color-status-error)',
+                    fontFamily: 'var(--font-mono), monospace',
+                    marginTop: '-4px',
+                    display: 'block',
+                  }}
+                  role="alert"
+                >
+                  {errors.consent}
+                </span>
+              )}
 
               <div className={styles.actions}>
                 <Button type="button" variant="ghost" onClick={handleBack} disabled={isSubmitting} className="hit-slop">
@@ -748,6 +821,7 @@ export function QualificationForm() {
         bookingUrl={bookingUrl}
         clientName={clientName}
         inquiryId={confirmedInquiryId}
+        engagementTrack={engagementTrack}
       />
     </>
   );

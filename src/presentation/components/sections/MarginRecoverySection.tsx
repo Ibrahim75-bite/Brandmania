@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
-import { Section } from '@/presentation/components/layout/Section';
-import { useSafeTriangle } from '@/presentation/hooks/useSafeTriangle';
+import React, { useState } from 'react';
+import { Container } from '@/presentation/components/layout/Container';
+import styles from './MarginRecoverySection.module.css';
 
 interface AuditRow {
   step: string;
@@ -13,12 +13,6 @@ interface AuditRow {
 
 export const MarginRecoverySection: React.FC = () => {
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
-  const detailPanelRef = useRef<HTMLDivElement>(null);
-
-  const { handleRowHover } = useSafeTriangle({
-    detailRef: detailPanelRef,
-    suppressionDelayMs: 180,
-  });
 
   const auditRows: AuditRow[] = [
     {
@@ -72,204 +66,49 @@ export const MarginRecoverySection: React.FC = () => {
   ];
 
   return (
-    <Section
-      id="margin-recovery"
-      spacing="none"
-      style={{
-        backgroundColor: 'var(--surface-obsidian, #070709)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-        position: 'relative',
-        width: '100%',
-        maxWidth: '100vw',
-        padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 3vw, 4rem)',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Tier 1: Swiss Architectural Index Strip */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '1.5rem',
-          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-          padding: '0.85rem 0',
-          marginBottom: 'clamp(2.5rem, 5vw, 4.5rem)',
-          fontFamily: 'var(--font-mono, monospace)',
-          fontSize: '11px',
-          letterSpacing: '0.14em',
-          textTransform: 'uppercase',
-          color: 'rgba(255, 255, 255, 0.55)',
-        }}
-      >
-        <div>
-          <span style={{ color: '#C882FF', marginRight: '6px' }}>(03)</span> / FLAGSHIP II
-        </div>
-        <div>OPERATIONAL CHAIN AUDIT</div>
-        <div>MARGIN RECOVERY ARCHITECTURE</div>
-        <div style={{ textAlign: 'right' }}>6-STAGE COMMERCIAL DRAIN REPAIR</div>
-      </div>
-
-      {/* Tier 2: Editorial Monumental Display Header */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(12, 1fr)',
-          gap: 'clamp(1rem, 2vw, 2.5rem)',
-          marginBottom: 'clamp(3rem, 6vw, 5rem)',
-          alignItems: 'baseline',
-        }}
-      >
-        <div style={{ gridColumn: 'span 12' }}>
-          <h2
-            style={{
-              fontFamily: 'var(--font-editorial, var(--font-Editorial), Georgia, serif)',
-              fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
-              fontWeight: 400,
-              lineHeight: 1.02,
-              letterSpacing: '-0.025em',
-              color: '#ffffff',
-              margin: 0,
-            }}
-          >
+    <section id="margin-recovery" className={styles.section}>
+      <Container size="full">
+        {/* Header Block */}
+        <div className={styles.headerBlock}>
+          <div className={styles.marker}>
+            05 &mdash; FLAGSHIP II &bull; MARGIN RECOVERY &bull; 6-STAGE AUDIT
+          </div>
+          <h2 className={styles.headline}>
             Fix the commercial machine{' '}
-            <span
-              style={{
-                fontStyle: 'italic',
-                color: 'var(--color-brand-light-violet, #C882FF)',
-              }}
-            >
-              before buying more traffic.
+            <span className={styles.headlineUnderline}>
+              before buying more traffic
             </span>
           </h2>
         </div>
-      </div>
 
-      {/* Tier 3: Full-Bleed 94vw Swiss Architectural Audit Table */}
-      <div
-        style={{
-          width: '100%',
-          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {/* Table Header Row */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '70px minmax(240px, 1.2fr) minmax(260px, 1.4fr) minmax(260px, 1.4fr)',
-            gap: 'clamp(1rem, 2vw, 2.5rem)',
-            padding: '1rem 1rem',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-            fontFamily: 'var(--font-mono, monospace)',
-            fontSize: '11px',
-            fontWeight: 500,
-            color: 'rgba(255, 255, 255, 0.45)',
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-          }}
-        >
-          <div>Index</div>
-          <div>Operational Stage</div>
-          <div>Where Commercial Value Leaks</div>
-          <div>Strategic &amp; Operational Repair</div>
-        </div>
+        {/* 6-Row Diagnostic Ledger */}
+        <div className={styles.tableContainer}>
+          <div className={styles.tableHeader}>
+            <div>Index</div>
+            <div>Operational Stage</div>
+            <div>Where Commercial Value Leaks</div>
+            <div>Strategic &amp; Operational Repair</div>
+          </div>
 
-        {/* 6 Large Horizontal Rows */}
-        {auditRows.map((row, idx) => {
-          const isHovered = hoveredRow === idx;
-          return (
+          {auditRows.map((row, idx) => (
             <div
               key={row.step}
-              onMouseEnter={() => handleRowHover(() => setHoveredRow(idx))}
+              onMouseEnter={() => setHoveredRow(idx)}
               onMouseLeave={() => setHoveredRow(null)}
+              className={styles.tableRow}
               style={{
-                display: 'grid',
-                gridTemplateColumns: '70px minmax(240px, 1.2fr) minmax(260px, 1.4fr) minmax(260px, 1.4fr)',
-                gap: 'clamp(1rem, 2vw, 2.5rem)',
-                padding: 'clamp(1.5rem, 3vh, 2.5rem) 1rem',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-                alignItems: 'center',
-                background: isHovered ? 'rgba(142, 0, 250, 0.06)' : 'transparent',
-                borderLeft: isHovered ? '2px solid #C882FF' : '2px solid transparent',
-                transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-                cursor: 'default',
+                backgroundColor: hoveredRow === idx ? 'rgba(255, 255, 255, 0.03)' : undefined,
+                borderLeft: hoveredRow === idx ? '2px solid #FFFFFF' : '2px solid transparent',
               }}
             >
-              {/* Step Index */}
-              <div
-                className="tabular-nums"
-                style={{
-                  fontFamily: 'var(--font-mono, monospace)',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  color: isHovered ? '#C882FF' : 'rgba(255, 255, 255, 0.4)',
-                  letterSpacing: '0.08em',
-                  transition: 'color 0.2s ease',
-                }}
-              >
-                {row.step}
-              </div>
-
-              {/* Stage Title in Instrument Serif 2.5rem */}
-              <div>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-serif), Georgia, serif',
-                    fontSize: 'clamp(1.75rem, 2.5vw, 2.5rem)',
-                    fontWeight: 400,
-                    lineHeight: 1.1,
-                    letterSpacing: '-0.02em',
-                    color: isHovered ? '#ffffff' : 'rgba(255, 255, 255, 0.92)',
-                    margin: 0,
-                    transition: 'color 0.2s ease',
-                  }}
-                >
-                  {row.stage}
-                </h3>
-              </div>
-
-              {/* Crisp 1-Line Commercial Leakage Statement */}
-              <div>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
-                    fontSize: '14px',
-                    color: 'rgba(255, 255, 255, 0.65)',
-                    lineHeight: 1.5,
-                    margin: 0,
-                  }}
-                >
-                  {row.leakage}
-                </p>
-              </div>
-
-              {/* Crisp 1-Line Strategic Repair Statement (Safe Triangle Detail Target) */}
-              <div ref={isHovered ? detailPanelRef : undefined}>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans, "Plus Jakarta Sans", sans-serif)',
-                    fontSize: '14px',
-                    color: isHovered ? '#ffffff' : 'rgba(255, 255, 255, 0.85)',
-                    lineHeight: 1.5,
-                    margin: 0,
-                    padding: '8px 12px',
-                    background: isHovered ? 'rgba(142, 0, 250, 0.16)' : 'rgba(255, 255, 255, 0.02)',
-                    border: isHovered
-                      ? '1px solid rgba(200, 130, 255, 0.35)'
-                      : '1px solid rgba(255, 255, 255, 0.06)',
-                    borderRadius: '2px',
-                    transition: 'all 0.25s ease',
-                  }}
-                >
-                  {row.repair}
-                </p>
-              </div>
+              <div className={styles.rowStep}>{row.step}</div>
+              <div className={styles.rowStage}>{row.stage}</div>
+              <div className={styles.rowLeakage}>{row.leakage}</div>
+              <div className={styles.rowRepair}>{row.repair}</div>
             </div>
-          );
-        })}
-      </div>
-    </Section>
+          ))}
+        </div>
+      </Container>
+    </section>
   );
 };
