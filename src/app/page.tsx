@@ -15,11 +15,6 @@ import { ArchitecturalSkeleton } from '@/presentation/components/primitives/Arch
 
 import { constructMetadata } from '@/infrastructure/seo/metadata';
 
-/**
- * #3 Performance: Dynamic code splitting — below-the-fold heavy interactive
- * islands lazy-loaded with ArchitecturalSkeleton fallbacks.
- * ArtifactGallery is section 08 (below the fold) — deferred until needed.
- */
 const ArtifactGallery = dynamic(
   () => import('@/presentation/components/sections/ArtifactGallery').then((mod) => mod.ArtifactGallery),
   {
@@ -41,37 +36,37 @@ export const metadata: Metadata = constructMetadata({
 export default function HomePage() {
   return (
     <div style={{ position: 'relative', overflow: 'hidden' }}>
-      {/* Tactile Micro-Noise Texture */}
+      {}
       <NoiseOverlay patternAlpha={9} patternRefreshInterval={3} />
 
-      {/* 01. Architectural Hero Stage */}
+      {}
       <HeroSection />
 
-      {/* 02. The Manifesto */}
+      {}
       <WorldviewSection />
 
-      {/* 03. The Strategic Dilemma */}
+      {}
       <DilemmaSection />
 
-      {/* 04. The Continuous Causal System */}
+      {}
       <SystemSection />
 
-      {/* 05. Flagship 01 — Brand Direction (Warm Museum Alabaster Stage) */}
+      {}
       <BrandDirectionSection />
 
-      {/* 06. Flagship 02 — Margin Recovery (Deep Obsidian Commercial Audit Table) */}
+      {}
       <MarginRecoverySection />
 
-      {/* 07. Flagship 03 — Consumer Scope (Spatial Behavioral Lens with BrandEye Watermark) */}
+      {}
       <ConsumerScopeSection />
 
-      {/* 08. Selected Work — Campaign Artifact Lookbook (lazy-loaded) */}
+      {}
       <ArtifactGallery />
 
-      {/* 09. Supporting Capabilities — Full-Spectrum Architecture */}
+      {}
       <CapabilitiesSection />
 
-      {/* 10. Qualification & Strategic Consultation Intake */}
+      {}
       <QualificationSection />
     </div>
   );

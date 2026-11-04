@@ -1,7 +1,3 @@
-/**
- * Webhook Cryptographic Verification & Replay Protection
- * Standard #8: Webhook Verification
- */
 
 import crypto from 'crypto';
 
@@ -18,10 +14,6 @@ export interface WebhookVerificationResult {
   timestamp?: number;
 }
 
-/**
- * Validates HMAC-SHA256 webhook signatures with timestamp replay protection.
- * Supports standard 't=timestamp,v1=signature' format or raw hex signatures.
- */
 export function verifyWebhookSignature({
   payload,
   signatureHeader,
@@ -37,7 +29,6 @@ export function verifyWebhookSignature({
 
   const payloadString = typeof payload === 'string' ? payload : payload.toString('utf-8');
 
-  // Handle 't=timestamp,v1=signature' format
   if (signatureHeader.includes('t=') && signatureHeader.includes('v1=')) {
     const parts = signatureHeader.split(',');
     let timestampStr = '';
@@ -58,13 +49,11 @@ export function verifyWebhookSignature({
       return { isValid: false, error: 'TIMESTAMP_INVALID' };
     }
 
-    // Check timestamp freshness to prevent replay attacks
     const now = Math.floor(Date.now() / 1000);
     if (Math.abs(now - timestamp) > toleranceSeconds) {
       return { isValid: false, error: 'TIMESTAMP_EXPIRED', timestamp };
     }
 
-    // Compute expected HMAC over `${timestamp}.${payload}`
     const signedPayload = `${timestamp}.${payloadString}`;
     const expectedSignature = crypto
       .createHmac('sha256', secret)
@@ -84,7 +73,6 @@ export function verifyWebhookSignature({
     return { isValid: true, timestamp };
   }
 
-  // Fallback: direct hex signature
   const expectedSignature = crypto
     .createHmac('sha256', secret)
     .update(payloadString)

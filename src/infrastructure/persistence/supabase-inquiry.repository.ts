@@ -21,10 +21,6 @@ interface InquiryDbRecord {
   updated_at: string;
 }
 
-/**
- * Production Supabase / PostgreSQL Repository Adapter for Inquiries.
- * Fulfills the IInquiryRepository seam alongside InMemoryInquiryRepository.
- */
 export class SupabaseInquiryRepository implements IInquiryRepository {
   private readonly poolManager: DatabasePoolManager;
   private readonly fallbackStore = new Map<string, Inquiry>();
@@ -80,7 +76,6 @@ export class SupabaseInquiryRepository implements IInquiryRepository {
         }
         return;
       } catch (err) {
-        // Fall back to in-memory backing during transient local connection drops
         this.fallbackStore.set(inquiry.id, inquiry);
         return;
       }
@@ -108,7 +103,6 @@ export class SupabaseInquiryRepository implements IInquiryRepository {
           }
         }
       } catch {
-        // Fall back to internal backing
       }
     }
 
@@ -143,7 +137,6 @@ export class SupabaseInquiryRepository implements IInquiryRepository {
           }
         }
       } catch {
-        // Fall back to internal backing
       }
     }
 
@@ -176,7 +169,6 @@ export class SupabaseInquiryRepository implements IInquiryRepository {
           return rows.map((r) => this.mapRowToEntity(r));
         }
       } catch {
-        // Fall back
       }
     }
 
@@ -200,7 +192,6 @@ export class SupabaseInquiryRepository implements IInquiryRepository {
           if (!isNaN(total)) return total;
         }
       } catch {
-        // Fall back
       }
     }
 
@@ -222,7 +213,6 @@ export class SupabaseInquiryRepository implements IInquiryRepository {
         );
         if (res.ok) return true;
       } catch {
-        // Fall back
       }
     }
 

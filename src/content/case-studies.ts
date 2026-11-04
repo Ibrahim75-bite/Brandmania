@@ -1,9 +1,3 @@
-/**
- * BRANDMANIA Case Studies & Client Proof Architecture
- *
- * Anonymized enterprise case studies representing verified diagnostic engagements.
- * No false credentials or unapproved metrics are invented.
- */
 
 export interface CaseStudyMetric {
   label: string;

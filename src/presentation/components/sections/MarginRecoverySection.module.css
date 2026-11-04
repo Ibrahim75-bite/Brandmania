@@ -1,7 +1,7 @@
 .section {
   position: relative;
   width: 100%;
-  background: linear-gradient(165deg, #130026 0%, #0D011A 100%);
+  background: linear-gradient(165deg, #160429 0%, #0D0118 100%);
   border-bottom: 1px solid rgba(200, 130, 255, 0.16);
   padding: clamp(4.5rem, 8vw, 8rem) 0;
   overflow: hidden;
@@ -27,22 +27,33 @@
 }
 
 .headline {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(2.8rem, 5.5vw, 5.25rem);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(2.6rem, 5.2vw, 5rem);
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.02em;
   color: #FAF7FF;
-  margin: 0;
+  margin: 0 0 1rem 0;
   max-width: 1100px;
 }
 
-.headlineUnderline {
-  border-bottom: 2px solid #C882FF;
-  padding-bottom: 2px;
+.headlineItalic {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #C882FF;
 }
 
-.tableContainer {
+.subhead {
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  color: #C4B8D8;
+  line-height: 1.65;
+  max-width: 780px;
+  margin: 0;
+}
+
+.desktopLedger {
   width: 100%;
   border-top: 1px solid rgba(200, 130, 255, 0.16);
   display: flex;
@@ -51,21 +62,26 @@
 
 .tableHeader {
   display: grid;
-  grid-template-columns: 80px minmax(220px, 1.2fr) minmax(260px, 1.4fr) minmax(260px, 1.4fr);
+  grid-template-columns: 80px minmax(180px, 1fr) minmax(280px, 1.5fr) minmax(280px, 1.5fr);
   gap: clamp(1rem, 2vw, 2.5rem);
   padding: 1.25rem 1rem;
   border-bottom: 1px solid rgba(200, 130, 255, 0.16);
   font-family: var(--font-mono), monospace;
   font-size: 11px;
   font-weight: 500;
-  color: #9A89B8;
+  color: #A8A0B8;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
+.tableBody {
+  display: flex;
+  flex-direction: column;
+}
+
 .ledgerRow {
   display: grid;
-  grid-template-columns: 80px minmax(220px, 1.2fr) minmax(260px, 1.4fr) minmax(260px, 1.4fr);
+  grid-template-columns: 80px minmax(180px, 1fr) minmax(280px, 1.5fr) minmax(280px, 1.5fr);
   gap: clamp(1rem, 2vw, 2.5rem);
   padding: 1.5rem 1rem;
   border-bottom: 1px solid rgba(200, 130, 255, 0.12);
@@ -74,65 +90,203 @@
   border-left: 2px solid transparent;
 }
 
-.ledgerRow:hover {
-  background-color: #1E0438;
+.ledgerRowHover {
+  background-color: #1C0633;
   border-left: 2px solid #C882FF;
 }
 
-.rowCode {
+.rowStep {
   font-family: var(--font-mono), monospace;
   font-size: 11px;
   font-weight: 600;
   color: #C882FF;
 }
 
-.rowTitle {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 1.25rem;
+.rowStage {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.35rem;
   font-weight: 400;
   color: #FAF7FF;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
-.rowProblem {
-  font-family: var(--font-body), sans-serif;
+.rowLeakage {
+  font-family: var(--font-sans), sans-serif;
   font-size: 0.9375rem;
-  color: #9A89B8;
+  color: #B8AEC8;
   line-height: 1.55;
 }
 
-.rowRemedy {
-  font-family: var(--font-body), sans-serif;
+.leakageTag {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  color: #D48A9E;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.rowRepair {
+  font-family: var(--font-sans), sans-serif;
   font-size: 0.9375rem;
-  color: #C4B8D8;
+  color: #FAF7FF;
   line-height: 1.55;
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
 }
 
-.remedyIndicator {
+.repairIndicator {
   color: #C882FF;
   flex-shrink: 0;
-  margin-top: 1px;
+  font-family: var(--font-mono), monospace;
 }
 
-@media (max-width: 1024px) {
-  .tableHeader {
+.mobileCards {
+  display: none;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobileCard {
+  border: 1px solid rgba(200, 130, 255, 0.16);
+  background: #160429;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.mobileCardHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(200, 130, 255, 0.12);
+  padding-bottom: 0.75rem;
+}
+
+.mobileStep {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  color: #C882FF;
+}
+
+.mobileStageName {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.4rem;
+  color: #FAF7FF;
+}
+
+.mobileLeakageBlock {
+  background: rgba(212, 138, 158, 0.06);
+  border: 1px solid rgba(212, 138, 158, 0.2);
+  padding: 1rem;
+}
+
+.mobileBlockLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  color: #D48A9E;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.mobileBlockText {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.92rem;
+  color: #B8AEC8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.mobileRepairBlock {
+  background: rgba(200, 130, 255, 0.05);
+  border: 1px solid rgba(200, 130, 255, 0.22);
+  padding: 1rem;
+}
+
+.mobileBlockLabelRepair {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  color: #C882FF;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.mobileBlockTextRepair {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.92rem;
+  color: #FAF7FF;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.repairArrow {
+  color: #C882FF;
+}
+
+.summaryBar {
+  margin-top: 2.5rem;
+  border: 1px solid rgba(200, 130, 255, 0.16);
+  background: rgba(13, 1, 24, 0.6);
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.summaryText {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: #A8A0B8;
+  text-transform: uppercase;
+}
+
+.summaryText strong {
+  color: #C882FF;
+}
+
+.auditCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: 1px solid rgba(200, 130, 255, 0.45);
+  color: #C882FF;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.95rem 1.75rem;
+  transition: all var(--transition-fast);
+}
+
+.auditCta:hover {
+  background: rgba(200, 130, 255, 0.1);
+  border-color: #C882FF;
+  color: #FAF7FF;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .desktopLedger {
     display: none;
   }
-
-  .ledgerRow {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-    padding: 1.25rem 0.75rem;
+  .mobileCards {
+    display: flex;
   }
-
-  .rowProblem {
-    padding-left: 0;
+  .summaryBar {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
   }
-
-  .rowRemedy {
-    padding-left: 0;
+  .auditCta {
+    justify-content: center;
   }
 }

@@ -11,4 +11,3 @@ export interface IInquiryRepository {
   delete(id: string): Promise<boolean>;
   purgeExpired(retentionDays?: number): Promise<number>;
 }
-

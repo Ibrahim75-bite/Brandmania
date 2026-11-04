@@ -1,9 +1,3 @@
-/**
- * Founder-Led Experience Configuration
- *
- * Articulates the executive leadership behind BRANDMANIA.
- * Maintains institutional authority without devolving into a personal blog.
- */
 
 export interface FounderConfig {
   name: string;

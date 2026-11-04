@@ -13,10 +13,6 @@ export class InMemoryInquiryRepository implements IInquiryRepository {
     return this.items.get(id) ?? null;
   }
 
-  /**
-   * Eliminates N+1 queries by batching inquiry lookups into a single operation.
-   * Standard #14
-   */
   public async findByIds(ids: string[]): Promise<Inquiry[]> {
     const results: Inquiry[] = [];
     for (const id of ids) {
@@ -38,10 +34,6 @@ export class InMemoryInquiryRepository implements IInquiryRepository {
     return results;
   }
 
-  /**
-   * Bounded pagination capped strictly at limit <= 50 to prevent unbounded memory exhaustion.
-   * Standard #14
-   */
   public async findAll(limit = 50, offset = 0): Promise<Inquiry[]> {
     const safeLimit = Math.min(Math.max(1, limit), 50);
     const safeOffset = Math.max(0, offset);
@@ -57,10 +49,6 @@ export class InMemoryInquiryRepository implements IInquiryRepository {
     return this.items.delete(id);
   }
 
-  /**
-   * Purges rejected or unqualified inquiries older than retention window (default 90 days).
-   * Standard #48
-   */
   public async purgeExpired(retentionDays = 90): Promise<number> {
     const cutoffMs = Date.now() - retentionDays * 24 * 60 * 60 * 1000;
     let purgedCount = 0;
@@ -84,4 +72,3 @@ export class InMemoryInquiryRepository implements IInquiryRepository {
     this.items.clear();
   }
 }
-

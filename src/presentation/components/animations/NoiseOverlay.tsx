@@ -7,11 +7,6 @@ interface NoiseOverlayProps {
   patternRefreshInterval?: number;
 }
 
-/**
- * NoiseOverlay - React Bits Adapted Tactile Film Grain Canvas
- * Imparts an authentic physical paper/editorial texture over the obsidian void.
- * Fixed, pointer-events: none, zero impact on interaction.
- */
 export const NoiseOverlay: React.FC<NoiseOverlayProps> = ({
   patternAlpha = 11,
   patternRefreshInterval = 3,
@@ -19,7 +14,6 @@ export const NoiseOverlay: React.FC<NoiseOverlayProps> = ({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    // Disable active canvas animation under reduced-motion preference
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return;
     }

@@ -35,11 +35,11 @@ export default function TermsPage() {
         borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
       }}
     >
-      {/* Precision Corner Arcs */}
+      {}
       <CornerArcs position="top-right" size={260} opacity={0.06} color="#FFFFFF" />
       <CornerArcs position="bottom-left" size={200} opacity={0.04} color="#FFFFFF" />
 
-      {/* Background Watermark */}
+      {}
       <div
         style={{
           position: 'absolute',
@@ -57,7 +57,7 @@ export default function TermsPage() {
       </div>
 
       <Container size="lg">
-        {/* Editorial Masthead */}
+        {}
         <div
           style={{
             borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
@@ -133,7 +133,7 @@ export default function TermsPage() {
           </div>
         </div>
 
-        {/* 2-Column Swiss Grid: Content Blocks + Sticky Aside */}
+        {}
         <div
           style={{
             display: 'grid',
@@ -141,7 +141,7 @@ export default function TermsPage() {
             gap: 'var(--space-12)',
           }}
         >
-          {/* Main Legal Content */}
+          {}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-10)' }}>
             {terms.sections.map((sec) => (
               <article
@@ -222,7 +222,7 @@ export default function TermsPage() {
               </article>
             ))}
 
-            {/* B2B Commercial Schedules Grid */}
+            {}
             <div
               style={{
                 marginTop: 'var(--space-12)',
@@ -312,7 +312,7 @@ export default function TermsPage() {
               </div>
             </div>
 
-            {/* All 12 Legal, Confidentiality, IP & Engagement FAQs */}
+            {}
             <div
               style={{
                 marginTop: 'var(--space-12)',
@@ -414,7 +414,7 @@ export default function TermsPage() {
             </div>
           </div>
 
-          {/* Sticky Aside & Cross-Navigation */}
+          {}
           <aside aria-label="Commercial Advisory Notice and Cross Links">
             <div
               style={{
@@ -425,7 +425,7 @@ export default function TermsPage() {
                 top: '6rem',
               }}
             >
-              {/* Quick Navigation Card */}
+              {}
               <div
                 style={{
                   border: '1px solid rgba(255, 255, 255, 0.12)',
@@ -488,7 +488,7 @@ export default function TermsPage() {
                 </div>
               </div>
 
-              {/* Engagement Threshold Panel */}
+              {}
               <div
                 style={{
                   border: '1px solid rgba(255, 255, 255, 0.12)',
@@ -581,7 +581,7 @@ export default function TermsPage() {
                 </Link>
               </div>
 
-              {/* Corporate & Legal Entity Disclosure Card */}
+              {}
               <CorporateEntityCard />
             </div>
           </aside>

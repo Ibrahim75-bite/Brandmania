@@ -33,11 +33,11 @@ export default function CookiesPage() {
         borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
       }}
     >
-      {/* Precision Corner Arcs */}
+      {}
       <CornerArcs position="top-right" size={260} opacity={0.06} color="#FFFFFF" />
       <CornerArcs position="bottom-left" size={200} opacity={0.04} color="#FFFFFF" />
 
-      {/* Background Watermark */}
+      {}
       <div
         style={{
           position: 'absolute',
@@ -55,7 +55,7 @@ export default function CookiesPage() {
       </div>
 
       <Container size="lg">
-        {/* Editorial Masthead */}
+        {}
         <div
           style={{
             borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
@@ -131,7 +131,7 @@ export default function CookiesPage() {
           </div>
         </div>
 
-        {/* Quick Navigation Anchor Bar */}
+        {}
         <nav
           aria-label="Legal document cross-links"
           style={{
@@ -182,7 +182,7 @@ export default function CookiesPage() {
           </Link>
         </nav>
 
-        {/* Introduction Narrative */}
+        {}
         <div
           style={{
             borderLeft: '2px solid #C882FF',
@@ -202,10 +202,10 @@ export default function CookiesPage() {
           </p>
         </div>
 
-        {/* Interactive Consent Preference Manager */}
+        {}
         <CookiePreferenceManager />
 
-        {/* Technical Storage & Cookie Inventory Table */}
+        {}
         <div style={{ marginTop: 'var(--space-12)', marginBottom: 'var(--space-12)' }}>
           <div style={{ marginBottom: 'var(--space-4)' }}>
             <span
@@ -370,7 +370,7 @@ export default function CookiesPage() {
           </div>
         </div>
 
-        {/* Third-Party SDK & External Resource Inventory Table */}
+        {}
         <div style={{ marginTop: 'var(--space-12)', marginBottom: 'var(--space-12)' }}>
           <div style={{ marginBottom: 'var(--space-4)' }}>
             <span
@@ -517,7 +517,7 @@ export default function CookiesPage() {
           </div>
         </div>
 
-        {/* Narrative Policy Sections */}
+        {}
         <div
           style={{
             marginTop: 'var(--space-12)',
@@ -581,7 +581,7 @@ export default function CookiesPage() {
           </div>
         </div>
 
-        {/* Corporate & Legal Entity Disclosure Card */}
+        {}
         <div style={{ marginTop: 'var(--space-12)', maxWidth: '540px' }}>
           <CorporateEntityCard />
         </div>

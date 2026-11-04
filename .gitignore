@@ -35,3 +35,7 @@ next-env.d.ts
 /prompts.chat
 /references
 /bigspring-light-nextjs
+
+# design screenshot captures
+docs/designs/*/screenshots/
+docs/designs/**/screenshots/

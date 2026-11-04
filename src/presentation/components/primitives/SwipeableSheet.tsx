@@ -20,7 +20,6 @@ export const SwipeableSheet: React.FC<SwipeableSheetProps> = ({
 }) => {
   const isPushedRef = useRef(false);
 
-  // #12 Predictive Back Gesture & History State Sync
   useEffect(() => {
     if (!syncHistory || typeof window === 'undefined') return;
 
@@ -37,7 +36,6 @@ export const SwipeableSheet: React.FC<SwipeableSheetProps> = ({
       return () => {
         window.removeEventListener('popstate', handlePopState);
         if (isPushedRef.current && window.history.state?.modal === 'swipeable-sheet') {
-          // If closed programmatically, back out the pushed state cleanly
           window.history.back();
           isPushedRef.current = false;
         }
@@ -45,7 +43,6 @@ export const SwipeableSheet: React.FC<SwipeableSheetProps> = ({
     }
   }, [isOpen, onClose, syncHistory]);
 
-  // #10 Swipe-to-dismiss threshold check
   const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (info.offset.y > 110 || info.velocity.y > 450) {
       onClose();
@@ -68,7 +65,7 @@ export const SwipeableSheet: React.FC<SwipeableSheetProps> = ({
             pointerEvents: 'auto',
           }}
         >
-          {/* Backdrop */}
+          {}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -84,7 +81,7 @@ export const SwipeableSheet: React.FC<SwipeableSheetProps> = ({
             }}
           />
 
-          {/* Drawer Sheet */}
+          {}
           <motion.div
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
@@ -109,7 +106,7 @@ export const SwipeableSheet: React.FC<SwipeableSheetProps> = ({
               paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom, 1.5rem))',
             }}
           >
-            {/* Grab Handle */}
+            {}
             <div
               style={{
                 width: '100%',
@@ -131,7 +128,7 @@ export const SwipeableSheet: React.FC<SwipeableSheetProps> = ({
               />
             </div>
 
-            {/* Optional Header */}
+            {}
             {title && (
               <div
                 style={{
@@ -168,7 +165,7 @@ export const SwipeableSheet: React.FC<SwipeableSheetProps> = ({
               </div>
             )}
 
-            {/* Sheet Content */}
+            {}
             <div
               style={{
                 padding: '1.5rem',

@@ -11,11 +11,6 @@ interface MagnetProps {
   style?: React.CSSProperties;
 }
 
-/**
- * Magnet - React Bits Adapted Spring-Physics Attraction Wrapper
- * Gently pulls key conversion actions toward cursor proximity.
- * Disabled on touch/mobile devices and reduced-motion mode.
- */
 export const Magnet: React.FC<MagnetProps> = ({
   children,
   padding = 40,
@@ -29,7 +24,6 @@ export const Magnet: React.FC<MagnetProps> = ({
   const magnetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Disable on touch devices and reduced-motion preference
     if (
       disabled ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches ||

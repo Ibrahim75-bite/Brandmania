@@ -3,10 +3,7 @@ import { BudgetRange } from '../value-objects/budget-range.vo';
 import { BusinessRuleViolationError } from '../errors/domain.error';
 
 export class InquirySubmissionRules {
-  /**
-   * High-ticket enterprise rule: If client represents Haute Luxury,
-   * the minimum budget tier must meet high-ticket standards.
-   */
+
   public static validateHighTicketAlignment(tier: CompanyTier, budget: BudgetRange): void {
     if (tier.value === 'HAUTE_LUXURY' && budget.getMinimumBudgetUsd() < 100000) {
       throw new BusinessRuleViolationError(
@@ -15,9 +12,6 @@ export class InquirySubmissionRules {
     }
   }
 
-  /**
-   * Determine priority routing score for incoming inquiries based on tier and scope.
-   */
   public static calculatePriorityScore(tier: CompanyTier, budget: BudgetRange, serviceCount: number): number {
     let score = 0;
     if (tier.value === 'HAUTE_LUXURY') score += 50;

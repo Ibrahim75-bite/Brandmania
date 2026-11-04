@@ -30,7 +30,6 @@ async function parseEmailAndToken(
         token = token || (formData.get('token') as string | null);
       }
     } catch {
-      // Ignore parsing errors, fall back to whatever was extracted from query params
     }
   }
 
@@ -43,14 +42,13 @@ async function handleUnsubscribe(
   token: string,
   ctx: Awaited<ReturnType<typeof extractRequestContext>>
 ) {
-  // #20: Enforce minimum 150ms response floor to prevent timing-based user enumeration
   await enforceResponseFloor();
 
   const isValid = verifyUnsubscribeToken(email, token);
   if (!isValid) {
     return NextResponse.json(
       uniformConfirmationResponse('Invalid or expired unsubscribe token.'),
-      { status: 200 } // #20: Uniform 200 OK regardless of token validity
+      { status: 200 }
     );
   }
 
@@ -61,14 +59,13 @@ async function handleUnsubscribe(
     method: req.method,
   });
 
-  // #20: Uniform response regardless of whether email existed in inquiryRepository
   return NextResponse.json(
     {
       success: true,
       message: 'Successfully unsubscribed from executive communications.',
       deletionReceiptId: `del_${crypto.randomBytes(6).toString('hex')}_${Date.now().toString(36)}`,
     },
-    { status: 200 } // #20: Uniform 200 OK
+    { status: 200 }
   );
 }
 
@@ -79,13 +76,12 @@ export async function GET(req: NextRequest) {
   if (!email || !token) {
     return NextResponse.json(
       uniformConfirmationResponse('Email address and token are required.'),
-      { status: 200 } // #20: Uniform 200 OK
+      { status: 200 }
     );
   }
 
   const acceptHeader = req.headers.get('accept') || '';
   if (acceptHeader.includes('text/html')) {
-    // #20: Enforce response floor even for HTML responses
     await enforceResponseFloor();
 
     const htmlResponse = `
@@ -170,7 +166,7 @@ export async function POST(req: NextRequest) {
   if (!email || !token) {
     return NextResponse.json(
       uniformConfirmationResponse('Email address and token are required.'),
-      { status: 200 } // #20: Uniform 200 OK
+      { status: 200 }
     );
   }
 

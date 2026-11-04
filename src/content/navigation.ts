@@ -1,9 +1,3 @@
-/**
- * Navigation Configuration
- *
- * Header menu, mobile drawer items, and footer directories.
- */
-
 export interface NavLink {
   label: string;
   href: string;
@@ -15,6 +9,7 @@ export const MAIN_NAV_LINKS: NavLink[] = [
   { label: 'System', href: '/#system' },
   { label: 'Disciplines', href: '/#disciplines' },
   { label: 'Work', href: '/#work' },
+  { label: 'Insights', href: '/insights' },
 ];
 
 export const FOOTER_SECTIONS = [
@@ -23,27 +18,28 @@ export const FOOTER_SECTIONS = [
     links: [
       { label: 'Manifesto', href: '/#manifesto' },
       { label: 'Continuous System', href: '/#system' },
-      { label: 'Disciplines', href: '/#disciplines' },
-      { label: 'Selected Work', href: '/#work' },
+      { label: 'Disciplines', href: '/services' },
+      { label: 'Selected Work & Case Studies', href: '/work' },
+      { label: 'Executive Insights & Articles', href: '/insights' },
       { label: 'Qualification Intake', href: '/#qualification' },
     ],
   },
   {
     title: 'Flagship Disciplines',
     links: [
-      { label: 'Margin Recovery', href: '/services/margin-recovery' },
       { label: 'Brand Direction', href: '/services/brand-direction' },
+      { label: 'Margin Recovery', href: '/services/margin-recovery' },
       { label: 'Consumer Scope', href: '/services/consumer-scope' },
-      { label: 'Supporting Capabilities', href: '/services' },
+      { label: 'Supporting Capabilities', href: '/services#capabilities' },
     ],
   },
   {
     title: 'Campaign Funnels',
     links: [
-      { label: 'Executive Cold Outreach', href: '/f/default' },
-      { label: 'Margin Leakage Diagnostic', href: '/f/margin-recovery' },
+      { label: 'Executive Cold Outreach', href: '/f/cold-outreach' },
+      { label: 'Margin Leakage Diagnostic', href: '/f/margin-diagnostic' },
       { label: 'Fine Jewelry & Gemstones', href: '/f/jewelry' },
-      { label: 'Designer Boutiques', href: '/f/designer-boutiques' },
+      { label: 'Designer Boutiques', href: '/f/boutiques' },
     ],
   },
   {

@@ -55,7 +55,6 @@ export class GetSystemHealthUseCase {
       rateLimiterStatus = 'error';
     }
 
-    // Check Dead Letter Queue depth if job queue is wired
     let dlqCheck: ReadinessCheckDto['checks']['dlq'] = undefined;
     if (this.jobQueue) {
       const dlqCount = this.jobQueue.getDeadLetterJobs().length;
@@ -65,7 +64,6 @@ export class GetSystemHealthUseCase {
       };
     }
 
-    // Check Circuit Breaker
     const isCircuitBreakerTripped = this.getCircuitBreakerStatus ? this.getCircuitBreakerStatus() : false;
     const circuitBreakerCheck = {
       tripped: isCircuitBreakerTripped,

@@ -1,11 +1,5 @@
 import { FunnelConfig } from './types';
 
-/**
- * DEFAULT COLD OUTREACH FUNNEL
- *
- * Implements the 18-step persuasive narrative sequence for cold traffic,
- * with clearly marked owner copy placeholders.
- */
 export const DEFAULT_FUNNEL: FunnelConfig = {
   meta: {
     slug: 'default',

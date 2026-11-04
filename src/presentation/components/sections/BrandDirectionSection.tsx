@@ -28,22 +28,19 @@ export const BrandDirectionSection: React.FC = () => {
 
   return (
     <section id="disciplines" className={styles.section}>
-      {/* Anchor alias for backwards-compatibility */}
       <div id="brand-direction" style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }} aria-hidden="true" />
 
       <Container size="full">
         <div className={styles.grid}>
-          {/* Left 5 Columns: Sticky Architectural Headline & Pillar Index */}
           <div className={styles.leftCol}>
             <div className={styles.marker}>
-              04 &mdash; FLAGSHIP I &bull; BRAND DIRECTION
+              05 &mdash; FLAGSHIP I &bull; BRAND DIRECTION
             </div>
 
             <h2 className={styles.headline}>
               Aligning what you are with what the market perceives
             </h2>
 
-            {/* Clean Numbered Index List of the 6 Pillars */}
             <div className={styles.pillarsList}>
               {pillars.map((pillar) => {
                 const Icon = pillar.icon;
@@ -63,9 +60,7 @@ export const BrandDirectionSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right 7 Columns: Uncropped Exhibition Display with Clean Tabbed Switcher */}
           <div className={styles.rightCol}>
-            {/* Museum Artifact Switcher Tabs */}
             <div className={styles.tabsNav} role="tablist" aria-label="Brand Direction Artifacts">
               <button
                 type="button"
@@ -74,7 +69,7 @@ export const BrandDirectionSection: React.FC = () => {
                 onClick={() => setActiveTab('architecture')}
                 className={`${styles.tabBtn} ${activeTab === 'architecture' ? styles.tabBtnActive : ''} hit-slop`}
               >
-                01 / Services Architecture Deliverable
+                01 / BRAND &amp; COMMERCIAL ARCHITECTURE
               </button>
               <button
                 type="button"
@@ -83,19 +78,18 @@ export const BrandDirectionSection: React.FC = () => {
                 onClick={() => setActiveTab('poster')}
                 className={`${styles.tabBtn} ${activeTab === 'poster' ? styles.tabBtnActive : ''} hit-slop`}
               >
-                02 / Physical Folded Monograph Poster
+                02 / PHYSICAL FOLDED MONOGRAPH POSTER
               </button>
             </div>
 
-            {/* Artifact 1: Master Deliverable Artboard */}
             <div
               className={styles.artboardContainer}
               style={{ display: activeTab === 'architecture' ? 'block' : 'none' }}
             >
               <Image
-                src="/brand/graphics/artboard-2-services-branding.jpg"
+                src="/brand/graphics/brandmania-ad-agency-banner.jpg"
                 alt="BRANDMANIA Services &amp; Branding Architecture Deliverable Artboard"
-                width={1080}
+                width={2160}
                 height={1080}
                 placeholder="blur"
                 blurDataURL={BLUR_PLACEHOLDERS.artboard2}
@@ -109,12 +103,11 @@ export const BrandDirectionSection: React.FC = () => {
                 priority
               />
               <div className={styles.artboardCaption}>
-                <span>Brand Services Architecture Master</span>
-                <span className={styles.captionBadge}>100% Legibility Standard</span>
+                <span>Brand &amp; Commercial Architecture Master Deliverable</span>
+                <span className={styles.captionBadge}>100% Uncropped Standard</span>
               </div>
             </div>
 
-            {/* Artifact 2: Physical Folded Paper Poster */}
             <div
               className={styles.artboardContainer}
               style={{ display: activeTab === 'poster' ? 'block' : 'none' }}

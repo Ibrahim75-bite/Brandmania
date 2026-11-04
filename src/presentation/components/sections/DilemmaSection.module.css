@@ -135,7 +135,6 @@
   margin-top: 1px;
 }
 
-/* Stuurmen / Gatzara Turning-Point Journey Strip */
 .turningPointBlock {
   margin-top: clamp(3.5rem, 7vw, 5.5rem);
   display: flex;
@@ -257,7 +256,7 @@
   .tableGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .trapCol {
     border-right: none;
     border-bottom: 1px solid rgba(200, 130, 255, 0.16);

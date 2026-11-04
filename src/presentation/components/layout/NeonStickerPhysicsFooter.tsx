@@ -11,7 +11,6 @@ interface StickerDef {
 }
 
 const STICKER_DEFS: StickerDef[] = [
-  // 1. ROI (Zebra-striped Neon Green & Black rectangle)
   {
     id: 'roi',
     width: 150,
@@ -31,7 +30,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 2. ROAS! (Jagged starburst sticker in Electric Blue & Acid Neon Lime)
   {
     id: 'roas',
     width: 170,
@@ -52,7 +50,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 3. CAC?! (Spiky explosion badge in Electric Purple with Neon Green text)
   {
     id: 'cac',
     width: 160,
@@ -73,7 +70,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 4. cpc (Double overlapping heart badge in Neon Pink & Neon Green outline)
   {
     id: 'cpc',
     width: 145,
@@ -101,7 +97,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 5. A/B (Oversized split stencil letters in Electric Violet, Neon Orange, Neon Green)
   {
     id: 'ab',
     width: 150,
@@ -121,7 +116,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 6. AUTOMATE (Ticket-stub badge in Neon Orange with bold white condensed type)
   {
     id: 'automate',
     width: 185,
@@ -142,7 +136,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 7. DUPLICATE (3D extruded diagonal sticker in Neon Orange & Electric Purple)
   {
     id: 'duplicate',
     width: 190,
@@ -159,7 +152,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 8. MARGIN! (Battery-meter / level bars badge in Electric Purple & Neon Lime)
   {
     id: 'margin',
     width: 175,
@@ -179,7 +171,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 9. PRICING POWER (High-voltage yellow pill with bold black & purple type)
   {
     id: 'pricing-power',
     width: 220,
@@ -195,7 +186,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 10. STOP LEAKS (Pill badge in Electric Violet & Neon Orange)
   {
     id: 'stop-leaks',
     width: 195,
@@ -212,7 +202,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 11. BRANDMANIA® (Signature Neon Yellow stamp with BrandEye emblem)
   {
     id: 'brandmania-stamp',
     width: 235,
@@ -230,7 +219,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 12. LAUNCH (3D block badge in White, Black, and Neon Green)
   {
     id: 'launch',
     width: 165,
@@ -248,7 +236,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 13. START (Rounded capsule in Neon Yellow with Neon Red/Purple outline)
   {
     id: 'start',
     width: 155,
@@ -265,7 +252,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 14. Analyze (Pixel-stepped badge in crisp White & Black)
   {
     id: 'analyze',
     width: 165,
@@ -283,7 +269,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 15. LTV ↑ (Line-chart node box in Obsidian with Neon border and glowing pink data nodes)
   {
     id: 'ltv',
     width: 160,
@@ -303,7 +288,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 16. BrandEye Sticker (Iconic almond eye with White sclera and glowing Neon Green/Violet iris)
   {
     id: 'brandeye-sticker',
     width: 155,
@@ -324,7 +308,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 17. ALERT TRIGGERED (Tilted warning stamp in Neon Red-Orange with Violet border)
   {
     id: 'alert-triggered',
     width: 215,
@@ -342,7 +325,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 18. SCALE 700K+ (Circular neon seal in Cyan & Neon Green)
   {
     id: 'scale-700k',
     width: 110,
@@ -362,7 +344,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 19. APIs (Neon Pink & Purple pill badge)
   {
     id: 'apis',
     width: 140,
@@ -378,7 +359,6 @@ const STICKER_DEFS: StickerDef[] = [
     ),
   },
 
-  // 20. Campaaaaaaaigns (Elongated Electric Blue pill with crisp white type)
   {
     id: 'campaigns',
     width: 235,
@@ -421,10 +401,8 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
   const [isReady, setIsReady] = useState(false);
   const activeDragIndexRef = useRef<number | null>(null);
 
-  // Initialize Physics Bodies
   const initBodies = useCallback((containerWidth: number) => {
     bodiesRef.current = STICKER_DEFS.map((def, idx) => {
-      // Stagger spawn along top
       const col = idx % 5;
       const row = Math.floor(idx / 5);
       const colWidth = Math.max(containerWidth / 5, 160);
@@ -451,7 +429,6 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
     });
   }, []);
 
-  // Drop / Respawn Trigger
   const handleDropStickers = useCallback(() => {
     const container = containerRef.current;
     const width = container?.clientWidth || 1200;
@@ -491,25 +468,21 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
       const currentWidth = container.clientWidth || width;
       const bodies = bodiesRef.current;
 
-      // 1. Integration & Wall/Floor Collisions
       for (let i = 0; i < bodies.length; i++) {
         const b = bodies[i];
         if (b.isDragging) continue;
 
-        // Apply forces & aggressive air/rotational damping
         b.vy += gravity;
         b.vx *= 0.96;
         b.vy *= 0.98;
         b.vAngle *= 0.90;
 
-        // Enforce hard clamp on angular velocity
         b.vAngle = Math.max(-MAX_ANGULAR_VELOCITY, Math.min(MAX_ANGULAR_VELOCITY, b.vAngle));
 
         b.x += b.vx;
         b.y += b.vy;
         b.angle += b.vAngle;
 
-        // Floor collision & Ground contact friction
         const bottomEdge = b.y + b.height * 0.5;
         if (bottomEdge >= floorY) {
           b.y = floorY - b.height * 0.5;
@@ -519,13 +492,11 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
           if (Math.abs(b.vy) < 0.6) b.vy = 0;
         }
 
-        // Floor contact friction zone
         if (b.y >= floorY - b.height * 0.5 - 4) {
           b.vAngle *= 0.65;
           b.vx *= 0.85;
         }
 
-        // Left wall
         const leftEdge = b.x - b.width * 0.5;
         if (leftEdge < 8) {
           b.x = 8 + b.width * 0.5;
@@ -533,7 +504,6 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
           b.vAngle *= 0.8;
         }
 
-        // Right wall
         const rightEdge = b.x + b.width * 0.5;
         if (rightEdge > currentWidth - 8) {
           b.x = currentWidth - 8 - b.width * 0.5;
@@ -541,7 +511,6 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
           b.vAngle *= 0.8;
         }
 
-        // Sleeping / Rest Threshold
         if (
           Math.abs(b.vx) < 0.05 &&
           Math.abs(b.vy) < 0.1 &&
@@ -554,7 +523,6 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
         }
       }
 
-      // 2. Pairwise Collisions
       for (let i = 0; i < bodies.length; i++) {
         for (let j = i + 1; j < bodies.length; j++) {
           const b1 = bodies[i];
@@ -571,14 +539,12 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
             const nx = dx / dist;
             const ny = dy / dist;
 
-            // Positional separation
             if (!b1.isDragging && !b2.isDragging) {
               b1.x -= nx * overlap * 0.5;
               b1.y -= ny * overlap * 0.5;
               b2.x += nx * overlap * 0.5;
               b2.y += ny * overlap * 0.5;
 
-              // Velocity exchange
               const rvx = b2.vx - b1.vx;
               const rvy = b2.vy - b1.vy;
               const velAlongNormal = rvx * nx + rvy * ny;
@@ -590,7 +556,6 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
                 b2.vx += nx * impulse;
                 b2.vy += ny * impulse;
 
-                // Scale down collision torque impulse by 90%
                 const torque = (dx * rvy - dy * rvx) * 0.00006;
                 b1.vAngle -= torque;
                 b2.vAngle += torque;
@@ -615,7 +580,6 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
         }
       }
 
-      // 3. Sync with DOM Elements
       for (let i = 0; i < bodies.length; i++) {
         const el = elementRefs.current[i];
         const b = bodies[i];
@@ -629,7 +593,6 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
       animFrameRef.current = requestAnimationFrame(updatePhysics);
     };
 
-    // Start simulation immediately upon mount
     animFrameRef.current = requestAnimationFrame(updatePhysics);
 
     return () => {
@@ -638,7 +601,6 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
     };
   }, [initBodies]);
 
-  // Pointer drag interactions
   const handlePointerDown = (idx: number, e: React.PointerEvent) => {
     const container = containerRef.current;
     const body = bodiesRef.current[idx];
@@ -677,7 +639,6 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
     body.x = clientX - body.dragOffsetX;
     body.y = clientY - body.dragOffsetY;
 
-    // Fling velocity calculation
     const calculatedVx = ((clientX - body.lastPointerX) / dt) * 16;
     const calculatedVy = ((clientY - body.lastPointerY) / dt) * 16;
     body.vx = Math.min(Math.max(calculatedVx, -25), 25);
@@ -701,7 +662,6 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
     try {
       (e.target as HTMLElement).releasePointerCapture(e.pointerId);
     } catch {
-      // Ignored
     }
   };
 
@@ -721,7 +681,7 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
         touchAction: 'none',
       }}
     >
-      {/* Sleek Drop Stickers Button in Top-Right Corner */}
+      {}
       <button
         type="button"
         onClick={handleDropStickers}

@@ -1,10 +1,3 @@
-/**
- * BRANDMANIA Services Architecture
- *
- * Distinctly articulates the 3 Flagship Disciplines supported by targeted
- * operational, marketing, and technological capabilities.
- */
-
 export interface ServiceDetail {
   id: string;
   slug: string;
@@ -15,6 +8,7 @@ export interface ServiceDetail {
   strategicPremise: string;
   points: string[];
   ctaLabel: string;
+  faqs?: { question: string; answer: string }[];
 }
 
 export const FLAGSHIP_SERVICES: Record<string, ServiceDetail> = {
@@ -35,7 +29,21 @@ export const FLAGSHIP_SERVICES: Record<string, ServiceDetail> = {
       'Restructuring sales pipeline economics for maximum margin retention',
       'Operational workflow stabilization before scaling ad capital',
     ],
-    ctaLabel: 'Request Margin Diagnostic',
+    ctaLabel: 'Request Margin Recovery Diagnostic',
+    faqs: [
+      {
+        question: 'When should an enterprise initiate a Margin Recovery audit?',
+        answer: 'When revenue growth stalls despite increasing ad spend, or when top-line scale fails to expand net contribution profit.'
+      },
+      {
+        question: 'How does this differ from traditional media agency audits?',
+        answer: 'Media agencies audit ad accounts to spend more ad dollars. We audit the complete commercial unit economics across the entire fulfillment and conversion chain.'
+      },
+      {
+        question: 'What is the required qualification threshold?',
+        answer: 'Our Margin Recovery engagement requires established operations with $700,000+ in annual revenue.'
+      }
+    ]
   },
   'brand-direction': {
     id: 'brand-direction',
@@ -54,7 +62,17 @@ export const FLAGSHIP_SERVICES: Record<string, ServiceDetail> = {
       'Realigning brand presence with ideal high-LTV clientele',
       'Creation of bespoke digital brand assets with controlled visual tension',
     ],
-    ctaLabel: 'Explore Brand Direction',
+    ctaLabel: 'Explore Brand Direction Architecture',
+    faqs: [
+      {
+        question: 'How does Brand Direction directly influence commercial margins?',
+        answer: 'Perceptual authority creates price inelasticity. Premium positioning shields the enterprise from discounting pressure and lowers CAC across high-intent cohorts.'
+      },
+      {
+        question: 'What deliverables are included in Brand Direction?',
+        answer: 'Full visual identity systems, uncropped master deliverable blueprints, executive tone-of-voice governance, trust architecture, and physical monograph designs.'
+      }
+    ]
   },
   'consumer-scope': {
     id: 'consumer-scope',
@@ -74,6 +92,16 @@ export const FLAGSHIP_SERVICES: Record<string, ServiceDetail> = {
       'Systematic elimination of cognitive friction across the entire funnel',
     ],
     ctaLabel: 'Consult on Consumer Scope',
+    faqs: [
+      {
+        question: 'How does Consumer Scope differ from basic UX research?',
+        answer: 'UX focuses on interface usability. Consumer Scope engineers the psychological valuation, status perception, and decision momentum of the high-ticket buyer.'
+      },
+      {
+        question: 'What behavioral frameworks are deployed?',
+        answer: 'We analyze the 7 behavioral dimensions of buyer psychology: status signaling, perceived risk insulation, decision friction, endowment perception, price anchoring, social proof architecture, and post-purchase affirmation.'
+      }
+    ]
   },
 };
 

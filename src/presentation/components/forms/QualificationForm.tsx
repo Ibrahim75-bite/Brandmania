@@ -37,29 +37,24 @@ export function QualificationForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [, startTransition] = useTransition();
 
-  // #2 React 19 Optimistic Updates for Instant Step Transition (<16ms)
   const [optimisticStep, setOptimisticStep] = useOptimistic(
     currentStep,
     (_, next: number) => next
   );
 
-  // #19 Idempotency Key (Per-Session/Attempt Unique UUID)
   const idempotencyKeyRef = useRef<string>(
     typeof crypto !== 'undefined' && crypto.randomUUID
       ? crypto.randomUUID()
       : `idemp_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
   );
 
-  // Time-lock anti-spam defense: record mount timestamp
   const formMountedAt = useRef(Date.now());
   useEffect(() => {
     formMountedAt.current = Date.now();
   }, []);
 
-  // Invisible honeypot anti-spam defense
   const [companyFaxNumber, setCompanyFaxNumber] = useState('');
 
-  // Form State
   const [engagementTrack, setEngagementTrack] = useState(ENGAGEMENT_TRACKS[0].value);
   const [companyName, setCompanyName] = useState('');
   const [website, setWebsite] = useState('');
@@ -67,11 +62,9 @@ export function QualificationForm() {
   const [industry, setIndustry] = useState(PRIMARY_INDUSTRIES[0].value);
   const [revenueTier, setRevenueTier] = useState(REVENUE_TIERS[1].value);
 
-  // Step 2 State
   const [coreChallenge, setCoreChallenge] = useState(CORE_CHALLENGES[0].value);
   const [message, setMessage] = useState('');
 
-  // Step 3 Decision-Maker State
   const [clientName, setClientName] = useState('');
   const [roleTitle, setRoleTitle] = useState('');
   const [email, setEmail] = useState('');
@@ -79,7 +72,6 @@ export function QualificationForm() {
   const [verificationCode, setVerificationCode] = useState('');
   const [showVerificationCode, setShowVerificationCode] = useState(false);
 
-  // Validation & Accessibility Refs for Error Auto-Focus
   const companyNameRef = useRef<HTMLInputElement>(null);
   const websiteRef = useRef<HTMLInputElement>(null);
   const clientNameRef = useRef<HTMLInputElement>(null);
@@ -88,7 +80,6 @@ export function QualificationForm() {
   const [consentAccepted, setConsentAccepted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // #5 Undo Toast State & Snapshot History
   const [toastMessage, setToastMessage] = useState('');
   const [isToastVisible, setIsToastVisible] = useState(false);
   const prevSnapshotRef = useRef<FormSnapshot | null>(null);
@@ -138,7 +129,6 @@ export function QualificationForm() {
     setMessage(snapshot.message);
   }, []);
 
-  // #6 Stale-While-Revalidate (sessionStorage form draft persistence & hydration)
   useEffect(() => {
     if (typeof window === 'undefined') return;
     try {
@@ -157,7 +147,6 @@ export function QualificationForm() {
         if (parsed.coreChallenge) setCoreChallenge(parsed.coreChallenge);
       }
     } catch {
-      // Ignore sessionStorage access errors in restricted contexts
     }
   }, []);
 
@@ -167,11 +156,9 @@ export function QualificationForm() {
       const draft = captureSnapshot();
       sessionStorage.setItem('brandmania_consultation_draft', JSON.stringify(draft));
     } catch {
-      // Ignore storage quota
     }
   }, [captureSnapshot]);
 
-  // #12 Predictive Back Gesture & History State Sync
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -187,7 +174,6 @@ export function QualificationForm() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Submission State
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -271,7 +257,6 @@ export function QualificationForm() {
       payload: { step: currentStep, action: `qualification_step_${currentStep}_completed` },
     });
 
-    // Synchronize browser history for predictive back
     if (typeof window !== 'undefined') {
       window.history.pushState({ formStep: nextStep }, '');
     }
@@ -377,7 +362,6 @@ export function QualificationForm() {
     };
 
     try {
-      // #19 Attach Idempotency-Key header to deduplicate duplicate submissions
       const res = await fetch('/api/v1/inquiries', {
         method: 'POST',
         headers: {
@@ -393,7 +377,6 @@ export function QualificationForm() {
         throw new Error(json.error?.message || 'Inquiry submission was rejected by the server.');
       }
 
-      // Clear draft after verified transmission
       if (typeof window !== 'undefined') {
         sessionStorage.removeItem('brandmania_consultation_draft');
       }
@@ -431,7 +414,7 @@ export function QualificationForm() {
   return (
     <>
       <div className={styles.formArchitectural}>
-        {/* Goal-Gradient Progress Bar (#15) */}
+        {}
         <div className={styles.goalGradientContainer} aria-hidden="true">
           <div className={styles.goalGradientHeader}>
             <span className="tabular-nums">STEP 0{optimisticStep} OF 03 &bull; {completionPercent}% COMPLETE</span>
@@ -445,7 +428,7 @@ export function QualificationForm() {
           </div>
         </div>
 
-        {/* Step Indicator with Tabular Numbers */}
+        {}
         <div className={styles.stepIndicator} role="navigation" aria-label="Consultation form steps">
           <div className={`${styles.stepPill} ${optimisticStep === 1 ? styles.activeStepPill : ''}`}>
             <span className={`${styles.stepNumber} tabular-nums`}>01</span>
@@ -468,7 +451,7 @@ export function QualificationForm() {
         )}
 
         <form onSubmit={handleSubmit} noValidate>
-          {/* Anti-Spam Layer 1: Invisible Honeypot (Off-Screen) */}
+          {}
           <div
             style={{
               position: 'absolute',
@@ -495,10 +478,10 @@ export function QualificationForm() {
             />
           </div>
 
-          {/* STEP 1: Profile & Track */}
+          {}
           {optimisticStep === 1 && (
             <div className={styles.stepContainer}>
-              {/* Engagement Track Selection with Undo Toast Integration */}
+              {}
               <div className={styles.fieldGroup}>
                 <label className={styles.fieldLabel}>Select Preferred Engagement Track</label>
                 <div className={styles.trackSelector} role="radiogroup" aria-label="Engagement Track">
@@ -604,7 +587,7 @@ export function QualificationForm() {
             </div>
           )}
 
-          {/* STEP 2: Diagnostic Focus */}
+          {}
           {optimisticStep === 2 && (
             <div className={styles.stepContainer}>
               <div className={styles.fieldGroup}>
@@ -645,7 +628,7 @@ export function QualificationForm() {
             </div>
           )}
 
-          {/* STEP 3: Executive Coordinates & Autofill */}
+          {}
           {optimisticStep === 3 && (
             <div className={styles.stepContainer}>
               <div className={styles.grid2}>
@@ -700,7 +683,7 @@ export function QualificationForm() {
                 />
               </div>
 
-              {/* Optional Executive Verification Code Autofill (#15) */}
+              {}
               <div style={{ marginTop: '0.25rem' }}>
                 <button
                   type="button"
@@ -749,7 +732,7 @@ export function QualificationForm() {
                 Confidentiality Notice: All submitted details are handled under strict executive confidentiality.
               </div>
 
-              {/* Explicit Form Consent & 18+ Age Eligibility Guard (#6 & #17) */}
+              {}
               <div className={`${styles.consentWrapper} ${errors.consent ? styles.consentError : ''}`}>
                 <input
                   ref={consentRef}
@@ -803,7 +786,7 @@ export function QualificationForm() {
         </form>
       </div>
 
-      {/* #5 Executive Undo Toast */}
+      {}
       <UndoToast
         isVisible={isToastVisible}
         message={toastMessage}

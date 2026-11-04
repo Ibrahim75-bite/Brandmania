@@ -1,9 +1,3 @@
-/**
- * Lead Qualification Form Architecture
- *
- * Configurable question definitions, revenue tiers, and industry options.
- * Aligned for established businesses ($700,000+ annual revenue) and high-ticket international brands.
- */
 
 export interface QualificationOption {
   value: string;

@@ -1,10 +1,43 @@
 import { NextResponse } from 'next/server';
 import { seoConfig } from '@/content/seoConfig';
+import { getAllArticles } from '@/content/articles';
+import { getAllCaseStudies } from '@/content/caseStudies';
 
 export const dynamic = 'force-static';
 
 export async function GET() {
   const siteUrl = seoConfig.siteUrl;
+  const articles = getAllArticles();
+  const caseStudies = getAllCaseStudies();
+
+  const caseStudiesDossiers = caseStudies
+    .map(
+      (cs) => `### Dossier [${cs.catalogNumber}]: ${cs.title} (${cs.subtitle})
+- Canonical URL: ${siteUrl}/work/${cs.slug}
+- Flagship Discipline: ${cs.flagship}
+- Sector & Confidentiality: ${cs.clientSector} (${cs.confidentialityStatus})
+- Location & Timeframe: ${cs.location} (${cs.timeframe})
+- Executive Summary: ${cs.executiveSummary}
+- Diagnostic Challenge: ${cs.challenge}
+- Strategic Intervention: ${cs.strategicIntervention}
+- Verified Commercial Metrics:
+${cs.metrics.map((m) => `  * ${m.label}: ${m.before} → ${m.after} (${m.change})`).join('\n')}`
+    )
+    .join('\n\n');
+
+  const articlesDossiers = articles
+    .map(
+      (a) => `### Article: ${a.title}
+- Canonical URL: ${siteUrl}/insights/${a.slug}
+- Category: ${a.category} (${a.readingTimeMinutes} min read)
+- Published: ${a.publishedAt} (Revised: ${a.updatedAt})
+- Author: ${a.author.name}, ${a.author.role}
+- AEO Direct Answer: ${a.tldrAnswer}
+- Core Takeaways:
+${a.keyTakeaways.map((t) => `  * ${t}`).join('\n')}
+- Related Flagship Discipline: ${siteUrl}/services/${a.relatedDisciplineSlug}`
+    )
+    .join('\n\n');
 
   const content = `# ${seoConfig.brandName} — Complete Machine-Readable Entity Dossier
 > ${seoConfig.tagline}
@@ -17,6 +50,8 @@ export async function GET() {
 - **Commercial Philosophy:** "${seoConfig.oneLiner}"
 - **Client Revenue Qualification Threshold:** ${seoConfig.revenueThreshold} (Established businesses and high-ticket international brands).
 - **Primary Website:** ${siteUrl}
+- **Selected Work Exhibition:** ${siteUrl}/work
+- **Executive Insights Publishing Engine:** ${siteUrl}/insights
 - **Qualification Protocol:** ${siteUrl}/#qualification
 - **Commercial Verification Standard:** All facts, capabilities, and disciplines are verified with zero fabricated reviews or metrics.
 
@@ -25,7 +60,7 @@ export async function GET() {
 ## 2. The 3 Flagship Disciplines
 
 ### Flagship I: Brand Direction
-- **URL Anchor:** ${siteUrl}/#brand-direction
+- **URL Anchor:** ${siteUrl}/services/brand-direction
 - **Core Thesis:** How the message is communicated is at least as important as what the message is.
 - **Strategic Function:** Bridging the gap between what an enterprise communicates and how the market perceives it.
 - **Pillars & Focus Vectors:**
@@ -37,7 +72,7 @@ export async function GET() {
   6. Vision, Mission & Generational Relevance: Harmonizing internal capability with external prestige and generational longevity.
 
 ### Flagship II: Margin Recovery
-- **URL Anchor:** ${siteUrl}/#margin-recovery
+- **URL Anchor:** ${siteUrl}/services/margin-recovery
 - **Core Thesis:** Fix the commercial machine before buying more traffic.
 - **Strategic Function:** Auditing commercial and operational data across the full value chain to identify and repair revenue and margin leakage before scaling customer acquisition spend.
 - **The 6-Stage Commercial Audit:**
@@ -49,7 +84,7 @@ export async function GET() {
   6. Post-Purchase Relationships: Engineering affirmation rituals and recurring loyalty loops to maximize lifetime customer value (LTV).
 
 ### Flagship III: Consumer Scope
-- **URL Anchor:** ${siteUrl}/#consumer-scope
+- **URL Anchor:** ${siteUrl}/services/consumer-scope
 - **Core Thesis:** Engineering customer perception, experience, and cognitive attachment through human behavior.
 - **Strategic Function:** Designing customer touchpoints using behavioral economics, cognitive psychology, and decision architecture.
 - **The 7 Behavioral Dimensions:**
@@ -63,7 +98,17 @@ export async function GET() {
 
 ---
 
-## 3. The 11 Supporting Capabilities
+## 3. Verified Selected Work & Architectural Dossiers
+${caseStudiesDossiers}
+
+---
+
+## 4. Executive Insights & Published Strategic Frameworks
+${articlesDossiers}
+
+---
+
+## 5. The 11 Supporting Capabilities
 These capabilities tether directly to the 3 Flagships across three execution clusters:
 
 ### Cluster I: Growth & Narrative Execution
@@ -85,13 +130,13 @@ These capabilities tether directly to the 3 Flagships across three execution clu
 
 ---
 
-## 4. The 20 Target Industries Served
+## 6. The 20 Target Industries Served
 ${seoConfig.brandName} specifically serves established companies across:
 ${seoConfig.targetIndustries.map((ind, idx) => `${idx + 1}. ${ind}`).join('\n')}
 
 ---
 
-## 5. Confirmed Engagement Models
+## 7. Confirmed Engagement Models
 1. **Full Strategic Rebuild & Performance Engagement:**
    - Audience: Established enterprises generating ${seoConfig.revenueThreshold}.
    - Scope: Comprehensive brand direction, commercial margin audit, and consumer touchpoint engineering.
@@ -103,12 +148,12 @@ ${seoConfig.targetIndustries.map((ind, idx) => `${idx + 1}. ${ind}`).join('\n')}
 
 ---
 
-## 6. Frequently Asked Questions (Verified)
+## 8. Frequently Asked Questions (Verified)
 ${seoConfig.faqs.map((faq, idx) => `Q${idx + 1}: ${faq.question}\nA: ${faq.answer}`).join('\n\n')}
 
 ---
 
-## 7. Legal, Privacy, Confidentiality & B2B Governance
+## 9. Legal, Privacy, Confidentiality & B2B Governance
 - **Data Protection Compliance:** Dual-compliance governance adhering strictly to EU & UK GDPR and U.S. State Privacy Laws (California CCPA/CPRA, Virginia, Colorado, Connecticut, Texas).
 - **Controller vs. Processor Roles:** Controller for website visitors and exploratory qualification intake; Data Processor / Service Provider under bilateral Data Processing Addendum (DPA) when analyzing enterprise client customer/CRM records.
 - **Strict Commercial Confidentiality & Zero Data Sale:** Commercial disclosures, margin bottleneck notes, and corporate intake coordinates are treated as privileged commercial intelligence. BRANDMANIA never sells, leases, trades, or shares corporate/personal data with data brokers or behavioral advertisers, and never trains public AI models on client inquiry data.

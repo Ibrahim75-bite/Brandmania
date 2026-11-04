@@ -29,12 +29,13 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      // #7 Ban Polyfill.io & untrusted CDNs — script-src only 'self' + consent-gated GTM
+      // #7 Ban Polyfill.io & untrusted CDNs â€” script-src only 'self' + consent-gated GTM
       "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' data: blob: https:",
       "connect-src 'self' https:",
+      "frame-src 'self' https://calendly.com https://*.calendly.com https://www.youtube-nocookie.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -55,11 +56,16 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     viewTransition: true,
-    // #20 Lean JS Bundles — optimize package imports
-    optimizePackageImports: ['@phosphor-icons/react', 'motion', 'zod'],
+    optimizeCss: true,
+    scrollRestoration: true,
+    // #20 Lean JS Bundles â€” optimize package imports
+    optimizePackageImports: ['@phosphor-icons/react', 'motion', 'zod', 'lenis'],
   },
   images: {
     formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60,
   },
   async headers() {
     return [
@@ -73,7 +79,7 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // #3 Performance CDN: /brand/:path* — immutable cache + compression
+      // #3 Performance CDN: /brand/:path* â€” immutable cache + compression
       {
         source: '/brand/:path*',
         headers: [
@@ -97,3 +103,6 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+
+

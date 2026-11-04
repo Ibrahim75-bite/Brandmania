@@ -46,7 +46,7 @@ const FLAGSHIPS = [
 export default function AboutPage() {
   return (
     <div>
-      {/* Strategic Philosophy Header */}
+      {}
       <Section
         spacing="lg"
         style={{
@@ -97,7 +97,7 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      {/* Commercial Doctrine & Executive Leadership */}
+      {}
       <Section spacing="xl">
         <Container>
           <div
@@ -150,7 +150,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Founder Authority Section */}
+            {}
             <Card
               variant="elevated"
               style={{
@@ -199,7 +199,7 @@ export default function AboutPage() {
             </Card>
           </div>
 
-          {/* The Three Flagships Section */}
+          {}
           <div
             style={{
               borderTop: '1px solid var(--color-border-subtle)',

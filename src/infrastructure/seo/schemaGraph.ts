@@ -10,7 +10,6 @@ import type {
   BlogPostInput,
 } from '@/domain/seo/schemaTypes';
 
-// Recursive helper to omit undefined values from JSON-LD output
 function stripUndefined<T>(value: T): T {
   if (Array.isArray(value)) {
     return value.map(stripUndefined) as unknown as T;
@@ -175,10 +174,6 @@ export interface JsonLdGraph {
   '@graph': Record<string, unknown>[];
 }
 
-/**
- * Builds the centralized, production-grade Schema.org JSON-LD @graph architecture
- * supporting all 18 service-business schemas.
- */
 export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGraph {
   const config = options.config || defaultSeoConfig;
   const siteUrl = config.siteUrl;
@@ -186,7 +181,6 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
 
   const graphNodes: Record<string, unknown>[] = [];
 
-  // 1. Organization Schema
   const organizationNode = stripUndefined({
     '@type': 'Organization',
     '@id': `${siteUrl}/#organization`,
@@ -205,7 +199,6 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
   });
   graphNodes.push(organizationNode);
 
-  // 2. LocalBusiness (Dual-typed with ProfessionalService & Organization)
   const localBusinessNode = stripUndefined({
     '@type': ['Organization', 'LocalBusiness', 'ProfessionalService'],
     '@id': `${siteUrl}/#localbusiness`,
@@ -223,7 +216,6 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
   });
   graphNodes.push(localBusinessNode);
 
-  // 3. Service Schemas (3 Flagship Disciplines)
   for (const disc of config.flagshipDisciplines) {
     const serviceNode = stripUndefined({
       '@type': 'Service',
@@ -238,7 +230,6 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
     graphNodes.push(serviceNode);
   }
 
-  // 4. Offer Schemas (2 Confirmed Engagement Models)
   for (const model of config.engagementModels) {
     const offerNode = stripUndefined({
       '@type': 'Offer',
@@ -253,7 +244,6 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
     graphNodes.push(offerNode);
   }
 
-  // 5. OfferCatalog Schema
   const offerCatalogNode = stripUndefined({
     '@type': 'OfferCatalog',
     '@id': `${siteUrl}/#offer-catalog`,
@@ -280,12 +270,10 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
   });
   graphNodes.push(offerCatalogNode);
 
-  // 6. Person Schema (Founder/Principal, only if non-null and verified)
   if (config.founder) {
     graphNodes.push(buildPersonSchema(config.founder, siteUrl));
   }
 
-  // 7. ContactPoint Schema
   const contactPointNode = stripUndefined({
     '@type': 'ContactPoint',
     '@id': `${siteUrl}/#contact-point`,
@@ -297,17 +285,14 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
   });
   graphNodes.push(contactPointNode);
 
-  // 8. PostalAddress Schema (Standalone if address configured)
   if (config.address) {
     graphNodes.push(buildPostalAddressSchema(config.address, siteUrl));
   }
 
-  // 9. GeoCoordinates Schema (Standalone if geo configured)
   if (config.geo) {
     graphNodes.push(buildGeoCoordinatesSchema(config.geo, siteUrl));
   }
 
-  // 10. OpeningHoursSpecification Schema
   const openingHoursNode = stripUndefined({
     '@type': 'OpeningHoursSpecification',
     '@id': `${siteUrl}/#opening-hours`,
@@ -317,19 +302,16 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
   });
   graphNodes.push(openingHoursNode);
 
-  // 11. Review Schemas (Only if verified reviews exist)
   if (config.reviews.length > 0) {
     config.reviews.forEach((review, idx) => {
       graphNodes.push(buildReviewSchema(review, idx, siteUrl));
     });
   }
 
-  // 12. AggregateRating Schema (Only if verified rating exists)
   if (config.aggregateRating) {
     graphNodes.push(buildAggregateRatingSchema(config.aggregateRating, siteUrl));
   }
 
-  // 13. WebSite Schema
   const webSiteNode = stripUndefined({
     '@type': 'WebSite',
     '@id': `${siteUrl}/#website`,
@@ -341,7 +323,6 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
   });
   graphNodes.push(webSiteNode);
 
-  // 14. WebPage Schema
   const webPageNode = stripUndefined({
     '@type': 'WebPage',
     '@id': `${siteUrl}/#webpage`,
@@ -359,7 +340,6 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
   });
   graphNodes.push(webPageNode);
 
-  // 15. BreadcrumbList Schema (Primary architectural navigation anchors)
   const breadcrumbNode = stripUndefined({
     '@type': 'BreadcrumbList',
     '@id': `${siteUrl}/#breadcrumbs`,
@@ -404,17 +384,14 @@ export function generateSchemaGraph(options: SchemaGraphOptions = {}): JsonLdGra
   });
   graphNodes.push(breadcrumbNode);
 
-  // 16. BlogPosting Schema (Optional passed input)
   if (options.includeBlogPosting) {
     graphNodes.push(buildBlogPostingSchema(options.includeBlogPosting, config));
   }
 
-  // 17. FAQPage Schema (Verified FAQs)
   if (config.faqs && config.faqs.length > 0) {
     graphNodes.push(buildFaqPageSchema(config.faqs, config));
   }
 
-  // 18. ItemList Schemas (Flagship Disciplines & Industries Served)
   const flagshipDisciplinesList = stripUndefined({
     '@type': 'ItemList',
     '@id': `${siteUrl}/#flagship-disciplines-list`,

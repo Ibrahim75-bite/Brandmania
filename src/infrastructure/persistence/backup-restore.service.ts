@@ -1,7 +1,3 @@
-/**
- * Automated Database Backup, Checksum Verification & Point-in-Time Restore Service
- * Standards: #26 (Automated Backups), #27 (Restore Testing), #49 (Disaster Recovery)
- */
 
 import crypto from 'crypto';
 import { IInquiryRepository } from '../../domain/repositories/inquiry.repository.interface';
@@ -45,9 +41,6 @@ export class BackupRestoreService {
     this.appVersion = appVersion;
   }
 
-  /**
-   * Generates a deterministic SHA-256 checksum of the records array.
-   */
   public computeChecksum(records: SerializedInquiryRecord[]): string {
     const canonical = records.map((r) => {
       const sortedKeys = Object.keys(r).sort() as (keyof SerializedInquiryRecord)[];
@@ -61,15 +54,10 @@ export class BackupRestoreService {
     return crypto.createHash('sha256').update(serialized).digest('hex');
   }
 
-  /**
-   * Exports an encrypted/verified JSON snapshot of all inquiry records.
-   * Standard #26: Automated Backups
-   */
   public async createBackupSnapshot(
     repository: IInquiryRepository
   ): Promise<BackupSnapshot> {
     const inquiries = await repository.findAll(50, 0);
-    // In production with larger tables, batch through all offsets
     const allInquiries: Inquiry[] = [...inquiries];
     let offset = inquiries.length;
     while (inquiries.length === 50) {
@@ -107,10 +95,6 @@ export class BackupRestoreService {
     };
   }
 
-  /**
-   * Verifies cryptographic integrity of a snapshot before restoring.
-   * Standard #27: Restore Testing
-   */
   public verifySnapshotIntegrity(snapshot: BackupSnapshot): {
     isValid: boolean;
     expectedChecksum: string;
@@ -124,10 +108,6 @@ export class BackupRestoreService {
     };
   }
 
-  /**
-   * Restores point-in-time state into repository after cryptographic validation.
-   * Standards #27 & #49: Disaster Recovery State Restoration
-   */
   public async restoreFromSnapshot(
     snapshot: BackupSnapshot,
     repository: IInquiryRepository
@@ -174,4 +154,3 @@ export class BackupRestoreService {
 }
 
 export const backupRestoreService = new BackupRestoreService();
-

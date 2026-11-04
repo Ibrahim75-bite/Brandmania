@@ -15,7 +15,6 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
         setHasConsent(true);
       }
     } catch {
-      // Graceful fallback
     }
 
     const handleConsentEvent = (e: Event) => {

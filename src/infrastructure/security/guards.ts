@@ -1,14 +1,6 @@
-/**
- * Security Guards: CSRF Protection, IDOR Prevention & Stateless Session Expiration
- * Standards: #7 (Authorization Bypass), #31 (IDOR Prevention), #33 (CSRF Protection), #37 (Session Expiration)
- */
 
 import crypto from 'crypto';
 
-/**
- * Standard #33: CSRF Origin Verification
- * Verifies that state-changing requests originate from trusted hostnames.
- */
 export function verifyCsrfOrigin(
   origin: string | null,
   referer: string | null,
@@ -34,7 +26,6 @@ export function verifyCsrfOrigin(
 
   const headerSource = origin || referer;
   if (!headerSource) {
-    // Missing origin and referer on state-changing requests is rejected in production
     return process.env.NODE_ENV !== 'production';
   }
 
@@ -46,19 +37,12 @@ export function verifyCsrfOrigin(
   }
 }
 
-/**
- * Standard #33: Enforce strict application/json content type on mutations
- */
 export function verifyJsonContentType(contentType: string | null): boolean {
   if (!contentType) return false;
   const normalized = contentType.toLowerCase().split(';')[0].trim();
   return normalized === 'application/json';
 }
 
-/**
- * Standard #7 & #31: IDOR & Authorization Scoped Access Verification
- * Ensures actors can only access resources they own or have elevated administrative roles for.
- */
 export function verifyResourceAccess(
   actorId: string,
   resourceOwnerId: string,
@@ -66,12 +50,10 @@ export function verifyResourceAccess(
 ): boolean {
   if (!actorId || !resourceOwnerId) return false;
 
-  // Privileged administrative or service backend roles bypass ownership check
   if (role === 'service_role' || role === 'admin' || role === 'system') {
     return true;
   }
 
-  // Strict ownership check (IDOR prevention)
   return actorId.trim() === resourceOwnerId.trim();
 }
 
@@ -86,9 +68,6 @@ export interface SessionPayload extends SessionClaims {
   exp: number;
 }
 
-/**
- * Standard #37: Stateless HMAC Session Token Manager with Strict Expiration
- */
 export function createSessionToken(
   claims: SessionClaims,
   secret: string,
@@ -136,7 +115,6 @@ export function verifySessionToken<T = SessionPayload>(
     .update(unsignedToken)
     .digest('base64url');
 
-  // Constant-time signature comparison to prevent timing side-channel attacks
   const sigBuffer = Buffer.from(signature);
   const expectedSigBuffer = Buffer.from(expectedSignature);
 
@@ -153,12 +131,10 @@ export function verifySessionToken<T = SessionPayload>(
 
   const now = Math.floor(Date.now() / 1000);
 
-  // Check issued-at is not in the future (with 60-second clock skew tolerance)
   if (payload.iat && payload.iat > now + 60) {
     return { valid: false, error: 'TOKEN_ISSUED_IN_FUTURE' };
   }
 
-  // Check expiration
   if (payload.exp && payload.exp <= now) {
     return { valid: false, error: 'SESSION_EXPIRED' };
   }

@@ -18,9 +18,6 @@ export function isErr<T, E>(result: Result<T, E>): result is { ok: false; error:
   return !result.ok;
 }
 
-/**
- * Executes an async operation with exponential backoff retry.
- */
 export async function retryWithBackoff<T>(
   fn: () => Promise<T>,
   options: {

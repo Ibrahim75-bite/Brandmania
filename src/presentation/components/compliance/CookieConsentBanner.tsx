@@ -16,17 +16,13 @@ export function CookieConsentBanner() {
       if (!stored) {
         setIsVisible(true);
       }
-    } catch {
-      // Gracefully handle storage disabled environments
-    }
+    } catch {}
   }, []);
 
   const handleAcceptAnalytics = () => {
     try {
       localStorage.setItem(COOKIE_CONSENT_KEY, 'GRANTED');
-    } catch {
-      // Graceful fallback
-    }
+    } catch {}
     analytics.setConsent('GRANTED');
     if (typeof window !== 'undefined') {
       window.dispatchEvent(
@@ -39,9 +35,7 @@ export function CookieConsentBanner() {
   const handleEssentialOnly = () => {
     try {
       localStorage.setItem(COOKIE_CONSENT_KEY, 'DENIED');
-    } catch {
-      // Graceful fallback
-    }
+    } catch {}
     analytics.setConsent('DENIED');
     if (typeof window !== 'undefined') {
       window.dispatchEvent(
@@ -63,10 +57,11 @@ export function CookieConsentBanner() {
         left: 0,
         right: 0,
         zIndex: 9999,
-        backgroundColor: 'rgba(7, 7, 9, 0.95)',
+        backgroundColor: 'rgba(13, 1, 24, 0.94)',
         backdropFilter: 'blur(16px)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.12)',
-        padding: 'clamp(1rem, 2vw, 1.25rem) clamp(1.5rem, 3vw, 4rem)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderTop: '1px solid rgba(200, 130, 255, 0.25)',
+        padding: '0.85rem 2rem',
         boxShadow: '0 -8px 32px rgba(0, 0, 0, 0.6)',
       }}
     >
@@ -78,27 +73,27 @@ export function CookieConsentBanner() {
           flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '1.25rem',
+          gap: '1rem',
         }}
       >
-        {/* Editorial Information */}
-        <div style={{ maxWidth: '820px' }}>
-          <div
+        <div style={{ maxWidth: '840px', display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <span
             style={{
-              fontFamily: 'var(--font-Mono)',
-              fontSize: '0.7rem',
-              color: '#ffffff',
-              letterSpacing: '0.02em',
-              marginBottom: '0.25rem',
+              fontFamily: 'var(--font-mono), monospace',
+              fontSize: '10px',
+              color: '#C882FF',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              fontWeight: 600,
             }}
           >
             {LEGAL_CONTENT.cookieConsent.bannerTitle}
-          </div>
+          </span>
           <p
             style={{
-              fontSize: '0.875rem',
-              color: '#EAE6F0',
-              lineHeight: 1.5,
+              fontSize: '0.8125rem',
+              color: '#C4B8D8',
+              lineHeight: 1.4,
               margin: 0,
             }}
           >
@@ -106,18 +101,17 @@ export function CookieConsentBanner() {
             <Link
               href="/privacy"
               style={{
-                color: '#ffffff',
+                color: '#FAF7FF',
                 textDecoration: 'underline',
                 textUnderlineOffset: '3px',
                 fontWeight: 500,
               }}
             >
-              Privacy Policy ↗
+              Privacy Policy &rarr;
             </Link>
           </p>
         </div>
 
-        {/* Action Buttons */}
         <div
           style={{
             display: 'flex',
@@ -130,16 +124,18 @@ export function CookieConsentBanner() {
             type="button"
             onClick={handleAcceptAnalytics}
             style={{
-              minHeight: '44px',
-              padding: '0.65rem 1.4rem',
-              backgroundColor: '#FFFFFF',
-              color: '#070709',
-              border: 'none',
-              fontSize: '0.85rem',
+              minHeight: '38px',
+              padding: '0.5rem 1.25rem',
+              backgroundColor: '#C882FF',
+              color: '#0D0118',
+              border: '1px solid #C882FF',
+              fontSize: '11px',
+              fontFamily: 'var(--font-mono), monospace',
               fontWeight: 600,
-              letterSpacing: '0.02em',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
               cursor: 'pointer',
-              transition: 'opacity 0.2s ease',
+              transition: 'all 0.2s ease',
             }}
           >
             {LEGAL_CONTENT.cookieConsent.acceptAllLabel}
@@ -149,14 +145,16 @@ export function CookieConsentBanner() {
             type="button"
             onClick={handleEssentialOnly}
             style={{
-              minHeight: '44px',
-              padding: '0.65rem 1.4rem',
+              minHeight: '38px',
+              padding: '0.5rem 1.25rem',
               backgroundColor: 'transparent',
-              color: '#A8A0B8',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              fontSize: '0.85rem',
+              color: '#FAF7FF',
+              border: '1px solid rgba(200, 130, 255, 0.3)',
+              fontSize: '11px',
+              fontFamily: 'var(--font-mono), monospace',
               fontWeight: 500,
-              letterSpacing: '0.04em',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
             }}

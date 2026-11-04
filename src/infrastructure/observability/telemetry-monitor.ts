@@ -1,7 +1,3 @@
-/**
- * Telemetry Monitor: Error Rates, Automated High-Priority Alerting & Cost Quota Circuit Breakers
- * Standards: #21 (Error Monitoring), #30 (Alerting), #50 (Cost & Token Monitoring)
- */
 
 export interface AlertEvent {
   id: string;
@@ -26,7 +22,6 @@ export class TelemetryMonitor {
   private readonly config: TelemetryConfig;
   private readonly alertListeners: ((alert: AlertEvent) => void)[] = [];
 
-  // Metrics state
   private errorCount = 0;
   private fiveHundredErrorCount = 0;
   private totalApiInvocations = 0;
@@ -41,9 +36,9 @@ export class TelemetryMonitor {
   constructor(config: Partial<TelemetryConfig> = {}) {
     this.config = {
       errorThresholdPerWindow: config.errorThresholdPerWindow ?? 10,
-      windowMs: config.windowMs ?? 60000, // 1-minute sliding window
-      maxCostBudgetUsd: config.maxCostBudgetUsd ?? 50.0, // $50 hard circuit trip threshold
-      maxTokenBudget: config.maxTokenBudget ?? 500000, // 500k tokens
+      windowMs: config.windowMs ?? 60000,
+      maxCostBudgetUsd: config.maxCostBudgetUsd ?? 50.0,
+      maxTokenBudget: config.maxTokenBudget ?? 500000,
       dlqDepthAlertThreshold: config.dlqDepthAlertThreshold ?? 5,
     };
   }
@@ -83,10 +78,6 @@ export class TelemetryMonitor {
     }
   }
 
-  /**
-   * Records an API error and checks for error spikes.
-   * Standard #21 & #30
-   */
   public recordError(statusCode: number = 500, errorMsg = 'Error'): void {
     this.checkWindowRoll();
     this.errorCount++;
@@ -120,10 +111,6 @@ export class TelemetryMonitor {
     this.totalDbQueries += count;
   }
 
-  /**
-   * Tracks AI/external token and dollar usage. Trips circuit breaker if budget is exceeded.
-   * Standard #50: Cost Monitoring & Quota Guard
-   */
   public recordTokenUsage(tokens: number, estimatedCostUsd: number = 0): void {
     this.totalTokensConsumed += tokens;
     this.totalEstimatedCostUsd += estimatedCostUsd;
@@ -149,10 +136,6 @@ export class TelemetryMonitor {
     }
   }
 
-  /**
-   * Monitors Dead Letter Queue depth.
-   * Standard #30
-   */
   public checkDlqDepth(dlqCount: number): void {
     if (dlqCount >= this.config.dlqDepthAlertThreshold) {
       this.emitAlert({

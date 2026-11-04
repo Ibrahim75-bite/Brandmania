@@ -10,11 +10,6 @@ interface BlurTextProps {
   as?: 'h1' | 'h2' | 'h3' | 'p' | 'span' | 'div';
 }
 
-/**
- * BlurText - React Bits Adapted Staggered Focus Text Reveal
- * Letters/words transition smoothly from optical blur into crisp focus.
- * Respects prefers-reduced-motion by rendering immediately in full focus.
- */
 export const BlurText: React.FC<BlurTextProps> = ({
   text,
   delay = 35,
@@ -26,7 +21,6 @@ export const BlurText: React.FC<BlurTextProps> = ({
   const containerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    // Immediate render under reduced-motion preference
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setInView(true);
       return;

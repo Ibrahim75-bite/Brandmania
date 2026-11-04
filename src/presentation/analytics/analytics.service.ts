@@ -28,7 +28,6 @@ export class AnalyticsService implements IAnalyticsTracker {
   }
 
   public track(event: AnalyticsEvent): void {
-    // Strictly gate non-essential analytics tracking if consent is not granted
     if (this.consent !== 'GRANTED') {
       return;
     }
@@ -38,13 +37,10 @@ export class AnalyticsService implements IAnalyticsTracker {
       timestamp: event.timestamp || new Date().toISOString(),
     };
 
-    // Development & testing console observer
     if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
       console.log(`[ANALYTICS] [${eventWithTimestamp.type}]`, eventWithTimestamp.payload);
     }
 
-    // Adaptable integration point: dispatch to window.dataLayer, Meta Pixel, or custom endpoint
     if (typeof window !== 'undefined') {
       const win = window as any;
       if (win.dataLayer && Array.isArray(win.dataLayer)) {

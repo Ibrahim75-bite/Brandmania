@@ -4,22 +4,13 @@ import { env } from '../config/env';
 const UNSUBSCRIBE_SECRET =
   process.env.UNSUBSCRIBE_SECRET || 'brandmania-rfc8058-unsubscribe-secret-salt-2026';
 
-/**
- * In-memory suppression list for unsubscribed email addresses.
- */
 export const emailSuppressionSet = new Set<string>();
 
-/**
- * Generates an HMAC SHA-256 token for an email address.
- */
 export function generateUnsubscribeToken(email: string): string {
   const normalized = email.toLowerCase().trim();
   return crypto.createHmac('sha256', UNSUBSCRIBE_SECRET).update(normalized).digest('hex');
 }
 
-/**
- * Verifies that a provided token matches the HMAC SHA-256 for the email address.
- */
 export function verifyUnsubscribeToken(email: string, token: string): boolean {
   if (!email || !token) return false;
   const expectedToken = generateUnsubscribeToken(email);
@@ -27,16 +18,10 @@ export function verifyUnsubscribeToken(email: string, token: string): boolean {
   return crypto.timingSafeEqual(Buffer.from(expectedToken), Buffer.from(token));
 }
 
-/**
- * Adds an email to the suppression set.
- */
 export function suppressEmail(email: string): void {
   emailSuppressionSet.add(email.toLowerCase().trim());
 }
 
-/**
- * Checks whether an email is in the suppression list.
- */
 export function isEmailSuppressed(email: string): boolean {
   return emailSuppressionSet.has(email.toLowerCase().trim());
 }
@@ -62,10 +47,6 @@ export interface PreparedEmail {
   unsubscribeUrl: string;
 }
 
-/**
- * Builds an RFC 8058 compliant executive email with one-click unsubscribe headers
- * and a visible footer unsubscribe link.
- */
 export function buildExecutiveEmail({
   to,
   subject,

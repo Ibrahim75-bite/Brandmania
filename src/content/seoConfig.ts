@@ -1,7 +1,6 @@
 import { SeoConfigSchema, type SeoConfig } from '@/domain/seo/schemaTypes';
 
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://brandmania.com';
-// Normalize siteUrl to never have a trailing slash
 const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
 const rawConfig = {
@@ -26,7 +25,6 @@ const rawConfig = {
     opens: '09:00',
     closes: '18:00',
   },
-  // Conditional schemas: null/empty by default to eliminate fabricated facts
   founder: null,
   address: null,
   geo: null,
@@ -156,5 +154,4 @@ const rawConfig = {
   ],
 };
 
-// Validate at module initialization so misconfigurations fail fast
 export const seoConfig: SeoConfig = SeoConfigSchema.parse(rawConfig);

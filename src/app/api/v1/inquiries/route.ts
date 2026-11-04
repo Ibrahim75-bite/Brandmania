@@ -8,11 +8,6 @@ import { withTimeout } from '@/infrastructure/http/timeout';
 
 export const dynamic = 'force-dynamic';
 
-/**
- * HTTP Route Adapter for Inquiry Intake.
- * Acts as a thin translation adapter at the public HTTP seam,
- * delegating all orchestration to the deep SubmitInquiryUseCase module.
- */
 export async function POST(req: NextRequest) {
   const ctx = extractRequestContext(req);
   const idempotencyKey = req.headers.get('Idempotency-Key') || req.headers.get('idempotency-key');

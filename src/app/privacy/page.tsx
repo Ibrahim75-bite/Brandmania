@@ -38,11 +38,11 @@ export default function PrivacyPage() {
         borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
       }}
     >
-      {/* Precision Corner Arcs */}
+      {}
       <CornerArcs position="top-right" size={260} opacity={0.06} color="#FFFFFF" />
       <CornerArcs position="bottom-left" size={200} opacity={0.04} color="#FFFFFF" />
 
-      {/* Background Watermark */}
+      {}
       <div
         style={{
           position: 'absolute',
@@ -60,7 +60,7 @@ export default function PrivacyPage() {
       </div>
 
       <Container size="lg">
-        {/* Editorial Masthead */}
+        {}
         <div
           style={{
             borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
@@ -136,7 +136,7 @@ export default function PrivacyPage() {
           </div>
         </div>
 
-        {/* 2-Column Swiss Grid: Content Blocks + Sticky Aside */}
+        {}
         <div
           style={{
             display: 'grid',
@@ -144,7 +144,7 @@ export default function PrivacyPage() {
             gap: 'var(--space-12)',
           }}
         >
-          {/* Main Legal Content */}
+          {}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-10)' }}>
             {policy.sections.map((sec) => (
               <article
@@ -222,7 +222,7 @@ export default function PrivacyPage() {
               </article>
             ))}
 
-            {/* Schedule C: Data Processing Addendum (DPA) Summary */}
+            {}
             {dpaSchedule && (
               <div
                 style={{
@@ -268,7 +268,7 @@ export default function PrivacyPage() {
               </div>
             )}
 
-            {/* Privacy & Data Protection FAQs */}
+            {}
             {privacyFaqs.length > 0 && (
               <div
                 style={{
@@ -348,11 +348,11 @@ export default function PrivacyPage() {
               </div>
             )}
 
-            {/* Self-Serve GDPR Art. 17 / CCPA Data Deletion Form */}
+            {}
             <DataDeletionRequestForm />
           </div>
 
-          {/* Sticky Aside & Cross-Navigation */}
+          {}
           <aside aria-label="Official Channel Inquiries and Cross Links">
             <div
               style={{
@@ -363,7 +363,7 @@ export default function PrivacyPage() {
                 top: '6rem',
               }}
             >
-              {/* Quick Navigation Card */}
+              {}
               <div
                 style={{
                   border: '1px solid rgba(255, 255, 255, 0.12)',
@@ -426,7 +426,7 @@ export default function PrivacyPage() {
                 </div>
               </div>
 
-              {/* Official Channel Panel */}
+              {}
               <div
                 style={{
                   border: '1px solid rgba(255, 255, 255, 0.12)',
@@ -520,7 +520,7 @@ export default function PrivacyPage() {
                 </Link>
               </div>
 
-              {/* Corporate & Legal Entity Disclosure Card */}
+              {}
               <CorporateEntityCard />
             </div>
           </aside>

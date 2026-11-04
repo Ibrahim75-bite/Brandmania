@@ -1,16 +1,13 @@
 :root {
-  /* ============================================================
-     The Imperial Plum-Violet Theme (Awwwards / Jury Standard)
-     ============================================================ */
-  --ground-primary: #0D011A;
-  --ground-imperial: linear-gradient(165deg, #1A0033 0%, #0F0222 55%, #080012 100%);
-  --ground-elevated: #1D0538;
-  --ground-contrast: #260847;
-  --ground-stage: linear-gradient(160deg, #230642 0%, #130126 100%);
+  --ground-primary: #0D0118;
+  --ground-imperial: linear-gradient(165deg, #1C0633 0%, #160429 55%, #0D0118 100%);
+  --ground-elevated: #160429;
+  --ground-contrast: #1C0633;
+  --ground-stage: linear-gradient(160deg, #1C0633 0%, #0D0118 100%);
 
   --ink-primary: #FAF7FF;
   --ink-secondary: #C4B8D8;
-  --ink-muted: #9A89B8;
+  --ink-muted: #A8A0B8;
 
   --line-subtle: rgba(200, 130, 255, 0.16);
   --line-active: rgba(200, 130, 255, 0.48);
@@ -20,7 +17,11 @@
   --accent-violet: #8E00FA;
   --accent-glow: rgba(200, 130, 255, 0.45);
 
-  /* Neon Sticker Palette (For Interactive Physics Footer) */
+  --color-leakage: #D48A9E;
+  --color-leakage-text: #B8AEC8;
+  --color-repair: #FAF7FF;
+  --color-repair-accent: #C882FF;
+
   --neon-lime: #CCFF00;
   --neon-pink: #FF007F;
   --neon-cyan: #00F0FF;
@@ -28,20 +29,19 @@
   --neon-amber: #FFE600;
   --neon-orange: #FF4D00;
 
-  /* Surface mapping to Imperial Plum */
-  --surface-obsidian: #0D011A;
-  --surface-imperial: #1A0033;
-  --surface-exhibition-light: #230642;
-  --color-museum-ink: #0D011A;
-  --color-museum-violet: #1a1a22; /* Preserved for test invariant in launch-readiness.test.ts */
+  --surface-obsidian: #0D0118;
+  --surface-imperial: #1C0633;
+  --surface-exhibition-light: #160429;
+  --color-museum-ink: #0D0118;
+  --color-museum-violet: #1a1a22;
   --color-museum-muted: #2A2830;
   --color-museum-border: rgba(200, 130, 255, 0.16);
 
-  --color-bg-base: var(--ground-primary);
-  --color-bg-surface: #1D0538;
-  --color-bg-elevated: #260847;
-  --color-bg-overlay: rgba(13, 1, 26, 0.92);
-  --color-bg-glass: rgba(26, 0, 51, 0.85);
+  --color-bg-base: #0D0118;
+  --color-bg-surface: #160429;
+  --color-bg-elevated: #1C0633;
+  --color-bg-overlay: rgba(13, 1, 24, 0.92);
+  --color-bg-glass: rgba(22, 4, 41, 0.85);
 
   --color-border-subtle: rgba(200, 130, 255, 0.16);
   --color-border-default: rgba(200, 130, 255, 0.24);
@@ -49,14 +49,13 @@
   --color-border-glow: rgba(200, 130, 255, 0.65);
 
   --color-text-primary: #FAF7FF;
-  --color-text-secondary: #A1A1A6; /* Preserved for test invariant in launch-readiness.test.ts */
+  --color-text-secondary: #A1A1A6;
   --color-text-secondary-plum: #C4B8D8;
-  --color-text-muted: #A8A0B8;     /* Preserved for test invariant in launch-readiness.test.ts */
-  --color-text-muted-plum: #9A89B8;
-  --color-text-inverse: #0D011A;
+  --color-text-muted: #A8A0B8;
+  --color-text-muted-plum: #A8A0B8;
+  --color-text-inverse: #0D0118;
 
-  /* BRANDMANIA Accent: Electric Lilac & Imperial Violet */
-  --color-brand-deep-violet: #1A0033;
+  --color-brand-deep-violet: #1C0633;
   --color-brand-primary-violet: #C882FF;
   --color-brand-neon-violet: #8E00FA;
   --color-brand-light-violet: #C4B8D8;
@@ -71,25 +70,21 @@
   --color-accent-violet: #8E00FA;
   --color-accent-blue: #00F0FF;
 
-  /* Surface & Gradient Steps */
   --gradient-brand-primary: linear-gradient(135deg, #C882FF 0%, #8E00FA 100%);
   --gradient-brand-hover: linear-gradient(135deg, #FAF7FF 0%, #C882FF 100%);
   --gradient-brand-subtle: linear-gradient(165deg, rgba(200, 130, 255, 0.12) 0%, rgba(142, 0, 250, 0.04) 100%);
-  --gradient-purple-obsidian: linear-gradient(165deg, #1A0033 0%, #0D011A 100%);
-  --gradient-card-surface: #1D0538;
+  --gradient-purple-obsidian: linear-gradient(165deg, #1C0633 0%, #0D0118 100%);
+  --gradient-card-surface: #160429;
 
-  /* Spotlight & Motion Canvas Variables (Quiet neutral step) */
   --mouse-x: 50%;
   --mouse-y: 50%;
   --spotlight-color: rgba(255, 255, 255, 0.04);
 
-  /* Legacy mapping (All quiet neutral) */
   --color-accent-gold: #FFFFFF;
   --color-accent-gold-light: #E5E5EA;
   --color-accent-gold-dim: rgba(255, 255, 255, 0.08);
   --color-accent-gold-glow: none;
 
-  /* Semantic Feedback */
   --color-status-success: #10b981;
   --color-status-success-bg: rgba(16, 185, 129, 0.12);
   --color-status-warning: #f59e0b;
@@ -99,8 +94,6 @@
   --color-status-info: #3b82f6;
   --color-status-info-bg: rgba(59, 130, 246, 0.12);
 
-  /* Editorial Typography Scale - Instrument Serif & Plus Jakarta Sans */
-  /* next/font owns --font-serif, --font-sans and --font-mono on <html>. */
   --font-display: var(--font-serif), Georgia, serif;
   --font-Editorial: var(--font-serif), Georgia, serif;
   --font-editorial: var(--font-serif), Georgia, serif;
@@ -115,17 +108,17 @@
   --font-Mono: var(--font-mono), monospace;
   --font-family-mono: var(--font-mono), monospace;
 
-  --font-size-xs: 0.75rem;    /* 12px */
-  --font-size-sm: 0.875rem;   /* 14px */
-  --font-size-base: 1rem;     /* 16px */
-  --font-size-lg: 1.125rem;   /* 18px */
-  --font-size-xl: 1.25rem;    /* 20px */
-  --font-size-2xl: 1.5rem;    /* 24px */
-  --font-size-3xl: 1.875rem;  /* 30px */
-  --font-size-4xl: 2.25rem;   /* 36px */
-  --font-size-5xl: 3rem;      /* 48px */
-  --font-size-6xl: 4rem;      /* 64px */
-  --font-size-7xl: 5.5rem;    /* 88px */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 4rem;
+  --font-size-7xl: 5.5rem;
   --font-size-hero: clamp(2.5rem, 6vw, 6.5rem);
 
   --font-weight-regular: 400;
@@ -138,22 +131,20 @@
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.75;
 
-  /* Spacing Scale */
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.25rem;   /* 20px */
-  --space-6: 1.5rem;    /* 24px */
-  --space-8: 2rem;      /* 32px */
-  --space-10: 2.5rem;   /* 40px */
-  --space-12: 3rem;     /* 48px */
-  --space-16: 4rem;     /* 64px */
-  --space-20: 5rem;     /* 80px */
-  --space-24: 6rem;     /* 96px */
-  --space-32: 8rem;     /* 128px */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
 
-  /* Radii */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
@@ -161,27 +152,23 @@
   --radius-2xl: 24px;
   --radius-full: 9999px;
 
-  /* Shadows & Depth (Neutral only, no purple glows) */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.55);
   --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.7);
   --shadow-purple-glow: none;
   --shadow-purple-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
 
-  /* Elevation / Z-index */
   --z-base: 1;
   --z-sticky: 100;
   --z-dropdown: 200;
   --z-modal: 500;
   --z-toast: 1000;
 
-  /* Motion & Transitions (One easing curve: cubic-bezier(0.22, 1, 0.36, 1)) */
   --transition-fast: 150ms cubic-bezier(0.22, 1, 0.36, 1);
   --transition-base: 220ms cubic-bezier(0.22, 1, 0.36, 1);
   --transition-slow: 350ms cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Containers */
-  --container-max-width: 1280px;
+  --container-max-width: 1480px;
   --container-narrow-width: 860px;
   --container-padding: var(--space-6);
 }

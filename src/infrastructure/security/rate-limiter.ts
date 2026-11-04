@@ -36,7 +36,6 @@ export class MemoryRateLimiter implements IRateLimiter {
       };
     }
 
-    // Refill tokens based on elapsed time
     const elapsed = now - bucket.lastRefillMs;
     if (elapsed >= windowMs) {
       bucket.tokens = maxRequests;

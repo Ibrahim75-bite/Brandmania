@@ -1,7 +1,3 @@
-/**
- * Payment Webhook Handler
- * Standard #8: Webhook Verification, Deduplication & Audit Logging
- */
 
 import { NextRequest } from 'next/server';
 import { extractRequestContext } from '@/infrastructure/http/request-context';
@@ -30,7 +26,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 1. Verify Cryptographic Webhook Signature
   const verification = verifyWebhookSignature({
     payload: rawPayload,
     signatureHeader,
@@ -53,7 +48,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 2. Parse Event JSON
   let event: { id?: string; type?: string; data?: unknown };
   try {
     event = JSON.parse(rawPayload);
@@ -66,7 +60,6 @@ export async function POST(req: NextRequest) {
 
   const eventId = event.id || `evt_${Date.now()}`;
 
-  // 3. Deduplicate via Idempotency Store (Standard #3)
   const isFresh = idempotencyStore.markInFlight(`webhook:${eventId}`);
   if (!isFresh) {
     const existing = idempotencyStore.get(`webhook:${eventId}`);
@@ -76,7 +69,6 @@ export async function POST(req: NextRequest) {
         { status: 200, headers: { 'Content-Type': 'application/json', 'X-Webhook-Deduplicated': 'true' } }
       );
     }
-    // If still in-flight
     return new Response(
       JSON.stringify({ success: false, error: 'WEBHOOK_EVENT_CURRENTLY_PROCESSING' }),
       { status: 409, headers: { 'Content-Type': 'application/json' } }
@@ -84,7 +76,6 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    // 4. Process Webhook Event & Log Audit Event (Standard #39)
     container.logger.audit(
       event.type || 'PAYMENT_EVENT',
       ctx.clientIp,

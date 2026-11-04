@@ -5,7 +5,6 @@ import { DomainError, DomainValidationError } from '../../domain/errors/domain.e
 import { apiError, ApiErrorEnvelope } from './api-response';
 
 export function handleHttpError(err: unknown, requestId: string): NextResponse<ApiErrorEnvelope> {
-  // 1. Zod Schema Validation Errors
   if (err instanceof ZodError) {
     const formattedErrors = err.errors.map((e) => ({
       path: e.path.join('.'),
@@ -23,7 +22,6 @@ export function handleHttpError(err: unknown, requestId: string): NextResponse<A
     );
   }
 
-  // 2. Application Layer Errors (with explicit status codes)
   if (err instanceof ApplicationError) {
     const headers = new Headers();
     if (err.code === 'RATE_LIMIT_ERROR' && err.details && typeof err.details === 'object') {
@@ -45,7 +43,6 @@ export function handleHttpError(err: unknown, requestId: string): NextResponse<A
     );
   }
 
-  // 3. Domain Invariant Violations
   if (err instanceof DomainError) {
     const statusCode = err instanceof DomainValidationError ? 400 : 422;
     return apiError(
@@ -58,7 +55,6 @@ export function handleHttpError(err: unknown, requestId: string): NextResponse<A
     );
   }
 
-  // 4. Unhandled / Internal Errors (Redact stack and internal implementation)
   const isProd = process.env.NODE_ENV === 'production';
   const message = isProd ? 'An unexpected internal error occurred' : String(err);
 

@@ -28,7 +28,6 @@ export class Container {
   public readonly mutex: KeyedMutex;
   public readonly idempotency: IdempotencyStore;
 
-  // Use Cases
   public readonly submitInquiryUseCase: SubmitInquiryUseCase;
   public readonly getSystemHealthUseCase: GetSystemHealthUseCase;
 
@@ -48,7 +47,6 @@ export class Container {
     this.mutex = keyedMutex;
     this.idempotency = idempotencyStore;
 
-    // Register async background worker handlers
     this.jobQueue.registerHandler('SEND_INQUIRY_NOTIFICATION', async (job) => {
       this.logger.info(`Processing async notification for inquiry:`, {
         jobId: job.id,
@@ -56,7 +54,6 @@ export class Container {
       });
     });
 
-    // Instantiate Use Cases
     this.submitInquiryUseCase = new SubmitInquiryUseCase(
       this.inquiryRepository,
       this.logger,

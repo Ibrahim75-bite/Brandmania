@@ -41,9 +41,9 @@ export const DilemmaSection: React.FC = () => {
   return (
     <section id="dilemma" className={styles.section}>
       <Container size="full">
-        {/* Commodity vs Category Leadership Table */}
+        {}
         <div className={styles.tableGrid}>
-          {/* Left Column: The Commodity Trap */}
+          {}
           <div className={styles.trapCol}>
             <div>
               <div className={styles.trapMarker}>
@@ -73,7 +73,7 @@ export const DilemmaSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: The Brandmania Architecture */}
+          {}
           <div className={styles.archCol}>
             <div>
               <div className={styles.archMarker}>
@@ -104,7 +104,7 @@ export const DilemmaSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Stuurmen / Gatzara Turning-Point Journey Strip */}
+        {}
         <div className={styles.turningPointBlock}>
           <div className={styles.turningPointHeader}>
             <div>

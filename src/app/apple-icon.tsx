@@ -29,13 +29,13 @@ export default function AppleIcon() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Radial outer boundary */}
+          {}
           <circle cx="90" cy="90" r="80" stroke="#FFFFFF" strokeWidth="4" strokeOpacity="0.25" />
-          {/* Obsidian iris channel */}
+          {}
           <circle cx="90" cy="90" r="64" stroke="#FFFFFF" strokeWidth="8" strokeOpacity="0.8" />
-          {/* Monolithic pupil */}
+          {}
           <circle cx="90" cy="90" r="34" fill="#FFFFFF" />
-          {/* Inner core cutout */}
+          {}
           <circle cx="90" cy="90" r="14" fill="#070709" />
         </svg>
       </div>

@@ -166,7 +166,7 @@ export const ArtifactGallery: React.FC = () => {
       <div id="artifacts" style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }} aria-hidden="true" />
 
       <Container size="full">
-        {/* Editorial Eyebrow & Headline Block */}
+        {}
         <div>
           <div className={styles.marker}>
             07 &mdash; SELECTED ARTIFACTS &bull; ALEXANDRE ROCHET SCROLL THEATRE
@@ -185,7 +185,7 @@ export const ArtifactGallery: React.FC = () => {
           </header>
         </div>
 
-        {/* Sticky Alexandre Rochet Kinetic HUD Bar */}
+        {}
         <div className={styles.stickyHud} role="region" aria-label="Showcase Navigation HUD">
           <div className={styles.hudLeft}>
             <span className={styles.hudCounter}>
@@ -209,7 +209,7 @@ export const ArtifactGallery: React.FC = () => {
           </div>
         </div>
 
-        {/* Scroll-Choreographed Vertical Showcase Stack */}
+        {}
         <div className={styles.showcaseStack}>
           {artifacts.map((artifact, index) => (
             <PlateItem

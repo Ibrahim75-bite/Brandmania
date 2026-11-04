@@ -1,7 +1,3 @@
-/**
- * In-Memory Cache Store with Tag-Based and Prefix-Based Invalidation
- * Standard #16: Cache Invalidation & Cache Stampede Prevention
- */
 
 import { ICache } from '../../application/ports/cache.port';
 
@@ -46,7 +42,6 @@ export class MemoryCacheStore implements ICache {
   ): Promise<void> {
     const fullKey = this.getFullKey(key);
 
-    // If key already existed with old tags, clean them up
     const existing = this.store.get(fullKey);
     if (existing) {
       this.removeFromTagIndex(fullKey, existing.tags);
@@ -90,10 +85,6 @@ export class MemoryCacheStore implements ICache {
     return this.deleteInternal(fullKey, entry.tags);
   }
 
-  /**
-   * Invalidates all cache entries linked to a specific tag.
-   * Standard #16: Tag-based cache invalidation
-   */
   public async invalidateByTag(tag: string): Promise<number> {
     const keys = this.tagMap.get(tag);
     if (!keys || keys.size === 0) return 0;
@@ -113,10 +104,6 @@ export class MemoryCacheStore implements ICache {
     return count;
   }
 
-  /**
-   * Invalidates all cache entries starting with the specified prefix.
-   * Standard #16: Prefix-based cache invalidation
-   */
   public async invalidateByPrefix(prefix: string): Promise<number> {
     const targetPrefix = `${this.keyPrefix}${prefix}`;
     let count = 0;

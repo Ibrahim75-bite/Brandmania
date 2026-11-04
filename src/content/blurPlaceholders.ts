@@ -1,8 +1,3 @@
-/**
- * Low-Quality Image Placeholders (LQIP)
- * Deterministic obsidian (#070709) and imperial violet (#160029, #2E0854)
- * SVG data-URIs tailored for Brandmania authentic assets.
- */
 
 function createSvgDataUri(svgContent: string): string {
   const base64 = typeof window === 'undefined'
@@ -52,17 +47,12 @@ const posterNeutralGradient = `
 `;
 
 export const BLUR_PLACEHOLDERS = {
-  // Hero aperture cover asset
   coverClean: createSvgDataUri(obsidianNeutralGradient),
-  // Brand direction poster
   poster: createSvgDataUri(posterNeutralGradient),
-  // Artboards
   artboard1: createSvgDataUri(obsidianNeutralGradient),
   artboard2: createSvgDataUri(editorialAlabasterGradient),
   artboard3: createSvgDataUri(obsidianNeutralGradient),
   artboard4: createSvgDataUri(obsidianNeutralGradient),
-  // Campaign banner
   agencyBanner: createSvgDataUri(obsidianNeutralGradient),
-  // Default fallback
   default: createSvgDataUri(obsidianNeutralGradient),
 };

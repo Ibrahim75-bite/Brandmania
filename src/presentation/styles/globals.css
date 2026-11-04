@@ -1,7 +1,6 @@
 @import './tokens.css';
 @import './reset.css';
 
-/* Global Swiss Editorial Root */
 html,
 body {
   background-color: var(--color-bg-base);
@@ -13,7 +12,6 @@ body {
   max-width: 100vw;
 }
 
-/* Unified Font Aliases across Codebase */
 :root {
   --font-display: var(--font-serif), Georgia, serif;
   --font-Editorial: var(--font-serif), Georgia, serif;
@@ -26,7 +24,6 @@ body {
   --font-family-mono: var(--font-mono), monospace;
 }
 
-/* Headings strictly mapped to Instrument Serif / Editorial Serif (NEVER Arial / faux-bold 700!) */
 h1,
 h2,
 .display-headline {
@@ -49,14 +46,12 @@ blockquote {
   text-wrap: balance;
 }
 
-/* Editorial Body Copy with balanced wrapping */
 p,
 li,
 .editorial-p {
   text-wrap: pretty;
 }
 
-/* Tabular Numerals (#16) applied to numerals, indexes, metrics, inputs */
 .tabular-nums,
 input,
 select,
@@ -69,14 +64,12 @@ textarea,
   font-feature-settings: "tnum" 1, "lnum" 1;
 }
 
-/* Italic Emphasized Editorial Styling */
 em,
 .font-italic {
   font-family: var(--font-serif), Georgia, serif !important;
   font-style: italic !important;
 }
 
-/* Monospace & Datum Code */
 code,
 kbd,
 samp,
@@ -85,7 +78,6 @@ samp,
   font-variant-numeric: tabular-nums lining-nums;
 }
 
-/* #4 Shortcut Keycaps */
 kbd {
   display: inline-flex;
   align-items: center;
@@ -101,7 +93,6 @@ kbd {
   vertical-align: middle;
 }
 
-/* #13 Hit Slop (Expanded Invisible Touch/Click Targets) */
 .hit-slop {
   position: relative;
 }
@@ -114,13 +105,11 @@ kbd {
   pointer-events: auto;
 }
 
-/* #18 Continuous Corners (Optical Squircle Smoothing for floating surfaces) */
 .squircle-surface {
   border-radius: 6px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 
-/* #14 Safe Area Inset Helper */
 .safe-area-header {
   padding-top: max(1rem, env(safe-area-inset-top, 0px));
   padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
@@ -131,7 +120,6 @@ kbd {
   padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
 }
 
-/* Lenis Smooth Scroll Recommended Styles */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -153,13 +141,11 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* Accessibility Focus Visible */
 :focus-visible {
   outline: 2px solid #FFFFFF;
   outline-offset: 2px;
 }
 
-/* Scrollbar Customization */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -178,8 +164,6 @@ html.lenis body {
   background: rgba(255, 255, 255, 0.35);
 }
 
-/* The presentation uses data-dense editorial grids on wide displays. At tablet
-   and mobile widths (<= 1024px), those grids collapse into a clean ordered reading sequence. */
 @media (max-width: 1024px) {
   [style*='grid-template-columns'][style*='minmax('] {
     grid-template-columns: minmax(0, 1fr) !important;
@@ -210,5 +194,45 @@ html.lenis body {
   #consumer-scope [style*='minmax(60px'] > :first-child,
   #consumer-scope [style*='minmax(60px'] > :last-child {
     display: none;
+  }
+}
+
+.backdrop-blur, [style*="backdrop-filter"] {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, [role="button"], a[href] {
+  touch-action: manipulation;
+  -webkit-appearance: none;
+}
+
+input, select, textarea {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@supports not (width: clamp(1rem, 10vw, 5rem)) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@supports not (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: auto;
   }
 }

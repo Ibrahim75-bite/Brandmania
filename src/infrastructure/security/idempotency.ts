@@ -1,8 +1,3 @@
-/**
- * Server-Side Idempotency Store
- * Deduplicates repeated consultation requests with identical Idempotency-Key,
- * preventing race-conditions, duplicate billing/notifications, and multiple records.
- */
 
 export interface IdempotencyRecord<T = unknown> {
   key: string;
@@ -27,7 +22,6 @@ export class IdempotencyStore {
     const record = this.store.get(key) as IdempotencyRecord<T> | undefined;
     if (!record) return undefined;
 
-    // Check expiration
     if (Date.now() - record.createdAt > this.ttlMs) {
       this.store.delete(key);
       return undefined;
@@ -47,7 +41,7 @@ export class IdempotencyStore {
   public markInFlight(key: string): boolean {
     const existing = this.get(key);
     if (existing) {
-      return false; // Already exists (in-flight or resolved)
+      return false;
     }
     this.set(key, { status: 'IN_FLIGHT' });
     return true;
@@ -64,10 +58,6 @@ export class IdempotencyStore {
     });
   }
 
-  /**
-   * Releases an in-flight key if execution failed, permitting legitimate client retries.
-   * Standard #2 & #3
-   */
   public release(key: string): void {
     const existing = this.store.get(key);
     if (existing && existing.status === 'IN_FLIGHT') {
@@ -84,5 +74,4 @@ export class IdempotencyStore {
   }
 }
 
-// Singleton instance for server runtime
 export const idempotencyStore = new IdempotencyStore();

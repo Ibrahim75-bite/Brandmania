@@ -114,7 +114,7 @@ export const CapabilitiesSection: React.FC = () => {
   return (
     <section id="capabilities" className={styles.section}>
       <Container size="full">
-        {/* Header Block */}
+        {}
         <div className={styles.headerBlock}>
           <div className={styles.marker}>
             08 &mdash; SUPPORTING CAPABILITIES &bull; FULL-SPECTRUM ARCHITECTURE
@@ -124,7 +124,7 @@ export const CapabilitiesSection: React.FC = () => {
           </h2>
         </div>
 
-        {/* 3-Column Clean Architectural Index (Hairlines per item, Zero nested boxed cards) */}
+        {}
         <div className={styles.clustersGrid}>
           {clusters.map((cluster) => (
             <div key={cluster.roman} className={styles.clusterCol}>

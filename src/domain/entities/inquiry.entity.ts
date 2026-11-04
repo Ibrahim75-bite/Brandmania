@@ -111,7 +111,6 @@ export class Inquiry {
     this._updatedAt = new Date();
   }
 
-  // Getters
   public get id(): string { return this._id; }
   public get clientName(): string { return this._clientName; }
   public get companyName(): string { return this._companyName; }

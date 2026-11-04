@@ -60,7 +60,7 @@ describe('UX Laws & Legal Compliance Verification Suite', () => {
     it('UX Law #15 (Goal-Gradient Effect): Progress calculation matches 33% -> 66% -> 100%', () => {
       const getProgress = (step: number, total = 3) => Math.round((step / total) * 100);
       expect(getProgress(1)).toBe(33);
-      expect(getProgress(2)).toBe(67); // or 66% depending on rounding, both indicate monotonic goal progression
+      expect(getProgress(2)).toBe(67);
       expect(getProgress(3)).toBe(100);
     });
 
@@ -139,7 +139,7 @@ describe('UX Laws & Legal Compliance Verification Suite', () => {
     it('Generates and verifies cryptographic HMAC SHA-256 tokens', () => {
       const token = generateUnsubscribeToken(testEmail);
       expect(typeof token).toBe('string');
-      expect(token.length).toBe(64); // SHA-256 hex length
+      expect(token.length).toBe(64);
       expect(verifyUnsubscribeToken(testEmail, token)).toBe(true);
       expect(verifyUnsubscribeToken(testEmail, 'invalid-token-tampered')).toBe(false);
       expect(verifyUnsubscribeToken('other@client.com', token)).toBe(false);
@@ -192,7 +192,6 @@ describe('UX Laws & Legal Compliance Verification Suite', () => {
       );
 
       const res = await unsubscribeGet(req);
-      // #20: Uniform 200 OK response regardless of token validity (prevents user enumeration)
       expect(res.status).toBe(200);
       const data = await res.json();
       expect(data.success).toBe(true);
@@ -203,7 +202,6 @@ describe('UX Laws & Legal Compliance Verification Suite', () => {
     const deletionEmail = 'purged-client@enterprise-advisory.com';
 
     it('Deletes matching inquiries, suppresses email, and returns verifiable deletionReceiptId', async () => {
-      // 1. Seed inquiry in repository
       const inquiry = Inquiry.create({
         id: 'inq_to_purge_123',
         clientName: 'Purge Candidate',
@@ -219,8 +217,6 @@ describe('UX Laws & Legal Compliance Verification Suite', () => {
       const foundBefore = await container.inquiryRepository.findByEmail(new Email(deletionEmail));
       expect(foundBefore.length).toBeGreaterThan(0);
 
-      // 2. Submit Data Deletion Request
-      // #12: HMAC verification token required for email-based state mutation
       const validToken = generateUnsubscribeToken(deletionEmail);
       const req = new NextRequest('https://brandmania.agency/api/v1/privacy/deletion-request', {
         method: 'POST',
@@ -242,16 +238,13 @@ describe('UX Laws & Legal Compliance Verification Suite', () => {
       expect(data.deletionReceiptId).toMatch(/^del_/);
       expect(data.recordsPurged).toBe(1);
 
-      // 3. Verify repository record is deleted
       const foundAfter = await container.inquiryRepository.findByEmail(new Email(deletionEmail));
       expect(foundAfter.length).toBe(0);
 
-      // 4. Verify email is added to suppression list
       expect(isEmailSuppressed(deletionEmail)).toBe(true);
     });
 
     it('Rejects invalid email format in deletion request', async () => {
-      // #12: HMAC token required for email-based state mutation
       const validToken = generateUnsubscribeToken('not-an-email');
       const req = new NextRequest('https://brandmania.agency/api/v1/privacy/deletion-request', {
         method: 'POST',
@@ -264,7 +257,6 @@ describe('UX Laws & Legal Compliance Verification Suite', () => {
       });
 
       const res = await deletionRequestPost(req);
-      // #20: Uniform 200 OK response regardless of validation outcome (prevents user enumeration)
       expect(res.status).toBe(200);
       const data = await res.json();
       expect(data.success).toBe(true);
@@ -278,7 +270,6 @@ describe('UX Laws & Legal Compliance Verification Suite', () => {
       expect(sec11?.heading).toContain('Commercial Retainer, Milestone Billing & Refund Policy');
       expect(sec11?.content).toContain('cancellation/refund policies');
 
-      // Verify terms page exposes #refund-policy anchor
       const termsPageContent = fs.readFileSync(path.join(rootDir, 'src/app/terms/page.tsx'), 'utf-8');
       expect(termsPageContent).toContain('refund-policy');
     });
@@ -296,7 +287,6 @@ describe('UX Laws & Legal Compliance Verification Suite', () => {
       expect(gaSdk).toBeDefined();
       expect(gaSdk?.privacyControls).toContain('Strictly opt-in');
 
-      // Verify cookies page renders the thirdPartySdks table
       const cookiesPageContent = fs.readFileSync(path.join(rootDir, 'src/app/cookies/page.tsx'), 'utf-8');
       expect(cookiesPageContent).toContain('Third-Party SDK');
       expect(cookiesPageContent).toContain('thirdPartySdks');

@@ -30,7 +30,7 @@ export interface B2BScheduleItem {
 
 export interface ThirdPartySdkRow {
   name: string;
-  category: 'Typography & Performance' | 'Consent-Gated Analytics';
+  category: 'Typography & Performance' | 'Consent-Gated Analytics' | 'Scheduling & Booking';
   provider: string;
   source: string;
   dataHandling: string;
@@ -305,6 +305,14 @@ export const LEGAL_CONTENT = {
         source: 'Optional external script injected dynamically only upon explicit user consent',
         dataHandling: 'Collects aggregate, de-identified telemetry with IP anonymization (anonymize_ip: true), zero cross-site advertising signals, and zero ad personalization.',
         privacyControls: 'Strictly opt-in. Unmounted from DOM and blocked completely if consent is DENIED or PENDING.',
+      },
+      {
+        name: 'Calendly (calendly.com)',
+        category: 'Scheduling & Booking',
+        provider: 'Calendly, Inc.',
+        source: 'iframe embed served from https://calendly.com; no client-side Calendly JavaScript SDK is loaded',
+        dataHandling: 'Visitor scheduling data (name, email, selected time slot) is processed by Calendly per its own privacy policy. BRANDMANIA does not receive Calendly session data unless the visitor completes a booking and the appointment is confirmed through the Calendly integration.',
+        privacyControls: 'Calendly iframe is loaded on /consultation only. No Calendly cookies or trackers are set on other BRANDMANIA pages. Visitors may use the direct qualification form instead of the calendar if they prefer not to interact with Calendly.',
       },
     ] as ThirdPartySdkRow[],
   },

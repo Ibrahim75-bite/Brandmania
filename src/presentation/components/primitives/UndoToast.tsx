@@ -18,7 +18,6 @@ export const UndoToast: React.FC<UndoToastProps> = ({
   onDismiss,
   durationMs = 5000,
 }) => {
-  // Listen for Cmd+Z / Ctrl+Z
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!isVisible) return;
@@ -46,7 +45,6 @@ export const UndoToast: React.FC<UndoToastProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
-  // Auto-dismiss timer
   useEffect(() => {
     if (!isVisible) return;
     const timer = setTimeout(() => {

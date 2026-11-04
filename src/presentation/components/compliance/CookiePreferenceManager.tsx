@@ -124,7 +124,7 @@ export function CookiePreferenceManager() {
           </h3>
         </div>
 
-        {/* Status Badge */}
+        {}
         <div
           style={{
             display: 'inline-flex',
@@ -201,7 +201,7 @@ export function CookiePreferenceManager() {
           : 'No explicit choice has been recorded yet. The platform defaults to Essential Only protection until affirmative consent is provided.'}
       </p>
 
-      {/* Action Controls */}
+      {}
       <div
         style={{
           display: 'flex',

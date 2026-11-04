@@ -32,7 +32,6 @@ export default function FoundationVerificationPage() {
   const [isLoadingProbes, setIsLoadingProbes] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Form State
   const [clientName, setClientName] = useState('Alexander Vance');
   const [companyName, setCompanyName] = useState('Vance & Co. Haute Horlogerie');
   const [email, setEmail] = useState('alexander@vance-horology.ch');
@@ -40,7 +39,7 @@ export default function FoundationVerificationPage() {
   const [budgetRange, setBudgetRange] = useState('TIER_100K_250K');
   const [services, setServices] = useState<string[]>(['BRAND_DIRECTION', 'MARGIN_RECOVERY', 'NEUROMARKETING']);
   const [message, setMessage] = useState('Seeking complete brand direction realignment and margin recovery across European boutique channels.');
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiResult, setApiResult] = useState<any>(null);
   const [formError, setFormError] = useState<string | null>(null);
@@ -102,7 +101,7 @@ export default function FoundationVerificationPage() {
 
   return (
     <div>
-      {/* 1. Header Hero Banner */}
+      {}
       <Section spacing="sm" style={{ borderBottom: '1px solid var(--color-border-subtle)', backgroundColor: 'var(--color-bg-surface)' }}>
         <Container>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
@@ -122,7 +121,7 @@ export default function FoundationVerificationPage() {
       </Section>
 
       <Container>
-        {/* 2. System Probes & Reliability */}
+        {}
         <Section spacing="sm">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-4)' }}>
             <h2 style={{ fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)' }}>
@@ -179,14 +178,14 @@ export default function FoundationVerificationPage() {
           </div>
         </Section>
 
-        {/* 3. Design System & UI Primitives Sandbox */}
+        {}
         <Section spacing="sm">
           <h2 style={{ fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--space-4)' }}>
             2. Design Tokens & UI Primitives Sandbox
           </h2>
 
           <Card variant="surface" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-            {/* Colors */}
+            {}
             <div>
               <h3 style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)', marginBottom: 'var(--space-3)' }}>
                 PALETTE TOKENS
@@ -211,7 +210,7 @@ export default function FoundationVerificationPage() {
               </div>
             </div>
 
-            {/* Buttons & Dialogs */}
+            {}
             <div>
               <h3 style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)', marginBottom: 'var(--space-3)' }}>
                 BUTTON VARIANTS & DIALOGS
@@ -228,7 +227,7 @@ export default function FoundationVerificationPage() {
           </Card>
         </Section>
 
-        {/* 4. End-to-End Architectural Test Form */}
+        {}
         <Section spacing="md">
           <h2 style={{ fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--space-2)' }}>
             3. End-to-End Boundary Verification: Inquiry Intake API
@@ -340,7 +339,7 @@ export default function FoundationVerificationPage() {
               </form>
             </Card>
 
-            {/* Response Viewer */}
+            {}
             <Card variant="surface" style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-3)' }}>
                 <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
@@ -380,7 +379,7 @@ export default function FoundationVerificationPage() {
         </Section>
       </Container>
 
-      {/* Test Modal */}
+      {}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Foundation Modal Primitive">
         <p style={{ marginBottom: 'var(--space-4)', lineHeight: 'var(--line-height-normal)' }}>
           This modal validates the accessible dialog primitive: focus trapping, Escape key listener, backdrop click dismiss, and luxury styling tokens.

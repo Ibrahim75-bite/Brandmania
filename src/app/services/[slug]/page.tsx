@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: ServiceDetailPageProps): Prom
   }
 
   return constructMetadata({
-    title: `${service.title} | BRANDMANIA Flagship`,
+    title: `${service.title} | BRANDMANIA Flagship Discipline`,
     description: service.summary,
     canonicalPath: `/services/${slug}`,
   });
@@ -48,24 +48,25 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
   }
 
   return (
-    <div>
-      <Section spacing="xl" style={{ paddingTop: 'var(--space-20)', backgroundColor: 'var(--color-bg-surface)', borderBottom: '1px solid var(--color-border-subtle)' }}>
+    <div style={{ backgroundColor: '#0D0118', color: '#FAF7FF' }}>
+      <Section spacing="xl" style={{ paddingTop: 'clamp(5rem, 8vw, 8rem)', backgroundColor: '#160429', borderBottom: '1px solid rgba(200, 130, 255, 0.16)' }}>
         <Container>
-          <div style={{ maxWidth: '860px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-4)' }}>
+          <div style={{ maxWidth: '880px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
               <BrandEye size="sm" />
-              <Badge variant="neutral" size="md">
-                Flagship discipline
+              <Badge variant="purple" size="md">
+                FLAGSHIP DISCIPLINE
               </Badge>
             </div>
 
             <h1
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'var(--font-size-5xl)',
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
                 fontWeight: 400,
-                color: '#fff',
-                marginBottom: 'var(--space-4)',
+                color: '#FAF7FF',
+                marginBottom: '1.5rem',
+                lineHeight: 1.02,
               }}
             >
               {service.title}
@@ -73,35 +74,37 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
 
             <p
               style={{
-                fontSize: 'var(--font-size-2xl)',
-                fontFamily: 'var(--font-family-serif)',
-                color: 'var(--color-text-secondary)',
-                marginBottom: 'var(--space-6)',
+                fontSize: 'clamp(1.2rem, 2vw, 1.6rem)',
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                fontStyle: 'italic',
+                color: '#C882FF',
+                marginBottom: '1.75rem',
+                lineHeight: 1.35,
               }}
             >
-              “{service.headline}”
+              &ldquo;{service.headline}&rdquo;
             </p>
 
             <p
               style={{
-                fontSize: 'var(--font-size-lg)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 'var(--line-height-relaxed)',
-                marginBottom: 'var(--space-8)',
+                fontSize: '1.15rem',
+                color: '#C4B8D8',
+                lineHeight: 1.7,
+                marginBottom: '2.5rem',
               }}
             >
               {service.summary}
             </p>
 
-            <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
-              <Link href="/#consultation" style={{ textDecoration: 'none' }}>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <Link href="/#qualification" style={{ textDecoration: 'none' }}>
                 <Button variant="primary" size="lg">
-                  {service.ctaLabel}
+                  {service.ctaLabel} &rarr;
                 </Button>
               </Link>
               <Link href="/services" style={{ textDecoration: 'none' }}>
-                <Button variant="outline" size="lg">
-                  ← All Flagships
+                <Button variant="secondary" size="lg">
+                  All Disciplines
                 </Button>
               </Link>
             </div>
@@ -109,34 +112,91 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
         </Container>
       </Section>
 
-      <Section spacing="xl">
+      <Section spacing="xl" style={{ backgroundColor: '#0D0118' }}>
         <Container>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'var(--space-10)' }}>
+          <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
             <div>
-              <h3 style={{ fontSize: 'var(--font-size-xs)', letterSpacing: '0.02em', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-3)' }}>
-                Strategic premise
-              </h3>
-              <Card variant="glass" style={{ padding: 'var(--space-8)' }}>
-                <p style={{ fontSize: 'var(--font-size-lg)', color: '#fff', lineHeight: 'var(--line-height-relaxed)', margin: 0 }}>
-                  {service.strategicPremise}
-                </p>
-              </Card>
+              <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', letterSpacing: '0.14em', color: '#C882FF', textTransform: 'uppercase', fontWeight: 600 }}>
+                STRATEGIC PREMISE
+              </span>
+              <h2 style={{ fontFamily: 'var(--font-serif), Georgia, serif', fontSize: '2.2rem', fontWeight: 400, color: '#FAF7FF', margin: '0.5rem 0 1rem 0' }}>
+                Core Commercial Thesis
+              </h2>
+              <p style={{ fontSize: '1.1rem', color: '#C4B8D8', lineHeight: 1.7 }}>
+                {service.strategicPremise}
+              </p>
             </div>
 
-            <div>
-              <h3 style={{ fontSize: 'var(--font-size-xs)', letterSpacing: '0.02em', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-3)' }}>
-                Diagnostic deliverables
+            <Card variant="elevated" style={{ backgroundColor: '#160429', border: '1px solid rgba(200, 130, 255, 0.2)', padding: '2.5rem', borderRadius: 0 }}>
+              <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', letterSpacing: '0.14em', color: '#C882FF', textTransform: 'uppercase', fontWeight: 600 }}>
+                DIAGNOSTIC ARCHITECTURE
+              </span>
+              <h3 style={{ fontFamily: 'var(--font-serif), Georgia, serif', fontSize: '1.85rem', fontWeight: 400, color: '#FAF7FF', margin: '0.5rem 0 1.5rem 0' }}>
+                Operational Vectors &amp; Deliverables
               </h3>
-              <Card variant="elevated" style={{ padding: 'var(--space-8)' }}>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-                  {service.points.map((pt, i) => (
-                    <li key={i} style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)' }}>
-                      <span style={{ color: '#ffffff', fontWeight: 'bold' }}>0{i + 1}.</span>
-                      <span>{pt}</span>
-                    </li>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {service.points.map((pt, i) => (
+                  <li key={i} style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(200, 130, 255, 0.1)' }}>
+                    <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', color: '#C882FF' }}>
+                      [0{i + 1}]
+                    </span>
+                    <span style={{ fontSize: '1rem', color: '#FAF7FF', lineHeight: 1.5 }}>
+                      {pt}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+
+            {service.faqs && service.faqs.length > 0 && (
+              <div>
+                <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', letterSpacing: '0.14em', color: '#C882FF', textTransform: 'uppercase', fontWeight: 600 }}>
+                  EXECUTIVE FAQ
+                </span>
+                <h3 style={{ fontFamily: 'var(--font-serif), Georgia, serif', fontSize: '2rem', fontWeight: 400, color: '#FAF7FF', margin: '0.5rem 0 1.5rem 0' }}>
+                  Frequently Addressed Questions
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {service.faqs.map((faq, idx) => (
+                    <details
+                      key={idx}
+                      style={{
+                        backgroundColor: '#160429',
+                        border: '1px solid rgba(200, 130, 255, 0.16)',
+                        padding: '1.25rem 1.5rem',
+                      }}
+                    >
+                      <summary
+                        style={{
+                          fontFamily: 'var(--font-serif), Georgia, serif',
+                          fontSize: '1.2rem',
+                          color: '#FAF7FF',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {faq.question}
+                      </summary>
+                      <p style={{ marginTop: '0.75rem', fontSize: '0.98rem', color: '#C4B8D8', lineHeight: 1.65 }}>
+                        {faq.answer}
+                      </p>
+                    </details>
                   ))}
-                </ul>
-              </Card>
+                </div>
+              </div>
+            )}
+
+            <div style={{ textAlign: 'center', paddingTop: '2.5rem', borderTop: '1px solid rgba(200, 130, 255, 0.16)' }}>
+              <h3 style={{ fontFamily: 'var(--font-serif), Georgia, serif', fontSize: '2rem', color: '#FAF7FF', marginBottom: '1rem' }}>
+                Initiate Strategic Intake
+              </h3>
+              <p style={{ color: '#C4B8D8', maxWidth: '600px', margin: '0 auto 2rem auto', lineHeight: 1.6 }}>
+                Our partners review inquiries under bilateral non-disclosure for brands meeting our $700,000+ annual revenue qualification floor.
+              </p>
+              <Link href="/#qualification" style={{ textDecoration: 'none' }}>
+                <Button variant="primary" size="lg">
+                  Request Strategic Consultation &rarr;
+                </Button>
+              </Link>
             </div>
           </div>
         </Container>

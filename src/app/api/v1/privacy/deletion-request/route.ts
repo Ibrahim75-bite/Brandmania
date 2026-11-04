@@ -17,7 +17,6 @@ const DeletionRequestSchema = z.object({
   companyName: z.string().optional(),
   requestType: z.enum(['DELETE_ALL_DATA', 'EXPORT_DATA', 'OPT_OUT_ANALYTICS']),
   reason: z.string().optional(),
-  // #12: HMAC verification token required for email-based state mutation
   token: z.string().min(1, 'Verification token is required.'),
 });
 
@@ -26,10 +25,8 @@ type DeletionRequestBody = z.infer<typeof DeletionRequestSchema>;
 export async function POST(req: NextRequest) {
   const ctx = extractRequestContext(req);
 
-  // #20: Enforce minimum 150ms response floor to prevent timing-based user enumeration
   await enforceResponseFloor();
 
-  // Rate Limiting (10 requests per minute per IP for privacy endpoints)
   const rateLimit = await container.rateLimiter.checkLimit(`del_req:${ctx.clientIp}`, 10, 60000);
   if (!rateLimit.allowed) {
     return NextResponse.json(
@@ -38,7 +35,7 @@ export async function POST(req: NextRequest) {
         { retryAfter: rateLimit.retryAfterSeconds }
       ),
       {
-        status: 200, // #20: Uniform 200 OK regardless of rate limit outcome
+        status: 200,
         headers: {
           'Retry-After': String(rateLimit.retryAfterSeconds),
           'X-RateLimit-Limit': String(rateLimit.limit),
@@ -54,7 +51,7 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json(
       uniformConfirmationResponse('Malformed JSON payload.'),
-      { status: 200 } // #20: Uniform 200 OK
+      { status: 200 }
     );
   }
 
@@ -62,13 +59,12 @@ export async function POST(req: NextRequest) {
   if (!parsed.success) {
     return NextResponse.json(
       uniformConfirmationResponse('Invalid privacy deletion request parameters.'),
-      { status: 200 } // #20: Uniform 200 OK
+      { status: 200 }
     );
   }
 
   const { email, requestType, reason, companyName, token } = parsed.data;
 
-  // #12: Verify HMAC token before any email-based state mutation
   const expectedToken = generateUnsubscribeToken(email);
   const tokenValid =
     token.length === expectedToken.length &&
@@ -77,11 +73,10 @@ export async function POST(req: NextRequest) {
   if (!tokenValid) {
     return NextResponse.json(
       uniformConfirmationResponse('Invalid or expired verification token.'),
-      { status: 200 } // #20: Uniform 200 OK
+      { status: 200 }
     );
   }
 
-  // Perform erasure / suppression based on requestType
   let recordsPurged = 0;
   try {
     const emailVo = new Email(email);
@@ -103,7 +98,6 @@ export async function POST(req: NextRequest) {
   const deletionReceiptId = `del_${Date.now().toString(36)}_${crypto.randomBytes(6).toString('hex')}`;
   const timestamp = new Date().toISOString();
 
-  // Immutable audit log entry
   container.logger.audit('DATA_DELETION_REQUESTED', email, {
     requestId: ctx.requestId,
     clientIp: ctx.clientIp,
@@ -114,7 +108,6 @@ export async function POST(req: NextRequest) {
     deletionReceiptId,
   });
 
-  // #20: Uniform 200 OK response regardless of whether email existed in repository
   return NextResponse.json(
     {
       success: true,

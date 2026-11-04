@@ -144,12 +144,10 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
     );
   }, [commands, search]);
 
-  // Reset selected index when search changes
   useEffect(() => {
     setSelectedIndex(0);
   }, [search]);
 
-  // Focus input on open
   useEffect(() => {
     if (isOpen) {
       setSearch('');
@@ -158,7 +156,6 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
     }
   }, [isOpen]);
 
-  // Keyboard navigation within menu
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === 'ArrowDown') {
@@ -202,7 +199,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             paddingInline: '1rem',
           }}
         >
-          {/* Backdrop */}
+          {}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -218,7 +215,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             }}
           />
 
-          {/* Palette Dialog Box */}
+          {}
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -238,7 +235,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             }}
             onKeyDown={handleKeyDown}
           >
-            {/* Input Bar */}
+            {}
             <div
               style={{
                 display: 'flex',
@@ -268,7 +265,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
               <kbd style={{ fontSize: '10px' }}>ESC</kbd>
             </div>
 
-            {/* List of Results */}
+            {}
             <div
               style={{
                 maxHeight: '340px',
@@ -350,7 +347,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
               )}
             </div>
 
-            {/* Footer Hints */}
+            {}
             <div
               style={{
                 display: 'flex',

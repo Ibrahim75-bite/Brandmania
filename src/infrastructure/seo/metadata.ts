@@ -10,17 +10,11 @@ export interface CustomMetadataOptions {
   ogImage?: string;
 }
 
-/**
- * Builds production-grade Next.js Metadata with canonicals, hreflang alternates,
- * OpenGraph, Twitter cards, crawler directives, and conditional geo meta tags.
- */
 export function constructMetadata(options: CustomMetadataOptions = {}): Metadata {
   const siteUrl = seoConfig.siteUrl;
   const path = options.canonicalPath || '';
   const canonicalUrl = `${siteUrl}${path}`;
 
-  // Build hreflang map pointing to valid, resolvable canonical URLs
-  // (Prevents Google Search Console 404 errors for non-existent locale subpaths)
   const languageAlternates: Record<string, string> = {
     'x-default': canonicalUrl,
   };
@@ -49,7 +43,6 @@ export function constructMetadata(options: CustomMetadataOptions = {}): Metadata
   const description = options.description || defaultDescriptionText;
   const ogImageUrl = options.ogImage || seoConfig.coverImagePath;
 
-  // Build conditional geo tags inside metadata.other
   const otherMeta: Record<string, string> = {};
   if (seoConfig.geo) {
     if (seoConfig.geo.region) {

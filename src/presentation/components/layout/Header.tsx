@@ -14,12 +14,6 @@ import { ArchitecturalSkeleton } from '@/presentation/components/primitives/Arch
 import headerStyles from './Header.module.css';
 import footerStyles from './Footer.module.css';
 
-/**
- * #3 Performance: Dynamic code splitting — CommandMenu is only needed when
- * the user opens the ⌘K palette. NeonStickerPhysicsFooter is a heavy
- * physics simulation rendered below the fold in the Footer. Both are
- * lazy-loaded with ArchitecturalSkeleton fallbacks.
- */
 const CommandMenu = dynamic(
   () => import('../navigation/CommandMenu').then((mod) => mod.CommandMenu),
   {
@@ -48,7 +42,6 @@ export function Header() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isCommandOpen, setIsCommandOpen] = useState(false);
 
-  // #3 Global ⌘K / Ctrl+K listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
@@ -65,13 +58,11 @@ export function Header() {
     <header className={headerStyles.header}>
       <Container>
         <div className={headerStyles.inner}>
-          {/* Brand Logo & Wordmark */}
           <Link href="/" className={`${headerStyles.brandLink} hit-slop`}>
             <BrandEye size="sm" />
             <span className={headerStyles.wordmark}>{BRAND.name}</span>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className={headerStyles.navDesktop} aria-label="Main Navigation">
             {MAIN_NAV_LINKS.map((link) => (
               <Link key={link.href} href={link.href} className={`${headerStyles.navLink} hit-slop`}>
@@ -80,9 +71,7 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Header Action / CTA */}
           <div className={headerStyles.headerActions}>
-            {/* Index Command Trigger */}
             <button
               onClick={() => setIsCommandOpen(true)}
               className={`${headerStyles.indexTrigger} hit-slop`}
@@ -91,44 +80,41 @@ export function Header() {
               <span>Index</span>
             </button>
 
-            <Button
-              variant="primary"
-              size="sm"
-              className="hit-slop"
-              onClick={() => {
-                const el = document.getElementById('qualification');
-                if (el) {
-                  el.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  window.location.href = '/#qualification';
-                }
-              }}
-            >
-              Request Strategic Consultation
-            </Button>
+            <div className={headerStyles.desktopCtaWrapper}>
+              <Button
+                variant="primary"
+                size="sm"
+                className="hit-slop"
+                onClick={() => {
+                  const el = document.getElementById('qualification');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    window.location.href = '/#qualification';
+                  }
+                }}
+              >
+                Request Strategic Consultation
+              </Button>
+            </div>
 
-            {/* Mobile Hamburger Toggle */}
             <button
               className={`${headerStyles.mobileToggle} hit-slop`}
               onClick={() => setIsMobileOpen(true)}
               aria-label={isMobileOpen ? 'Close Menu' : 'Open Navigation Menu'}
               aria-expanded={isMobileOpen}
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+              <span className={headerStyles.mobileToggleLabel}>MENU &darr;</span>
             </button>
           </div>
         </div>
       </Container>
 
-      {/* #3 Executive Command Menu Modal (lazy-loaded) */}
       <CommandMenu
         isOpen={isCommandOpen}
         onClose={() => setIsCommandOpen(false)}
       />
 
-      {/* #10 & #12 Spring-Physics Swipeable Mobile Sheet with Predictive Back */}
       <SwipeableSheet
         isOpen={isMobileOpen}
         onClose={() => setIsMobileOpen(false)}
@@ -208,10 +194,9 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className={footerStyles.footer} style={{ backgroundColor: '#0D011A', color: '#FAF7FF' }}>
+    <footer className={footerStyles.footer} style={{ backgroundColor: '#0D0118', color: '#FAF7FF' }}>
       <Container>
         <div className={footerStyles.grid}>
-          {/* Brand Manifesto Column */}
           <div className={footerStyles.brandCol}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
               <BrandEye size="sm" />
@@ -220,12 +205,11 @@ export function Footer() {
             <p className={footerStyles.brandManifesto} style={{ color: '#C4B8D8', lineHeight: 1.65 }}>
               {BRAND.tagline}. Strategic premium consultancy engineering Margin Recovery, Brand Direction, and Consumer Scope for ambitious market leaders.
             </p>
-            <span style={{ fontSize: 'var(--font-size-xs)', color: '#9A89B8' }}>
-              “{BRAND.internalPhilosophy}”
+            <span style={{ fontSize: 'var(--font-size-xs)', color: '#A8A0B8' }}>
+              &ldquo;{BRAND.internalPhilosophy}&rdquo;
             </span>
           </div>
 
-          {/* Directory Columns */}
           {FOOTER_SECTIONS.map((section) => (
             <div key={section.title}>
               <h4 className={footerStyles.columnTitle} style={{ color: '#C882FF', fontFamily: 'var(--font-mono), monospace' }}>{section.title}</h4>
@@ -246,9 +230,8 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Clean 3-Part Bottom Operational Bar */}
-        <div className={footerStyles.bottomBar} style={{ borderTop: '1px solid rgba(200, 130, 255, 0.16)', paddingTop: '1.5rem', paddingBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', fontSize: '11px', color: '#9A89B8', fontFamily: 'var(--font-mono), monospace' }}>
-          <span>© {new Date().getFullYear()} {BRAND.name}. All rights reserved.</span>
+        <div className={footerStyles.bottomBar} style={{ borderTop: '1px solid rgba(200, 130, 255, 0.16)', paddingTop: '1.5rem', paddingBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', fontSize: '11px', color: '#A8A0B8', fontFamily: 'var(--font-mono), monospace' }}>
+          <span>&copy; {new Date().getFullYear()} {BRAND.name}. All rights reserved.</span>
           <span style={{ color: '#C4B8D8' }} data-protocol-ref={LEGAL_CONTENT.businessDetails.protocolRef}>
             Operating Brand &amp; Commercial Entity: {LEGAL_CONTENT.businessDetails.operatingEntity}
           </span>
@@ -258,7 +241,6 @@ export function Footer() {
         </div>
       </Container>
 
-      {/* Birch-Inspired Interactive 2D Physics Neon Sticker Footer (lazy-loaded) */}
       <NeonStickerPhysicsFooter />
     </footer>
   );

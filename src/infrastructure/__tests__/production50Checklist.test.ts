@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 
-// Domain 1 imports
 import { InMemoryInquiryRepository } from '../persistence/in-memory-inquiry.repository';
 import { dbPoolManager } from '../persistence/db-pool-config';
 import { backupRestoreService } from '../persistence/backup-restore.service';
@@ -12,22 +11,18 @@ import { CompanyTier } from '../../domain/value-objects/company-tier.vo';
 import { BudgetRange } from '../../domain/value-objects/budget-range.vo';
 import { ServiceCategory } from '../../domain/value-objects/service-category.vo';
 
-
-// Domain 2 imports
 import { KeyedMutex } from '../security/mutex';
 import { IdempotencyStore } from '../security/idempotency';
 import { MemoryCacheStore } from '../cache/memory-cache';
 import { InMemoryJobQueue } from '../jobs/memory-job-queue';
 import { withTimeout, TimeoutError } from '../http/timeout';
 
-// Domain 3 imports
 import { sanitizeText, detectAndNeutralizePromptInjection, isSafeExternalUrl } from '../security/sanitizer';
 import { verifyCsrfOrigin, verifyJsonContentType, verifyResourceAccess, createSessionToken, verifySessionToken } from '../security/guards';
 import { verifyWebhookSignature } from '../security/webhook-verifier';
 import { validateFileUpload, generateSignedUrl, verifySignedUrl } from '../security/file-security';
 import { submitInquirySchema } from '../../domain/validation/inquiry.schema';
 
-// Domain 4 imports
 import { TelemetryMonitor, AlertEvent } from '../observability/telemetry-monitor';
 import { FeatureFlagService } from '../config/feature-flags';
 import { GetSystemHealthUseCase } from '../../application/use-cases/get-system-health.use-case';
@@ -38,9 +33,6 @@ import nextConfig from '../../../next.config';
 describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
   const rootDir = path.resolve(__dirname, '../../../');
 
-  // ===================================================================================
-  // DOMAIN 1: DATABASE, SUPABASE, DATA INTEGRITY & DR (#1, #5, #13, #14, #15, #24, #25, #26, #27, #48, #49)
-  // ===================================================================================
   describe('DOMAIN 1: Database, Supabase, Data Integrity & Disaster Recovery', () => {
     let repo: InMemoryInquiryRepository;
 
@@ -53,13 +45,11 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       expect(fs.existsSync(migrationPath)).toBe(true);
       const sql = fs.readFileSync(migrationPath, 'utf-8');
 
-      // Verify RLS enabled on all core tables
       expect(sql).toContain('ALTER TABLE public.inquiries ENABLE ROW LEVEL SECURITY;');
       expect(sql).toContain('ALTER TABLE public.audit_logs ENABLE ROW LEVEL SECURITY;');
       expect(sql).toContain('ALTER TABLE public.dead_letter_jobs ENABLE ROW LEVEL SECURITY;');
       expect(sql).toContain('ALTER TABLE public.idempotency_records ENABLE ROW LEVEL SECURITY;');
 
-      // Verify least privilege: revoke from public/anon
       expect(sql).toContain('REVOKE ALL ON public.inquiries FROM anon, authenticated;');
       expect(sql).toContain('REVOKE ALL ON public.audit_logs FROM anon, authenticated;');
       expect(sql).toContain('TO service_role');
@@ -74,7 +64,7 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       expect(sql).toContain('INSERT INTO public.audit_logs');
       expect(sql).toContain('INSERT INTO public.idempotency_records');
       expect(sql).toContain('EXCEPTION');
-      expect(sql).toContain('RAISE'); // Automatic ACID rollback on exception
+      expect(sql).toContain('RAISE');
     });
 
     it('Standard #13: SQL migration creates required B-Tree and expression indexes', () => {
@@ -113,13 +103,11 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       await repo.save(inq1);
       await repo.save(inq2);
 
-      // Batched lookup eliminates N+1
       const batched = await repo.findByIds([inq1.id, inq2.id, 'non_existent_id']);
       expect(batched.length).toBe(2);
       expect(batched.map((i) => i.id)).toContain(inq1.id);
       expect(batched.map((i) => i.id)).toContain(inq2.id);
 
-      // Bounded pagination: request 1000 items -> bounded strictly to 50
       const bounded = await repo.findAll(1000, 0);
       expect(bounded.length).toBeLessThanOrEqual(50);
     });
@@ -128,7 +116,7 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       const poolConfig = dbPoolManager.getConfig();
       expect(poolConfig.port).toBe(6543);
       expect(poolConfig.transactionMode).toBe(true);
-      expect(poolConfig.maxConnections).toBe(1); // Single connection per serverless execution
+      expect(poolConfig.maxConnections).toBe(1);
       expect(poolConfig.idleTimeoutMillis).toBe(10000);
       expect(poolConfig.connectionTimeoutMillis).toBe(5000);
 
@@ -151,7 +139,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     });
 
     it('Standard #48: Data retention policy purges unqualified inquiries older than 90 days', async () => {
-      // Create fresh inquiry
       const freshInquiry = Inquiry.create({
         id: 'inq_fresh',
         clientName: 'Fresh Client',
@@ -164,7 +151,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       });
       await repo.save(freshInquiry);
 
-      // Create old rejected inquiry (95 days old)
       const oldDate = new Date(Date.now() - 95 * 24 * 60 * 60 * 1000);
       const oldRejectedInquiry = Inquiry.reconstruct({
         id: 'inq_old_rejected',
@@ -183,7 +169,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
 
       expect(await repo.count()).toBe(2);
 
-      // Purge with 90-day retention window
       const purgedCount = await repo.purgeExpired(90);
       expect(purgedCount).toBe(1);
       expect(await repo.count()).toBe(1);
@@ -204,22 +189,18 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       });
       await repo.save(inq);
 
-      // 1. Create snapshot with SHA-256 checksum (#26)
       const snapshot = await backupRestoreService.createBackupSnapshot(repo);
       expect(snapshot.metadata.totalRecords).toBe(1);
       expect(snapshot.metadata.sha256Checksum).toHaveLength(64);
 
-      // 2. Verify snapshot integrity (#27)
       const validCheck = backupRestoreService.verifySnapshotIntegrity(snapshot);
       expect(validCheck.isValid).toBe(true);
 
-      // 3. Detect corrupted payload
       const tamperedSnapshot = JSON.parse(JSON.stringify(snapshot));
       tamperedSnapshot.records[0].clientName = 'TAMPERED_NAME';
       const invalidCheck = backupRestoreService.verifySnapshotIntegrity(tamperedSnapshot);
       expect(invalidCheck.isValid).toBe(false);
 
-      // 4. Restore into fresh repository (#49)
       const newRepo = new InMemoryInquiryRepository();
       expect(await newRepo.count()).toBe(0);
 
@@ -227,7 +208,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       expect(restoreResult.restoredCount).toBe(1);
       expect(await newRepo.count()).toBe(1);
 
-      // 5. Verify DR runbook targets in docs
       const drDocPath = path.join(rootDir, 'docs/operations/disaster-recovery.md');
       expect(fs.existsSync(drDocPath)).toBe(true);
       const drContent = fs.readFileSync(drDocPath, 'utf-8');
@@ -238,9 +218,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     });
   });
 
-  // ===================================================================================
-  // DOMAIN 2: CONCURRENCY, IDEMPOTENCY, CACHING & ASYNC RESILIENCE (#2, #3, #16, #17, #18, #19, #20, #23)
-  // ===================================================================================
   describe('DOMAIN 2: Concurrency, Idempotency, Caching & Resilience', () => {
     it('Standard #2: KeyedMutex serializes concurrent critical sections on the same key', async () => {
       const mutex = new KeyedMutex();
@@ -263,21 +240,17 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       const store = new IdempotencyStore(10000);
       const key = 'idem_key_123';
 
-      // 1. Initial mark as in-flight succeeds
       const marked = store.markInFlight(key);
       expect(marked).toBe(true);
 
-      // 2. Second concurrent call is rejected
       expect(store.markInFlight(key)).toBe(false);
 
-      // 3. Resolve key with payload
       store.resolve(key, 201, { id: 'inq_123' }, { 'X-Custom': 'val' });
       const cached = store.get<{ id: string }>(key);
       expect(cached?.status).toBe('RESOLVED');
       expect(cached?.response?.statusCode).toBe(201);
       expect(cached?.response?.body.id).toBe('inq_123');
 
-      // 4. Test release on error
       const retryKey = 'idem_key_retry';
       store.markInFlight(retryKey);
       expect(store.get(retryKey)?.status).toBe('IN_FLIGHT');
@@ -297,14 +270,12 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       expect(await cache.get('inquiries:2')).not.toBeNull();
       expect(await cache.get('analytics:summary')).not.toBeNull();
 
-      // Tag invalidation: invalidating 'inquiries' removes both inquiries:1 and inquiries:2
       const invalidatedCount = await cache.invalidateByTag('inquiries');
       expect(invalidatedCount).toBe(2);
       expect(await cache.get('inquiries:1')).toBeNull();
       expect(await cache.get('inquiries:2')).toBeNull();
       expect(await cache.get('analytics:summary')).not.toBeNull();
 
-      // Prefix invalidation
       await cache.set('auth:token:abc', 'token1');
       await cache.set('auth:token:def', 'token2');
       const prefixCount = await cache.invalidateByPrefix('auth:');
@@ -328,20 +299,16 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
 
       await queue.enqueue('FAILING_JOB', { data: 'test_payload' });
 
-      // Drain queue to simulate all retries
       await queue.drain();
 
-      // Verify retry count reached 3
       expect(attempts).toBe(3);
 
-      // Verify job moved to Dead Letter Queue (DLQ)
       const dlq = queue.getDeadLetterJobs();
       expect(dlq.length).toBe(1);
       expect(dlq[0].name).toBe('FAILING_JOB');
       expect(dlq[0].attempts).toBe(3);
       expect(dlq[0].lastError).toContain('Simulated transient network failure');
 
-      // Requeue from DLQ
       const requeued = await queue.requeueDeadLetterJob(dlq[0].id);
       expect(requeued).toBe(true);
       expect(queue.getDeadLetterJobs().length).toBe(0);
@@ -356,13 +323,10 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     });
   });
 
-  // ===================================================================================
-  // DOMAIN 3: APPLICATION SECURITY & VULNERABILITY PREVENTION (#4, #6, #7, #8, #9, #10, #11, #31, #32, #33, #34, #35, #36, #37, #39, #40)
-  // ===================================================================================
   describe('DOMAIN 3: Application Security & Vulnerability Defense', () => {
     it('Standard #4: Server-side validation schema enforces corporate emails and required fields', () => {
       const invalid = submitInquirySchema.safeParse({
-        clientName: 'A', // too short
+        clientName: 'A',
         companyName: '',
         email: 'not-an-email',
       });
@@ -393,7 +357,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     });
 
     it('Standard #34: SSRF Guard rejects local loopbacks, private networks, and cloud metadata', () => {
-      // Must reject loopback and private subnets
       expect(isSafeExternalUrl('http://localhost')).toBe(false);
       expect(isSafeExternalUrl('http://127.0.0.1:8080/admin')).toBe(false);
       expect(isSafeExternalUrl('http://169.254.169.254/latest/meta-data')).toBe(false);
@@ -403,7 +366,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       expect(isSafeExternalUrl('file:///etc/passwd')).toBe(false);
       expect(isSafeExternalUrl('http://user:password@luxury.com')).toBe(false);
 
-      // Must accept legitimate public brand websites
       expect(isSafeExternalUrl('https://brandmania.agency')).toBe(true);
       expect(isSafeExternalUrl('https://rolex.com')).toBe(true);
       expect(isSafeExternalUrl('http://subdomain.company.co.uk')).toBe(true);
@@ -420,13 +382,10 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       const ownerId = 'user_owner_123';
       const strangerId = 'user_attacker_456';
 
-      // Stranger cannot access owner record
       expect(verifyResourceAccess(strangerId, ownerId)).toBe(false);
 
-      // Owner can access own record
       expect(verifyResourceAccess(ownerId, ownerId)).toBe(true);
 
-      // Privileged service_role / admin can access
       expect(verifyResourceAccess('backend_worker', ownerId, 'service_role')).toBe(true);
       expect(verifyResourceAccess('admin_user', ownerId, 'admin')).toBe(true);
     });
@@ -434,19 +393,16 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     it('Standard #37: Stateless session token enforces cryptographically signed expiration and iat', () => {
       const secret = 'ultra_secure_session_secret_min_32_characters_long';
 
-      // 1. Create valid session token
       const validToken = createSessionToken({ sub: 'user_123', role: 'executive' }, secret, 3600);
       const verified = verifySessionToken(validToken, secret);
       expect(verified.valid).toBe(true);
       expect(verified.payload?.sub).toBe('user_123');
 
-      // 2. Reject expired token (expires in -10 seconds)
       const expiredToken = createSessionToken({ sub: 'user_123', role: 'executive' }, secret, -10);
       const expiredCheck = verifySessionToken(expiredToken, secret);
       expect(expiredCheck.valid).toBe(false);
       expect(expiredCheck.error).toBe('SESSION_EXPIRED');
 
-      // 3. Reject tampered signature
       const tamperedToken = validToken.slice(0, -5) + 'xxxxx';
       expect(verifySessionToken(tamperedToken, secret).valid).toBe(false);
     });
@@ -456,16 +412,13 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       const payload = JSON.stringify({ id: 'evt_100', type: 'charge.succeeded' });
       const now = Math.floor(Date.now() / 1000);
 
-      // Compute valid signature
       const crypto = require('crypto');
       const sig = crypto.createHmac('sha256', secret).update(`${now}.${payload}`).digest('hex');
       const header = `t=${now},v1=${sig}`;
 
-      // 1. Valid signature passes
       const result = verifyWebhookSignature({ payload, signatureHeader: header, secret });
       expect(result.isValid).toBe(true);
 
-      // 2. Replay attack with expired timestamp (> 300s) fails
       const expiredTimestamp = now - 600;
       const expiredSig = crypto.createHmac('sha256', secret).update(`${expiredTimestamp}.${payload}`).digest('hex');
       const expiredHeader = `t=${expiredTimestamp},v1=${expiredSig}`;
@@ -475,25 +428,21 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     });
 
     it('Standard #35: File upload validation checks magic bytes and blocks dangerous double extensions', () => {
-      // 1. Valid PDF magic bytes (%PDF-)
       const pdfBuffer = Buffer.from('%PDF-1.7 sample content');
       const pdfResult = validateFileUpload(pdfBuffer, 'contract.pdf');
       expect(pdfResult.isValid).toBe(true);
       expect(pdfResult.detectedMimeType).toBe('application/pdf');
 
-      // 2. Valid PNG magic bytes
       const pngBuffer = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00]);
       const pngResult = validateFileUpload(pngBuffer, 'brand_logo.png');
       expect(pngResult.isValid).toBe(true);
       expect(pngResult.detectedMimeType).toBe('image/png');
 
-      // 3. Reject spoofed extension with invalid magic bytes
       const fakeBuffer = Buffer.from('plain text pretending to be pdf');
       const fakeResult = validateFileUpload(fakeBuffer, 'malicious.pdf');
       expect(fakeResult.isValid).toBe(false);
       expect(fakeResult.error).toContain('MAGIC_BYTES');
 
-      // 4. Reject dangerous double extension
       const dangerousResult = validateFileUpload(pdfBuffer, 'invoice.pdf.exe');
       expect(dangerousResult.isValid).toBe(false);
       expect(dangerousResult.error).toContain('EXTENSION');
@@ -510,7 +459,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       expect(verified.valid).toBe(true);
       expect(verified.path).toBe('/dossiers/confidential_brief.pdf');
 
-      // Expired signed URL
       const expiredUrl = generateSignedUrl('dossiers/confidential_brief.pdf', -10, secret);
       const expiredCheck = verifySignedUrl(expiredUrl, secret);
       expect(expiredCheck.valid).toBe(false);
@@ -524,7 +472,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       expect(res.limit).toBe(5);
       expect(res.remaining).toBe(4);
 
-      // Verify next.config.ts security headers
       const headersList = await nextConfig.headers!();
       const allRoutesHeader = headersList.find((h: any) => h.source === '/:path*');
       expect(allRoutesHeader).toBeDefined();
@@ -538,9 +485,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     });
   });
 
-  // ===================================================================================
-  // DOMAIN 4: OBSERVABILITY, FEATURE FLAGS, ERROR & COST MONITORING (#21, #22, #28, #29, #30, #50)
-  // ===================================================================================
   describe('DOMAIN 4: Observability, Alerting, Feature Flags & Cost Guard', () => {
     it('Standard #21 & #30: TelemetryMonitor tracks 5xx error spikes and triggers ALERT_TRIGGERED', () => {
       const monitor = new TelemetryMonitor({
@@ -555,7 +499,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       monitor.recordError(500, 'Internal Server Error 2');
       expect(firedAlerts.length).toBe(0);
 
-      // Third error trips threshold
       monitor.recordError(500, 'Internal Server Error 3');
       expect(firedAlerts.length).toBe(1);
       expect(firedAlerts[0].type).toBe('ERROR_SPIKE');
@@ -570,11 +513,9 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
 
       expect(monitor.isCircuitBreakerTripped()).toBe(false);
 
-      // Consume tokens under budget
       monitor.recordTokenUsage(500, 4.0);
       expect(monitor.isCircuitBreakerTripped()).toBe(false);
 
-      // Consume tokens exceeding budget
       monitor.recordTokenUsage(600, 7.0);
       expect(monitor.isCircuitBreakerTripped()).toBe(true);
 
@@ -586,17 +527,14 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     it('Standard #28: FeatureFlagService manages env flags, kill-switches, and deterministic percentage rollouts', () => {
       const flags = new FeatureFlagService();
 
-      // Check defaults
       expect(flags.isEnabled('MAINTENANCE_MODE')).toBe(false);
 
-      // Set operational kill-switch override
       flags.setOverride('MAINTENANCE_MODE', true);
       expect(flags.isEnabled('MAINTENANCE_MODE')).toBe(true);
 
       flags.clearOverride('MAINTENANCE_MODE');
       expect(flags.isEnabled('MAINTENANCE_MODE')).toBe(false);
 
-      // Deterministic percentage rollout
       const isUserInFiftyPercent = flags.isEnabledForEntity('ENABLE_AI_TRIAGE', 'user_alpha', 50);
       const isSameUserConsistent = flags.isEnabledForEntity('ENABLE_AI_TRIAGE', 'user_alpha', 50);
       expect(isUserInFiftyPercent).toBe(isSameUserConsistent);
@@ -619,18 +557,15 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
         () => ({ MAINTENANCE_MODE: false })
       );
 
-      // Liveness probe
       const liveness = healthUseCase.getLiveness();
       expect(liveness.status).toBe('healthy');
       expect(liveness.maintenanceMode).toBe(false);
 
-      // Readiness probe when healthy
       const readyCheck = await healthUseCase.getReadiness();
       expect(readyCheck.status).toBe('ready');
       expect(readyCheck.checks.circuitBreaker?.tripped).toBe(false);
       expect(readyCheck.checks.dlq?.deadLetterCount).toBe(0);
 
-      // Simulate circuit breaker trip
       circuitTripped = true;
       const unreadyCheck = await healthUseCase.getReadiness();
       expect(unreadyCheck.status).toBe('not_ready');
@@ -638,9 +573,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     });
   });
 
-  // ===================================================================================
-  // DOMAIN 5: TESTING, ACCESSIBILITY, LOAD, STAGING & ZERO-DOWNTIME DEPLOYMENT (#12, #41, #42, #43, #44, #45, #46, #47)
-  // ===================================================================================
   describe('DOMAIN 5: Load Testing, Stress Resilience, Accessibility & Zero-Downtime Verification', () => {
     it('Standard #12: Race Condition Stress Test fires 50 concurrent requests, verifying mutex and idempotency serialization', async () => {
       const mutex = new KeyedMutex();
@@ -651,16 +583,13 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       let cachedReplayCount = 0;
       let conflictCount = 0;
 
-      // Simulate 50 concurrent requests
       const promises = Array.from({ length: 50 }).map(async (_, index) => {
-        // First check idempotency
         const cached = sharedStore.get(idempotencyKey);
         if (cached?.status === 'RESOLVED') {
           cachedReplayCount++;
           return { status: 200, replay: true };
         }
 
-        // Acquire mutex lock to simulate serialized execution under race condition
         return await mutex.runExclusive(idempotencyKey, async () => {
           const checkInsideLock = sharedStore.get(idempotencyKey);
           if (checkInsideLock?.status === 'RESOLVED') {
@@ -675,7 +604,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
 
           sharedStore.markInFlight(idempotencyKey);
 
-          // Simulate use case execution delay
           await new Promise((r) => setTimeout(r, 10));
           executionCount++;
 
@@ -686,21 +614,17 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
 
       const results = await Promise.all(promises);
 
-      // Verify exactly ONE execution occurred
       expect(executionCount).toBe(1);
-      // All other 49 requests must be either cached replays or handled conflict
       expect(cachedReplayCount + conflictCount).toBe(49);
       expect(results.length).toBe(50);
     });
 
     it('Standard #42: Accessibility (a11y) verification checks semantic landmarks and ARIA contracts', () => {
-      // Verify layout contains semantic landmarks (main, header, footer)
       const layoutFile = path.join(rootDir, 'src/app/layout.tsx');
       expect(fs.existsSync(layoutFile)).toBe(true);
       const layoutContent = fs.readFileSync(layoutFile, 'utf-8');
       expect(layoutContent).toContain('<main');
 
-      // Verify form components enforce accessible input labels
       const inputComponent = path.join(rootDir, 'src/presentation/components/primitives/Input.tsx');
       expect(fs.existsSync(inputComponent)).toBe(true);
       const inputContent = fs.readFileSync(inputComponent, 'utf-8');
@@ -708,7 +632,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     });
 
     it('Standard #43: End-to-End Workflow Testing validates inquiry submission, webhook verification, and signed asset download flow', async () => {
-      // Step 1: Submit valid inquiry
       const payload = {
         clientName: 'Alexander Vance',
         companyName: 'Vance Capital Partners',
@@ -724,7 +647,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       const parsed = submitInquirySchema.safeParse(payload);
       expect(parsed.success).toBe(true);
 
-      // Step 2: Webhook signature verification flow
       const webhookSecret = 'test_secret_32bytes_long_webhook_key';
       const eventPayload = JSON.stringify({ id: 'evt_flow_1', type: 'inquiry.qualified' });
       const now = Math.floor(Date.now() / 1000);
@@ -737,7 +659,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       });
       expect(whResult.isValid).toBe(true);
 
-      // Step 3: Signed asset download flow
       const assetSecret = 'asset_download_secret_key_32bytes';
       const signedAssetUrl = generateSignedUrl('dossiers/vance_audit.pdf', 300, assetSecret);
       const assetVerification = verifySignedUrl(signedAssetUrl, assetSecret);
@@ -754,7 +675,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
       expect(cacheControl).toBeDefined();
       expect(cacheControl!.value).toContain('stale-while-revalidate');
 
-      // Standalone output & images configuration
       expect(nextConfig.output).toBe('standalone');
       expect(nextConfig.images?.formats).toContain('image/avif');
       expect(nextConfig.images?.formats).toContain('image/webp');
@@ -783,13 +703,11 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
         clock,
         '1.0.0',
         undefined,
-        () => isDraining // Drain signal trips readiness check
+        () => isDraining
       );
 
-      // During active traffic, system is ready
       expect((await healthUseCase.getReadiness()).status).toBe('ready');
 
-      // When SIGTERM/drain initiated, readiness immediately returns not_ready so load balancer stops sending new traffic
       isDraining = true;
       expect((await healthUseCase.getReadiness()).status).toBe('not_ready');
     });
@@ -806,7 +724,6 @@ describe('BRANDMANIA 50 PRODUCTION STANDARDS VERIFICATION SUITE', () => {
     });
 
     it('Standard #41: Multi-layer test coverage proves all 50 standards are verified programmatically', () => {
-      // Meta-assertion: All 50 standards are tested across the 5 domains
       const verifiedStandards = [
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
         11, 12, 13, 14, 15, 16, 17, 18, 19, 20,

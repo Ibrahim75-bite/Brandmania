@@ -22,11 +22,11 @@ export default function NotFound() {
         borderBottom: '1px solid rgba(200, 130, 255, 0.16)',
       }}
     >
-      {/* Precision Corner Arcs */}
+      {}
       <CornerArcs position="top-left" size={240} opacity={0.06} color="#C882FF" strokeWidth={12} />
       <CornerArcs position="bottom-right" size={240} opacity={0.04} color="#C882FF" strokeWidth={12} />
 
-      {/* Watermark BrandEye — explicit 640px pixel sizing */}
+      {}
       <div
         style={{
           position: 'absolute',
@@ -55,14 +55,14 @@ export default function NotFound() {
             textAlign: 'center',
           }}
         >
-          {/* Diagnostic Badge */}
+          {}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 'var(--space-4)' }}>
             <Badge variant="neutral" size="sm">
               0404 / Coordinate disconnected
             </Badge>
           </div>
 
-          {/* Instrument Serif Headline */}
+          {}
           <h1
             style={{
               fontFamily: 'var(--font-serif), Instrument Serif, serif',
@@ -89,7 +89,7 @@ export default function NotFound() {
             The requested architectural resource, strategic brief, or digital coordinate does not exist within the current BRANDMANIA perception system.
           </p>
 
-          {/* Navigation Action */}
+          {}
           <div style={{ display: 'flex', justifyContent: 'center', gap: 'var(--space-4)' }}>
             <Link
               href="/"

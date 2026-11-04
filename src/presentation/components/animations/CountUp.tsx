@@ -14,11 +14,6 @@ interface CountUpProps {
   style?: React.CSSProperties;
 }
 
-/**
- * CountUp - React Bits Adapted Smooth Numeric Counter
- * Eases numbers upward smoothly via requestAnimationFrame.
- * Exclusively used for verified figures. Renders target number immediately under reduced-motion.
- */
 export const CountUp: React.FC<CountUpProps> = ({
   to,
   from = 0,
@@ -35,7 +30,6 @@ export const CountUp: React.FC<CountUpProps> = ({
   const startedRef = useRef(false);
 
   useEffect(() => {
-    // Instant render under reduced-motion preference
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setValue(to);
       return;
@@ -51,7 +45,6 @@ export const CountUp: React.FC<CountUpProps> = ({
           const step = (currentTime: number) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / durationMs, 1);
-            // Ease-out cubic curve
             const easedProgress = 1 - Math.pow(1 - progress, 3);
             const currentVal = from + (to - from) * easedProgress;
 

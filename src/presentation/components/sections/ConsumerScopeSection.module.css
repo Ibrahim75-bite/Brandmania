@@ -38,7 +38,6 @@
   text-wrap: balance;
 }
 
-/* 2-Pane Split Editorial Reader */
 .readerGrid {
   display: grid;
   grid-template-columns: 5fr 7fr;

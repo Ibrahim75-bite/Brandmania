@@ -10,7 +10,7 @@ describe('UX Engineering Pattern #19: Server-Side Idempotency Store', () => {
   let store: IdempotencyStore;
 
   beforeEach(() => {
-    store = new IdempotencyStore(1000); // 1 second TTL
+    store = new IdempotencyStore(1000);
   });
 
   it('allows the initial request to mark key in-flight', () => {
@@ -44,7 +44,6 @@ describe('UX Engineering Pattern #19: Server-Side Idempotency Store', () => {
     expect(record?.response?.statusCode).toBe(201);
     expect(record?.response?.body).toEqual(responseData);
 
-    // Further duplicate attempts while resolved are still blocked from starting fresh
     expect(store.markInFlight(key)).toBe(false);
   });
 
@@ -63,10 +62,6 @@ describe('UX Engineering Pattern #19: Server-Side Idempotency Store', () => {
 });
 
 describe('UX Engineering Pattern #20: Amazon Safe Triangle Geometry', () => {
-  // Test triangle vertices:
-  // v1: (0, 0)
-  // v2: (100, 0)
-  // v3: (50, 100)
   const v1 = { x: 0, y: 0 };
   const v2 = { x: 100, y: 0 };
   const v3 = { x: 50, y: 100 };
@@ -228,7 +223,6 @@ describe('UX Engineering Pattern #5: Undo Toast & Keyboard Shortcut', () => {
       />
     );
 
-    // Simulate Cmd+Z / Ctrl+Z
     fireEvent.keyDown(window, {
       key: 'z',
       ctrlKey: true,

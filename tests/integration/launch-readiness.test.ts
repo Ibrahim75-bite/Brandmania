@@ -55,7 +55,7 @@ describe('Launch-Readiness 20-Point Verification Suite', () => {
 
       // Check MAIN_NAV_LINKS
       const mainAnchors = MAIN_NAV_LINKS.map((l) => l.href.replace('/#', ''));
-      expect(mainAnchors).toEqual(['manifesto', 'system', 'disciplines', 'work']);
+      expect(mainAnchors).toEqual(['manifesto', 'system', 'disciplines', 'work', '/insights']);
 
       // Check section components for exact matching IDs
       const sectionFiles = [

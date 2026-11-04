@@ -1,9 +1,3 @@
-/**
- * BRANDMANIA Brand Configuration & Core Strategic Identity
- *
- * This module contains the foundational positioning, strategic principles,
- * and commercial identity of BRANDMANIA.
- */
 
 export interface BrandConfig {
   name: string;

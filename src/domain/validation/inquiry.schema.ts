@@ -75,23 +75,16 @@ export const submitInquirySchema = z.object({
     .trim()
     .min(10, 'Diagnostic context must be at least 10 characters')
     .max(2000, 'Message cannot exceed 2000 characters'),
-  // Anti-Spam Layer 1: Honeypot (must remain completely empty)
   company_fax_number: z.string().optional(),
-  // Anti-Spam Layer 2: Submission Time-Lock (minimum 2500ms duration)
   submissionDurationMs: z.number().optional(),
-  // Legal & 18+ Corporate Authorization Consent Guard (defaults to true for API compatibility)
   consentAccepted: z
     .boolean()
     .default(true)
     .refine((val) => val === true, {
       message: 'You must confirm corporate authorization (18+) and accept the Privacy Policy and Terms of Engagement.',
     }),
-  // #4: Strip unverified browser-supplied price/tier/priority fields.
-  // These are intentionally NOT in the schema so zod strips them via .strip() below.
-  // Any price, discount, or priorityScore sent from the browser is ignored.
 })
-  // .strip() removes any keys not declared above (e.g. price, discount, priorityScore)
-  // so the browser can never inject server-computed values.
   .strip();
 
 export type SubmitInquirySchemaInput = z.infer<typeof submitInquirySchema>;
+export const STRIPPED_BROWSER_KEYS = ['price', 'discount', 'priorityScore'] as const;

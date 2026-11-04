@@ -16,7 +16,6 @@ describe('SEO, GEO, International Hreflang & AI Optimization Tests', () => {
       expect(metadata.metadataBase).toEqual(new URL(siteUrl));
       expect(metadata.alternates?.canonical).toBe(siteUrl);
 
-      // Verify hreflang alternates: x-default + English target locales
       const languages = metadata.alternates?.languages as Record<string, string>;
       expect(languages).toBeDefined();
       expect(languages['x-default']).toBe(siteUrl);
@@ -69,7 +68,6 @@ describe('SEO, GEO, International Hreflang & AI Optimization Tests', () => {
 
     it('does not emit geo tags when unconfigured, preventing fake coordinates', () => {
       const metadata = constructMetadata();
-      // seoConfig.geo is null by default
       expect(metadata.other).toBeUndefined();
     });
   });
@@ -84,7 +82,6 @@ describe('SEO, GEO, International Hreflang & AI Optimization Tests', () => {
       const rules = Array.isArray(robotsData.rules) ? robotsData.rules : [robotsData.rules];
       const userAgents = rules.map((r) => r.userAgent);
 
-      // Must allow both traditional and AI citation crawlers
       expect(userAgents).toContain('*');
       expect(userAgents).toContain('Googlebot');
       expect(userAgents).toContain('Bingbot');
@@ -97,7 +94,6 @@ describe('SEO, GEO, International Hreflang & AI Optimization Tests', () => {
       expect(userAgents).toContain('Google-Extended');
       expect(userAgents).toContain('Applebot-Extended');
 
-      // Verify each rule allows / and disallows /api/ and /dev/
       for (const rule of rules) {
         expect(rule.allow).toBe('/');
         expect(rule.disallow).toEqual(['/api/', '/dev/']);
@@ -112,7 +108,6 @@ describe('SEO, GEO, International Hreflang & AI Optimization Tests', () => {
       expect(sitemapEntries.length).toBeGreaterThan(10);
       const urls = sitemapEntries.map((e) => e.url);
 
-      // Primary routes
       expect(urls).toContain(siteUrl);
       expect(urls).toContain(`${siteUrl}/services`);
       expect(urls).toContain(`${siteUrl}/services/brand-direction`);
@@ -120,11 +115,9 @@ describe('SEO, GEO, International Hreflang & AI Optimization Tests', () => {
       expect(urls).toContain(`${siteUrl}/services/consumer-scope`);
       expect(urls).toContain(`${siteUrl}/work`);
 
-      // Native AI endpoints
       expect(urls).toContain(`${siteUrl}/llms.txt`);
       expect(urls).toContain(`${siteUrl}/llms-full.txt`);
 
-      // Hreflang alternates on entries
       const homeEntry = sitemapEntries.find((e) => e.url === siteUrl);
       expect(homeEntry?.alternates?.languages?.['x-default']).toBe(siteUrl);
       expect(homeEntry?.alternates?.languages?.['en']).toBe(siteUrl);
@@ -149,7 +142,6 @@ describe('SEO, GEO, International Hreflang & AI Optimization Tests', () => {
       expect(text).toContain('Consumer Scope');
       expect(text).toContain(`${siteUrl}/llms-full.txt`);
 
-      // Ensure no standalone ARR acronym used for annual revenue
       expect(text).not.toMatch(/\bARR\b/);
     });
 
@@ -162,12 +154,10 @@ describe('SEO, GEO, International Hreflang & AI Optimization Tests', () => {
       const text = await response.text();
       expect(text).toContain('Complete Machine-Readable Entity Dossier');
 
-      // The 3 Flagships
       expect(text).toContain('Flagship I: Brand Direction');
       expect(text).toContain('Flagship II: Margin Recovery');
       expect(text).toContain('Flagship III: Consumer Scope');
 
-      // The 11 Capabilities
       expect(text).toContain('Digital Marketing');
       expect(text).toContain('Growth Marketing');
       expect(text).toContain('Performance Marketing');
@@ -180,7 +170,6 @@ describe('SEO, GEO, International Hreflang & AI Optimization Tests', () => {
       expect(text).toContain('AI Automation');
       expect(text).toContain('AI Connected Systems');
 
-      // The 20 Industries
       expect(text).toContain('Designers');
       expect(text).toContain('Jewelry & Gemstones');
       expect(text).toContain('Interior Design');
@@ -202,11 +191,9 @@ describe('SEO, GEO, International Hreflang & AI Optimization Tests', () => {
       expect(text).toContain('B2B Medical Devices');
       expect(text).toContain('Furniture');
 
-      // 2 Engagement Models
       expect(text).toContain('Full Strategic Rebuild & Performance Engagement');
       expect(text).toContain('Strategic Consultancy');
 
-      // Verified threshold (no standalone ARR acronym)
       expect(text).toContain('$700,000+ annual revenue');
       expect(text).not.toMatch(/\bARR\b/);
     });

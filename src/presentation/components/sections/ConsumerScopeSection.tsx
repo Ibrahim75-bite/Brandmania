@@ -71,7 +71,7 @@ export const ConsumerScopeSection: React.FC = () => {
   return (
     <section id="consumer-scope" className={styles.section}>
       <Container size="full">
-        {/* Header Block */}
+        {}
         <div className={styles.headerBlock}>
           <div className={styles.marker}>
             06 &mdash; FLAGSHIP III &bull; CONSUMER SCOPE &bull; 7 BEHAVIORAL DIMENSIONS
@@ -81,9 +81,9 @@ export const ConsumerScopeSection: React.FC = () => {
           </h2>
         </div>
 
-        {/* 2-Pane Split Editorial Reader */}
+        {}
         <div className={styles.readerGrid}>
-          {/* Left Pane: 7 Behavioral Dimensions List */}
+          {}
           <div className={styles.leftPane} role="tablist" aria-label="Behavioral Dimensions">
             {dimensions.map((dim) => {
               const isActive = dim.id === activeId;
@@ -103,7 +103,7 @@ export const ConsumerScopeSection: React.FC = () => {
             })}
           </div>
 
-          {/* Right Pane: Active Dimension Detail Display */}
+          {}
           <div className={styles.rightPane} role="tabpanel" aria-live="polite">
             <div className={styles.activeHeader}>
               <span className={styles.activeBadge}>DIMENSION {activeDim.id}</span>
@@ -121,7 +121,7 @@ export const ConsumerScopeSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Full Semantic SSR DOM Archive for Search Crawlers */}
+        {}
         <div className={styles.srOnly} aria-label="Consumer Scope Complete Archive">
           {dimensions.map((dim) => (
             <article key={`ssr-${dim.id}`}>

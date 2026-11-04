@@ -2,11 +2,6 @@
 
 import React from 'react';
 
-/**
- * Accessible Skip to Main Content Link
- * Hidden offscreen until focused by keyboard Tab navigation.
- * Standard #15 (WCAG 2.1 AA Success Criterion 2.4.1 Bypass Blocks)
- */
 export function SkipToContent() {
   return (
     <a

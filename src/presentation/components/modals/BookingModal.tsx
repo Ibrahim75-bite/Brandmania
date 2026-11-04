@@ -50,7 +50,6 @@ export function BookingModal({
         return;
       }
 
-      // #15 Accessible Focus Trap
       if (e.key === 'Tab' && modalRef.current) {
         const focusable = Array.from(
           modalRef.current.querySelectorAll<HTMLElement>(
@@ -83,7 +82,6 @@ export function BookingModal({
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
 
-      // Focus first actionable element inside modal on open
       const focusTimer = setTimeout(() => {
         if (modalRef.current) {
           const focusable = modalRef.current.querySelectorAll<HTMLElement>(
@@ -148,7 +146,7 @@ export function BookingModal({
         </div>
 
         <div className={styles.content}>
-          {/* Executive Dossier Transmission Receipt (#14 Peak-End Rule) */}
+          {}
           <div
             style={{
               display: 'flex',
@@ -187,7 +185,7 @@ export function BookingModal({
                   color: 'var(--color-status-success)',
                 }}
               >
-                SECURE // SHA-256
+                SECURE
               </span>
             </div>
 

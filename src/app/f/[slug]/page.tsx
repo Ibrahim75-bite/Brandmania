@@ -53,9 +53,8 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
   }
 
   return (
-    <div style={{ position: 'relative', overflow: 'hidden' }}>
-      {/* 1. Hero Section */}
-      <Section spacing="lg" style={{ paddingTop: 'var(--space-16)', paddingBottom: 'var(--space-20)' }}>
+    <div style={{ position: 'relative', overflow: 'hidden', backgroundColor: '#0D0118', color: '#FAF7FF' }}>
+      <Section spacing="lg" style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 5rem)', backgroundColor: '#160429', borderBottom: '1px solid rgba(200, 130, 255, 0.16)' }}>
         <Container>
           <div
             style={{
@@ -67,24 +66,24 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
               textAlign: 'center',
               maxWidth: '960px',
               margin: '0 auto',
-              gap: 'var(--space-6)',
+              gap: '1.5rem',
             }}
           >
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem' }}>
               <BrandEye size="sm" />
-              <Badge variant="neutral" size="md">
+              <Badge variant="purple" size="md">
                 {funnel.hero.badge}
               </Badge>
             </div>
 
             <h1
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'var(--font-size-hero)',
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
                 fontWeight: 400,
-                lineHeight: 'var(--line-height-tight)',
+                lineHeight: 1.02,
                 letterSpacing: '-0.02em',
-                color: '#ffffff',
+                color: '#FAF7FF',
               }}
             >
               {funnel.hero.headline}
@@ -92,9 +91,9 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
 
             <p
               style={{
-                fontSize: 'var(--font-size-xl)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 'var(--line-height-relaxed)',
+                fontSize: '1.2rem',
+                color: '#C4B8D8',
+                lineHeight: 1.65,
                 maxWidth: '780px',
               }}
             >
@@ -104,19 +103,19 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
             <div
               style={{
                 display: 'flex',
-                gap: 'var(--space-4)',
+                gap: '1rem',
                 flexWrap: 'wrap',
                 justifyContent: 'center',
-                marginTop: 'var(--space-4)',
+                marginTop: '1rem',
               }}
             >
               <a href="#consultation" style={{ textDecoration: 'none' }}>
                 <Button variant="primary" size="lg">
-                  {funnel.hero.primaryCta}
+                  {funnel.hero.primaryCta} &rarr;
                 </Button>
               </a>
               <a href="#briefing" style={{ textDecoration: 'none' }}>
-                <Button variant="outline" size="lg">
+                <Button variant="secondary" size="lg">
                   {funnel.hero.secondaryCta}
                 </Button>
               </a>
@@ -124,9 +123,11 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
 
             <p
               style={{
-                fontSize: 'var(--font-size-xs)',
-                color: 'var(--color-text-muted)',
-                letterSpacing: '0.04em',
+                fontSize: '11px',
+                fontFamily: 'var(--font-mono), monospace',
+                color: '#A8A0B8',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
               }}
             >
               {funnel.hero.supportingText}
@@ -135,25 +136,24 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
         </Container>
       </Section>
 
-      {/* 2. Executive Diagnostic Briefing Dossier */}
-      <Section id="briefing" spacing="lg" style={{ backgroundColor: 'var(--color-bg-surface)' }}>
+      <Section id="briefing" spacing="lg" style={{ backgroundColor: '#0D0118', borderBottom: '1px solid rgba(200, 130, 255, 0.16)' }}>
         <Container>
-          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto var(--space-10)' }}>
-            <Badge variant="neutral" size="sm" style={{ marginBottom: 'var(--space-3)' }}>
-              Strategic briefing dossier
+          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 2.5rem auto' }}>
+            <Badge variant="purple" size="sm" style={{ marginBottom: '1rem' }}>
+              STRATEGIC BRIEFING DOSSIER
             </Badge>
             <h2
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'var(--font-size-4xl)',
-                color: '#fff',
-                marginBottom: 'var(--space-3)',
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
+                color: '#FAF7FF',
+                marginBottom: '0.75rem',
                 fontWeight: 400,
               }}
             >
               Executive Diagnostic Briefing
             </h2>
-            <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-base)' }}>
+            <p style={{ color: '#C4B8D8', fontSize: '1.05rem', lineHeight: 1.6 }}>
               Architectural analysis of market positioning, capital efficiency, and customer acquisition mechanics.
             </p>
           </div>
@@ -162,33 +162,32 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
             style={{
               maxWidth: '960px',
               margin: '0 auto',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              backgroundColor: '#0A0A0E',
+              border: '1px solid rgba(200, 130, 255, 0.2)',
+              backgroundColor: '#160429',
             }}
           >
-            {/* Dossier Header Bar */}
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 flexWrap: 'wrap',
-                gap: 'var(--space-3)',
-                padding: 'var(--space-3) var(--space-6)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-                backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                gap: '1rem',
+                padding: '1rem 1.5rem',
+                borderBottom: '1px solid rgba(200, 130, 255, 0.16)',
+                backgroundColor: 'rgba(13, 1, 24, 0.6)',
                 fontFamily: 'var(--font-mono), monospace',
                 fontSize: '11px',
-                letterSpacing: '0.02em',
-                color: 'var(--color-text-muted)',
+                letterSpacing: '0.08em',
+                color: '#A8A0B8',
+                textTransform: 'uppercase',
               }}
             >
               <span>Dossier: BMD-EXEC-DIAGNOSTIC</span>
-              <span style={{ color: '#ffffff' }}>Classification: Privileged advisory</span>
-              <span>Triage: 72-hour cycle</span>
+              <span style={{ color: '#C882FF' }}>Classification: Privileged advisory</span>
+              <span>Floor: $700,000+ Annual Revenue</span>
             </div>
 
-            {/* 4 Takeaways Grid */}
             <div
               style={{
                 display: 'grid',
@@ -199,31 +198,32 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
                 <div
                   key={i}
                   style={{
-                    padding: 'var(--space-8)',
-                    borderRight: i % 2 === 0 ? '1px solid rgba(255, 255, 255, 0.08)' : 'none',
-                    borderBottom: i < 2 ? '1px solid rgba(255, 255, 255, 0.08)' : 'none',
+                    padding: '2rem',
+                    borderRight: i % 2 === 0 ? '1px solid rgba(200, 130, 255, 0.12)' : 'none',
+                    borderBottom: i < 2 ? '1px solid rgba(200, 130, 255, 0.12)' : 'none',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--space-3)',
+                    gap: '0.75rem',
                   }}
                 >
                   <div
                     style={{
                       fontFamily: 'var(--font-mono), monospace',
-                      fontSize: 'var(--font-size-xs)',
-                      color: 'var(--color-text-secondary)',
-                      letterSpacing: '0.02em',
-                      fontWeight: 500,
+                      fontSize: '11px',
+                      color: '#C882FF',
+                      letterSpacing: '0.1em',
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
                     }}
                     className="tabular-nums"
                   >
-                    Executive directive 0{i + 1}
+                    Executive Directive 0{i + 1}
                   </div>
                   <p
                     style={{
-                      fontSize: 'var(--font-size-base)',
-                      color: '#FFFFFF',
-                      lineHeight: 'var(--line-height-relaxed)',
+                      fontSize: '1rem',
+                      color: '#FAF7FF',
+                      lineHeight: 1.6,
                       margin: 0,
                     }}
                   >
@@ -233,64 +233,54 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
               ))}
             </div>
 
-            {/* Dossier Footer Action */}
             <div
               style={{
-                padding: 'var(--space-5) var(--space-6)',
-                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-                backgroundColor: 'rgba(255, 255, 255, 0.01)',
+                padding: '1.25rem 1.5rem',
+                borderTop: '1px solid rgba(200, 130, 255, 0.16)',
+                backgroundColor: 'rgba(13, 1, 24, 0.6)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 flexWrap: 'wrap',
-                gap: 'var(--space-4)',
+                gap: '1rem',
               }}
             >
-              <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-secondary)' }}>
+              <div style={{ fontSize: '11px', fontFamily: 'var(--font-mono), monospace', color: '#A8A0B8', letterSpacing: '0.04em' }}>
                 Commercial architecture audit framework deployed across luxury jewelry, fine retail, and high-ticket commerce.
               </div>
-              <a href="#consultation" style={{ textDecoration: 'none' }}>
-                <Button variant="primary" size="sm">
-                  Request Strategic Intake →
-                </Button>
+              <a href="#consultation" style={{ color: '#C882FF', textDecoration: 'none', fontFamily: 'var(--font-mono), monospace', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                Request Intake &rarr;
               </a>
             </div>
           </div>
         </Container>
       </Section>
 
-      {/* 3. The Three Pain Points */}
-      <Section spacing="lg">
+      <Section spacing="xl" style={{ backgroundColor: '#160429', borderBottom: '1px solid rgba(200, 130, 255, 0.16)' }}>
         <Container>
-          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto var(--space-12)' }}>
-            <span style={{ fontSize: 'var(--font-size-xs)', letterSpacing: '0.02em', color: 'var(--color-text-secondary)' }}>
-              Problem recognition
-            </span>
+          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem auto' }}>
+            <Badge variant="purple" size="sm" style={{ marginBottom: '1rem' }}>
+              COMMERCIAL FRICTION POINTS
+            </Badge>
             <h2
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'var(--font-size-4xl)',
-                color: '#fff',
-                marginTop: 'var(--space-2)',
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
+                color: '#FAF7FF',
+                fontWeight: 400,
               }}
             >
-              The Dilemma of Modern Growth
+              Where Value Leaks in Enterprise Growth
             </h2>
-            <p style={{ color: 'var(--color-text-secondary)', marginTop: 'var(--space-3)' }}>
-              Why established businesses burn capital without compounding enterprise value.
+            <p style={{ color: '#C4B8D8', marginTop: '0.75rem', fontSize: '1.05rem', lineHeight: 1.6 }}>
+              Three recurring structural failures destroying contribution margins before traffic scales.
             </p>
           </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: 'var(--space-6)',
-            }}
-          >
-            {funnel.painPoints.map((item) => (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+            {funnel.painPoints.map((item, idx) => (
               <PainPointCard
-                key={item.id}
+                key={idx}
                 category={item.category}
                 question={item.question}
                 elaboration={item.elaboration}
@@ -301,50 +291,48 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
         </Container>
       </Section>
 
-      {/* 4. The Commercial Progression Mechanism */}
-      <Section spacing="lg" style={{ backgroundColor: 'var(--color-bg-surface)' }}>
+      <Section spacing="xl" style={{ backgroundColor: '#0D0118', borderBottom: '1px solid rgba(200, 130, 255, 0.16)' }}>
         <Container>
-          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto var(--space-12)' }}>
-            <Badge variant="neutral" size="sm" style={{ marginBottom: 'var(--space-3)' }}>
-              Core mechanism
+          <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 3rem auto' }}>
+            <Badge variant="purple" size="sm" style={{ marginBottom: '1rem' }}>
+              CONTINUOUS CAUSAL SYSTEM
             </Badge>
             <h2
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'var(--font-size-4xl)',
-                color: '#fff',
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
+                color: '#FAF7FF',
+                fontWeight: 400,
               }}
             >
               {funnel.mechanism.title}
             </h2>
-            <p style={{ color: 'var(--color-text-secondary)', marginTop: 'var(--space-3)' }}>
+            <p style={{ color: '#C4B8D8', marginTop: '0.75rem', fontSize: '1.05rem', lineHeight: 1.6 }}>
               {funnel.mechanism.tagline}
             </p>
           </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 'var(--space-6)',
-            }}
-          >
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
             {funnel.mechanism.stages.map((stage) => (
-              <Card key={stage.number} variant="elevated">
-                <div
-                  style={{
-                    fontFamily: 'var(--font-family-serif)',
-                    fontSize: 'var(--font-size-2xl)',
-                    color: '#ffffff',
-                    marginBottom: 'var(--space-2)',
-                  }}
-                >
-                  {stage.number}
+              <Card
+                key={stage.number}
+                variant="elevated"
+                style={{
+                  backgroundColor: '#160429',
+                  border: '1px solid rgba(200, 130, 255, 0.16)',
+                  padding: '1.75rem',
+                  borderRadius: 0,
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', color: '#C882FF', fontWeight: 600 }}>
+                    [{stage.number}]
+                  </span>
+                  <h3 style={{ fontFamily: 'var(--font-serif), Georgia, serif', fontSize: '1.35rem', color: '#FAF7FF', margin: 0, fontWeight: 400 }}>
+                    {stage.name}
+                  </h3>
                 </div>
-                <h3 style={{ fontSize: 'var(--font-size-lg)', color: '#fff', marginBottom: 'var(--space-2)' }}>
-                  {stage.name}
-                </h3>
-                <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', lineHeight: 'var(--line-height-normal)' }}>
+                <p style={{ fontSize: '0.92rem', color: '#C4B8D8', lineHeight: 1.55, margin: 0 }}>
                   {stage.description}
                 </p>
               </Card>
@@ -353,63 +341,23 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
         </Container>
       </Section>
 
-      {/* 5. AI Philosophy */}
-      <Section spacing="md">
+      <Section spacing="lg" style={{ backgroundColor: '#160429', borderBottom: '1px solid rgba(200, 130, 255, 0.16)' }}>
         <Container>
-          <Card
-            variant="glass"
-            style={{
-              padding: 'var(--space-10)',
-              border: '1px solid var(--color-border-active)',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            <div style={{ maxWidth: '800px' }}>
-              <Badge variant="neutral" size="sm" style={{ marginBottom: 'var(--space-3)' }}>
-                Strategic operating system
-              </Badge>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-family-serif)',
-                  fontSize: 'var(--font-size-3xl)',
-                  color: '#fff',
-                  marginBottom: 'var(--space-4)',
-                }}
-              >
-                {funnel.aiPhilosophy.headline}
-              </h3>
-              <p
-                style={{
-                  fontSize: 'var(--font-size-base)',
-                  color: 'var(--color-text-secondary)',
-                  lineHeight: 'var(--line-height-relaxed)',
-                }}
-              >
-                {funnel.aiPhilosophy.body}
-              </p>
-            </div>
-          </Card>
-        </Container>
-      </Section>
-
-      {/* 6. Proof & Selected Case Highlights */}
-      <Section spacing="lg" style={{ backgroundColor: 'var(--color-bg-surface)' }}>
-        <Container>
-          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto var(--space-12)' }}>
-            <Badge variant="neutral" size="sm" style={{ marginBottom: 'var(--space-3)' }}>
-              Proof of execution
+          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 2.5rem auto' }}>
+            <Badge variant="purple" size="sm" style={{ marginBottom: '1rem' }}>
+              PROOF OF EXECUTION
             </Badge>
             <h2
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'var(--font-size-4xl)',
-                color: '#fff',
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
+                color: '#FAF7FF',
+                fontWeight: 400,
               }}
             >
               {funnel.proof.headline}
             </h2>
-            <p style={{ color: 'var(--color-text-secondary)', marginTop: 'var(--space-3)' }}>
+            <p style={{ color: '#C4B8D8', marginTop: '0.5rem' }}>
               {funnel.proof.subheadline}
             </p>
           </div>
@@ -418,8 +366,8 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: 'var(--space-6)',
-              marginBottom: 'var(--space-10)',
+              gap: '1.5rem',
+              marginBottom: '2.5rem',
             }}
           >
             {funnel.proof.metrics.map((stat, idx) => (
@@ -436,7 +384,7 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-              gap: 'var(--space-6)',
+              gap: '1.5rem',
             }}
           >
             {funnel.proof.quotes.map((q, idx) => (
@@ -452,30 +400,29 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
         </Container>
       </Section>
 
-      {/* 7. Selectivity / "Those Who Dare" */}
-      <Section spacing="lg">
+      <Section spacing="lg" style={{ backgroundColor: '#0D0118', borderBottom: '1px solid rgba(200, 130, 255, 0.16)' }}>
         <Container>
           <div
             style={{
               maxWidth: '880px',
               margin: '0 auto',
-              backgroundColor: 'var(--color-bg-elevated)',
-              border: '1px solid var(--color-border-subtle)',
+              backgroundColor: '#160429',
+              border: '1px solid rgba(200, 130, 255, 0.2)',
               borderRadius: 0,
-              padding: 'var(--space-10)',
+              padding: 'clamp(2rem, 4vw, 3rem)',
               textAlign: 'center',
             }}
           >
-            <Badge variant="neutral" size="md" style={{ marginBottom: 'var(--space-4)' }}>
+            <Badge variant="purple" size="md" style={{ marginBottom: '1rem' }}>
               {funnel.selectivity.badge}
             </Badge>
 
             <h2
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'var(--font-size-3xl)',
-                color: '#fff',
-                marginBottom: 'var(--space-4)',
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
+                color: '#FAF7FF',
+                marginBottom: '1rem',
                 fontWeight: 400,
               }}
             >
@@ -484,10 +431,10 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
 
             <p
               style={{
-                fontSize: 'var(--font-size-base)',
-                color: 'var(--color-text-secondary)',
-                lineHeight: 'var(--line-height-relaxed)',
-                marginBottom: 'var(--space-6)',
+                fontSize: '1rem',
+                color: '#C4B8D8',
+                lineHeight: 1.65,
+                marginBottom: '2rem',
               }}
             >
               {funnel.selectivity.description}
@@ -496,98 +443,74 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
             <div
               style={{
                 textAlign: 'left',
-                backgroundColor: 'var(--color-bg-surface)',
-                border: '1px solid var(--color-border-subtle)',
+                backgroundColor: '#0D0118',
+                border: '1px solid rgba(200, 130, 255, 0.14)',
                 borderRadius: 0,
-                padding: 'var(--space-6)',
-                marginBottom: 'var(--space-6)',
+                padding: '1.5rem',
+                marginBottom: '1.5rem',
               }}
             >
               <h4
                 style={{
-                  fontSize: 'var(--font-size-xs)',
-                  letterSpacing: '0.02em',
-                  color: 'var(--color-text-secondary)',
-                  marginBottom: 'var(--space-3)',
+                  fontFamily: 'var(--font-mono), monospace',
+                  fontSize: '11px',
+                  letterSpacing: '0.12em',
+                  color: '#C882FF',
+                  textTransform: 'uppercase',
+                  marginBottom: '1rem',
                 }}
               >
-                Intended commercial profile
+                Intended Commercial Profile
               </h4>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {funnel.selectivity.criteria.map((crit, idx) => (
                   <li
                     key={idx}
                     style={{
-                      fontSize: 'var(--font-size-sm)',
-                      color: 'var(--color-text-secondary)',
+                      fontSize: '0.92rem',
+                      color: '#FAF7FF',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 'var(--space-2)',
+                      gap: '0.75rem',
                     }}
                   >
-                    <Check size={16} weight="bold" color="var(--color-status-success)" />
+                    <Check size={16} weight="bold" color="#C882FF" />
                     <span>{crit}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)' }}>
+            <p style={{ fontSize: '11px', fontFamily: 'var(--font-mono), monospace', color: '#A8A0B8', letterSpacing: '0.04em' }}>
               {funnel.selectivity.disclaimer}
             </p>
           </div>
         </Container>
       </Section>
 
-      {/* 8. Qualification & Strategic Intake */}
-      <Section id="consultation" spacing="xl" style={{ backgroundColor: 'var(--color-bg-surface)' }}>
+      <Section id="consultation" spacing="xl" style={{ backgroundColor: '#160429' }}>
         <Container>
-          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto var(--space-10)' }}>
-            <Badge variant="neutral" size="md" style={{ marginBottom: 'var(--space-3)' }}>
-              Executive qualification
+          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 2.5rem auto' }}>
+            <Badge variant="purple" size="md" style={{ marginBottom: '1rem' }}>
+              EXECUTIVE QUALIFICATION
             </Badge>
             <h2
               style={{
-                fontFamily: 'var(--font-family-serif)',
-                fontSize: 'var(--font-size-4xl)',
-                color: '#fff',
-                marginBottom: 'var(--space-2)',
+                fontFamily: 'var(--font-serif), Georgia, serif',
+                fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
+                color: '#FAF7FF',
+                marginBottom: '0.75rem',
+                fontWeight: 400,
               }}
             >
               {funnel.finalCta.headline}
             </h2>
-            <p style={{ color: 'var(--color-text-secondary)' }}>
+            <p style={{ color: '#C4B8D8', fontSize: '1.05rem', lineHeight: 1.6 }}>
               {funnel.finalCta.subheadline}
             </p>
           </div>
 
-          {/* Connected Qualification Intake Form */}
           <QualificationForm />
-        </Container>
-      </Section>
-
-      {/* 9. Final Brand Statement */}
-      <Section spacing="md" style={{ borderTop: '1px solid var(--color-border-subtle)', textAlign: 'center' }}>
-        <Container>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-3)' }}>
-            <BrandEye size="sm" />
-            <span style={{ fontSize: 'var(--font-size-xs)', letterSpacing: '0.02em', color: 'var(--color-text-muted)' }}>
-              Executive directive
-            </span>
-          </div>
-          <h3
-            style={{
-              fontFamily: 'var(--font-family-serif)',
-              fontSize: 'var(--font-size-2xl)',
-              color: '#fff',
-              letterSpacing: '-0.01em',
-            }}
-          >
-            Bugatti, Not Toyota
-          </h3>
-          <p style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-muted)', marginTop: 'var(--space-2)' }}>
-            Rare • Engineered • Controlled • Category dominant
-          </p>
         </Container>
       </Section>
     </div>

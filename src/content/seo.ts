@@ -1,8 +1,3 @@
-/**
- * SEO & Structured Data Configuration
- *
- * Configures canonical URLs, meta tags, OpenGraph schemas, and JSON-LD structured data.
- */
 
 export const SEO_CONFIG = {
   defaultTitle: 'BRANDMANIA | Branded For The Best',

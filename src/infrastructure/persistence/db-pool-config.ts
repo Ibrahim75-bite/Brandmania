@@ -1,12 +1,4 @@
-/**
- * Database Connection Pooling Configuration for Supabase Supavisor
- * Standard #15: Connection Pooling & Resource Exhaustion Prevention
- *
- * Configured specifically for serverless / edge runtime execution:
- * - Supavisor transaction mode (port 6543)
- * - Strict single connection limit per serverless execution context
- * - Aggressive idle and connection timeouts to prevent connection exhaustion
- */
+
 
 export interface DbPoolConfig {
   host: string;
@@ -28,7 +20,6 @@ export class DatabasePoolManager {
   private constructor() {
     const rawUrl = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:6543/postgres';
     
-    // Parse and adapt for Supavisor Transaction Mode (port 6543)
     let parsedUrl: URL;
     try {
       parsedUrl = new URL(rawUrl);
@@ -36,11 +27,9 @@ export class DatabasePoolManager {
       parsedUrl = new URL('postgresql://postgres:postgres@localhost:6543/postgres');
     }
 
-    // Enforce Supavisor transaction mode port 6543 and pgbouncer query flag
     const port = parsedUrl.port ? parseInt(parsedUrl.port, 10) : 6543;
     const isTransactionMode = port === 6543 || parsedUrl.searchParams.get('pgbouncer') === 'true';
 
-    // Ensure pgbouncer=true and connection_limit=1 are present in connection string
     if (!parsedUrl.searchParams.has('pgbouncer')) {
       parsedUrl.searchParams.set('pgbouncer', 'true');
     }

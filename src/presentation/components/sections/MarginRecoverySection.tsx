@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
+import { ArrowRight } from '@phosphor-icons/react';
 import { Container } from '@/presentation/components/layout/Container';
 import styles from './MarginRecoverySection.module.css';
 
@@ -68,21 +70,22 @@ export const MarginRecoverySection: React.FC = () => {
   return (
     <section id="margin-recovery" className={styles.section}>
       <Container size="full">
-        {/* Header Block */}
         <div className={styles.headerBlock}>
           <div className={styles.marker}>
-            05 &mdash; FLAGSHIP II &bull; MARGIN RECOVERY &bull; 6-STAGE AUDIT
+            06 &mdash; FLAGSHIP II &bull; MARGIN RECOVERY &bull; 6-STAGE AUDIT
           </div>
           <h2 className={styles.headline}>
             Fix the commercial machine{' '}
-            <span className={styles.headlineUnderline}>
-              before buying more traffic
+            <span className={styles.headlineItalic}>
+              before buying more traffic.
             </span>
           </h2>
+          <p className={styles.subhead}>
+            Deploying ad spend into an uncalibrated business model amplifies waste. Our six-stage audit identifies where margin silently degrades across the entire commercial chain and executes strategic and operational repairs.
+          </p>
         </div>
 
-        {/* 6-Row Diagnostic Ledger */}
-        <div className={styles.tableContainer}>
+        <div className={styles.desktopLedger}>
           <div className={styles.tableHeader}>
             <div>Index</div>
             <div>Operational Stage</div>
@@ -90,23 +93,61 @@ export const MarginRecoverySection: React.FC = () => {
             <div>Strategic &amp; Operational Repair</div>
           </div>
 
-          {auditRows.map((row, idx) => (
-            <div
-              key={row.step}
-              onMouseEnter={() => setHoveredRow(idx)}
-              onMouseLeave={() => setHoveredRow(null)}
-              className={styles.tableRow}
-              style={{
-                backgroundColor: hoveredRow === idx ? 'rgba(255, 255, 255, 0.03)' : undefined,
-                borderLeft: hoveredRow === idx ? '2px solid #FFFFFF' : '2px solid transparent',
-              }}
-            >
-              <div className={styles.rowStep}>{row.step}</div>
-              <div className={styles.rowStage}>{row.stage}</div>
-              <div className={styles.rowLeakage}>{row.leakage}</div>
-              <div className={styles.rowRepair}>{row.repair}</div>
+          <div className={styles.tableBody}>
+            {auditRows.map((row, idx) => (
+              <div
+                key={row.step}
+                onMouseEnter={() => setHoveredRow(idx)}
+                onMouseLeave={() => setHoveredRow(null)}
+                className={`${styles.ledgerRow} ${hoveredRow === idx ? styles.ledgerRowHover : ''}`}
+              >
+                <div className={styles.rowStep}>{row.step}</div>
+                <div className={styles.rowStage}>{row.stage}</div>
+                <div className={styles.rowLeakage}>
+                  <span className={styles.leakageTag}>VALUE LEAKAGE &mdash; </span>
+                  {row.leakage}
+                </div>
+                <div className={styles.rowRepair}>
+                  <span className={styles.repairIndicator}>&rarr;</span>
+                  <span>{row.repair}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.mobileCards}>
+          {auditRows.map((row) => (
+            <div key={row.step} className={styles.mobileCard}>
+              <div className={styles.mobileCardHeader}>
+                <span className={styles.mobileStep}>[{row.step}]</span>
+                <span className={styles.mobileStageName}>{row.stage}</span>
+              </div>
+
+              <div className={styles.mobileLeakageBlock}>
+                <div className={styles.mobileBlockLabel}>WHERE VALUE LEAKS</div>
+                <p className={styles.mobileBlockText}>{row.leakage}</p>
+              </div>
+
+              <div className={styles.mobileRepairBlock}>
+                <div className={styles.mobileBlockLabelRepair}>STRATEGIC &amp; OPERATIONAL REPAIR</div>
+                <p className={styles.mobileBlockTextRepair}>
+                  <span className={styles.repairArrow}>&rarr; </span>
+                  {row.repair}
+                </p>
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className={styles.summaryBar}>
+          <div className={styles.summaryText}>
+            STATUS: <strong>AVAILABLE FOR $700,000+ ANNUAL REVENUE BRANDS</strong>
+          </div>
+          <Link href="/#qualification" className={`${styles.auditCta} hit-slop`}>
+            <span>Request Margin Recovery Diagnostic</span>
+            <ArrowRight size={16} weight="bold" />
+          </Link>
         </div>
       </Container>
     </section>

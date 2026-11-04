@@ -64,10 +64,6 @@ export type IntakePipelineResult =
       headers: Record<string, string>;
     };
 
-/**
- * Deep Module: Encapsulates the entire intake gate, rate-limiting, idempotency locking,
- * anti-spam verification, domain aggregate instantiation, background enqueue, and cache invalidation.
- */
 export class SubmitInquiryUseCase {
   constructor(
     private readonly inquiryRepository: IInquiryRepository,
@@ -79,16 +75,12 @@ export class SubmitInquiryUseCase {
     private readonly idempotency?: IdempotencyStore
   ) {}
 
-  /**
-   * Deep Intake Pipeline: unified entry point for all intake callers (HTTP route, CLI, tests).
-   */
   public async processIntake({
     payload,
     context,
   }: IntakePipelineRequest): Promise<IntakePipelineResult> {
     const rateLimitHeaders: Record<string, string> = {};
 
-    // 1. Rate Limiting Check
     if (this.rateLimiter) {
       const rateLimit = await this.rateLimiter.checkLimit(context.clientIp);
       rateLimitHeaders['X-RateLimit-Limit'] = String(rateLimit.limit);
@@ -108,7 +100,6 @@ export class SubmitInquiryUseCase {
       }
     }
 
-    // 2. Atomic Idempotency Check
     const { idempotencyKey } = context;
     if (idempotencyKey && this.idempotency) {
       const cached = this.idempotency.get(idempotencyKey);
@@ -159,9 +150,6 @@ export class SubmitInquiryUseCase {
       }
     }
 
-    // 3. Parse & Validate Schema
-    // #4: Any browser-supplied price, discount, or priorityScore fields are
-    // stripped by submitInquirySchema.strip() — never trusted from the client.
     let validatedInput;
     try {
       validatedInput = submitInquirySchema.parse(payload);
@@ -172,7 +160,6 @@ export class SubmitInquiryUseCase {
       throw err;
     }
 
-    // 4. Anti-Spam Layer 1: Honeypot Check
     if (
       validatedInput.company_fax_number &&
       validatedInput.company_fax_number.trim().length > 0
@@ -195,7 +182,6 @@ export class SubmitInquiryUseCase {
       };
     }
 
-    // 5. Anti-Spam Layer 2: Submission Time-Lock (< 2500ms)
     if (
       typeof validatedInput.submissionDurationMs === 'number' &&
       validatedInput.submissionDurationMs < 2500
@@ -218,7 +204,6 @@ export class SubmitInquiryUseCase {
       };
     }
 
-    // 6. XSS Sanitization & Prompt Injection Defense
     const sanitizedClientName = sanitizeText(validatedInput.clientName);
     const sanitizedCompanyName = sanitizeText(validatedInput.companyName);
     const sanitizedRawMessage = sanitizeText(validatedInput.message);
@@ -235,7 +220,6 @@ export class SubmitInquiryUseCase {
       ? `[Website: ${validatedInput.website}] ${promptAnalysis.sanitizedText}`
       : promptAnalysis.sanitizedText;
 
-    // 7. Execute Domain Orchestration
     try {
       const output = await this.execute({
         clientName: sanitizedClientName,
@@ -278,20 +262,14 @@ export class SubmitInquiryUseCase {
     }
   }
 
-  /**
-   * Internal Core Execution: Aggregate construction, business rules, persistence, and jobs.
-   */
   public async execute(input: SubmitInquiryInputDto): Promise<SubmitInquiryOutputDto> {
-    // 1. Build & Validate Domain Value Objects
     const email = new Email(input.email);
     const companyTier = new CompanyTier(input.companyTier);
     const budgetRange = new BudgetRange(input.budgetRange);
     const services = input.services.map((code) => new ServiceCategory(code));
 
-    // 2. Validate Domain Business Rules
     InquirySubmissionRules.validateHighTicketAlignment(companyTier, budgetRange);
 
-    // 3. Instantiate Domain Entity
     const inquiryId = `inq_${this.clock.timestamp()}_${Math.random().toString(36).substring(2, 9)}`;
     const inquiry = Inquiry.create({
       id: inquiryId,
@@ -304,12 +282,8 @@ export class SubmitInquiryUseCase {
       message: input.message,
     });
 
-    // 4. Persist Aggregate
     await this.inquiryRepository.save(inquiry);
 
-    // 5. Calculate Priority & Review Window — computed STRICTLY on the server
-    // from validated domain enums (CompanyTier, BudgetRange). Never from browser input.
-    // #4: Browser-supplied price/discount/priorityScore are stripped by the schema.
     const priorityScore = InquirySubmissionRules.calculatePriorityScore(
       companyTier,
       budgetRange,
@@ -317,7 +291,6 @@ export class SubmitInquiryUseCase {
     );
     const estimatedReviewHours = companyTier.isHighTicket() ? 12 : 24;
 
-    // 6. Structured Audit Logging
     this.logger.audit('INQUIRY_SUBMITTED', email.value, {
       inquiryId: inquiry.id,
       companyTier: companyTier.value,
@@ -325,7 +298,6 @@ export class SubmitInquiryUseCase {
       priorityScore,
     });
 
-    // 7. Enqueue Background Notification Job (Async Boundary)
     await this.jobQueue.enqueue(
       'SEND_INQUIRY_NOTIFICATION',
       {
@@ -336,7 +308,6 @@ export class SubmitInquiryUseCase {
       `notify_${inquiry.id}`
     );
 
-    // 8. Return Standard Output DTO
     return {
       inquiryId: inquiry.id,
       status: inquiry.status,

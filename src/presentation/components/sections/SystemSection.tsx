@@ -70,7 +70,7 @@ export const SystemSection: React.FC = () => {
   return (
     <section id="system" ref={sectionRef} className={styles.section}>
       <Container size="full">
-        {/* Header Block */}
+        {}
         <div className={styles.headerBlock}>
           <div className={styles.marker}>
             03 &mdash; THE INTEGRATED SYSTEM &bull; 6 INTERLOCKED NODES
@@ -80,7 +80,7 @@ export const SystemSection: React.FC = () => {
           </h2>
         </div>
 
-        {/* Connected SVG Pipeline Drawing Line */}
+        {}
         <div className={styles.pipelineVisual}>
           <svg
             viewBox="0 0 1200 40"
@@ -120,7 +120,7 @@ export const SystemSection: React.FC = () => {
           </svg>
         </div>
 
-        {/* 3x2 Architectural Matrix */}
+        {}
         <div className={styles.matrixGrid}>
           {nodes.map((node) => (
             <div key={node.step} className={styles.matrixCell}>

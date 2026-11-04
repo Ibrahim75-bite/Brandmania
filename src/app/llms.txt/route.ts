@@ -1,10 +1,28 @@
 import { NextResponse } from 'next/server';
 import { seoConfig } from '@/content/seoConfig';
+import { getAllArticles } from '@/content/articles';
+import { getAllCaseStudies } from '@/content/caseStudies';
 
 export const dynamic = 'force-static';
 
 export async function GET() {
   const siteUrl = seoConfig.siteUrl;
+  const articles = getAllArticles();
+  const caseStudies = getAllCaseStudies();
+
+  const articlesSection = articles
+    .map(
+      (a) =>
+        `- [${a.title}](${siteUrl}/insights/${a.slug}): ${a.tldrAnswer}`
+    )
+    .join('\n');
+
+  const caseStudiesSection = caseStudies
+    .map(
+      (cs) =>
+        `- [${cs.title} — ${cs.subtitle}](${siteUrl}/work/${cs.slug}): ${cs.executiveSummary}`
+    )
+    .join('\n');
 
   const content = `# ${seoConfig.brandName}
 > ${seoConfig.tagline}
@@ -24,6 +42,12 @@ ${seoConfig.brandName} is a strategic brand and commercial advisory firm serving
 2. [Margin Recovery](${siteUrl}/#margin-recovery): Diagnostic commercial audit across Planning, Marketing, Sales, Fulfillment, Customer Service, and Post-Purchase Relationships to identify and repair revenue leakage before escalating media spend.
 3. [Consumer Scope](${siteUrl}/#consumer-scope): Engineering customer perception, experience, and cognitive attachment through behavioral economics, perceived value enhancement, psychological pricing, and status perception.
 
+## Selected Architectural Dossiers & Case Studies
+${caseStudiesSection}
+
+## Executive Insights & Cornerstone Thought Leadership
+${articlesSection}
+
 ## Confirmed Engagement Models
 - **Full Strategic Rebuild & Performance Engagement:** Comprehensive brand, commercial, and operational transformation for businesses generating ${seoConfig.revenueThreshold}.
 - **Strategic Consultancy:** High-level strategic advisory and diagnostic engagement for qualifying brands prior to a full engagement or when full-engagement capacity is full.
@@ -31,6 +55,8 @@ ${seoConfig.brandName} is a strategic brand and commercial advisory firm serving
 ## Verification & Architecture
 - Canonical Root: ${siteUrl}
 - Machine-Readable Entity Dossier: ${siteUrl}/llms-full.txt
+- Selected Work: ${siteUrl}/work
+- Executive Insights: ${siteUrl}/insights
 - Intake & Qualification: ${siteUrl}/#qualification
 `;
 

@@ -1,15 +1,7 @@
-/**
- * VibeShield & Anti-Vibecode Giveaway Verification Suite
- * Tests all 20 Anti-Vibecode Website Giveaways + all 20 Niche Security Defenses
- *
- * Run with: npm run test -- src/infrastructure/__tests__/vibeShieldAndGiveaways.test.ts
- */
 
 import { describe, it, expect } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
-
-// --- Part 1: Anti-Vibecode Giveaway Tests ---
 
 const rootDir = path.resolve(__dirname, '../../..');
 const srcDir = path.join(rootDir, 'src');
@@ -25,7 +17,6 @@ function fileExists(relativePath: string): boolean {
   return fs.existsSync(path.join(rootDir, relativePath));
 }
 
-// Runtime imports (vitest resolves @/ alias)
 import { normalizePhoneNumber } from '@/domain/validation/inquiry.schema';
 import { detectAndNeutralizePromptInjection } from '@/infrastructure/security/sanitizer';
 import {
@@ -69,12 +60,12 @@ describe('PART 1: Anti-Vibecode Website Giveaways (20 Standards)', () => {
 
     it('#3: not-found.tsx uses Imperial Plum-Violet theme, Instrument Serif, BrandEye pixel sizing', () => {
       const content = readFile('src/app/not-found.tsx');
-      expect(content).toContain('#0D011A'); // Deep Midnight Eggplant ground
-      expect(content).toContain('#1A0033'); // Plum violet gradient
-      expect(content).toContain('Instrument Serif'); // Typography
+      expect(content).toContain('#0D011A');
+      expect(content).toContain('#1A0033');
+      expect(content).toContain('Instrument Serif');
       expect(content).toContain('var(--font-serif)');
-      expect(content).toContain('BrandEye'); // BrandEye pixel sizing
-      expect(content).toContain('640px'); // Explicit BrandEye pixel sizing
+      expect(content).toContain('BrandEye');
+      expect(content).toContain('640px');
     });
 
     it('#5: All routes define unique titles via constructMetadata (no raw Metadata objects)', () => {
@@ -183,7 +174,6 @@ describe('PART 1: Anti-Vibecode Website Giveaways (20 Standards)', () => {
 
   describe('Group C: H1, Alt Text, Source Maps, Console, Bundles (#9, #10, #17-#20)', () => {
     it('#9 & #10: Every page route has strictly one <h1> and images have descriptive alt', () => {
-      // Note: Home page delegates <h1> to HeroSection component; check direct <h1> in each route file
       const routes = [
         'src/app/about/page.tsx',
         'src/app/services/page.tsx',
@@ -211,7 +201,6 @@ describe('PART 1: Anti-Vibecode Website Giveaways (20 Standards)', () => {
 
     it('#17: Work page images have non-empty descriptive alt attributes', () => {
       const content = readFile('src/app/work/page.tsx');
-      // Match alt="string" string literals and alt={expression} JSX expressions
       const altMatches = content.match(/alt\s*=\s*(?:["'][^"']+["']|\{[^}]+\})/g);
       expect(altMatches).not.toBeNull();
       expect(altMatches!.length).toBeGreaterThan(0);
@@ -242,8 +231,6 @@ describe('PART 1: Anti-Vibecode Website Giveaways (20 Standards)', () => {
     });
   });
 });
-
-// --- Part 2: Niche Security Defense Tests ---
 
 describe('PART 2: Niche Vibe-Coder Security Defenses (20 Standards)', () => {
   describe('Group A: Middleware Defenses (#1, #2, #13, #17)', () => {
@@ -349,7 +336,6 @@ describe('PART 2: Niche Vibe-Coder Security Defenses (20 Standards)', () => {
       const testFile = path.relative(rootDir, __filename);
       for (const file of allSrc) {
         const relativeFile = path.relative(rootDir, file);
-        // Skip this test file itself (it contains the forbidden domains in its test data)
         if (relativeFile === testFile) continue;
         const content = fs.readFileSync(file, 'utf-8');
         for (const domain of forbidden) {
@@ -369,8 +355,8 @@ describe('PART 2: Niche Vibe-Coder Security Defenses (20 Standards)', () => {
 
     it('#8: vibeShield isValidE164Phone blocks premium-rate and over-length', () => {
       expect(isValidE164Phone('+15550192834')).toBe(true);
-      expect(isValidE164Phone('19005550199')).toBe(false); // premium rate
-      expect(isValidE164Phone('+1234567890123456')).toBe(false); // > 15 digits
+      expect(isValidE164Phone('19005550199')).toBe(false);
+      expect(isValidE164Phone('+1234567890123456')).toBe(false);
     });
 
     it('#9: sanitizer detects and neutralizes prompt injection patterns', () => {
@@ -383,7 +369,7 @@ describe('PART 2: Niche Vibe-Coder Security Defenses (20 Standards)', () => {
 
     it('#11: Idempotency store supports markInFlight locking + KeyedMutex', () => {
       expect(idempotencyStore.markInFlight('test_key_1')).toBe(true);
-      expect(idempotencyStore.markInFlight('test_key_1')).toBe(false); // already in flight
+      expect(idempotencyStore.markInFlight('test_key_1')).toBe(false);
       expect(keyedMutex).toBeDefined();
       expect(typeof keyedMutex.acquire).toBe('function');
     });
@@ -448,20 +434,14 @@ describe('PART 2: Niche Vibe-Coder Security Defenses (20 Standards)', () => {
     });
 
     it('#19: vibeShield validateSafeRedirect blocks open redirects', () => {
-      // Protocol-relative
       expect(validateSafeRedirect('//evil.com', 'https://brandmania.com')).toBe('/');
-      // javascript:
       expect(validateSafeRedirect('javascript:alert(1)', 'https://brandmania.com')).toBe('/');
-      // data:
       expect(validateSafeRedirect('data:text/html,<script>', 'https://brandmania.com')).toBe('/');
-      // External untrusted
       expect(validateSafeRedirect('https://evil.com', 'https://brandmania.com')).toBe('/');
-      // Safe same-origin
       expect(validateSafeRedirect('/services', 'https://brandmania.com')).toBe('/services');
       expect(validateSafeRedirect('https://brandmania.com/about', 'https://brandmania.com')).toBe(
         'https://brandmania.com/about'
       );
-      // Null/empty
       expect(validateSafeRedirect(null, 'https://brandmania.com')).toBe('/');
       expect(validateSafeRedirect('', 'https://brandmania.com')).toBe('/');
     });
@@ -480,9 +460,6 @@ describe('PART 2: Niche Vibe-Coder Security Defenses (20 Standards)', () => {
   });
 });
 
-/**
- * Helper: recursively collect all .ts/.tsx source files under a directory.
- */
 function getAllSourceFiles(dirPath: string, fileList: string[] = []): string[] {
   if (!fs.existsSync(dirPath)) return fileList;
   const entries = fs.readdirSync(dirPath, { withFileTypes: true });

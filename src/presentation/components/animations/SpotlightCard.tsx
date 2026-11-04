@@ -9,10 +9,6 @@ interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   spotlightColor?: string;
 }
 
-/**
- * SpotlightCard - React Bits Adapted Radial Spotlight Container
- * Renders a subtle radial specular glow following the cursor position across deep obsidian surfaces.
- */
 export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   children,
   className = '',

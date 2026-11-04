@@ -1,9 +1,3 @@
-/**
- * Funnel Configuration Types
- *
- * Defines the contract for all acquisition and cold-outreach funnels.
- * Enables config-driven campaign pages (/f/[slug]) without duplicating UI code.
- */
 
 export interface FunnelMetadata {
   slug: string;

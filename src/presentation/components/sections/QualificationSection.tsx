@@ -26,7 +26,7 @@ export const QualificationSection: React.FC = () => {
     <section id="qualification" className={styles.section}>
       <Container size="full">
         <div className={styles.grid}>
-          {/* Left Column: Criteria, Protocols & 3-Item FAQ Accordion */}
+          {}
           <div className={styles.leftCol}>
             <div>
               <div className={styles.marker}>
@@ -40,7 +40,7 @@ export const QualificationSection: React.FC = () => {
               </p>
             </div>
 
-            {/* Consultation Protocols */}
+            {}
             <div className={styles.protocolsList}>
               <div className={styles.protocolItem}>
                 <ShieldCheck size={20} weight="duotone" className={styles.protocolIcon} />
@@ -53,7 +53,7 @@ export const QualificationSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Strict Non-Disclosure Protocol */}
+            {}
             <div className={styles.ndaBox}>
               <LockKey size={20} weight="duotone" color="#FFFFFF" style={{ flexShrink: 0, marginTop: '2px' }} />
               <div>
@@ -64,7 +64,7 @@ export const QualificationSection: React.FC = () => {
               </div>
             </div>
 
-            {/* 3-Item Verified FAQ Accordion */}
+            {}
             <div id="faq" className={styles.faqContainer}>
               <div className={styles.faqHeading}>
                 VERIFIED DIRECTIVES &bull; FAQ
@@ -81,7 +81,7 @@ export const QualificationSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: High-Contrast Executive Dossier Intake Card */}
+          {}
           <div className={styles.rightCol}>
             <QualificationForm />
           </div>

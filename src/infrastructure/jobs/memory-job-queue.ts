@@ -1,8 +1,3 @@
-/**
- * In-Memory Asynchronous Job Queue with Exponential Backoff, Timeouts, and DLQ
- * Standards: #17 (Retry Logic), #18 (Exponential Backoff), #19 (Background Jobs),
- *            #20 (Timeouts), #23 (Dead Letter Queues)
- */
 
 import { IJobQueue, Job, JobHandler, DeadLetterJob } from '../../application/ports/job-queue.port';
 import { withTimeout } from '../http/timeout';
@@ -56,7 +51,6 @@ export class InMemoryJobQueue implements IJobQueue {
 
     this.pendingJobs.push(job as Job<unknown>);
 
-    // Trigger async non-blocking drain
     queueMicrotask(() => {
       this.drain().catch((err) => {
         console.error('Job queue background drain error:', err);
@@ -89,7 +83,7 @@ export class InMemoryJobQueue implements IJobQueue {
 
   private calculateBackoffDelay(attempt: number): number {
     const baseDelay = this.config.initialDelayMs * Math.pow(this.config.backoffFactor, attempt);
-    const jitter = Math.floor(Math.random() * 50); // Jitter to prevent stampedes
+    const jitter = Math.floor(Math.random() * 50);
     return baseDelay + jitter;
   }
 
@@ -125,14 +119,12 @@ export class InMemoryJobQueue implements IJobQueue {
         job.attempts = (job.attempts ?? 0) + 1;
 
         try {
-          // Standard #20: Enforce per-job execution timeout
           await withTimeout(handler(job), this.config.jobTimeoutMs, `Job:${job.name}`);
           success = true;
         } catch (err) {
           lastErrorMsg = err instanceof Error ? err.message : String(err);
 
           if (job.attempts < this.config.maxAttempts) {
-            // Standard #17 & #18: Exponential backoff with jitter
             const delay = this.calculateBackoffDelay(job.attempts - 1);
             await this.sleep(delay);
           }
@@ -144,7 +136,6 @@ export class InMemoryJobQueue implements IJobQueue {
           this.processedIdempotencyKeys.add(job.idempotencyKey);
         }
       } else {
-        // Standard #23: Move exhausted job to Dead Letter Queue (DLQ)
         const dlqItem: DeadLetterJob<unknown> = {
           id: `dlq_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
           jobId: job.id,

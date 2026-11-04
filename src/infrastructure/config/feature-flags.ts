@@ -1,7 +1,3 @@
-/**
- * Type-Safe Feature Flag & Kill-Switch Service
- * Standard #28: Feature Flags & Operational Kill-Switches
- */
 
 export interface FeatureFlags {
   ENABLE_AI_TRIAGE: boolean;
@@ -56,15 +52,11 @@ export class FeatureFlagService {
     this.overrides.clear();
   }
 
-  /**
-   * Deterministic percentage rollout based on user/session ID.
-   */
   public isEnabledForEntity(key: FlagKey, entityId: string, rolloutPercentage: number): boolean {
     if (!this.isEnabled(key)) return false;
     if (rolloutPercentage >= 100) return true;
     if (rolloutPercentage <= 0) return false;
 
-    // Deterministic hash of entityId to 0..99
     let hash = 0;
     for (let i = 0; i < entityId.length; i++) {
       hash = (hash * 31 + entityId.charCodeAt(i)) % 100;

@@ -41,7 +41,7 @@ export function CornerArcs({
         xmlns="http://www.w3.org/2000/svg"
         className={styles.arcSvg}
       >
-        {/* Triple concentric radar arcs curving inward from the corner origin (0, 0) */}
+        {}
         <path
           d="M 60 0 A 60 60 0 0 1 0 60"
           stroke={color}

@@ -1,7 +1,3 @@
-/**
- * Async Operation Timeout Utility
- * Standard #20: Strict Operation Timeouts & Hanging Request Prevention
- */
 
 export class TimeoutError extends Error {
   public readonly code = 'OPERATION_TIMEOUT';
@@ -16,10 +12,6 @@ export class TimeoutError extends Error {
   }
 }
 
-/**
- * Wraps any promise with a deterministic timeout.
- * Automatically cleans up timer resources on completion.
- */
 export async function withTimeout<T>(
   promise: Promise<T>,
   timeoutMs: number,

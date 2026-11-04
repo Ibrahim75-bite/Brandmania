@@ -1,9 +1,3 @@
-/**
- * Analytics Port & Telemetry Contracts
- *
- * Provides a vendor-agnostic abstraction for event tracking.
- * Strictly enforces consent gating prior to initializing third-party telemetry.
- */
 
 export type ConsentState = 'PENDING' | 'GRANTED' | 'DENIED';
 
