@@ -14,11 +14,13 @@ import { SubmitInquiryInputDto, SubmitInquiryOutputDto } from '../dtos/submit-in
 import { submitInquirySchema } from '../../domain/validation/inquiry.schema';
 import { IdempotencyStore } from '../../infrastructure/security/idempotency';
 import { sanitizeText, detectAndNeutralizePromptInjection } from '../../infrastructure/security/sanitizer';
+import { verifyFormToken } from '../../infrastructure/security/form-token';
 
 export interface IntakePipelineContext {
   clientIp: string;
   requestId: string;
   idempotencyKey?: string | null;
+  formInitToken?: string | null;
 }
 
 export interface IntakePipelineRequest {
@@ -182,26 +184,26 @@ export class SubmitInquiryUseCase {
       };
     }
 
-    if (
-      typeof validatedInput.submissionDurationMs === 'number' &&
-      validatedInput.submissionDurationMs < 2500
-    ) {
-      this.logger.warn('Spam rejected: Submission completed too fast', {
-        ip: context.clientIp,
-        durationMs: validatedInput.submissionDurationMs,
-      });
-      if (idempotencyKey && this.idempotency) {
-        this.idempotency.release(idempotencyKey);
+    if (context.formInitToken) {
+      const verified = await verifyFormToken(context.formInitToken);
+      if (verified.valid && typeof verified.elapsedMs === 'number' && verified.elapsedMs < 2500) {
+        this.logger.warn('Spam rejected: Form token time lock violation', {
+          ip: context.clientIp,
+          elapsedMs: verified.elapsedMs,
+        });
+        if (idempotencyKey && this.idempotency) {
+          this.idempotency.release(idempotencyKey);
+        }
+        return {
+          status: 'TIME_LOCK_VIOLATION',
+          statusCode: 400,
+          error: {
+            code: 'TIME_LOCK_VIOLATION',
+            message: 'Automated submission detected: Form completed too rapidly.',
+          },
+          headers: rateLimitHeaders,
+        };
       }
-      return {
-        status: 'TIME_LOCK_VIOLATION',
-        statusCode: 400,
-        error: {
-          code: 'TIME_LOCK_VIOLATION',
-          message: 'Automated submission detected: Form completed too rapidly.',
-        },
-        headers: rateLimitHeaders,
-      };
     }
 
     const sanitizedClientName = sanitizeText(validatedInput.clientName);

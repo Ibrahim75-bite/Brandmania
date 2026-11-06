@@ -14,7 +14,13 @@ export async function POST(req: NextRequest) {
     req.headers.get('X-Webhook-Signature') ||
     req.headers.get('x-signature');
 
-  const webhookSecret = process.env.PAYMENT_WEBHOOK_SECRET || 'dev_payment_webhook_secret_key_32bytes_min';
+  const webhookSecret = process.env.PAYMENT_WEBHOOK_SECRET;
+  if (!webhookSecret) {
+    return new Response(
+      JSON.stringify({ success: false, error: { code: 'WEBHOOK_SECRET_NOT_CONFIGURED', message: 'Payment webhook secret is not configured.' } }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
 
   let rawPayload: string;
   try {

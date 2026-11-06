@@ -74,7 +74,7 @@ export const ConsumerScopeSection: React.FC = () => {
         {}
         <div className={styles.headerBlock}>
           <div className={styles.marker}>
-            06 &mdash; FLAGSHIP III &bull; CONSUMER SCOPE &bull; 7 BEHAVIORAL DIMENSIONS
+            Consumer Scope Architecture
           </div>
           <h2 className={styles.headline}>
             Every touchpoint engineered through human behavior

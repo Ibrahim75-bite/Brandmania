@@ -1,21 +1,49 @@
 import crypto from 'crypto';
 import { env } from '../config/env';
 
-const UNSUBSCRIBE_SECRET =
-  process.env.UNSUBSCRIBE_SECRET || 'brandmania-rfc8058-unsubscribe-secret-salt-2026';
+const UNSUBSCRIBE_SECRET = env.UNSUBSCRIBE_SECRET;
 
 export const emailSuppressionSet = new Set<string>();
 
+function signPayload(payload: string): string {
+  return crypto.createHmac('sha256', UNSUBSCRIBE_SECRET).update(payload).digest('hex');
+}
+
 export function generateUnsubscribeToken(email: string): string {
   const normalized = email.toLowerCase().trim();
-  return crypto.createHmac('sha256', UNSUBSCRIBE_SECRET).update(normalized).digest('hex');
+  const encodedEmail = Buffer.from(normalized).toString('base64url');
+  const signature = signPayload(encodedEmail);
+  return `${encodedEmail}.${signature}`;
 }
 
 export function verifyUnsubscribeToken(email: string, token: string): boolean {
   if (!email || !token) return false;
-  const expectedToken = generateUnsubscribeToken(email);
-  if (expectedToken.length !== token.length) return false;
-  return crypto.timingSafeEqual(Buffer.from(expectedToken), Buffer.from(token));
+  const parts = token.split('.');
+  if (parts.length !== 2) return false;
+  const [encodedEmail, signature] = parts;
+  const expectedSignature = signPayload(encodedEmail);
+  if (signature.length !== expectedSignature.length) return false;
+  const sigValid = crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature));
+  if (!sigValid) return false;
+  const normalizedEmail = email.toLowerCase().trim();
+  const encodedNormalized = Buffer.from(normalizedEmail).toString('base64url');
+  if (encodedEmail !== encodedNormalized) return false;
+  return true;
+}
+
+export function extractEmailFromToken(token: string): string | null {
+  if (!token || typeof token !== 'string') return null;
+  const parts = token.split('.');
+  if (parts.length !== 2) return null;
+  const [encodedEmail, signature] = parts;
+  const expectedSignature = signPayload(encodedEmail);
+  if (signature.length !== expectedSignature.length) return null;
+  if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) return null;
+  try {
+    return Buffer.from(encodedEmail, 'base64url').toString('utf-8');
+  } catch {
+    return null;
+  }
 }
 
 export function suppressEmail(email: string): void {
@@ -56,7 +84,7 @@ export function buildExecutiveEmail({
 }: ExecutiveEmailParams): PreparedEmail {
   const token = generateUnsubscribeToken(to);
   const cleanBase = baseUrl.replace(/\/+$/, '');
-  const unsubscribeUrl = `${cleanBase}/api/v1/communications/unsubscribe?email=${encodeURIComponent(to.toLowerCase().trim())}&token=${token}`;
+  const unsubscribeUrl = `${cleanBase}/api/v1/communications/unsubscribe?token=${encodeURIComponent(token)}`;
 
   const footerText = `\n\n---\nBRANDMANIA — Strategic Brand & Commercial Advisory\nUnsubscribe from executive briefings & communications: ${unsubscribeUrl}`;
   const text = `${bodyText}${footerText}`;

@@ -34,7 +34,7 @@ export const BrandDirectionSection: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.leftCol}>
             <div className={styles.marker}>
-              05 &mdash; FLAGSHIP I &bull; BRAND DIRECTION
+              Brand Direction Architecture
             </div>
 
             <h2 className={styles.headline}>

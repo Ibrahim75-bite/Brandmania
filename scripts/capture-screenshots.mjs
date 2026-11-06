@@ -9,6 +9,7 @@ const VIEWPORTS = [
 const PAGES = [
   { path: '/', label: 'home' },
   { path: '/consultation', label: 'consultation' },
+  { path: '/consultation/thank-you', label: 'consultation-thank-you' },
 ];
 
 const BASE_URL = 'http://localhost:3000';
@@ -42,6 +43,12 @@ async function main() {
       const filePath = path.join(OUT_DIR, fileName);
       await page.screenshot({ path: filePath, fullPage: true });
       console.log(`Captured: ${filePath} (${vp.width}x${vp.height})`);
+
+      if (pg.label === 'consultation' && vp.name === 'mobile') {
+        const foldPath = path.join(OUT_DIR, 'consultation-mobile-fold.png');
+        await page.screenshot({ path: foldPath, fullPage: false });
+        console.log(`Captured viewport: ${foldPath} (${vp.width}x${vp.height})`);
+      }
     }
 
     await page.close();

@@ -9,8 +9,6 @@ import { SystemSection } from '@/presentation/components/sections/SystemSection'
 import { BrandDirectionSection } from '@/presentation/components/sections/BrandDirectionSection';
 import { MarginRecoverySection } from '@/presentation/components/sections/MarginRecoverySection';
 import { ConsumerScopeSection } from '@/presentation/components/sections/ConsumerScopeSection';
-import { CapabilitiesSection } from '@/presentation/components/sections/CapabilitiesSection';
-import { QualificationSection } from '@/presentation/components/sections/QualificationSection';
 import { ArchitecturalSkeleton } from '@/presentation/components/primitives/ArchitecturalSkeleton';
 
 import { constructMetadata } from '@/infrastructure/seo/metadata';
@@ -21,6 +19,28 @@ const ArtifactGallery = dynamic(
     loading: () => (
       <section id="work" style={{ minHeight: '600px', width: '100%' }}>
         <ArchitecturalSkeleton width="100%" height="600px" />
+      </section>
+    ),
+  }
+);
+
+const CapabilitiesSection = dynamic(
+  () => import('@/presentation/components/sections/CapabilitiesSection').then((mod) => mod.CapabilitiesSection),
+  {
+    loading: () => (
+      <section style={{ minHeight: '400px', width: '100%', backgroundColor: '#070709' }}>
+        <ArchitecturalSkeleton width="100%" height="400px" />
+      </section>
+    ),
+  }
+);
+
+const QualificationSection = dynamic(
+  () => import('@/presentation/components/sections/QualificationSection').then((mod) => mod.QualificationSection),
+  {
+    loading: () => (
+      <section style={{ minHeight: '400px', width: '100%', backgroundColor: '#070709' }}>
+        <ArchitecturalSkeleton width="100%" height="400px" />
       </section>
     ),
   }
@@ -40,34 +60,54 @@ export default function HomePage() {
       <NoiseOverlay patternAlpha={9} patternRefreshInterval={3} />
 
       {}
-      <HeroSection />
+      <section id="manifesto">
+        <HeroSection />
+      </section>
 
       {}
-      <WorldviewSection />
+      <section id="system">
+        <WorldviewSection />
+      </section>
 
       {}
-      <DilemmaSection />
+      <section id="disciplines">
+        <DilemmaSection />
+      </section>
 
       {}
-      <SystemSection />
+      <section id="continuous-system">
+        <SystemSection />
+      </section>
 
       {}
-      <BrandDirectionSection />
+      <section id="brand-direction">
+        <BrandDirectionSection />
+      </section>
 
       {}
-      <MarginRecoverySection />
+      <section id="margin-recovery">
+        <MarginRecoverySection />
+      </section>
 
       {}
-      <ConsumerScopeSection />
+      <section id="consumer-scope">
+        <ConsumerScopeSection />
+      </section>
 
       {}
-      <ArtifactGallery />
+      <section id="work">
+        <ArtifactGallery />
+      </section>
 
       {}
-      <CapabilitiesSection />
+      <section id="capabilities">
+        <CapabilitiesSection />
+      </section>
 
       {}
-      <QualificationSection />
+      <section id="qualification">
+        <QualificationSection />
+      </section>
     </div>
   );
 }

@@ -18,6 +18,8 @@ import { analytics } from '@/presentation/analytics/analytics.service';
 import { runViewTransition } from '@/presentation/utils/viewTransition';
 import styles from './QualificationForm.module.css';
 
+const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL;
+
 interface FormSnapshot {
   engagementTrack: string;
   coreChallenge: string;
@@ -178,7 +180,7 @@ export function QualificationForm() {
   const [formError, setFormError] = useState<string | null>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [confirmedInquiryId, setConfirmedInquiryId] = useState<string | undefined>();
-  const [bookingUrl, setBookingUrl] = useState<string | undefined>(process.env.NEXT_PUBLIC_BOOKING_URL);
+  const [bookingUrl, setBookingUrl] = useState<string | undefined>(BOOKING_URL);
 
   const mapRevenueTierToCompanyTier = (tier: string) => {
     switch (tier) {
@@ -389,7 +391,7 @@ export function QualificationForm() {
         payload: { action: 'consultation_submitted', inquiryId },
       });
 
-      const baseBookingUrl = process.env.NEXT_PUBLIC_BOOKING_URL;
+      const baseBookingUrl = BOOKING_URL;
       if (baseBookingUrl) {
         const params = new URLSearchParams({
           name: clientName,

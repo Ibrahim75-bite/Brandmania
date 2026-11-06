@@ -7,21 +7,48 @@ interface RateLimitBucket {
 
 export class MemoryRateLimiter implements IRateLimiter {
   private readonly buckets = new Map<string, RateLimitBucket>();
+  private readonly maxBuckets = 5000;
 
   constructor(
     private readonly defaultMaxRequests = 60,
     private readonly defaultWindowMs = 60000
   ) {}
 
+  private evictIfNeeded(): void {
+    if (this.buckets.size < this.maxBuckets) return;
+    let oldestKey = '';
+    let oldestTime = Infinity;
+    for (const [key, bucket] of this.buckets) {
+      if (bucket.lastRefillMs < oldestTime) {
+        oldestTime = bucket.lastRefillMs;
+        oldestKey = key;
+      }
+    }
+    if (oldestKey) {
+      this.buckets.delete(oldestKey);
+    }
+  }
+
+  private sweepExpired(): void {
+    const now = Date.now();
+    for (const [key, bucket] of this.buckets) {
+      if (now - bucket.lastRefillMs > this.defaultWindowMs * 10) {
+        this.buckets.delete(key);
+      }
+    }
+  }
+
   public async checkLimit(
     key: string,
     maxRequests = this.defaultMaxRequests,
     windowMs = this.defaultWindowMs
   ): Promise<RateLimitResult> {
+    this.sweepExpired();
     const now = Date.now();
     let bucket = this.buckets.get(key);
 
     if (!bucket) {
+      this.evictIfNeeded();
       bucket = {
         tokens: maxRequests - 1,
         lastRefillMs: now,

@@ -13,7 +13,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error('App-level runtime error:', error);
+    if (process.env.NODE_ENV !== 'production') console.error('App-level runtime error:', error);
   }, [error]);
 
   return (

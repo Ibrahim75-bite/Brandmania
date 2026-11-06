@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { constructMetadata } from '@/infrastructure/seo/metadata';
 import { ConsultationClient } from './ConsultationClient';
 
 export const metadata: Metadata = constructMetadata({
-  title: 'Executive Briefing Consultation | BRANDMANIA',
+  title: 'Private Executive Consultation | BRANDMANIA',
   description:
-    'Private executive briefing and diagnostic session for qualified enterprises generating $700,000+ annual revenue.',
+    'In 30 minutes, see the 2–3 hidden leaks costing you sales—without spending a dollar more on ads. Private 1-on-1 working session.',
   canonicalPath: '/consultation',
   noIndex: true,
 });
 
 export default function ConsultationPage() {
-  return <ConsultationClient />;
+  return (
+    <Suspense
+      fallback={
+        <div style={{ minHeight: '100vh', backgroundColor: '#0D0118' }} />
+      }
+    >
+      <ConsultationClient />
+    </Suspense>
+  );
 }

@@ -19,16 +19,25 @@ export function SmoothScroll() {
     });
 
     let animationFrameId: number;
+    let isPaused = false;
 
     function raf(time: number) {
-      lenis.raf(time);
+      if (!isPaused) {
+        lenis.raf(time);
+      }
       animationFrameId = requestAnimationFrame(raf);
     }
 
+    const handleVisibilityChange = () => {
+      isPaused = document.visibilityState === 'hidden';
+    };
+
     animationFrameId = requestAnimationFrame(raf);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       lenis.destroy();
     };
   }, []);

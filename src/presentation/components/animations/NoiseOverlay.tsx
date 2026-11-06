@@ -24,12 +24,18 @@ export const NoiseOverlay: React.FC<NoiseOverlayProps> = ({
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    let frame = 0;
-    let animationId: number;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const canvasSize = 512;
 
-    canvas.width = canvasSize;
-    canvas.height = canvasSize;
+    canvas.width = canvasSize * dpr;
+    canvas.height = canvasSize * dpr;
+    canvas.style.width = `${canvasSize}px`;
+    canvas.style.height = `${canvasSize}px`;
+    ctx.scale(dpr, dpr);
+
+    let frame = 0;
+    let animationId: number;
+    let isPaused = false;
 
     const drawGrain = () => {
       const imageData = ctx.createImageData(canvasSize, canvasSize);
@@ -48,6 +54,10 @@ export const NoiseOverlay: React.FC<NoiseOverlayProps> = ({
     };
 
     const loop = () => {
+      if (isPaused) {
+        animationId = window.requestAnimationFrame(loop);
+        return;
+      }
       frame++;
       if (frame % patternRefreshInterval === 0) {
         drawGrain();
@@ -55,28 +65,31 @@ export const NoiseOverlay: React.FC<NoiseOverlayProps> = ({
       animationId = window.requestAnimationFrame(loop);
     };
 
+    const handleVisibilityChange = () => {
+      isPaused = document.visibilityState === 'hidden';
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          isPaused = !entry.isIntersecting;
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(canvas);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     drawGrain();
     animationId = window.requestAnimationFrame(loop);
 
     return () => {
       window.cancelAnimationFrame(animationId);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      observer.disconnect();
     };
   }, [patternAlpha, patternRefreshInterval]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        pointerEvents: 'none',
-        zIndex: 999,
-        opacity: 0.025,
-      }}
-    />
-  );
-};
+  return <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.03, pointerEvents: 'none' }} aria-hidden="true" />;
+}

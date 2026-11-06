@@ -72,13 +72,10 @@ export const MarginRecoverySection: React.FC = () => {
       <Container size="full">
         <div className={styles.headerBlock}>
           <div className={styles.marker}>
-            06 &mdash; FLAGSHIP II &bull; MARGIN RECOVERY &bull; 6-STAGE AUDIT
+            Margin Recovery Audit
           </div>
           <h2 className={styles.headline}>
-            Fix the commercial machine{' '}
-            <span className={styles.headlineItalic}>
-              before buying more traffic.
-            </span>
+            Fix the commercial machine before buying more traffic
           </h2>
           <p className={styles.subhead}>
             Deploying ad spend into an uncalibrated business model amplifies waste. Our six-stage audit identifies where margin silently degrades across the entire commercial chain and executes strategic and operational repairs.

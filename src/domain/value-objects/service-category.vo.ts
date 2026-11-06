@@ -3,6 +3,7 @@ import { DomainValidationError } from '../errors/domain.error';
 export type ServiceCode =
   | 'BRAND_DIRECTION'
   | 'MARGIN_RECOVERY'
+  | 'CONSUMER_SCOPE'
   | 'NEUROMARKETING'
   | 'AI_AUTOMATION'
   | 'GROWTH_MARKETING'
@@ -13,6 +14,7 @@ export class ServiceCategory {
   private static readonly VALID_SERVICES: Record<ServiceCode, { name: string; isCorePillar: boolean }> = {
     BRAND_DIRECTION: { name: 'Brand Direction', isCorePillar: true },
     MARGIN_RECOVERY: { name: 'Margin Recovery', isCorePillar: true },
+    CONSUMER_SCOPE: { name: 'Consumer Scope (Neuromarketing)', isCorePillar: true },
     NEUROMARKETING: { name: 'Neuromarketing (Consumer Scope)', isCorePillar: true },
     AI_AUTOMATION: { name: 'AI Connected Systems & Automation', isCorePillar: false },
     GROWTH_MARKETING: { name: 'Growth & Performance Marketing', isCorePillar: false },
@@ -55,6 +57,6 @@ export class ServiceCategory {
   }
 
   public static getAllCorePillars(): ServiceCode[] {
-    return ['BRAND_DIRECTION', 'MARGIN_RECOVERY', 'NEUROMARKETING'];
+    return ['BRAND_DIRECTION', 'MARGIN_RECOVERY', 'CONSUMER_SCOPE', 'NEUROMARKETING'];
   }
 }

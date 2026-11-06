@@ -70,6 +70,7 @@ export class StructuredLogger implements ILogger {
     }
 
     const output = JSON.stringify(payload);
+    if (process.env.NODE_ENV === 'production') return;
     if (level === 'error') {
       console.error(output);
     } else if (level === 'warn') {

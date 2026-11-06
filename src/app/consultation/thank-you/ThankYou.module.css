@@ -1,0 +1,158 @@
+.page {
+  min-height: 80vh;
+  background-color: #0D0118;
+  color: #FAF7FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(3rem, 6vw, 6rem) 1.5rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 680px;
+  background-color: #150426;
+  border: 1px solid rgba(200, 130, 255, 0.2);
+  border-radius: 6px;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+  animation: enterCard 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes enterCard {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  animation: pulseOnce 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes pulseOnce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #C882FF;
+  background-color: rgba(200, 130, 255, 0.1);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  color: #FAF7FF;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  color: #C4B8D8;
+  line-height: 1.6;
+  max-width: 54ch;
+  margin: 0 auto 2.5rem;
+}
+
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+  margin-bottom: 2.5rem;
+}
+
+.stepItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background-color: rgba(13, 1, 24, 0.6);
+  border: 1px solid rgba(200, 130, 255, 0.12);
+  border-radius: 6px;
+}
+
+.stepNum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  background-color: rgba(200, 130, 255, 0.18);
+  color: #C882FF;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stepText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stepTitle {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FAF7FF;
+}
+
+.stepDesc {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  color: #C4B8D8;
+  line-height: 1.5;
+}
+
+.homeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 28px;
+  background-color: #C882FF;
+  color: #0D0118;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 120ms ease, background-color 150ms ease;
+}
+
+.homeButton:hover {
+  background-color: #FAF7FF;
+  transform: translateY(-2px);
+}
+
+.homeButton:active {
+  transform: scale(0.97);
+}
+

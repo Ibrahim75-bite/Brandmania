@@ -63,7 +63,7 @@ export class TelemetryMonitor {
       try {
         listener(alert);
       } catch (err) {
-        console.error('Error executing alert listener:', err);
+        if (process.env.NODE_ENV !== 'production') console.error('Error executing alert listener:', err);
       }
     }
   }

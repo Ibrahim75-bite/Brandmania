@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { NextRequest } from 'next/server';
 import { POST as inquiriesPost } from '@/app/api/v1/inquiries/route';
 import { container } from '@/infrastructure/container';
+import { generateFormToken } from '@/infrastructure/security/form-token';
 import { WebsiteUrl } from '@/domain/value-objects/website-url.vo';
 import { PhoneNumber } from '@/domain/value-objects/phone-number.vo';
 import { SupabaseInquiryRepository } from '@/infrastructure/persistence/supabase-inquiry.repository';
@@ -11,6 +12,27 @@ import { Email } from '@/domain/value-objects/email.vo';
 import { CompanyTier } from '@/domain/value-objects/company-tier.vo';
 import { BudgetRange } from '@/domain/value-objects/budget-range.vo';
 import { ServiceCategory } from '@/domain/value-objects/service-category.vo';
+
+function makeRequest(payload: unknown, idempotencyKey: string, formToken?: string): NextRequest {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Idempotency-Key': idempotencyKey,
+    'x-request-id': 'req_test_' + Math.random().toString(36).slice(2, 9),
+  };
+  if (formToken) {
+    headers['x-form-token'] = formToken;
+  }
+  return new NextRequest('https://brandmania.agency/api/v1/inquiries', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(payload),
+  });
+}
+
+async function validFormToken(elapsedMs: number): Promise<string> {
+  const timestamp = Date.now() - elapsedMs;
+  return generateFormToken(timestamp);
+}
 
 describe('Inquiry Intake Public Seam & Adapter Verification', () => {
   beforeEach(async () => {
@@ -27,20 +49,11 @@ describe('Inquiry Intake Public Seam & Adapter Verification', () => {
         budgetRange: 'TIER_250K_500K',
         services: ['BRAND_DIRECTION', 'MARGIN_RECOVERY'],
         message: 'Comprehensive margin recovery and perception diagnostic.',
-        submissionDurationMs: 6500,
         consentAccepted: true,
       };
 
-      const req = new NextRequest('https://brandmania.agency/api/v1/inquiries', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Idempotency-Key': 'idemp_test_seam_1',
-          'x-request-id': 'req_test_seam_1',
-        },
-        body: JSON.stringify(validPayload),
-      });
-
+      const token = await validFormToken(3000);
+      const req = makeRequest(validPayload, 'idemp_test_seam_1', token);
       const response = await inquiriesPost(req);
       expect(response.status).toBe(201);
       expect(response.headers.get('X-RateLimit-Limit')).toBeDefined();
@@ -50,7 +63,6 @@ describe('Inquiry Intake Public Seam & Adapter Verification', () => {
       expect(json.data.inquiryId).toMatch(/^inq_/);
       expect(json.data.status).toBe('PENDING');
 
-      // Verify observable state transition in repository at the seam
       const saved = await container.inquiryRepository.findById(json.data.inquiryId);
       expect(saved).not.toBeNull();
       expect(saved?.clientName).toBe('Julian Sterling');
@@ -66,34 +78,17 @@ describe('Inquiry Intake Public Seam & Adapter Verification', () => {
         budgetRange: 'TIER_100K_250K',
         services: ['MARGIN_RECOVERY'],
         message: 'Requesting commercial audit.',
-        submissionDurationMs: 5000,
         consentAccepted: true,
       };
 
-      // First call
-      const req1 = new NextRequest('https://brandmania.agency/api/v1/inquiries', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Idempotency-Key': idempotencyKey,
-          'x-request-id': 'req_first_call',
-        },
-        body: JSON.stringify(validPayload),
-      });
+      const token = await validFormToken(3000);
+
+      const req1 = makeRequest(validPayload, idempotencyKey, token);
       const res1 = await inquiriesPost(req1);
       expect(res1.status).toBe(201);
       const json1 = await res1.json();
 
-      // Second call with same idempotency key
-      const req2 = new NextRequest('https://brandmania.agency/api/v1/inquiries', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Idempotency-Key': idempotencyKey,
-          'x-request-id': 'req_second_call',
-        },
-        body: JSON.stringify(validPayload),
-      });
+      const req2 = makeRequest(validPayload, idempotencyKey, token);
       const res2 = await inquiriesPost(req2);
       expect(res2.status).toBe(201);
       expect(res2.headers.get('X-Idempotent-Replay')).toBe('true');
@@ -101,7 +96,6 @@ describe('Inquiry Intake Public Seam & Adapter Verification', () => {
       const json2 = await res2.json();
       expect(json2.data.inquiryId).toBe(json1.data.inquiryId);
 
-      // Verify repository only has 1 record for this email
       const records = await container.inquiryRepository.findByEmail(new Email('alexander@vance-intl.com'));
       expect(records.length).toBe(1);
     });
@@ -115,29 +109,23 @@ describe('Inquiry Intake Public Seam & Adapter Verification', () => {
         budgetRange: 'TIER_100K_250K',
         services: ['MARGIN_RECOVERY'],
         message: 'Spam text message.',
-        company_fax_number: '1-800-SPAM-BOT', // Trap field filled
-        submissionDurationMs: 8000,
+        company_fax_number: '1-800-SPAM-BOT',
         consentAccepted: true,
       };
 
-      const req = new NextRequest('https://brandmania.agency/api/v1/inquiries', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(botPayload),
-      });
-
+      const token = await validFormToken(3000);
+      const req = makeRequest(botPayload, 'idemp_test_honeypot', token);
       const response = await inquiriesPost(req);
       expect(response.status).toBe(400);
       const json = await response.json();
       expect(json.success).toBe(false);
       expect(json.error.code).toBe('SPAM_REJECTED');
 
-      // Verify zero records persisted
       const count = await container.inquiryRepository.count();
       expect(count).toBe(0);
     });
 
-    it('rejects rapid automated bot submission (< 2500ms) with 400 TIME_LOCK_VIOLATION', async () => {
+    it('rejects rapid automated submission with 400 TIME_LOCK_VIOLATION via form token', async () => {
       const fastPayload = {
         clientName: 'Fast Bot',
         companyName: 'Speed Corp',
@@ -146,21 +134,59 @@ describe('Inquiry Intake Public Seam & Adapter Verification', () => {
         budgetRange: 'TIER_100K_250K',
         services: ['MARGIN_RECOVERY'],
         message: 'Rapid automated submission.',
-        submissionDurationMs: 800, // Completed in 800ms
+        consentAccepted: true,
+      };
+
+      const token = await validFormToken(1000);
+      const req = makeRequest(fastPayload, 'idemp_test_timelock', token);
+      const response = await inquiriesPost(req);
+      expect(response.status).toBe(400);
+      const json = await response.json();
+      expect(json.success).toBe(false);
+      expect(json.error.code).toBe('TIME_LOCK_VIOLATION');
+    });
+
+    it('rejects missing idempotency key with 400', async () => {
+      const validPayload = {
+        clientName: 'No Key User',
+        companyName: 'No Key Corp',
+        email: 'nokey@test.com',
+        companyTier: 'MID_MARKET',
+        budgetRange: 'TIER_100K_250K',
+        services: ['MARGIN_RECOVERY'],
+        message: 'Missing idempotency key.',
         consentAccepted: true,
       };
 
       const req = new NextRequest('https://brandmania.agency/api/v1/inquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fastPayload),
+        body: JSON.stringify(validPayload),
       });
 
       const response = await inquiriesPost(req);
       expect(response.status).toBe(400);
       const json = await response.json();
-      expect(json.success).toBe(false);
-      expect(json.error.code).toBe('TIME_LOCK_VIOLATION');
+      expect(json.error.code).toBe('MISSING_IDEMPOTENCY_KEY');
+    });
+
+    it('rejects missing form token with 400', async () => {
+      const validPayload = {
+        clientName: 'No Token User',
+        companyName: 'No Token Corp',
+        email: 'notoken@test.com',
+        companyTier: 'MID_MARKET',
+        budgetRange: 'TIER_100K_250K',
+        services: ['MARGIN_RECOVERY'],
+        message: 'Missing form token.',
+        consentAccepted: true,
+      };
+
+      const req = makeRequest(validPayload, 'idemp_test_notoken');
+      const response = await inquiriesPost(req);
+      expect(response.status).toBe(400);
+      const json = await response.json();
+      expect(json.error.code).toBe('MISSING_FORM_TOKEN');
     });
   });
 
@@ -172,7 +198,6 @@ describe('Inquiry Intake Public Seam & Adapter Verification', () => {
       const urlWithWww = new WebsiteUrl('www.brandmania.agency');
       expect(urlWithWww.value).toBe('https://brandmania.agency');
 
-      // SSRF vectors rejected
       expect(() => new WebsiteUrl('http://169.254.169.254/latest/meta-data/')).toThrow();
       expect(() => new WebsiteUrl('http://localhost:3000')).toThrow();
       expect(() => new WebsiteUrl('http://10.0.0.1')).toThrow();
@@ -185,7 +210,6 @@ describe('Inquiry Intake Public Seam & Adapter Verification', () => {
       const ukPhone = new PhoneNumber('+44 20 7946 0991');
       expect(ukPhone.value).toBe('+442079460991');
 
-      // Invalid lengths rejected
       expect(() => new PhoneNumber('123')).toThrow();
       expect(() => new PhoneNumber('')).toThrow();
     });
@@ -207,7 +231,6 @@ describe('Inquiry Intake Public Seam & Adapter Verification', () => {
         message: 'Testing dual repository adapters.',
       });
 
-      // Verify InMemory adapter
       await inMemoryRepo.save(testInquiry);
       const foundInMem = await inMemoryRepo.findById('inq_dual_adapter_1');
       expect(foundInMem?.id).toBe('inq_dual_adapter_1');
@@ -215,7 +238,6 @@ describe('Inquiry Intake Public Seam & Adapter Verification', () => {
       await inMemoryRepo.delete('inq_dual_adapter_1');
       expect(await inMemoryRepo.count()).toBe(0);
 
-      // Verify Supabase adapter
       await supabaseRepo.save(testInquiry);
       const foundSupa = await supabaseRepo.findById('inq_dual_adapter_1');
       expect(foundSupa?.id).toBe('inq_dual_adapter_1');

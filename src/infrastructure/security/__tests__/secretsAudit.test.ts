@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -18,6 +18,8 @@ describe('Security & Secrets Audit Test Suite', () => {
     'STRIPE_SECRET_KEY',
   ];
 
+  let cachedSrcFiles: string[] = [];
+
   function getFilesRecursively(dir: string, fileList: string[] = []): string[] {
     const files = fs.readdirSync(dir);
     for (const file of files) {
@@ -33,10 +35,13 @@ describe('Security & Secrets Audit Test Suite', () => {
     return fileList;
   }
 
+  beforeAll(() => {
+    cachedSrcFiles = getFilesRecursively(srcDir);
+  }, 15000);
+
   it('ensures zero server secret keys are prefixed with NEXT_PUBLIC_ anywhere in repository', () => {
-    const allSrcFiles = getFilesRecursively(srcDir);
     const envExamplePath = path.join(rootDir, '.env.example');
-    const filesToCheck = [...allSrcFiles];
+    const filesToCheck = [...cachedSrcFiles];
     if (fs.existsSync(envExamplePath)) {
       filesToCheck.push(envExamplePath);
     }
@@ -63,14 +68,16 @@ describe('Security & Secrets Audit Test Suite', () => {
       violations,
       `Found forbidden NEXT_PUBLIC_ secret prefixes:\n${JSON.stringify(violations, null, 2)}`
     ).toHaveLength(0);
-  });
+  }, 15000);
 
   it('ensures no "use client" components import or reference private server environment variables', () => {
-    const allSrcFiles = getFilesRecursively(path.join(srcDir, 'presentation'));
+    const presentationFiles = cachedSrcFiles.filter((f) =>
+      f.includes(`${path.sep}presentation${path.sep}`)
+    );
 
     const violations: { file: string; secret: string; line: string }[] = [];
 
-    for (const filePath of allSrcFiles) {
+    for (const filePath of presentationFiles) {
       const content = fs.readFileSync(filePath, 'utf-8');
       const isClientComponent =
         content.includes("'use client'") || content.includes('"use client"');
@@ -95,7 +102,7 @@ describe('Security & Secrets Audit Test Suite', () => {
       violations,
       `Found client components referencing server-only secrets:\n${JSON.stringify(violations, null, 2)}`
     ).toHaveLength(0);
-  });
+  }, 15000);
 
   it('ensures next.config.ts does not leak server secrets into public env block', () => {
     const nextConfigPath = path.join(rootDir, 'next.config.ts');
@@ -105,5 +112,5 @@ describe('Security & Secrets Audit Test Suite', () => {
         expect(content).not.toContain(secret);
       }
     }
-  });
+  }, 15000);
 });

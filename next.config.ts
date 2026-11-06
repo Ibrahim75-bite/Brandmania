@@ -29,13 +29,12 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      // #7 Ban Polyfill.io & untrusted CDNs â€” script-src only 'self' + consent-gated GTM
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://assets.calendly.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' data: blob: https:",
-      "connect-src 'self' https:",
-      "frame-src 'self' https://calendly.com https://*.calendly.com https://www.youtube-nocookie.com",
+      "connect-src 'self' https: https://assets.calendly.com",
+      "frame-src 'self' https://calendly.com https://*.calendly.com https://cal.com https://*.cal.com https://app.cal.com https://www.youtube-nocookie.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -47,9 +46,8 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   reactStrictMode: true,
   poweredByHeader: false,
-  // #18 Disable source maps in production
+  devIndicators: false,
   productionBrowserSourceMaps: false,
-  // #19 Remove console.* in production (keep error/warn)
   compiler: {
     removeConsole:
       process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
@@ -58,7 +56,6 @@ const nextConfig: NextConfig = {
     viewTransition: true,
     optimizeCss: true,
     scrollRestoration: true,
-    // #20 Lean JS Bundles â€” optimize package imports
     optimizePackageImports: ['@phosphor-icons/react', 'motion', 'zod', 'lenis'],
   },
   images: {
@@ -70,7 +67,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: '/(llms.*\\.txt|privacy|terms|robots.txt|sitemap.xml)',
+        source: '/(llms.*\\.txt|robots.txt|sitemap.xml)',
         headers: [
           ...securityHeaders,
           {
@@ -79,7 +76,26 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // #3 Performance CDN: /brand/:path* â€” immutable cache + compression
+      {
+        source: '/(privacy|terms|cookies)',
+        headers: [
+          ...securityHeaders,
+          {
+            key: 'Cache-Control',
+            value: 'private, no-cache, no-store, must-revalidate',
+          },
+        ],
+      },
+      {
+        source: '/api/:path*',
+        headers: [
+          ...securityHeaders,
+          {
+            key: 'Cache-Control',
+            value: 'private, no-cache, no-store, must-revalidate',
+          },
+        ],
+      },
       {
         source: '/brand/:path*',
         headers: [
@@ -103,6 +119,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
-
-

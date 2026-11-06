@@ -47,10 +47,10 @@ export const DilemmaSection: React.FC = () => {
           <div className={styles.trapCol}>
             <div>
               <div className={styles.trapMarker}>
-                02.A &mdash; COMMODITY GROWTH (TRAFFIC WITHOUT AUTHORITY)
+                Commodity Growth
               </div>
               <h2 className={styles.trapTitle}>
-                Traffic buys attention. It does not buy loyalty.
+                Traffic buys attention. It does not buy loyalty
               </h2>
             </div>
 
@@ -77,10 +77,10 @@ export const DilemmaSection: React.FC = () => {
           <div className={styles.archCol}>
             <div>
               <div className={styles.archMarker}>
-                02.B &mdash; ENGINEERED CATEGORY LEADERSHIP (PRICING POWER)
+                Engineered Category Leadership
               </div>
               <h2 className={styles.archTitle}>
-                Brand architecture commands margin.
+                Brand architecture commands margin
               </h2>
             </div>
 
@@ -109,7 +109,7 @@ export const DilemmaSection: React.FC = () => {
           <div className={styles.turningPointHeader}>
             <div>
               <div className={styles.turningPointEyebrow}>
-                TURNING-POINT DIAGNOSTIC &bull; COMMERCIAL ADVISORY ROUTER
+                Turning-Point Diagnostic
               </div>
               <h3 className={styles.turningPointTitle}>
                 Where Is Your Brand Losing Leverage?
@@ -131,7 +131,6 @@ export const DilemmaSection: React.FC = () => {
                 <span className={styles.routerSymptom}>&ldquo;{tp.symptom}&rdquo;</span>
                 <div className={styles.routerRemedy}>
                   <span>{tp.remedy}</span>
-                  <span className={styles.remedyPill}>{tp.code}</span>
                 </div>
                 <ArrowRight size={18} weight="bold" className={styles.routerArrow} />
               </Link>

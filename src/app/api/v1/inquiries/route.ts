@@ -11,6 +11,22 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   const ctx = extractRequestContext(req);
   const idempotencyKey = req.headers.get('Idempotency-Key') || req.headers.get('idempotency-key');
+  if (!idempotencyKey) {
+    return new Response(
+      JSON.stringify({ success: false, error: { code: 'MISSING_IDEMPOTENCY_KEY', message: 'Idempotency-Key header is required.' } }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+  const formInitToken =
+    req.cookies.get('bm_form_init')?.value ||
+    req.headers.get('x-form-token') ||
+    null;
+  if (!formInitToken) {
+    return new Response(
+      JSON.stringify({ success: false, error: { code: 'MISSING_FORM_TOKEN', message: 'bm_form_init token is required.' } }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
 
   let rawBody: unknown;
   try {
@@ -36,6 +52,7 @@ export async function POST(req: NextRequest) {
           clientIp: ctx.clientIp,
           requestId: ctx.requestId,
           idempotencyKey,
+          formInitToken,
         },
       }),
       8000,

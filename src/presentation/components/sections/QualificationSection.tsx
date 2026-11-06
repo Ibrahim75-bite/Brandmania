@@ -30,7 +30,7 @@ export const QualificationSection: React.FC = () => {
           <div className={styles.leftCol}>
             <div>
               <div className={styles.marker}>
-                09 &mdash; EXECUTIVE QUALIFICATION &bull; STRATEGIC INTAKE
+                Executive Qualification
               </div>
               <h2 className={styles.headline}>
                 Request a Strategic Consultation

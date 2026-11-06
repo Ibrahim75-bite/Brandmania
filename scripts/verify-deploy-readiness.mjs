@@ -39,6 +39,7 @@ const requiredFiles = [
   'src/app/api/health/route.ts',
   'src/app/api/ready/route.ts',
   'src/app/consultation/page.tsx',
+  'src/app/consultation/thank-you/page.tsx',
   'src/app/insights/page.tsx',
   'src/app/work/page.tsx',
 ];

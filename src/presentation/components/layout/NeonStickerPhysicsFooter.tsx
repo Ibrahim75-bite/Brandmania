@@ -461,9 +461,26 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
     const MAX_ANGULAR_VELOCITY = 0.06;
 
     let running = true;
+    let isPaused = false;
+
+    const handleVisibilityChange = () => {
+      isPaused = document.visibilityState === 'hidden';
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          isPaused = !entry.isIntersecting;
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(container);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     const updatePhysics = () => {
-      if (!running) return;
+      if (!running || isPaused) return;
 
       const currentWidth = container.clientWidth || width;
       const bodies = bodiesRef.current;
@@ -598,6 +615,8 @@ export const NeonStickerPhysicsFooter: React.FC = () => {
     return () => {
       running = false;
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      observer.disconnect();
     };
   }, [initBodies]);
 

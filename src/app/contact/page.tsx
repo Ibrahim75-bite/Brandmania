@@ -40,6 +40,10 @@ export default function ContactPage() {
             <p style={{ fontSize: 'var(--font-size-base)', color: 'var(--color-text-secondary)', lineHeight: 'var(--line-height-relaxed)' }}>
               All inquiries are reviewed directly by executive partners under strict non-disclosure. Complete the diagnostic intake below to schedule your consultation.
             </p>
+            <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', fontSize: '14px', color: '#C4B8D8' }}>
+              <span>Operating Locations: <strong style={{ color: '#FAF7FF' }}>London &bull; New York &bull; Dubai / Cairo</strong></span>
+              <span>Direct Liaison: <a href="mailto:contact@brandmania.com" style={{ color: '#C882FF', textDecoration: 'none' }}>contact@brandmania.com</a></span>
+            </div>
           </div>
         </Container>
       </Section>

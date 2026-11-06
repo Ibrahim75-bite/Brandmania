@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Container } from './Container';
 import { BrandEye } from '../primitives/BrandEye';
@@ -39,6 +40,7 @@ const NeonStickerPhysicsFooter = dynamic(
 );
 
 export function Header() {
+  const pathname = usePathname();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isCommandOpen, setIsCommandOpen] = useState(false);
 
@@ -53,6 +55,24 @@ export function Header() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  if (pathname === '/consultation') {
+    return (
+      <header className={headerStyles.header} style={{ height: '56px' }}>
+        <Container>
+          <div className={headerStyles.inner} style={{ justifyContent: 'space-between', height: '56px' }}>
+            <Link href="/" className={`${headerStyles.brandLink} hit-slop`}>
+              <BrandEye size="sm" />
+              <span className={headerStyles.wordmark}>{BRAND.name}</span>
+            </Link>
+            <span style={{ whiteSpace: 'nowrap', fontSize: '13px', color: '#C4B8D8', fontFamily: 'var(--font-sans), sans-serif' }}>
+              30-Min Strategy Call
+            </span>
+          </div>
+        </Container>
+      </header>
+    );
+  }
 
   return (
     <header className={headerStyles.header}>
@@ -208,6 +228,10 @@ export function Footer() {
             <span style={{ fontSize: 'var(--font-size-xs)', color: '#A8A0B8' }}>
               &ldquo;{BRAND.internalPhilosophy}&rdquo;
             </span>
+            <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '13px', color: '#C4B8D8' }}>
+              <span>Operating Locations: <strong style={{ color: '#FAF7FF' }}>London &bull; New York &bull; Dubai / Cairo</strong></span>
+              <span>Direct Inquiries: <a href="mailto:contact@brandmania.com" style={{ color: '#C882FF', textDecoration: 'none' }}>contact@brandmania.com</a></span>
+            </div>
           </div>
 
           {FOOTER_SECTIONS.map((section) => (

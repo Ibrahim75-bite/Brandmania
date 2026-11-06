@@ -19,7 +19,7 @@ export const websiteValidator = z
   .transform(normalizeWebsiteUrl)
   .refine(
     (val) => {
-      if (!val) return true; // optional
+      if (!val) return true;
       return isSafeExternalUrl(val);
     },
     { message: 'Please provide a valid public brand website (e.g. brand.com or https://brand.com)' }
@@ -75,6 +75,9 @@ export const submitInquirySchema = z.object({
     .trim()
     .min(10, 'Diagnostic context must be at least 10 characters')
     .max(2000, 'Message cannot exceed 2000 characters'),
+  preferredTimes: z.string().optional(),
+  topics: z.string().optional(),
+  questions: z.string().optional(),
   company_fax_number: z.string().optional(),
   submissionDurationMs: z.number().optional(),
   consentAccepted: z

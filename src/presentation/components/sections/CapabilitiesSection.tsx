@@ -117,7 +117,7 @@ export const CapabilitiesSection: React.FC = () => {
         {}
         <div className={styles.headerBlock}>
           <div className={styles.marker}>
-            08 &mdash; SUPPORTING CAPABILITIES &bull; FULL-SPECTRUM ARCHITECTURE
+            Supporting Capabilities
           </div>
           <h2 className={styles.headline}>
             Integrated capabilities across marketing, operations, and AI

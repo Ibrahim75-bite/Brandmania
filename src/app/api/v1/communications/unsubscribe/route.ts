@@ -4,6 +4,7 @@ import { container } from '@/infrastructure/container';
 import {
   verifyUnsubscribeToken,
   suppressEmail,
+  extractEmailFromToken,
 } from '@/infrastructure/email/email-templates';
 import { enforceResponseFloor, uniformConfirmationResponse } from '@/infrastructure/security/vibeShield';
 import crypto from 'crypto';
@@ -17,16 +18,20 @@ async function parseEmailAndToken(
   let email = searchParams.get('email');
   let token = searchParams.get('token');
 
+  if (!email && token) {
+    email = extractEmailFromToken(token);
+  }
+
   if ((!email || !token) && req.method === 'POST') {
     const contentType = req.headers.get('content-type') || '';
     try {
       if (contentType.includes('application/json')) {
         const body = await req.json();
-        email = email || body.email;
+        email = email || body.email || (body.token ? extractEmailFromToken(body.token) : null);
         token = token || body.token;
       } else if (contentType.includes('application/x-www-form-urlencoded')) {
         const formData = await req.formData();
-        email = email || (formData.get('email') as string | null);
+        email = email || (formData.get('email') as string | null) || (formData.get('token') ? extractEmailFromToken(formData.get('token') as string) : null);
         token = token || (formData.get('token') as string | null);
       }
     } catch {

@@ -1,6 +1,7 @@
 import { SeoConfigSchema, type SeoConfig } from '@/domain/seo/schemaTypes';
+import { env } from '@/infrastructure/config/env';
 
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://brandmania.com';
+const rawSiteUrl = env.NEXT_PUBLIC_SITE_URL;
 const siteUrl = rawSiteUrl.replace(/\/+$/, '');
 
 const rawConfig = {

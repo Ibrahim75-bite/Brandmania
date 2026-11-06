@@ -32,9 +32,9 @@ export default function FoundationVerificationPage() {
   const [isLoadingProbes, setIsLoadingProbes] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [clientName, setClientName] = useState('Alexander Vance');
-  const [companyName, setCompanyName] = useState('Vance & Co. Haute Horlogerie');
-  const [email, setEmail] = useState('alexander@vance-horology.ch');
+  const [clientName, setClientName] = useState('Test User');
+  const [companyName, setCompanyName] = useState('Example Enterprise Corp');
+  const [email, setEmail] = useState('test@example.com');
   const [companyTier, setCompanyTier] = useState('HAUTE_LUXURY');
   const [budgetRange, setBudgetRange] = useState('TIER_100K_250K');
   const [services, setServices] = useState<string[]>(['BRAND_DIRECTION', 'MARGIN_RECOVERY', 'NEUROMARKETING']);
@@ -56,7 +56,7 @@ export default function FoundationVerificationPage() {
       setHealth(healthJson.data);
       setReadiness(readyJson.data);
     } catch (err) {
-      console.error('Failed to probe system health:', err);
+      if (process.env.NODE_ENV !== 'production') console.error('Failed to probe system health:', err);
     } finally {
       setIsLoadingProbes(false);
     }
@@ -98,6 +98,10 @@ export default function FoundationVerificationPage() {
       setIsSubmitting(false);
     }
   };
+
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
 
   return (
     <div>

@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
     container.logger.error('Error executing privacy data deletion', err, { email });
   }
 
-  const deletionReceiptId = `del_${Date.now().toString(36)}_${crypto.randomBytes(6).toString('hex')}`;
+  const deletionReceiptId = `del_${crypto.randomBytes(16).toString('hex')}`;
   const timestamp = new Date().toISOString();
 
   container.logger.audit('DATA_DELETION_REQUESTED', email, {

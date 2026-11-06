@@ -1,0 +1,585 @@
+.page {
+  min-height: 100vh;
+  background-color: #0D0118;
+  color: #FAF7FF;
+  padding-top: 1rem;
+  padding-bottom: clamp(4rem, 8vw, 6rem);
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.heroSection {
+  padding: clamp(1rem, 2.5vw, 2.5rem) 0;
+  text-align: left;
+}
+
+.eyebrow {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #C882FF;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.headline {
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(1.75rem, 4vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: #FAF7FF;
+  margin-bottom: 12px;
+  max-width: 28ch;
+}
+
+.subheadline {
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+  line-height: 1.55;
+  color: #C4B8D8;
+  max-width: 60ch;
+  margin-bottom: 16px;
+}
+
+.founderBar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(200, 130, 255, 0.14);
+  border-radius: 8px;
+  margin-bottom: 18px;
+  max-width: 640px;
+}
+
+.founderPortraitFrame {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 6px;
+  border: 1px solid rgba(200, 130, 255, 0.24);
+  overflow: hidden;
+  position: relative;
+  background-color: #0D0118;
+  flex-shrink: 0;
+}
+
+.founderPortrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(100%) contrast(1.06);
+  display: block;
+}
+
+.founderInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.founderName {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #FAF7FF;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.founderRole {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #C882FF;
+  line-height: 1.3;
+}
+
+.founderTrack {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11px;
+  color: #A8A0B8;
+  line-height: 1.35;
+}
+
+.heroCtaWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 420px;
+  height: 52px;
+  padding: 0 24px;
+  background: #C882FF;
+  color: #0D0118;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 6px;
+  white-space: nowrap;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.heroCta:hover {
+  background-color: #FAF7FF;
+  transform: translateY(-2px);
+}
+
+.heroCta:active {
+  transform: scale(0.98);
+}
+
+.heroMicrocopyStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 11px;
+  color: #A8A0B8;
+  font-family: var(--font-sans), sans-serif;
+  line-height: 1.4;
+}
+
+.agendaSection {
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  border-top: 1px solid rgba(200, 130, 255, 0.12);
+}
+
+.sectionHeader {
+  margin-bottom: 2rem;
+}
+
+.sectionEyebrow {
+  display: block;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #C882FF;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.sectionHeading {
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: #FAF7FF;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+}
+
+.agendaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.agendaCard {
+  background-color: #150426;
+  border: 1px solid rgba(200, 130, 255, 0.12);
+  border-radius: 6px;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.agendaPillarTag {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #C882FF;
+}
+
+.agendaPillarTitle {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #FAF7FF;
+  line-height: 1.3;
+}
+
+.agendaPillarDesc {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #C4B8D8;
+}
+
+.selectionProfileBar {
+  padding: 1.25rem 1.5rem;
+  background-color: rgba(22, 4, 41, 0.5);
+  border: 1px solid rgba(200, 130, 255, 0.12);
+  border-radius: 6px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #C4B8D8;
+}
+
+.proofSection {
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  border-top: 1px solid rgba(200, 130, 255, 0.12);
+}
+
+.dossierGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.dossierCard {
+  background-color: #150426;
+  border: 1px solid rgba(200, 130, 255, 0.12);
+  border-radius: 6px;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.dossierBrand {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #FAF7FF;
+  letter-spacing: -0.01em;
+}
+
+.dossierRole {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #C882FF;
+  line-height: 1.4;
+  margin-top: 4px;
+  display: block;
+}
+
+.dossierMetricsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(200, 130, 255, 0.1);
+  border-bottom: 1px solid rgba(200, 130, 255, 0.1);
+}
+
+.dossierMetricValue {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #FAF7FF;
+}
+
+.dossierMetricLabel {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11px;
+  color: #A8A0B8;
+  margin-top: 0.2rem;
+}
+
+.dossierScope {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #C882FF;
+  line-height: 1.4;
+}
+
+.dossierSummary {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #C4B8D8;
+}
+
+.bookingStageSection {
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  border-top: 1px solid rgba(200, 130, 255, 0.12);
+}
+
+.bookingStageHeader {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 2.5rem;
+}
+
+.bookingMetaBar {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  color: #C4B8D8;
+  margin-top: 0.75rem;
+  line-height: 1.5;
+}
+
+.calendlyFrame {
+  width: 100%;
+  min-height: 700px;
+  border: 1px solid rgba(200, 130, 255, 0.16);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #120321;
+  display: block;
+}
+
+.fallbackStageWrapper {
+  margin-top: 3.5rem;
+  background-color: #150426;
+  border: 1px solid rgba(200, 130, 255, 0.16);
+  border-radius: 6px;
+  padding: clamp(1.75rem, 4vw, 3rem);
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fallbackHeading {
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 1.85rem);
+  font-weight: 700;
+  color: #FAF7FF;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.75rem;
+}
+
+.fallbackNote {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #C4B8D8;
+  margin-bottom: 2rem;
+}
+
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formLabel {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #FAF7FF;
+  letter-spacing: 0.01em;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  background-color: #0D0118;
+  border: 1px solid rgba(200, 130, 255, 0.2);
+  border-radius: 6px;
+  color: #FAF7FF;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  padding: 12px 14px;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  outline: none;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #C882FF;
+  box-shadow: 0 0 0 2px rgba(200, 130, 255, 0.25);
+}
+
+.inputError,
+.textareaError {
+  border-color: #FF6B8B !important;
+  box-shadow: 0 0 0 1px #FF6B8B !important;
+}
+
+.fieldError {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  color: #FF8585;
+  line-height: 1.3;
+}
+
+.textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: #C882FF;
+  cursor: pointer;
+}
+
+.checkboxLabel {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  color: #C4B8D8;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.consentLink {
+  color: #C882FF;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.submitError {
+  padding: 12px 14px;
+  background-color: rgba(255, 107, 139, 0.1);
+  border: 1px solid rgba(255, 107, 139, 0.3);
+  border-radius: 6px;
+  color: #FF8585;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.submitButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 28px;
+  background-color: #C882FF;
+  color: #0D0118;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 150ms ease, transform 120ms ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #FAF7FF;
+  transform: translateY(-2px);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.stickyBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: rgba(13, 1, 24, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(200, 130, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stickyCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 420px;
+  height: 46px;
+  padding: 0 20px;
+  background-color: #C882FF;
+  color: #0D0118;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 6px;
+  white-space: nowrap;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.stickyCta:hover {
+  background-color: #FAF7FF;
+  transform: translateY(-2px);
+}
+
+.stickyCta:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 768px) {
+  .founderPortraitFrame {
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .agendaGrid,
+  .dossierGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}

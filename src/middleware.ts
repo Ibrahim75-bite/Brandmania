@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyCsrfOrigin } from './infrastructure/security/guards';
+import { generateFormToken } from './infrastructure/security/form-token';
 import {
   isAllowedHost,
   isValidSlug,
   ALLOWED_HOSTS,
 } from './infrastructure/security/vibeShield';
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const proto = request.headers.get('x-forwarded-proto');
   const host = request.headers.get('host') || '';
   const hostname = host.split(':')[0].toLowerCase();
@@ -36,15 +37,12 @@ export function middleware(request: NextRequest) {
   }
 
   const sensitivePathRegex = /^\/(\.git|\.env|\.agents|\.next\/server|supabase|docker|package\.json|tsconfig\.json)/i;
+  const mapRegex = /\.map($|\?)/i;
   if (
     sensitivePathRegex.test(pathname) ||
-    (process.env.NODE_ENV === 'production' && pathname.endsWith('.map'))
+    (process.env.NODE_ENV === 'production' && (mapRegex.test(pathname) || mapRegex.test(request.url)))
   ) {
     return new NextResponse(null, { status: 404 });
-  }
-
-  if (request.headers.get('x-middleware-subrequest')) {
-    return new NextResponse(null, { status: 403 });
   }
 
   const isApiRoute = pathname.startsWith('/api/');
@@ -70,7 +68,19 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+  if (request.method === 'GET' && !isApiRoute) {
+    if (!request.cookies.has('bm_form_init')) {
+      const token = await generateFormToken();
+      response.cookies.set('bm_form_init', token, {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 3600,
+      });
+    }
+  }
+  return response;
 }
 
 export const config = {

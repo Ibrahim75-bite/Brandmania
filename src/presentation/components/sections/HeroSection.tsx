@@ -14,20 +14,20 @@ export const HeroSection: React.FC = () => {
     <section id="hero" className={styles.heroSection}>
       <Container size="full">
         <div className={styles.topDatum}>
-          <span>01 / BRANDMANIA&reg; &mdash; STRATEGIC BRAND &amp; COMMERCIAL ADVISORY</span>
-          <span>CLIENT QUALIFICATION: $700,000+ ANNUAL REVENUE</span>
-          <span className={styles.topDatumRight}>ARCHITECTURE: PERCEPTION &bull; MARGIN &bull; PSYCHOLOGY</span>
+          <span>BRANDMANIA&reg; &mdash; Strategic Brand &amp; Commercial Advisory</span>
+          <span>Client Qualification: $700,000+ Annual Revenue</span>
+          <span className={styles.topDatumRight}>Perception &bull; Margin &bull; Psychology</span>
         </div>
 
         <div className={styles.grid}>
           <div className={styles.editorialCol}>
             <div className={styles.eyebrow}>
               <span className={styles.eyebrowDot} />
-              <span>01 &mdash; STRATEGIC BRAND &amp; COMMERCIAL ADVISORY</span>
+              <span>Strategic Brand &amp; Commercial Advisory</span>
             </div>
 
             <h1 className={styles.headline}>
-              Branded for <span className={styles.headlineItalic}>the Best.</span>
+              Branded for the Best
             </h1>
 
             <p className={styles.lead}>
@@ -67,12 +67,11 @@ export const HeroSection: React.FC = () => {
 
           <div className={styles.disciplinesCol}>
             <div className={styles.disciplinesHeader}>
-              <div className={styles.disciplinesTag}>CORE DISCIPLINES</div>
+              <div className={styles.disciplinesTag}>Core Disciplines</div>
               <h3 className={styles.disciplinesMainTitle}>Commercial Architecture</h3>
             </div>
 
             <div className={styles.disciplineRow}>
-              <span className={styles.disciplineNum}>[01]</span>
               <h4 className={styles.disciplineName}>Brand Direction</h4>
               <p className={styles.disciplineDesc}>
                 Defensible corporate authority, positioning, and prestige architecture.
@@ -80,7 +79,6 @@ export const HeroSection: React.FC = () => {
             </div>
 
             <div className={styles.disciplineRow}>
-              <span className={styles.disciplineNum}>[02]</span>
               <h4 className={styles.disciplineName}>Margin Recovery</h4>
               <p className={styles.disciplineDesc}>
                 Six-stage commercial audit plugging profit leakage before scaling spend.
@@ -88,7 +86,6 @@ export const HeroSection: React.FC = () => {
             </div>
 
             <div className={styles.disciplineRow}>
-              <span className={styles.disciplineNum}>[03]</span>
               <h4 className={styles.disciplineName}>Consumer Scope</h4>
               <p className={styles.disciplineDesc}>
                 Psychological buyer mapping and price-inelasticity frameworks.
@@ -100,15 +97,15 @@ export const HeroSection: React.FC = () => {
         <div className={styles.metricsBar}>
           <div className={styles.metricItem}>
             <span className={styles.metricValue}>$700,000+ Annual Revenue</span>
-            <span className={styles.metricLabel}>01 &mdash; Verified Enterprise Qualification Floor</span>
+            <span className={styles.metricLabel}>Verified Enterprise Qualification Floor</span>
           </div>
           <div className={styles.metricItem}>
             <span className={styles.metricValue}>Dual Engagement Tracks</span>
-            <span className={styles.metricLabel}>02 &mdash; Full Rebuild &amp; Strategic Consultancy</span>
+            <span className={styles.metricLabel}>Full Rebuild &amp; Strategic Consultancy</span>
           </div>
           <div className={styles.metricItem}>
             <span className={styles.metricValue}>Confidential Governance</span>
-            <span className={styles.metricLabel}>03 &mdash; Protected Under Bilateral Mutual NDA</span>
+            <span className={styles.metricLabel}>Protected Under Bilateral Mutual NDA</span>
           </div>
         </div>
 

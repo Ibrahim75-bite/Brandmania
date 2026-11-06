@@ -1,4 +1,4 @@
-
+import { env } from '../config/env';
 
 export interface DbPoolConfig {
   host: string;
@@ -18,13 +18,13 @@ export class DatabasePoolManager {
   private readonly config: DbPoolConfig;
 
   private constructor() {
-    const rawUrl = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:6543/postgres';
-    
+    const rawUrl = env.DATABASE_URL;
+
     let parsedUrl: URL;
     try {
       parsedUrl = new URL(rawUrl);
     } catch {
-      parsedUrl = new URL('postgresql://postgres:postgres@localhost:6543/postgres');
+      throw new Error('FATAL: DATABASE_URL is not a valid connection string');
     }
 
     const port = parsedUrl.port ? parseInt(parsedUrl.port, 10) : 6543;
@@ -39,13 +39,13 @@ export class DatabasePoolManager {
 
     this.config = {
       host: parsedUrl.hostname,
-      port: 6543, // Supavisor Transaction Mode port
+      port: 6543,
       database: parsedUrl.pathname.replace(/^\//, '') || 'postgres',
       user: parsedUrl.username || 'postgres',
       ssl: process.env.NODE_ENV === 'production',
-      maxConnections: 1, // Single connection per serverless lambdas prevents pool exhaustion
-      idleTimeoutMillis: 10000, // 10s idle timeout
-      connectionTimeoutMillis: 5000, // 5s connection timeout
+      maxConnections: 1,
+      idleTimeoutMillis: 10000,
+      connectionTimeoutMillis: 5000,
       transactionMode: true,
       connectionStringUrl: parsedUrl.toString(),
     };

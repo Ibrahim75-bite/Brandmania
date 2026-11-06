@@ -12,14 +12,14 @@ export const WorldviewSection: React.FC = () => {
           {}
           <div className={styles.markerCol}>
             <div className={styles.marker}>
-              01 &mdash; THE DOCTRINE
+              The Doctrine
             </div>
           </div>
 
           {}
           <div className={styles.statementCol}>
             <h2 className={styles.quote}>
-              Branding is not what it looks like. It is how you communicate. Attention does not mean revenue.
+              Branding is not what it looks like. It is how you communicate. Attention does not mean revenue
             </h2>
 
             {}

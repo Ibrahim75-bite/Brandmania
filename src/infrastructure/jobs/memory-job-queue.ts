@@ -11,7 +11,8 @@ export interface JobQueueConfig {
 
 export class InMemoryJobQueue implements IJobQueue {
   private readonly handlers = new Map<string, JobHandler<unknown>>();
-  private readonly processedIdempotencyKeys = new Set<string>();
+  private readonly processedIdempotencyKeys = new Map<string, number>();
+  private readonly processedKeysMax = 5000;
   private readonly pendingJobs: Job<unknown>[] = [];
   private readonly deadLetterQueue: DeadLetterJob<unknown>[] = [];
   private isProcessing = false;
@@ -40,6 +41,8 @@ export class InMemoryJobQueue implements IJobQueue {
       return `skipped_${idempotencyKey}`;
     }
 
+    this.sweepProcessedKeys();
+
     const job: Job<T> = {
       id: `job_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
       name,
@@ -53,7 +56,7 @@ export class InMemoryJobQueue implements IJobQueue {
 
     queueMicrotask(() => {
       this.drain().catch((err) => {
-        console.error('Job queue background drain error:', err);
+        if (process.env.NODE_ENV !== 'production') console.error('Job queue background drain error:', err);
       });
     });
 
@@ -133,7 +136,8 @@ export class InMemoryJobQueue implements IJobQueue {
 
       if (success) {
         if (job.idempotencyKey) {
-          this.processedIdempotencyKeys.add(job.idempotencyKey);
+          this.evictProcessedKeysIfNeeded();
+          this.processedIdempotencyKeys.set(job.idempotencyKey, Date.now());
         }
       } else {
         const dlqItem: DeadLetterJob<unknown> = {
@@ -156,5 +160,30 @@ export class InMemoryJobQueue implements IJobQueue {
     this.pendingJobs.length = 0;
     this.deadLetterQueue.length = 0;
     this.processedIdempotencyKeys.clear();
+  }
+
+  private sweepProcessedKeys(): void {
+    const now = Date.now();
+    const ttlMs = 24 * 60 * 60 * 1000;
+    for (const [key, timestamp] of this.processedIdempotencyKeys) {
+      if (now - timestamp > ttlMs) {
+        this.processedIdempotencyKeys.delete(key);
+      }
+    }
+  }
+
+  private evictProcessedKeysIfNeeded(): void {
+    if (this.processedIdempotencyKeys.size < this.processedKeysMax) return;
+    let oldestKey = '';
+    let oldestTime = Infinity;
+    for (const [key, timestamp] of this.processedIdempotencyKeys) {
+      if (timestamp < oldestTime) {
+        oldestTime = timestamp;
+        oldestKey = key;
+      }
+    }
+    if (oldestKey) {
+      this.processedIdempotencyKeys.delete(oldestKey);
+    }
   }
 }

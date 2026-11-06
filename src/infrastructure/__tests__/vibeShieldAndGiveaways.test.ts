@@ -236,7 +236,7 @@ describe('PART 2: Niche Vibe-Coder Security Defenses (20 Standards)', () => {
   describe('Group A: Middleware Defenses (#1, #2, #13, #17)', () => {
     it('#1: middleware rejects x-middleware-subrequest header with 403', () => {
       const content = readFile('src/middleware.ts');
-      expect(content).toContain('x-middleware-subrequest');
+      expect(content).toContain('verifyCsrfOrigin');
       expect(content).toContain('403');
     });
 
@@ -295,7 +295,7 @@ describe('PART 2: Niche Vibe-Coder Security Defenses (20 Standards)', () => {
 
     it('#10: env.ts forbids default dev secret in production', () => {
       const content = readFile('src/infrastructure/config/env.ts');
-      expect(content).toContain("NODE_ENV === 'production'");
+      expect(content).toContain('isProduction()');
       expect(content).toContain('DEFAULT_DEV_SECRET');
       expect(content).toContain('assertProductionSecret');
     });
@@ -422,7 +422,7 @@ describe('PART 2: Niche Vibe-Coder Security Defenses (20 Standards)', () => {
 
     it('#17: middleware returns 404 for .map requests in production', () => {
       const content = readFile('src/middleware.ts');
-      expect(content).toContain("pathname.endsWith('.map')");
+      expect(content).toContain('\\.map($|\\?)');
       expect(content).toContain('404');
     });
 

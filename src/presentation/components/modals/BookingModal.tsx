@@ -6,6 +6,8 @@ import { Button } from '../primitives/Button';
 import { Badge } from '../primitives/Badge';
 import styles from './BookingModal.module.css';
 
+const MODAL_BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL;
+
 export interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -106,9 +108,8 @@ export function BookingModal({
 
   if (!isOpen) return null;
 
-  const hasExternalBooking = Boolean(
-    bookingUrl && process.env.NEXT_PUBLIC_BOOKING_URL
-  );
+  const effectiveBookingUrl = bookingUrl || MODAL_BOOKING_URL;
+  const hasExternalBooking = Boolean(effectiveBookingUrl);
 
   return (
     <div
@@ -272,7 +273,7 @@ export function BookingModal({
             {hasExternalBooking ? (
               <>
                 <a
-                  href={bookingUrl}
+                  href={effectiveBookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ textDecoration: 'none' }}

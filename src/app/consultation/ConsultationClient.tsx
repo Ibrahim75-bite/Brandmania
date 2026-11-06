@@ -1,45 +1,253 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
-import Link from 'next/link';
-import { BrandEye } from '@/presentation/components/primitives/BrandEye';
-import { Badge } from '@/presentation/components/primitives/Badge';
-import { Button } from '@/presentation/components/primitives/Button';
-import { Input } from '@/presentation/components/primitives/Input';
-import { Container } from '@/presentation/components/layout/Container';
+import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
+import styles from './Consultation.module.css';
+
+export const CONSULTATION_COPY = {
+  eyebrow: '★★★★★ Proven across the UK, US & UAE • $700K+/yr brands',
+  headline: 'In 30 minutes, see the 2–3 hidden leaks costing you sales—without spending a dollar more on ads',
+  subheadline:
+    'I already reviewed your business and recorded a short video on where buyers hesitate. On this free 1-on-1 call, we will walk through those findings and show you how to use the custom checklist I sent to your inbox.',
+  founderName: 'Ibrahim Badreldin',
+  founderRole: 'Brand Growth Strategist • Online Sales, Marketing & Advertising',
+  founderGeography: 'UK · US · UAE',
+  founderTrackRecord:
+    '7 Years Leading Online Sales, Marketing & Advertising — James Allen Jewellery & Silvia Tcherassi',
+  heroCta: 'Discover what is holding you back →',
+  heroMicrocopy: [
+    '✓ Free 30-Min 1-on-1 Working Session',
+    '✓ Google Meet or Zoom (US ET)',
+    '✓ Strictly Unrecorded',
+    '✓ Zero Sales Pitch',
+  ],
+  agendaEyebrow: 'Working Agenda',
+  agendaHeading: 'What happens on our 30-minute call',
+  agendaPillars: [
+    {
+      num: '01',
+      tag: 'Your 2–3 Video Findings',
+      title: 'Unpacking Your Business Teardown',
+      desc: 'We walk directly through the 2–3 positioning, ad performance, or conversion issues I flagged in your personalized video and what they mean for your revenue.',
+    },
+    {
+      num: '02',
+      tag: 'Unspoken Stress Points',
+      title: 'Naming Hidden Industry Bottlenecks',
+      desc: 'We isolate the day-to-day friction points you feel—like rising ad costs, buyer hesitation, or discount pressure—and pinpoint their actual root cause.',
+    },
+    {
+      num: '03',
+      tag: 'Your Custom Checklist',
+      title: 'Applying Your Email Action Material',
+      desc: 'I show you step-by-step how to implement the custom templates and checklists named in my email so your team gets immediate value from this meeting.',
+    },
+  ],
+  qualificationNote:
+    'Built for established online and high-ticket brands doing $700,000+ in annual sales looking to increase profit—not businesses struggling to survive.',
+  proofEyebrow: 'Verified Track Record',
+  proofHeading: 'Tested across market-leading retail, luxury fashion, and high-ticket services',
+  caseDossiers: [
+    {
+      brand: 'James Allen Jewellery',
+      role: 'Brand Growth Strategist • Online Sales, Marketing & Advertising',
+      scope: 'Scope: Online Retail • Luxury Consumer Goods • Full-Funnel Growth',
+      metrics: [
+        { label: 'Average Order Value', value: '+$2,400' },
+        { label: 'Monthly Off-Season Sales', value: '$780,000+' },
+      ],
+      summary:
+        'Helped lead the online jewellery market with a +$2,400 average order value and over $780,000 in monthly off-season sales by fixing how buyers perceived trust and value before checkout.',
+    },
+    {
+      brand: 'Silvia Tcherassi',
+      role: 'Brand Positioning & Commercial Growth Strategy',
+      scope: 'Scope: Luxury Positioning • Full-Price Conversion Flow',
+      metrics: [],
+      summary:
+        'Clarified luxury brand positioning and online buying flow so high-ticket shoppers bought at full price without waiting for markdowns.',
+    },
+    {
+      brand: 'High-Ticket Service & E-Commerce Brands',
+      role: 'Commercial & Brand Positioning Advisor',
+      scope: 'Scope: D2C Stores ($700K+/yr) • Affluent-Market Service Businesses',
+      metrics: [],
+      summary:
+        'Built clear market positioning and lead systems for established D2C stores and high-ticket service companies targeting affluent demographics.',
+    },
+  ],
+  bookingHeading: 'Select a 30-Minute Time Slot',
+  bookingMeta:
+    'Default Timezone: US Eastern Time (ET) • Conferencing: Google Meet or Zoom • Strictly Unrecorded',
+  customFallbackHeading:
+    "Can't find a time that fits your schedule? Request a custom slot",
+  customFallbackNote:
+    'Submitting this form requests a manual calendar invitation for one of your preferred times—it is not an instant automated booking.',
+  customFallbackCta:
+    'Discover what is holding you back – Request Custom Time →',
+  stickyPrompt:
+    'Ready to unpack the 2–3 findings from your business review?',
+  stickyCta: 'Discover what is holding you back →',
+};
+
+const CALENDLY_URL =
+  'https://calendly.com/brandmania-consultation/30min?hide_gdpr_banner=1&hide_landing_page_details=1&background_color=120321&text_color=faf7ff&primary_color=c882ff';
 
 export function ConsultationClient() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [clientName, setClientName] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [website, setWebsite] = useState('');
-  const [revenueTier, setRevenueTier] = useState('TIER_700K_1_5M');
+  const [phone, setPhone] = useState('');
+  const [preferredTimes, setPreferredTimes] = useState('');
+  const [topics, setTopics] = useState('');
+  const [questions, setQuestions] = useState('');
+  const [consentAccepted, setConsentAccepted] = useState(true);
   const [companyFaxNumber, setCompanyFaxNumber] = useState('');
+
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionSuccess, setSubmissionSuccess] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
-  const [calendarLoaded, setCalendarLoaded] = useState(false);
-  const [showFallbackForm, setShowFallbackForm] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const [isStickyVisible, setIsStickyVisible] = useState(false);
+  const [calendlyLoaded, setCalendlyLoaded] = useState(false);
+
+  const heroCtaRef = useRef<HTMLAnchorElement | null>(null);
+  const bookingStageRef = useRef<HTMLElement | null>(null);
   const startTimeRef = useRef<number>(Date.now());
 
-  const handleFallbackSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    let heroPast = false;
+    let bookingIntersecting = false;
+
+    const updateStickyState = () => {
+      if (heroPast && !bookingIntersecting) {
+        setIsStickyVisible(true);
+      } else {
+        setIsStickyVisible(false);
+      }
+    };
+
+    const heroObserver = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        heroPast = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        updateStickyState();
+      },
+      { threshold: 0 }
+    );
+
+    const bookingObserver = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        bookingIntersecting = entry.isIntersecting;
+        updateStickyState();
+      },
+      { threshold: 0.1 }
+    );
+
+    if (heroCtaRef.current) heroObserver.observe(heroCtaRef.current);
+    if (bookingStageRef.current) bookingObserver.observe(bookingStageRef.current);
+
+    return () => {
+      heroObserver.disconnect();
+      bookingObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data && e.data.event === 'calendly.event_scheduled') {
+        router.push('/consultation/thank-you?type=booked');
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [router]);
+
+  const scrollToBooking = (e: React.MouseEvent) => {
     e.preventDefault();
-    setFormError(null);
+    if (bookingStageRef.current) {
+      bookingStageRef.current.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      const el = document.getElementById('booking-stage');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const loadCalendly = () => {
+    setCalendlyLoaded(true);
+  };
+
+  const validateForm = () => {
+    const errors: Record<string, string> = {};
+    if (!name.trim()) {
+      errors.name = 'Please provide your name';
+    }
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      errors.email = 'Please provide a valid corporate email address';
+    }
+    if (!phone.trim()) {
+      errors.phone = 'Please provide a phone or WhatsApp number';
+    }
+    if (!preferredTimes.trim()) {
+      errors.preferredTimes = 'Please share 2–3 preferred dates and times';
+    }
+    if (!consentAccepted) {
+      errors.consent = 'You must confirm and accept the Privacy Policy to proceed';
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleCustomTimeSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitError(null);
+
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     const submissionDurationMs = Date.now() - startTimeRef.current;
+    const structuredMessage = [
+      'CUSTOM CALENDAR TIME REQUEST:',
+      `Client Name: ${name.trim()}`,
+      `Phone/WhatsApp: ${phone.trim()}`,
+      `Preferred 3 Dates & Times: ${preferredTimes.trim()}`,
+      topics.trim() ? `Topics to Cover: ${topics.trim()}` : null,
+      questions.trim() ? `Questions Ahead of Call: ${questions.trim()}` : null,
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    const formInitToken =
+      typeof document !== 'undefined'
+        ? document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('bm_form_init='))
+            ?.split('=')[1]
+        : null;
+
     const payload = {
-      clientName: clientName.trim(),
-      companyName: companyName.trim(),
+      clientName: name.trim(),
+      companyName: `${name.trim()} (Custom Time)`,
       email: email.trim().toLowerCase(),
-      website: website.trim() ? (website.trim().startsWith('http') ? website.trim() : 'https://' + website.trim()) : '',
-      companyTier: revenueTier === 'TIER_5M_PLUS' ? 'HAUTE_LUXURY' : revenueTier === 'TIER_1_5M_5M' ? 'GLOBAL_ENTERPRISE' : 'MID_MARKET',
+      phone: phone.trim(),
+      website: '',
+      companyTier: 'MID_MARKET',
       budgetRange: 'TIER_100K_250K',
       services: ['BRAND_DIRECTION', 'MARGIN_RECOVERY', 'CONSUMER_SCOPE'],
+      preferredTimes: preferredTimes.trim(),
+      topics: topics.trim(),
+      questions: questions.trim(),
       company_fax_number: companyFaxNumber,
       submissionDurationMs,
       consentAccepted: true,
-      message: 'Direct consultation scheduling request.',
+      message: structuredMessage,
     };
 
     try {
@@ -47,258 +255,383 @@ export function ConsultationClient() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Idempotency-Key': 'consult_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9),
+          'Idempotency-Key':
+            'custom_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9),
+          ...(formInitToken ? { 'x-form-token': formInitToken } : {}),
         },
         body: JSON.stringify(payload),
       });
 
       const json = await res.json();
       if (!res.ok) {
-        throw new Error(json.error?.message || 'Inquiry submission was rejected.');
+        throw new Error(json.error?.message || 'Failed to submit custom time request.');
       }
-      setSubmissionSuccess(true);
+
+      router.push('/consultation/thank-you?type=custom-request');
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Network error occurred during submission.');
-    } finally {
+      setSubmitError(
+        err instanceof Error ? err.message : 'An unexpected error occurred during submission.'
+      );
       setIsSubmitting(false);
     }
   };
 
-  const calendlyUrl = `https://calendly.com/brandmania/30min-strategic-consultation?embed_domain=${encodeURIComponent(
-    typeof window !== 'undefined' ? window.location.hostname : 'localhost'
-  )}&embed_type=Inline`;
-
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0D0118', color: '#FAF7FF', padding: 'clamp(3rem, 6vw, 6rem) 0' }}>
-      <Container>
-        <div style={{ maxWidth: '880px', margin: '0 auto', textAlign: 'center', marginBottom: '3rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-            <BrandEye size="sm" />
-            <Badge variant="purple" size="md">
-              CONFIDENTIAL BRIEFING
-            </Badge>
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <section className={styles.heroSection}>
+          <div className={styles.eyebrow}>
+            {CONSULTATION_COPY.eyebrow}
           </div>
 
-          <h1
-            style={{
-              fontFamily: 'var(--font-serif), Georgia, serif',
-              fontSize: 'clamp(2.5rem, 5vw, 4.2rem)',
-              fontWeight: 400,
-              lineHeight: 1.05,
-              marginBottom: '1rem',
-              color: '#FAF7FF',
-            }}
-          >
-            Private Executive Consultation
+          <h1 className={styles.headline}>
+            {CONSULTATION_COPY.headline}
           </h1>
 
-          <p style={{ fontSize: '1.1rem', color: '#C4B8D8', lineHeight: 1.6, maxWidth: '680px', margin: '0 auto' }}>
-            Schedule a direct 30-minute diagnostic session with BRANDMANIA leadership under strict mutual non-disclosure.
+          <p className={styles.subheadline}>
+            {CONSULTATION_COPY.subheadline}
           </p>
-        </div>
 
-        {!showFallbackForm ? (
-          <div
-            style={{
-              maxWidth: '960px',
-              margin: '0 auto',
-              background: '#160429',
-              border: '1px solid rgba(200, 130, 255, 0.2)',
-              padding: '1.5rem',
-              position: 'relative',
-              minHeight: '680px',
-            }}
-          >
-            <iframe
-              src={calendlyUrl}
-              width="100%"
-              height="650"
-              frameBorder="0"
-              title="Schedule Private Strategic Consultation"
-              onLoad={() => setCalendarLoaded(true)}
-              style={{
-                display: 'block',
-                border: 'none',
-                minHeight: '650px',
-                background: 'transparent',
-              }}
-            />
-
-            {!calendarLoaded && (
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: '#160429',
-                  fontFamily: 'var(--font-mono), monospace',
-                  fontSize: '11px',
-                  color: '#C882FF',
-                  letterSpacing: '0.12em',
-                }}
-              >
-                INITIALIZING SECURE ADVISORY CALENDAR...
+          <div className={styles.founderBar}>
+            <div className={styles.founderPortraitFrame}>
+              <Image
+                src="/brand/founder/ibrahim-portrait-bw.jpg"
+                alt="Ibrahim Badreldin, Brand Growth Strategist"
+                width={72}
+                height={72}
+                className={styles.founderPortrait}
+                priority
+              />
+            </div>
+            <div className={styles.founderInfo}>
+              <div className={styles.founderName}>
+                {CONSULTATION_COPY.founderName}
               </div>
-            )}
-
-            <div style={{ textAlign: 'center', marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(200, 130, 255, 0.12)' }}>
-              <button
-                type="button"
-                onClick={() => setShowFallbackForm(true)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#A8A0B8',
-                  fontFamily: 'var(--font-mono), monospace',
-                  fontSize: '11px',
-                  textDecoration: 'underline',
-                  cursor: 'pointer',
-                  letterSpacing: '0.08em',
-                }}
-              >
-                Having trouble with the calendar? Click here for the direct intake dossier &rarr;
-              </button>
+              <div className={styles.founderRole}>
+                {CONSULTATION_COPY.founderRole}
+              </div>
+              <div className={styles.founderTrack}>
+                {CONSULTATION_COPY.founderTrackRecord}
+              </div>
             </div>
           </div>
-        ) : (
-          <div
-            style={{
-              maxWidth: '680px',
-              margin: '0 auto',
-              background: '#160429',
-              border: '1px solid rgba(200, 130, 255, 0.2)',
-              padding: 'clamp(2rem, 4vw, 3rem)',
-            }}
-          >
-            {submissionSuccess ? (
-              <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-                <BrandEye size="md" />
-                <h3 style={{ fontFamily: 'var(--font-serif), Georgia, serif', fontSize: '1.8rem', margin: '1.5rem 0 0.5rem 0' }}>
-                  Qualification Dossier Transmitted
+
+          <div className={styles.heroCtaWrap}>
+            <a
+              ref={heroCtaRef}
+              href="#booking-stage"
+              onClick={scrollToBooking}
+              className={styles.heroCta}
+            >
+              {CONSULTATION_COPY.heroCta}
+            </a>
+            <div className={styles.heroMicrocopyStrip}>
+              {CONSULTATION_COPY.heroMicrocopy.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.agendaSection}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionEyebrow}>
+              {CONSULTATION_COPY.agendaEyebrow}
+            </span>
+            <h2 className={styles.sectionHeading}>
+              {CONSULTATION_COPY.agendaHeading}
+            </h2>
+          </div>
+
+          <div className={styles.agendaGrid}>
+            {CONSULTATION_COPY.agendaPillars.map((pillar) => (
+              <div key={pillar.num} className={styles.agendaCard}>
+                <span className={styles.agendaPillarTag}>
+                  {pillar.tag}
+                </span>
+                <h3 className={styles.agendaPillarTitle}>
+                  {pillar.title}
                 </h3>
-                <p style={{ color: '#C4B8D8', lineHeight: 1.6, marginBottom: '2rem' }}>
-                  Your consultation inquiry has been securely transmitted to BRANDMANIA leadership. This is a qualification request — not a confirmed calendar appointment. Our executive team will review your details and contact you directly to schedule if there is mutual fit.
+                <p className={styles.agendaPillarDesc}>
+                  {pillar.desc}
                 </p>
-                <Link href="/" style={{ color: '#C882FF', textDecoration: 'none', fontFamily: 'var(--font-mono), monospace', fontSize: '11px', letterSpacing: '0.1em' }}>
-                  &larr; Return to Brandmania Homepage
-                </Link>
               </div>
-            ) : (
-              <form onSubmit={handleFallbackSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                <div style={{ borderBottom: '1px solid rgba(200, 130, 255, 0.16)', paddingBottom: '1rem', marginBottom: '0.5rem' }}>
-                  <span style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '10px', letterSpacing: '0.16em', color: '#C882FF' }}>
-                    DIRECT INTAKE DOSSIER
-                  </span>
-                  <h3 style={{ fontFamily: 'var(--font-serif), Georgia, serif', fontSize: '1.6rem', margin: '0.25rem 0 0 0' }}>
-                    Executive Briefing Request
-                  </h3>
+            ))}
+          </div>
+
+          <div className={styles.selectionProfileBar}>
+            {CONSULTATION_COPY.qualificationNote}
+          </div>
+        </section>
+
+        <section className={styles.proofSection}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionEyebrow}>
+              {CONSULTATION_COPY.proofEyebrow}
+            </span>
+            <h2 className={styles.sectionHeading}>
+              {CONSULTATION_COPY.proofHeading}
+            </h2>
+          </div>
+
+          <div className={styles.dossierGrid}>
+            {CONSULTATION_COPY.caseDossiers.map((dossier) => (
+              <div key={dossier.brand} className={styles.dossierCard}>
+                <div>
+                  <h3 className={styles.dossierBrand}>{dossier.brand}</h3>
+                  <span className={styles.dossierRole}>{dossier.role}</span>
                 </div>
 
-                {formError && (
-                  <div style={{ padding: '0.75rem 1rem', background: 'rgba(212, 138, 158, 0.1)', border: '1px solid #D48A9E', color: '#D48A9E', fontSize: '12px' }}>
-                    {formError}
+                {dossier.metrics.length > 0 && (
+                  <div className={styles.dossierMetricsGrid}>
+                    {dossier.metrics.map((m) => (
+                      <div key={m.label}>
+                        <div className={styles.dossierMetricValue}>{m.value}</div>
+                        <div className={styles.dossierMetricLabel}>{m.label}</div>
+                      </div>
+                    ))}
                   </div>
                 )}
 
+                {dossier.scope && (
+                  <div className={styles.dossierScope}>{dossier.scope}</div>
+                )}
+
+                <p className={styles.dossierSummary}>{dossier.summary}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section
+          id="booking-stage"
+          ref={bookingStageRef}
+          className={styles.bookingStageSection}
+        >
+          <div className={styles.bookingStageHeader}>
+            <span className={styles.sectionEyebrow}>
+              Calendar Booking
+            </span>
+            <h2 className={styles.sectionHeading}>
+              {CONSULTATION_COPY.bookingHeading}
+            </h2>
+            <div className={styles.bookingMetaBar}>
+              {CONSULTATION_COPY.bookingMeta}
+            </div>
+          </div>
+
+          {!calendlyLoaded ? (
+            <button
+              onClick={loadCalendly}
+              className={styles.calendlyTrigger}
+              aria-label="Initialize live calendar"
+            >
+              Initialize Live Calendar ↗
+            </button>
+          ) : (
+            <iframe
+              src={CALENDLY_URL}
+              title="Schedule a 30-minute strategy call"
+              className={styles.calendlyFrame}
+              frameBorder={0}
+            />
+          )}
+
+          <div className={styles.fallbackStageWrapper}>
+            <h3 className={styles.fallbackHeading}>
+              {CONSULTATION_COPY.customFallbackHeading}
+            </h3>
+            <p className={styles.fallbackNote}>
+              {CONSULTATION_COPY.customFallbackNote}
+            </p>
+
+            <form onSubmit={handleCustomTimeSubmit}>
+              <div style={{ display: 'none' }} aria-hidden="true">
                 <input
                   type="text"
-                  name="company_fax_number"
+                  tabIndex={-1}
                   value={companyFaxNumber}
                   onChange={(e) => setCompanyFaxNumber(e.target.value)}
-                  tabIndex={-1}
                   autoComplete="off"
-                  style={{ display: 'none' }}
-                  aria-hidden="true"
                 />
+              </div>
 
-                <Input
-                  label="Executive Name"
-                  required
-                  value={clientName}
-                  onChange={(e) => setClientName(e.target.value)}
-                  placeholder="Julian Sterling"
-                />
+              <div className={styles.formGrid}>
+                <div className={styles.formRow}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="custom-name" className={styles.formLabel}>
+                      Your Name *
+                    </label>
+                    <input
+                      id="custom-name"
+                      type="text"
+                      value={name}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        if (formErrors.name) {
+                          setFormErrors((prev) => ({ ...prev, name: '' }));
+                        }
+                      }}
+                      className={`${styles.input} ${formErrors.name ? styles.inputError : ''}`}
+                      placeholder="e.g. Julian Sterling"
+                      aria-invalid={!!formErrors.name}
+                    />
+                    {formErrors.name && (
+                      <span className={styles.fieldError}>{formErrors.name}</span>
+                    )}
+                  </div>
 
-                <Input
-                  label="Corporate Entity"
-                  required
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="Sterling Haute Horlogerie"
-                />
+                  <div className={styles.formGroup}>
+                    <label htmlFor="custom-email" className={styles.formLabel}>
+                      Preferred Email Address *
+                    </label>
+                    <input
+                      id="custom-email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (formErrors.email) {
+                          setFormErrors((prev) => ({ ...prev, email: '' }));
+                        }
+                      }}
+                      className={`${styles.input} ${formErrors.email ? styles.inputError : ''}`}
+                      placeholder="e.g. julian@company.com"
+                      aria-invalid={!!formErrors.email}
+                    />
+                    {formErrors.email && (
+                      <span className={styles.fieldError}>{formErrors.email}</span>
+                    )}
+                  </div>
+                </div>
 
-                <Input
-                  label="Corporate Email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="j.sterling@sterling-haute.com"
-                />
-
-                <Input
-                  label="Website URL"
-                  value={website}
-                  onChange={(e) => setWebsite(e.target.value)}
-                  placeholder="sterling-haute.com"
-                />
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  <label style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', color: '#A8A0B8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                    Annual Revenue Tier
+                <div className={styles.formGroup}>
+                  <label htmlFor="custom-phone" className={styles.formLabel}>
+                    Phone / WhatsApp Number *
                   </label>
-                  <select
-                    value={revenueTier}
-                    onChange={(e) => setRevenueTier(e.target.value)}
-                    style={{
-                      background: '#0D0118',
-                      border: '1px solid rgba(200, 130, 255, 0.2)',
-                      padding: '0.85rem 1rem',
-                      color: '#FAF7FF',
-                      fontFamily: 'var(--font-sans), sans-serif',
-                      fontSize: '14px',
-                      borderRadius: 0,
+                  <input
+                    id="custom-phone"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                      if (formErrors.phone) {
+                        setFormErrors((prev) => ({ ...prev, phone: '' }));
+                      }
                     }}
-                  >
-                    <option value="TIER_700K_1_5M">$700,000 &ndash; $1,500,000 Annual Revenue</option>
-                    <option value="TIER_1_5M_5M">$1,500,000 &ndash; $5,000,000 Annual Revenue</option>
-                    <option value="TIER_5M_PLUS">$5,000,000+ Annual Revenue</option>
-                  </select>
+                    className={`${styles.input} ${formErrors.phone ? styles.inputError : ''}`}
+                    placeholder="e.g. +1 (555) 019-2834 or +44 20 7946 0912"
+                    aria-invalid={!!formErrors.phone}
+                  />
+                  {formErrors.phone && (
+                    <span className={styles.fieldError}>{formErrors.phone}</span>
+                  )}
                 </div>
 
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', alignItems: 'center' }}>
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    size="md"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Transmitting...' : 'Submit Consultation Dossier'}
-                  </Button>
-
-                  <button
-                    type="button"
-                    onClick={() => setShowFallbackForm(false)}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      color: '#A8A0B8',
-                      fontFamily: 'var(--font-mono), monospace',
-                      fontSize: '11px',
-                      cursor: 'pointer',
-                      letterSpacing: '0.08em',
+                <div className={styles.formGroup}>
+                  <label htmlFor="custom-times" className={styles.formLabel}>
+                    Top 3 Preferred Dates &amp; Times (in your local timezone) *
+                  </label>
+                  <textarea
+                    id="custom-times"
+                    value={preferredTimes}
+                    onChange={(e) => {
+                      setPreferredTimes(e.target.value);
+                      if (formErrors.preferredTimes) {
+                        setFormErrors((prev) => ({ ...prev, preferredTimes: '' }));
+                      }
                     }}
-                  >
-                    &larr; Back to Calendar
-                  </button>
+                    className={`${styles.textarea} ${formErrors.preferredTimes ? styles.textareaError : ''}`}
+                    placeholder={`e.g. 1) Tuesday Nov 10 at 2pm EST\n2) Wednesday Nov 11 at 10am EST\n3) Thursday Nov 12 at 4pm EST`}
+                    aria-invalid={!!formErrors.preferredTimes}
+                  />
+                  {formErrors.preferredTimes && (
+                    <span className={styles.fieldError}>{formErrors.preferredTimes}</span>
+                  )}
                 </div>
-              </form>
-            )}
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="custom-topics" className={styles.formLabel}>
+                    Topics You Want to Cover (Optional)
+                  </label>
+                  <input
+                    id="custom-topics"
+                    type="text"
+                    value={topics}
+                    onChange={(e) => setTopics(e.target.value)}
+                    className={styles.input}
+                    placeholder="e.g. Teardown review, ROAS plateau, luxury checkout friction"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="custom-questions" className={styles.formLabel}>
+                    Questions Ahead of the Call (Optional)
+                  </label>
+                  <input
+                    id="custom-questions"
+                    type="text"
+                    value={questions}
+                    onChange={(e) => setQuestions(e.target.value)}
+                    className={styles.input}
+                    placeholder="Specific questions about our analysis or your funnel"
+                  />
+                </div>
+
+                <div className={styles.checkboxGroup}>
+                  <input
+                    id="custom-consent"
+                    type="checkbox"
+                    checked={consentAccepted}
+                    onChange={(e) => {
+                      setConsentAccepted(e.target.checked);
+                      if (formErrors.consent) {
+                        setFormErrors((prev) => ({ ...prev, consent: '' }));
+                      }
+                    }}
+                    className={styles.checkbox}
+                  />
+                  <label htmlFor="custom-consent" className={styles.checkboxLabel}>
+                    I confirm this is a genuine business inquiry and I have read and accept the{' '}
+                    <a href="/privacy" className={styles.consentLink}>
+                      Privacy Policy
+                    </a>
+                  </label>
+                </div>
+                {formErrors.consent && (
+                  <span className={styles.fieldError}>{formErrors.consent}</span>
+                )}
+
+                {submitError && (
+                  <div className={styles.submitError} role="alert">
+                    {submitError}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={styles.submitButton}
+                >
+                  {isSubmitting ? 'Submitting Request…' : CONSULTATION_COPY.customFallbackCta}
+                </button>
+              </div>
+            </form>
           </div>
-        )}
-      </Container>
+        </section>
+      </div>
+
+      {isStickyVisible && (
+        <div className={styles.stickyBar} role="complementary" aria-label="Book a call">
+          <a
+            href="#booking-stage"
+            onClick={scrollToBooking}
+            className={styles.stickyCta}
+          >
+            {CONSULTATION_COPY.stickyCta}
+          </a>
+        </div>
+      )}
     </div>
   );
 }

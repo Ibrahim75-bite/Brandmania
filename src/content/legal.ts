@@ -314,6 +314,14 @@ export const LEGAL_CONTENT = {
         dataHandling: 'Visitor scheduling data (name, email, selected time slot) is processed by Calendly per its own privacy policy. BRANDMANIA does not receive Calendly session data unless the visitor completes a booking and the appointment is confirmed through the Calendly integration.',
         privacyControls: 'Calendly iframe is loaded on /consultation only. No Calendly cookies or trackers are set on other BRANDMANIA pages. Visitors may use the direct qualification form instead of the calendar if they prefer not to interact with Calendly.',
       },
+      {
+        name: 'Cal.com (cal.com)',
+        category: 'Scheduling & Booking',
+        provider: 'Cal.com, Inc.',
+        source: 'Inline embed served via @calcom/atoms and cal.com secure iframe',
+        dataHandling: 'Executive scheduling data (name, email, notes, selected consultation time slot) is processed by Cal.com per its privacy governance. BRANDMANIA receives booking confirmations directly to schedule the 30-minute private briefing.',
+        privacyControls: 'Cal.com embed is mounted on /consultation only. Visitors may alternatively submit the 6-field custom time request form if they prefer direct email scheduling.',
+      },
     ] as ThirdPartySdkRow[],
   },
 

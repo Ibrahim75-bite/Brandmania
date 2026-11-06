@@ -169,7 +169,7 @@ export const ArtifactGallery: React.FC = () => {
         {}
         <div>
           <div className={styles.marker}>
-            07 &mdash; SELECTED ARTIFACTS &bull; ALEXANDRE ROCHET SCROLL THEATRE
+            Selected Artifacts
           </div>
           <header className={styles.introBlock}>
             <div>
