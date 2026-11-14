@@ -55,9 +55,13 @@ ${articlesSection}
 ## Verification & Architecture
 - Canonical Root: ${siteUrl}
 - Machine-Readable Entity Dossier: ${siteUrl}/llms-full.txt
+- Confidential 1:1 Strategic Briefing: ${siteUrl}/consultation
+- Commercial Margin Leakage Diagnostic: ${siteUrl}/f/margin-diagnostic
 - Selected Work: ${siteUrl}/work
 - Executive Insights: ${siteUrl}/insights
+- Executive FAQ Dossier: ${siteUrl}/faq
 - Intake & Qualification: ${siteUrl}/#qualification
+- Principal Strategic Architect: Ibrahim Badreldin
 `;
 
   return new NextResponse(content, {

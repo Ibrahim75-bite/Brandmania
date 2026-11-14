@@ -13,8 +13,7 @@ import {
   PRIMARY_INDUSTRIES,
   CORE_CHALLENGES,
 } from '@/content/qualification';
-import { normalizeWebsiteUrl, normalizePhoneNumber, normalizeEmailAddress } from '@/domain/validation/inquiry.schema';
-import { analytics } from '@/presentation/analytics/analytics.service';
+import { normalizeWebsiteUrl, normalizePhoneNumber, normalizeEmailAddress } from '@/domain/validation/normalize';
 import { runViewTransition } from '@/presentation/utils/viewTransition';
 import styles from './QualificationForm.module.css';
 
@@ -254,10 +253,12 @@ export function QualificationForm() {
 
     const nextStep = Math.min(currentStep + 1, 3);
 
-    analytics.track({
-      type: 'qualification_step_completed',
-      payload: { step: currentStep, action: `qualification_step_${currentStep}_completed` },
-    });
+    void import('@/presentation/analytics/analytics.service').then(({ analytics }) =>
+      analytics.track({
+        type: 'qualification_step_completed',
+        payload: { step: currentStep, action: `qualification_step_${currentStep}_completed` },
+      })
+    );
 
     if (typeof window !== 'undefined') {
       window.history.pushState({ formStep: nextStep }, '');
@@ -386,10 +387,12 @@ export function QualificationForm() {
       const inquiryId = json.data?.inquiryId;
       setConfirmedInquiryId(inquiryId);
 
-      analytics.track({
-        type: 'consultation_submitted',
-        payload: { action: 'consultation_submitted', inquiryId },
-      });
+      void import('@/presentation/analytics/analytics.service').then(({ analytics }) =>
+        analytics.track({
+          type: 'consultation_submitted',
+          payload: { action: 'consultation_submitted', inquiryId },
+        })
+      );
 
       const baseBookingUrl = BOOKING_URL;
       if (baseBookingUrl) {
@@ -735,7 +738,10 @@ export function QualificationForm() {
               </div>
 
               {}
-              <div className={`${styles.consentWrapper} ${errors.consent ? styles.consentError : ''}`}>
+              <label
+                htmlFor="consent-checkbox"
+                className={`${styles.consentWrapper} ${errors.consent ? styles.consentError : ''}`}
+              >
                 <input
                   ref={consentRef}
                   id="consent-checkbox"
@@ -745,21 +751,54 @@ export function QualificationForm() {
                     setConsentAccepted(e.target.checked);
                     if (errors.consent) setErrors((prev) => ({ ...prev, consent: '' }));
                   }}
-                  className={styles.consentCheckbox}
+                  className={styles.hiddenNativeCheckbox}
                   required
+                  aria-checked={consentAccepted}
                 />
-                <label htmlFor="consent-checkbox" className={styles.consentText}>
+                <span
+                  className={`${styles.customCheckbox} ${consentAccepted ? styles.customCheckboxChecked : ''}`}
+                  aria-hidden="true"
+                >
+                  {consentAccepted && (
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      style={{ width: 12, height: 12, flexShrink: 0, display: 'block' }}
+                    >
+                      <path
+                        d="M2 6L4.8 9L10 3"
+                        stroke="#0D0118"
+                        strokeWidth="2.2"
+                        strokeLinecap="square"
+                        strokeLinejoin="miter"
+                      />
+                    </svg>
+                  )}
+                </span>
+                <span className={styles.consentText}>
                   I confirm that I am at least 18 years of age, an authorized representative of this enterprise, and I agree to BRANDMANIA&apos;s{' '}
-                  <Link href="/privacy" target="_blank" rel="noopener noreferrer">
+                  <Link
+                    href="/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     Privacy Policy
                   </Link>
                   ,{' '}
-                  <Link href="/terms" target="_blank" rel="noopener noreferrer">
+                  <Link
+                    href="/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     Terms of Use
                   </Link>
                   , and Confidential Intake Protocol.
-                </label>
-              </div>
+                </span>
+              </label>
               {errors.consent && (
                 <span
                   style={{

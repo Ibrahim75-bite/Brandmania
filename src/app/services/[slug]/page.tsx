@@ -8,6 +8,7 @@ import { Badge } from '@/presentation/components/primitives/Badge';
 import { Button } from '@/presentation/components/primitives/Button';
 import { Card } from '@/presentation/components/primitives/Card';
 import { BrandEye } from '@/presentation/components/primitives/BrandEye';
+import { MarginLeakageCalculator } from '@/presentation/components/diagnostics/MarginLeakageCalculator';
 import { FLAGSHIP_SERVICES } from '@/content/services';
 import { constructMetadata } from '@/infrastructure/seo/metadata';
 
@@ -147,6 +148,12 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
                 ))}
               </ul>
             </Card>
+
+            {slug === 'margin-recovery' && (
+              <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                <MarginLeakageCalculator />
+              </div>
+            )}
 
             {service.faqs && service.faqs.length > 0 && (
               <div>

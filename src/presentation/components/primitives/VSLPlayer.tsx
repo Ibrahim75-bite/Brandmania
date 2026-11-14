@@ -61,7 +61,14 @@ export function VSLPlayer({
             <div className={styles.overlay}>
               <span className={styles.briefingTag}>CONFIDENTIAL BRIEFING</span>
               <button className={styles.playButton} aria-hidden="true">
-                <svg className={styles.playIcon} viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                  className={styles.playIcon}
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  style={{ width: 24, height: 24, display: 'block', flexShrink: 0 }}
+                >
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </button>

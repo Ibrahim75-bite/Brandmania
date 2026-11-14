@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/fix-font-manifest.mjs",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
@@ -20,7 +21,6 @@
     "@phosphor-icons/react": "^2.1.10",
     "critters": "^0.0.23",
     "lenis": "^1.3.27",
-    "motion": "^14.3.0",
     "next": "^15.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

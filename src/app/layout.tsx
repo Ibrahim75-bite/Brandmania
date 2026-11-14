@@ -10,6 +10,7 @@ import { SmoothScroll } from '@/presentation/components/layout/SmoothScroll';
 import { constructMetadata } from '@/infrastructure/seo/metadata';
 import { StructuredData } from '@/presentation/components/seo/StructuredData';
 import { SkipToContent } from '@/presentation/components/navigation/SkipToContent';
+import { BrandEyeGlyph } from '@/presentation/components/primitives/BrandEyeGlyph';
 
 const instrumentSerif = Instrument_Serif({
   weight: '400',
@@ -63,6 +64,7 @@ export default function RootLayout({
         }}
       >
         <SkipToContent />
+        <BrandEyeGlyph />
         <AnalyticsProvider>
           <StructuredData />
           <SmoothScroll />

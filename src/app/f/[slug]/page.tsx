@@ -13,6 +13,7 @@ import { StatBlock } from '@/presentation/components/primitives/StatBlock';
 import { ProofQuote } from '@/presentation/components/primitives/ProofQuote';
 import { Check } from '@phosphor-icons/react/dist/ssr';
 import { QualificationForm } from '@/presentation/components/forms/QualificationForm';
+import { MarginLeakageCalculator } from '@/presentation/components/diagnostics/MarginLeakageCalculator';
 import { constructMetadata } from '@/infrastructure/seo/metadata';
 
 interface FunnelPageProps {
@@ -256,6 +257,14 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
         </Container>
       </Section>
 
+      {(slug === 'margin-diagnostic' || slug === 'margin-recovery') && (
+        <Section spacing="lg" style={{ backgroundColor: '#0D0118', borderBottom: '1px solid rgba(200, 130, 255, 0.16)' }}>
+          <Container>
+            <MarginLeakageCalculator />
+          </Container>
+        </Section>
+      )}
+
       <Section spacing="xl" style={{ backgroundColor: '#160429', borderBottom: '1px solid rgba(200, 130, 255, 0.16)' }}>
         <Container>
           <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem auto' }}>
@@ -450,7 +459,7 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
                 marginBottom: '1.5rem',
               }}
             >
-              <h4
+              <h3
                 style={{
                   fontFamily: 'var(--font-mono), monospace',
                   fontSize: '11px',
@@ -461,7 +470,7 @@ export default async function FunnelPage({ params }: FunnelPageProps) {
                 }}
               >
                 Intended Commercial Profile
-              </h4>
+              </h3>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {funnel.selectivity.criteria.map((crit, idx) => (
                   <li

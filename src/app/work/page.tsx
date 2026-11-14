@@ -41,7 +41,7 @@ const EXHIBITION_ARTIFACTS: ExhibitionArtifact[] = [
     flagship: 'Flagship I • Brand Direction',
     description:
       'The foundational aesthetic statement defining imperial rarity, typographic hierarchy, and obsidian tone. Designed to establish category sovereignty before a word of copy is read.',
-    src: '/brand/graphics/brandmania-poster.jpg',
+    src: '/brand/textures/brandmania-poster.jpg',
     width: 1200,
     height: 1800,
     alt: 'BRANDMANIA Primary Brand Poster & Monolith System',

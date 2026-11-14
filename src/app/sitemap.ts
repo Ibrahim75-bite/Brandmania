@@ -36,12 +36,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const coreRoutes: RouteDefinition[] = [
     { path: '', priority: 1.0, changeFrequency: 'weekly' },
+    { path: '/consultation', priority: 0.95, changeFrequency: 'weekly' },
     { path: '/services', priority: 0.9, changeFrequency: 'weekly' },
     { path: '/services/brand-direction', priority: 0.9, changeFrequency: 'weekly' },
     { path: '/services/margin-recovery', priority: 0.9, changeFrequency: 'weekly' },
     { path: '/services/consumer-scope', priority: 0.9, changeFrequency: 'weekly' },
     { path: '/work', priority: 0.9, changeFrequency: 'weekly' },
     { path: '/insights', priority: 0.9, changeFrequency: 'weekly' },
+    { path: '/faq', priority: 0.85, changeFrequency: 'weekly' },
     { path: '/about', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/contact', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/privacy', priority: 0.3, changeFrequency: 'yearly' },

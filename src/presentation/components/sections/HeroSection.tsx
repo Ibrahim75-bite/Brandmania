@@ -1,9 +1,7 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowUpRight } from '@phosphor-icons/react';
+import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
 import { Container } from '@/presentation/components/layout/Container';
 import { BrandEye } from '@/presentation/components/primitives/BrandEye';
 import { BLUR_PLACEHOLDERS } from '@/content/blurPlaceholders';
@@ -54,7 +52,7 @@ export const HeroSection: React.FC = () => {
               <BrandEye size="lg" />
             </div>
 
-            <h3 className={styles.brandEyeTitle}>The BrandEye</h3>
+            <h2 className={styles.brandEyeTitle}>The BrandEye</h2>
             <p className={styles.brandEyeDesc}>
               The mathematical convergence of perceptual authority, commercial leverage, and psychological lock-in.
             </p>
@@ -114,10 +112,11 @@ export const HeroSection: React.FC = () => {
             src="/brand/textures/brandmania-cover-clean.jpg"
             alt="BRANDMANIA — Liquid violet marble materiality, high-craft brand monograph and visual identity artifact"
             fill
-            sizes="1px"
+            sizes="100vw"
+            priority
             placeholder="blur"
             blurDataURL={BLUR_PLACEHOLDERS.coverClean}
-            style={{ objectFit: 'cover', opacity: 0.001, pointerEvents: 'none' }}
+            style={{ objectFit: 'cover', opacity: 0.14, mixBlendMode: 'screen', pointerEvents: 'none' }}
           />
         </div>
       </Container>

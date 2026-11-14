@@ -90,6 +90,7 @@
   border-left: 2px solid transparent;
 }
 
+.ledgerRow:hover,
 .ledgerRowHover {
   background-color: #1C0633;
   border-left: 2px solid #C882FF;

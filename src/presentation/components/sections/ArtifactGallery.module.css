@@ -146,6 +146,37 @@
   will-change: transform, clip-path;
 }
 
+@supports (animation-timeline: view()) {
+  .plateFrame {
+    animation: plateJourney linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+
+  @keyframes plateJourney {
+    0% {
+      transform: scale(0.88);
+      clip-path: inset(12% 8% 12% 8%);
+    }
+    50% {
+      transform: scale(1);
+      clip-path: inset(0% 0% 0% 0%);
+    }
+    100% {
+      transform: scale(0.9);
+      clip-path: inset(10% 6% 10% 6%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .plateFrame {
+      animation: none;
+      transform: none;
+      clip-path: none;
+    }
+  }
+}
+
 .imageBox {
   position: relative;
   width: 100%;

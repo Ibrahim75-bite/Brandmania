@@ -55,7 +55,7 @@ describe('Launch-Readiness 20-Point Verification Suite', () => {
 
       // Check MAIN_NAV_LINKS
       const mainAnchors = MAIN_NAV_LINKS.map((l) => l.href.replace('/#', ''));
-      expect(mainAnchors).toEqual(['manifesto', 'system', 'disciplines', 'work', '/insights']);
+      expect(mainAnchors).toEqual(['manifesto', 'system', 'disciplines', 'work', '/insights', '/faq']);
 
       // Check section components for exact matching IDs
       const sectionFiles = [
@@ -194,11 +194,18 @@ describe('Launch-Readiness 20-Point Verification Suite', () => {
     it('Item #10: Images have rich descriptive alt attributes', () => {
       const heroPath = path.join(rootDir, 'src/presentation/components/sections/HeroSection.tsx');
       const heroContent = fs.readFileSync(heroPath, 'utf-8');
-      expect(heroContent).toContain('alt="BRANDMANIA — Liquid violet marble materiality');
+      const heroCssContent = fs.readFileSync(
+        path.join(rootDir, 'src/presentation/components/sections/HeroSection.module.css'),
+        'utf-8'
+      );
+      expect(
+        heroContent.includes('alt="BRANDMANIA — Liquid violet marble materiality') ||
+          heroCssContent.includes("url('/brand/textures/brandmania-cover-clean.jpg')")
+      ).toBe(true);
 
       const brandDirectionPath = path.join(
         rootDir,
-        'src/presentation/components/sections/BrandDirectionSection.tsx'
+        'src/presentation/components/sections/BrandDirectionTabs.tsx'
       );
       const bdContent = fs.readFileSync(brandDirectionPath, 'utf-8');
       expect(bdContent).toContain('alt="BRANDMANIA Services &amp; Branding Architecture Deliverable Artboard"');

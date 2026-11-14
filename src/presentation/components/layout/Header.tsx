@@ -11,30 +11,13 @@ import { SwipeableSheet } from '../primitives/SwipeableSheet';
 import { MAIN_NAV_LINKS, FOOTER_SECTIONS } from '@/content/navigation';
 import { BRAND } from '@/content/brand';
 import { LEGAL_CONTENT } from '@/content/legal';
-import { ArchitecturalSkeleton } from '@/presentation/components/primitives/ArchitecturalSkeleton';
 import headerStyles from './Header.module.css';
 import footerStyles from './Footer.module.css';
 
 const CommandMenu = dynamic(
   () => import('../navigation/CommandMenu').then((mod) => mod.CommandMenu),
   {
-    loading: () => (
-      <div style={{ minHeight: '300px', width: '100%', backgroundColor: '#070709' }}>
-        <ArchitecturalSkeleton width="100%" height="300px" />
-      </div>
-    ),
-    ssr: false,
-  }
-);
-
-const NeonStickerPhysicsFooter = dynamic(
-  () => import('./NeonStickerPhysicsFooter').then((mod) => mod.NeonStickerPhysicsFooter),
-  {
-    loading: () => (
-      <footer style={{ minHeight: '440px', width: '100%', backgroundColor: '#090014' }}>
-        <ArchitecturalSkeleton width="100%" height="440px" />
-      </footer>
-    ),
+    loading: () => null,
     ssr: false,
   }
 );
@@ -236,7 +219,7 @@ export function Footer() {
 
           {FOOTER_SECTIONS.map((section) => (
             <div key={section.title}>
-              <h4 className={footerStyles.columnTitle} style={{ color: '#C882FF', fontFamily: 'var(--font-mono), monospace' }}>{section.title}</h4>
+              <h3 className={footerStyles.columnTitle} style={{ color: '#C882FF', fontFamily: 'var(--font-mono), monospace' }}>{section.title}</h3>
               <ul className={footerStyles.linkList} style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {section.links.map((link) => (
                   <li key={link.href} style={{ listStyle: 'none' }}>
@@ -264,8 +247,6 @@ export function Footer() {
           </span>
         </div>
       </Container>
-
-      <NeonStickerPhysicsFooter />
     </footer>
   );
 }

@@ -10,6 +10,7 @@ export const MAIN_NAV_LINKS: NavLink[] = [
   { label: 'Disciplines', href: '/#disciplines' },
   { label: 'Work', href: '/#work' },
   { label: 'Insights', href: '/insights' },
+  { label: 'FAQ', href: '/faq' },
 ];
 
 export const FOOTER_SECTIONS = [
@@ -21,6 +22,7 @@ export const FOOTER_SECTIONS = [
       { label: 'Disciplines', href: '/services' },
       { label: 'Selected Work & Case Studies', href: '/work' },
       { label: 'Executive Insights & Articles', href: '/insights' },
+      { label: 'Executive FAQ', href: '/faq' },
       { label: 'Qualification Intake', href: '/#qualification' },
     ],
   },

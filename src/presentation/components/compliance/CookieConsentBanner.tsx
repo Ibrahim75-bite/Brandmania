@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { analytics } from '@/presentation/analytics/analytics.service';
 import { LEGAL_CONTENT } from '@/content/legal';
 
 export const COOKIE_CONSENT_KEY = 'brandmania_cookie_consent';
@@ -23,7 +22,9 @@ export function CookieConsentBanner() {
     try {
       localStorage.setItem(COOKIE_CONSENT_KEY, 'GRANTED');
     } catch {}
-    analytics.setConsent('GRANTED');
+    void import('@/presentation/analytics/analytics.service').then(({ analytics }) =>
+      analytics.setConsent('GRANTED')
+    );
     if (typeof window !== 'undefined') {
       window.dispatchEvent(
         new CustomEvent('brandmania_consent_changed', { detail: { consent: 'GRANTED' } })
@@ -36,7 +37,9 @@ export function CookieConsentBanner() {
     try {
       localStorage.setItem(COOKIE_CONSENT_KEY, 'DENIED');
     } catch {}
-    analytics.setConsent('DENIED');
+    void import('@/presentation/analytics/analytics.service').then(({ analytics }) =>
+      analytics.setConsent('DENIED')
+    );
     if (typeof window !== 'undefined') {
       window.dispatchEvent(
         new CustomEvent('brandmania_consent_changed', { detail: { consent: 'DENIED' } })

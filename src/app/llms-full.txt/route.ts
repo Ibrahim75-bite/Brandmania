@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { seoConfig } from '@/content/seoConfig';
 import { getAllArticles } from '@/content/articles';
 import { getAllCaseStudies } from '@/content/caseStudies';
+import { FAQS } from '@/content/faqs';
 
 export const dynamic = 'force-static';
 
@@ -50,10 +51,14 @@ ${a.keyTakeaways.map((t) => `  * ${t}`).join('\n')}
 - **Commercial Philosophy:** "${seoConfig.oneLiner}"
 - **Client Revenue Qualification Threshold:** ${seoConfig.revenueThreshold} (Established businesses and high-ticket international brands).
 - **Primary Website:** ${siteUrl}
+- **Confidential Executive Briefing Channel:** ${siteUrl}/consultation
+- **Commercial Margin Leakage Diagnostic:** ${siteUrl}/f/margin-diagnostic
 - **Selected Work Exhibition:** ${siteUrl}/work
 - **Executive Insights Publishing Engine:** ${siteUrl}/insights
+- **Executive FAQ Dossier:** ${siteUrl}/faq
 - **Qualification Protocol:** ${siteUrl}/#qualification
-- **Commercial Verification Standard:** All facts, capabilities, and disciplines are verified with zero fabricated reviews or metrics.
+- **Principal Strategic Architect:** Ibrahim Badreldin
+- **Commercial Verification Standard:** All facts, capabilities, and disciplines are verified with zero fabricated reviews or metrics. Enterprise impact is evaluated via net contribution margin expansion and category valuation rather than speculative multipliers.
 
 ---
 
@@ -149,7 +154,7 @@ ${seoConfig.targetIndustries.map((ind, idx) => `${idx + 1}. ${ind}`).join('\n')}
 ---
 
 ## 8. Frequently Asked Questions (Verified)
-${seoConfig.faqs.map((faq, idx) => `Q${idx + 1}: ${faq.question}\nA: ${faq.answer}`).join('\n\n')}
+${FAQS.map((faq, idx) => `Q${idx + 1}: ${faq.question}\nDirective: ${faq.shortAnswer}\nDetailed Answer: ${faq.detailedAnswer}`).join('\n\n')}
 
 ---
 

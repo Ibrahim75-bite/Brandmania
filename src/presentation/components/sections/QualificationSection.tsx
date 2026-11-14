@@ -1,10 +1,19 @@
 'use client';
 
 import React from 'react';
-import { LockKey, ShieldCheck, Sparkle } from '@phosphor-icons/react';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { LockKey, ShieldCheck, Sparkle } from '@phosphor-icons/react/dist/ssr';
 import { Container } from '@/presentation/components/layout/Container';
-import { QualificationForm } from '@/presentation/components/forms/QualificationForm';
 import styles from './QualificationSection.module.css';
+
+const QualificationForm = dynamic(
+  () =>
+    import('@/presentation/components/forms/QualificationForm').then(
+      (mod) => mod.QualificationForm
+    ),
+  { ssr: false }
+);
 
 export const QualificationSection: React.FC = () => {
   const faqs = [
@@ -78,6 +87,26 @@ export const QualificationSection: React.FC = () => {
                   <p className={styles.faqAnswer}>{faq.a}</p>
                 </details>
               ))}
+
+              <Link
+                href="/faq"
+                className="hit-slop"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  marginTop: '1.25rem',
+                  fontSize: '12px',
+                  fontFamily: 'var(--font-mono), monospace',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: '#C882FF',
+                  textDecoration: 'none',
+                }}
+              >
+                <span>View Complete Executive FAQ Dossier</span>
+                <span aria-hidden="true">&rarr;</span>
+              </Link>
             </div>
           </div>
 

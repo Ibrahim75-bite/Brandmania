@@ -1,8 +1,6 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { ArrowRight } from '@phosphor-icons/react';
+import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { Container } from '@/presentation/components/layout/Container';
 import styles from './MarginRecoverySection.module.css';
 
@@ -14,8 +12,6 @@ interface AuditRow {
 }
 
 export const MarginRecoverySection: React.FC = () => {
-  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
-
   const auditRows: AuditRow[] = [
     {
       step: '01',
@@ -91,12 +87,10 @@ export const MarginRecoverySection: React.FC = () => {
           </div>
 
           <div className={styles.tableBody}>
-            {auditRows.map((row, idx) => (
+            {auditRows.map((row) => (
               <div
                 key={row.step}
-                onMouseEnter={() => setHoveredRow(idx)}
-                onMouseLeave={() => setHoveredRow(null)}
-                className={`${styles.ledgerRow} ${hoveredRow === idx ? styles.ledgerRowHover : ''}`}
+                className={styles.ledgerRow}
               >
                 <div className={styles.rowStep}>{row.step}</div>
                 <div className={styles.rowStage}>{row.stage}</div>

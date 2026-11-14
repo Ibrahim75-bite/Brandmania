@@ -211,20 +211,60 @@
 .consentWrapper {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: var(--space-3) var(--space-4);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  min-height: 44px;
+  gap: 14px;
+  padding: 12px 14px;
+  background: #160429;
+  border: 1px solid rgba(200, 130, 255, 0.2);
+  min-height: 48px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.consentCheckbox {
-  width: 18px;
-  height: 18px;
-  margin-top: 2px;
-  accent-color: #C882FF;
-  cursor: pointer;
+.consentWrapper:hover {
+  background: #1F0738;
+  border-color: rgba(200, 130, 255, 0.35);
+}
+
+.hiddenNativeCheckbox {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  pointer-events: none;
+}
+
+.customCheckbox {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
   flex-shrink: 0;
+  margin-top: 1px;
+  border: 2px solid #C882FF;
+  border-radius: 0px;
+  background-color: #160429;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.consentWrapper:hover .customCheckbox {
+  background-color: #240940;
+}
+
+.hiddenNativeCheckbox:focus-visible + .customCheckbox {
+  background-color: #240940;
+  box-shadow: 0 0 0 3px rgba(200, 130, 255, 0.25);
+  outline: none;
+}
+
+.customCheckboxChecked {
+  background-color: #C882FF !important;
+  border-color: #C882FF !important;
 }
 
 .consentText {
@@ -232,12 +272,15 @@
   color: var(--color-text-secondary);
   line-height: 1.5;
   cursor: pointer;
+  flex: 1;
 }
 
 .consentText a {
   color: #FFFFFF;
   text-decoration: underline;
   text-underline-offset: 2px;
+  position: relative;
+  z-index: 1;
 }
 
 .consentText a:hover {
@@ -246,5 +289,5 @@
 
 .consentError {
   border-color: var(--color-status-error) !important;
-  background: rgba(239, 68, 68, 0.06);
+  background: rgba(239, 68, 68, 0.08);
 }

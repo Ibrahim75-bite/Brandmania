@@ -317,11 +317,12 @@
 
 .materialityTexture {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
+  mask-image: radial-gradient(circle at 50% 40%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 75%);
+  -webkit-mask-image: radial-gradient(circle at 50% 40%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 75%);
 }
 
 @media (max-width: 1024px) {

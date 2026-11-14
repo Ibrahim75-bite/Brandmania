@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { MagnifyingGlass, ArrowElbowDownLeft, Target, Compass } from '@phosphor-icons/react';
+import { usePresence, MOTION_EASE } from '@/presentation/hooks/usePresence';
+import { MagnifyingGlass, ArrowElbowDownLeft, Target, Compass } from '@phosphor-icons/react/dist/ssr';
 
 export interface CommandMenuProps {
   isOpen: boolean;
@@ -14,8 +14,7 @@ interface CommandItem {
   id: string;
   index: string;
   label: string;
-  category: 'Section' | 'Track' | 'Action';
-  shortcut?: string;
+  category: 'Section' | 'Track';
   action: () => void;
 }
 
@@ -27,6 +26,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
   const [search, setSearch] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { mounted, visible } = usePresence(isOpen, 200);
 
   const scrollToId = useCallback((id: string) => {
     const el = document.getElementById(id);
@@ -181,194 +181,184 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
     [filteredCommands, selectedIndex, onClose]
   );
 
+  if (!mounted) return null;
+
   return (
-    <AnimatePresence>
-      {isOpen && (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Quick-Jump Command Menu"
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 10001,
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        paddingTop: 'clamp(3rem, 12vh, 8rem)',
+        paddingInline: '1rem',
+      }}
+    >
+      <div
+        onClick={onClose}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundColor: 'rgba(7, 7, 9, 0.85)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          opacity: visible ? 1 : 0,
+          transition: `opacity 150ms ${MOTION_EASE}`,
+        }}
+      />
+
+      <div
+        className="squircle-surface"
+        style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '640px',
+          backgroundColor: '#070709',
+          border: '1px solid rgba(255, 255, 255, 0.16)',
+          boxShadow: '0 24px 64px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.1)',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'translateY(0) scale(1)' : 'translateY(-10px) scale(0.98)',
+          transition: `opacity 240ms ${MOTION_EASE}, transform 240ms ${MOTION_EASE}`,
+        }}
+        onKeyDown={handleKeyDown}
+      >
         <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Quick-Jump Command Menu"
           style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 10001,
             display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-            paddingTop: 'clamp(3rem, 12vh, 8rem)',
-            paddingInline: '1rem',
+            alignItems: 'center',
+            gap: '0.75rem',
+            padding: '1rem 1.25rem',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
           }}
         >
-          {}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            onClick={onClose}
+          <MagnifyingGlass size={18} color="rgba(255, 255, 255, 0.4)" />
+          <input
+            ref={inputRef}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Jump to section or engagement track..."
+            aria-label="Command search"
             style={{
-              position: 'fixed',
-              inset: 0,
-              backgroundColor: 'rgba(7, 7, 9, 0.85)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
+              flex: 1,
+              background: 'none',
+              border: 'none',
+              outline: 'none',
+              color: '#fff',
+              fontSize: '0.9375rem',
+              fontFamily: 'var(--font-sans), sans-serif',
             }}
           />
+          <kbd style={{ fontSize: '10px' }}>ESC</kbd>
+        </div>
 
-          {}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98, y: -10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.98, y: -10 }}
-            transition={{ type: 'spring', stiffness: 380, damping: 32, mass: 0.8 }}
-            className="squircle-surface"
-            style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '640px',
-              backgroundColor: '#070709',
-              border: '1px solid rgba(255, 255, 255, 0.16)',
-              boxShadow: '0 24px 64px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.1)',
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-            onKeyDown={handleKeyDown}
-          >
-            {}
+        <div
+          style={{
+            maxHeight: '340px',
+            overflowY: 'auto',
+            padding: '0.5rem',
+          }}
+          role="listbox"
+        >
+          {filteredCommands.length === 0 ? (
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                padding: '1rem 1.25rem',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                padding: '2rem 1rem',
+                textAlign: 'center',
+                color: 'rgba(255, 255, 255, 0.4)',
+                fontSize: '0.875rem',
               }}
             >
-              <MagnifyingGlass size={18} color="rgba(255, 255, 255, 0.4)" />
-              <input
-                ref={inputRef}
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Jump to section or engagement track..."
-                aria-label="Command search"
-                style={{
-                  flex: 1,
-                  background: 'none',
-                  border: 'none',
-                  outline: 'none',
-                  color: '#fff',
-                  fontSize: '0.9375rem',
-                  fontFamily: 'var(--font-sans), sans-serif',
-                }}
-              />
-              <kbd style={{ fontSize: '10px' }}>ESC</kbd>
+              No matching index sections or tracks found.
             </div>
-
-            {}
-            <div
-              style={{
-                maxHeight: '340px',
-                overflowY: 'auto',
-                padding: '0.5rem',
-              }}
-              role="listbox"
-            >
-              {filteredCommands.length === 0 ? (
+          ) : (
+            filteredCommands.map((cmd, idx) => {
+              const isSelected = idx === selectedIndex;
+              return (
                 <div
+                  key={cmd.id}
+                  role="option"
+                  aria-selected={isSelected}
+                  onClick={() => {
+                    cmd.action();
+                    onClose();
+                  }}
+                  onMouseEnter={() => setSelectedIndex(idx)}
                   style={{
-                    padding: '2rem 1rem',
-                    textAlign: 'center',
-                    color: 'rgba(255, 255, 255, 0.4)',
-                    fontSize: '0.875rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '0.65rem 0.85rem',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    backgroundColor: isSelected
+                      ? 'rgba(255, 255, 255, 0.08)'
+                      : 'transparent',
+                    color: isSelected ? '#fff' : 'rgba(255, 255, 255, 0.75)',
+                    transition: 'background 0.1s ease',
                   }}
                 >
-                  No matching index sections or tracks found.
-                </div>
-              ) : (
-                filteredCommands.map((cmd, idx) => {
-                  const isSelected = idx === selectedIndex;
-                  return (
-                    <div
-                      key={cmd.id}
-                      role="option"
-                      aria-selected={isSelected}
-                      onClick={() => {
-                        cmd.action();
-                        onClose();
-                      }}
-                      onMouseEnter={() => setSelectedIndex(idx)}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <span
+                      className="font-mono tabular-nums"
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: '0.65rem 0.85rem',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        backgroundColor: isSelected
-                          ? 'rgba(255, 255, 255, 0.08)'
-                          : 'transparent',
-                        color: isSelected ? '#fff' : 'rgba(255, 255, 255, 0.75)',
-                        transition: 'background 0.1s ease',
+                        fontSize: '11px',
+                        color: isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.45)',
+                        minWidth: '22px',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        <span
-                          className="font-mono tabular-nums"
-                          style={{
-                            fontSize: '11px',
-                            color: isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.45)',
-                            minWidth: '22px',
-                          }}
-                        >
-                          {cmd.index}
-                        </span>
-                        {cmd.category === 'Track' ? (
-                          <Target size={15} color="#ffffff" />
-                        ) : (
-                          <Compass size={15} color="rgba(255, 255, 255, 0.45)" />
-                        )}
-                        <span style={{ fontSize: '0.875rem', fontWeight: isSelected ? 500 : 400 }}>
-                          {cmd.label}
-                        </span>
-                      </div>
+                      {cmd.index}
+                    </span>
+                    {cmd.category === 'Track' ? (
+                      <Target size={15} color="#ffffff" />
+                    ) : (
+                      <Compass size={15} color="rgba(255, 255, 255, 0.45)" />
+                    )}
+                    <span style={{ fontSize: '0.875rem', fontWeight: isSelected ? 500 : 400 }}>
+                      {cmd.label}
+                    </span>
+                  </div>
 
-                      {isSelected && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                          <span style={{ fontSize: '10px', color: 'rgba(255, 255, 255, 0.4)' }}>
-                            Jump
-                          </span>
-                          <ArrowElbowDownLeft size={13} color="rgba(255, 255, 255, 0.6)" />
-                        </div>
-                      )}
+                  {isSelected && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                      <span style={{ fontSize: '10px', color: 'rgba(255, 255, 255, 0.4)' }}>
+                        Jump
+                      </span>
+                      <ArrowElbowDownLeft size={13} color="rgba(255, 255, 255, 0.6)" />
                     </div>
-                  );
-                })
-              )}
-            </div>
-
-            {}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0.5rem 1rem',
-                borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                fontSize: '10px',
-                color: 'rgba(255, 255, 255, 0.4)',
-              }}
-            >
-              <div style={{ display: 'flex', gap: '1rem' }}>
-                <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
-                <span><kbd>↵</kbd> Select</span>
-              </div>
-              <span className="font-mono">BRANDMANIA INDEX PALETTE</span>
-            </div>
-          </motion.div>
+                  )}
+                </div>
+              );
+            })
+          )}
         </div>
-      )}
-    </AnimatePresence>
+
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0.5rem 1rem',
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            backgroundColor: 'rgba(255, 255, 255, 0.02)',
+            fontSize: '10px',
+            color: 'rgba(255, 255, 255, 0.4)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
+            <span><kbd>↵</kbd> Select</span>
+          </div>
+          <span className="font-mono">BRANDMANIA INDEX PALETTE</span>
+        </div>
+      </div>
+    </div>
   );
 };

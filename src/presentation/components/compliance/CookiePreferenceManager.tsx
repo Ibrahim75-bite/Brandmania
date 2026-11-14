@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { analytics } from '@/presentation/analytics/analytics.service';
 
 const COOKIE_CONSENT_KEY = 'brandmania_cookie_consent';
 
@@ -44,7 +43,9 @@ export function CookiePreferenceManager() {
   const handleUpdateConsent = (choice: 'GRANTED' | 'DENIED') => {
     try {
       localStorage.setItem(COOKIE_CONSENT_KEY, choice);
-      analytics.setConsent(choice);
+      void import('@/presentation/analytics/analytics.service').then(({ analytics }) =>
+        analytics.setConsent(choice)
+      );
       window.dispatchEvent(
         new CustomEvent('brandmania_consent_changed', { detail: { consent: choice } })
       );
@@ -63,7 +64,9 @@ export function CookiePreferenceManager() {
   const handleReset = () => {
     try {
       localStorage.removeItem(COOKIE_CONSENT_KEY);
-      analytics.setConsent('DENIED');
+      void import('@/presentation/analytics/analytics.service').then(({ analytics }) =>
+        analytics.setConsent('DENIED')
+      );
       window.dispatchEvent(
         new CustomEvent('brandmania_consent_changed', { detail: { consent: 'DENIED' } })
       );

@@ -578,7 +578,7 @@ export function ConsultationClient() {
                   />
                 </div>
 
-                <div className={styles.checkboxGroup}>
+                <label htmlFor="custom-consent" className={styles.checkboxGroup}>
                   <input
                     id="custom-consent"
                     type="checkbox"
@@ -589,15 +589,42 @@ export function ConsultationClient() {
                         setFormErrors((prev) => ({ ...prev, consent: '' }));
                       }
                     }}
-                    className={styles.checkbox}
+                    className={styles.hiddenNativeCheckbox}
+                    aria-checked={consentAccepted}
                   />
-                  <label htmlFor="custom-consent" className={styles.checkboxLabel}>
+                  <span
+                    className={`${styles.customCheckbox} ${consentAccepted ? styles.customCheckboxChecked : ''}`}
+                    aria-hidden="true"
+                  >
+                    {consentAccepted && (
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        style={{ width: 12, height: 12, flexShrink: 0, display: 'block' }}
+                      >
+                        <path
+                          d="M2 6L4.8 9L10 3"
+                          stroke="#0D0118"
+                          strokeWidth="2.2"
+                          strokeLinecap="square"
+                          strokeLinejoin="miter"
+                        />
+                      </svg>
+                    )}
+                  </span>
+                  <span className={styles.checkboxLabel}>
                     I confirm this is a genuine business inquiry and I have read and accept the{' '}
-                    <a href="/privacy" className={styles.consentLink}>
+                    <a
+                      href="/privacy"
+                      className={styles.consentLink}
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       Privacy Policy
                     </a>
-                  </label>
-                </div>
+                  </span>
+                </label>
                 {formErrors.consent && (
                   <span className={styles.fieldError}>{formErrors.consent}</span>
                 )}

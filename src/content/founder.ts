@@ -13,11 +13,11 @@ export interface FounderConfig {
 }
 
 export const FOUNDER: FounderConfig = {
-  name: 'Executive Leadership & Advisory Board',
-  role: 'Strategic Principals & Commercial Architects',
+  name: 'Ibrahim Badreldin',
+  role: 'Principal Strategic Architect',
   portraitUrl: '/brand/graphics/artboard-4-brand-eye.jpg',
   biography:
-    'BRANDMANIA is directed by senior commercial strategists, brand directors, and behavioral economists dedicated to engineering market leadership and margin sovereignty for high-ticket brands.',
+    'Principal Strategic Architect directing BRANDMANIA. Dedicated to engineering category leadership, contribution margin recovery, and behavioral pricing power for ambitious $700,000+ international enterprises.',
   personalMotto:
     "Branded for the best. Let's make you a market leader.",
   experienceHighlights: [

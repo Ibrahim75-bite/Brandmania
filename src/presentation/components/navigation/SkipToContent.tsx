@@ -7,7 +7,7 @@ export function SkipToContent() {
     <a
       href="#main-content"
       style={{
-        position: 'absolute',
+        position: 'fixed',
         top: '-100px',
         left: '16px',
         zIndex: 9999,

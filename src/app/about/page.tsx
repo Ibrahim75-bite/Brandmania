@@ -37,7 +37,7 @@ const FLAGSHIPS = [
   {
     index: '07',
     title: 'Flagship III • Consumer Scope',
-    headline: 'Neuro-Marketing & Behavioral Attachment',
+    headline: 'Behavioral Economics & Pricing Power',
     description:
       'Engineering every brand touchpoint through behavioral economics, psychological pricing, and customer attachment mechanisms that convert casual purchasers into lifelong brand advocates.',
   },

@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import {
   MegaphoneSimple,
@@ -13,8 +11,8 @@ import {
   Kanban,
   Robot,
   Cpu,
-  type Icon,
-} from '@phosphor-icons/react';
+} from '@phosphor-icons/react/dist/ssr';
+import type { Icon } from '@phosphor-icons/react';
 import { Container } from '@/presentation/components/layout/Container';
 import styles from './CapabilitiesSection.module.css';
 

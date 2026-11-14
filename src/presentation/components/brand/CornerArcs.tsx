@@ -40,8 +40,8 @@ export function CornerArcs({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={styles.arcSvg}
+        style={{ width: '100%', height: '100%', display: 'block', flexShrink: 0 }}
       >
-        {}
         <path
           d="M 60 0 A 60 60 0 0 1 0 60"
           stroke={color}

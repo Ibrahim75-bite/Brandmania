@@ -11,9 +11,10 @@ describe('BrandEye Primitive Component', () => {
     expect(svg?.getAttribute('viewBox')).toBe('475 309 1050 1050');
   });
 
-  it('applies the appropriate size class', () => {
+  it('applies the appropriate size via inline style', () => {
     const { container } = render(<BrandEye size="lg" idSuffix="test-lg" />);
     const span = container.querySelector('span');
-    expect(span?.className).toContain('lg');
+    expect(span?.style.width).toBe('52px');
+    expect(span?.style.height).toBe('52px');
   });
 });

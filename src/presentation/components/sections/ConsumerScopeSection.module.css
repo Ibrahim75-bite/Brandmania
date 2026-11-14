@@ -63,7 +63,7 @@
   border-bottom: 1px solid rgba(200, 130, 255, 0.12);
   cursor: pointer;
   text-align: left;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-fast, 0.2s ease);
   width: 100%;
 }
 
@@ -81,32 +81,102 @@
   font-size: 11px;
   font-weight: 600;
   color: #9A89B8;
+  min-width: 20px;
 }
 
 .dimButtonActive .dimIndex {
   color: #C882FF;
 }
 
-.dimLabel {
+.dimName {
   font-family: var(--font-display), Georgia, serif;
   font-size: 1.25rem;
   font-weight: 400;
   color: #9A89B8;
-  transition: color var(--transition-fast);
+  transition: color var(--transition-fast, 0.2s ease);
 }
 
-.dimButtonActive .dimLabel,
-.dimButton:hover .dimLabel {
+.dimButtonActive .dimName,
+.dimButton:hover .dimName {
   color: #FAF7FF;
 }
 
 .rightPane {
-  padding: clamp(2.5rem, 5vw, 5rem);
+  padding: clamp(2.5rem, 5vw, 4.5rem);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   gap: 2rem;
   background: linear-gradient(160deg, #1C0338 0%, #100122 100%);
+}
+
+.apertureStage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(200, 130, 255, 0.16);
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.apertureFrame {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(200, 130, 255, 0.24);
+  background: radial-gradient(circle at center, rgba(200, 130, 255, 0.12) 0%, rgba(13, 1, 24, 0.8) 70%);
+}
+
+.apertureCrosshair {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, transparent 49.5%, rgba(200, 130, 255, 0.2) 50%, transparent 50.5%),
+    linear-gradient(to bottom, transparent 49.5%, rgba(200, 130, 255, 0.2) 50%, transparent 50.5%);
+}
+
+.apertureGraphic {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center center;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.apertureReadout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.apertureDatum {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C882FF;
+}
+
+.apertureAngle {
+  font-family: var(--font-mono), monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FAF7FF;
+}
+
+.apertureStatus {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  color: #A8A0B8;
+  letter-spacing: 0.08em;
 }
 
 .activeHeader {
@@ -115,7 +185,7 @@
   gap: 1rem;
 }
 
-.activeTag {
+.activeBadge {
   font-family: var(--font-mono), monospace;
   font-size: 11px;
   font-weight: 600;
@@ -123,10 +193,10 @@
   text-transform: uppercase;
   color: #0D011A;
   background-color: #C882FF;
-  padding: 0.25rem 0.6rem;
+  padding: 0.25rem 0.65rem;
 }
 
-.activeTitle {
+.activeName {
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(2rem, 3.5vw, 3.25rem);
   font-weight: 400;
@@ -164,6 +234,13 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apertureGraphic {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 @media (max-width: 1024px) {

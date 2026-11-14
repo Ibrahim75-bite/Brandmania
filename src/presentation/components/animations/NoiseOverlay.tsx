@@ -4,12 +4,10 @@ import React, { useRef, useEffect } from 'react';
 
 interface NoiseOverlayProps {
   patternAlpha?: number;
-  patternRefreshInterval?: number;
 }
 
 export const NoiseOverlay: React.FC<NoiseOverlayProps> = ({
   patternAlpha = 11,
-  patternRefreshInterval = 3,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -25,17 +23,13 @@ export const NoiseOverlay: React.FC<NoiseOverlayProps> = ({
     if (!ctx) return;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const canvasSize = 512;
+    const canvasSize = 128;
 
     canvas.width = canvasSize * dpr;
     canvas.height = canvasSize * dpr;
     canvas.style.width = `${canvasSize}px`;
     canvas.style.height = `${canvasSize}px`;
     ctx.scale(dpr, dpr);
-
-    let frame = 0;
-    let animationId: number;
-    let isPaused = false;
 
     const drawGrain = () => {
       const imageData = ctx.createImageData(canvasSize, canvasSize);
@@ -53,43 +47,32 @@ export const NoiseOverlay: React.FC<NoiseOverlayProps> = ({
       ctx.putImageData(imageData, 0, 0);
     };
 
-    const loop = () => {
-      if (isPaused) {
-        animationId = window.requestAnimationFrame(loop);
-        return;
-      }
-      frame++;
-      if (frame % patternRefreshInterval === 0) {
-        drawGrain();
-      }
-      animationId = window.requestAnimationFrame(loop);
-    };
-
-    const handleVisibilityChange = () => {
-      isPaused = document.visibilityState === 'hidden';
-    };
-
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          isPaused = !entry.isIntersecting;
+          if (entry.isIntersecting) {
+            requestIdleCallback(drawGrain, { timeout: 1500 });
+            observer.disconnect();
+          }
         }
       },
       { threshold: 0 }
     );
 
     observer.observe(canvas);
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    drawGrain();
-    animationId = window.requestAnimationFrame(loop);
+    document.addEventListener('visibilitychange', () => {});
 
     return () => {
-      window.cancelAnimationFrame(animationId);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      document.removeEventListener('visibilitychange', () => {});
       observer.disconnect();
     };
-  }, [patternAlpha, patternRefreshInterval]);
+  }, [patternAlpha]);
 
-  return <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.03, pointerEvents: 'none' }} aria-hidden="true" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.03, pointerEvents: 'none' }}
+      aria-hidden="true"
+    />
+  );
 }

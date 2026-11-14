@@ -42,6 +42,7 @@ const requiredFiles = [
   'src/app/consultation/thank-you/page.tsx',
   'src/app/insights/page.tsx',
   'src/app/work/page.tsx',
+  'src/app/faq/page.tsx',
 ];
 
 for (const relPath of requiredFiles) {
@@ -70,6 +71,7 @@ const staticRouteChecks = [
   { path: '/services', file: 'src/app/services/page.tsx' },
   { path: '/work', file: 'src/app/work/page.tsx' },
   { path: '/insights', file: 'src/app/insights/page.tsx' },
+  { path: '/faq', file: 'src/app/faq/page.tsx' },
   { path: '/privacy', file: 'src/app/privacy/page.tsx' },
   { path: '/terms', file: 'src/app/terms/page.tsx' },
   { path: '/cookies', file: 'src/app/cookies/page.tsx' },

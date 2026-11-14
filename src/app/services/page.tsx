@@ -104,9 +104,9 @@ export default function ServicesPage() {
                 </p>
 
                 <div style={{ backgroundColor: '#0D0118', padding: '1.5rem', border: '1px solid rgba(200, 130, 255, 0.12)' }}>
-                  <h4 style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', letterSpacing: '0.12em', color: '#C882FF', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                  <h3 style={{ fontFamily: 'var(--font-mono), monospace', fontSize: '11px', letterSpacing: '0.12em', color: '#C882FF', textTransform: 'uppercase', marginBottom: '1rem' }}>
                     Core Diagnostic Vectors
-                  </h4>
+                  </h3>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0.85rem' }}>
                     {service.points.map((pt, i) => (
                       <li key={i} style={{ fontSize: '0.92rem', color: '#FAF7FF', display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>

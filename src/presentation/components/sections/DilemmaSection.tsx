@@ -1,8 +1,6 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
-import { CheckCircle, ArrowRight } from '@phosphor-icons/react';
+import { CheckCircle, ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { Container } from '@/presentation/components/layout/Container';
 import styles from './DilemmaSection.module.css';
 
@@ -20,7 +18,7 @@ export const DilemmaSection: React.FC = () => {
       symptom: 'Product quality is category-leading, but market perception looks average',
       remedy: 'Explore Brand Direction',
       code: '[01]',
-      href: '/#disciplines',
+      href: '/#brand-direction',
     },
     {
       num: '03',
@@ -39,7 +37,7 @@ export const DilemmaSection: React.FC = () => {
   ];
 
   return (
-    <section id="dilemma" className={styles.section}>
+    <section id="disciplines" className={styles.section}>
       <Container size="full">
         {}
         <div className={styles.tableGrid}>
